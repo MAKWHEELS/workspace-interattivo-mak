@@ -138,7 +138,7 @@ footer b{color:var(--ink)}
 
 
   <div class="prezzo" id="prezzo">
-    <div class="testa"><span id="quante" aria-live="polite">Nessuna pedana</span><span class="sconto zero" id="sconto"></span></div>
+    <div class="testa"><span id="quante" aria-live="polite">Inizia a comporre il tuo ordine partendo da…</span><span class="sconto zero" id="sconto"></span></div>
     <div class="cifra">
       <span class="ora vuoto" id="ora" aria-live="polite">85 €</span>
       <span class="base"><s id="barrato" hidden>85 €</s><span id="unita">+ IVA a ruota</span></span>
@@ -232,7 +232,7 @@ document.addEventListener("DOMContentLoaded", () => {
       d.querySelector(".ruote").textContent = ped[i] ? parola(ped[i]) + " · " + ped[i] * RUOTE_PEDANA + " ruote" : "pedane da 12 ruote";
     });
 
-    $("quante").textContent = n ? parola(n) + " · " + ruote + " ruote" : "Nessuna pedana";
+    $("quante").textContent = n ? parola(n) + " · " + ruote + " ruote" : "Inizia a comporre il tuo ordine partendo da…";
     const ora = $("ora");
     const prima = ora.textContent;
     ora.textContent = p + " €";
