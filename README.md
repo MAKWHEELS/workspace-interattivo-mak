@@ -177,3 +177,9 @@ Rigenera: `python3 _build/build.py`
 - `index.html` senza dati incorporati: i 6 codici Silver e M.Black sono in `COLORI` dentro la pagina.
 - Per ogni colore e misura si sceglie il numero di kit, con nome officina facoltativo → riepilogo, totale + IVA e messaggio WhatsApp con codici e quantità.
 - Niente conto alla rovescia (la locandina non ha scadenza). Sezione MAK DIGITAL.
+
+## trk-lead-pedane (TRK LEAD.CO a pedane, da 85 a 73 € + IVA a ruota, fino ad esaurimento merce dedicata)
+
+- Sorgente in `Locandine/trk-lead-pedane/` (segnaposto `__NOME__`, `__TEL__`...); copia negli agenti con `Tool/mak-promo-agenti/genera_trk_lead.py`.
+- Due articoli (F1223CCLS120X2, F9023CCLS175X3), pedana da 12 ruote di un unico articolo, massimo 9 pedane anche miste.
+- Prezzo su tutte le ruote dell'ordine: 1 pedana 85 €, 2 pedane 80 €, poi 1 € in meno per pedana fino a 73 €. Nessun conto alla rovescia: la promo non ha una data.
