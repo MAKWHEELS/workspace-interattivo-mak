@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TRK LEAD.CO a pedane</title>
+<meta name="description" content="Ruote truck LEAD.CO 11,75x22,5 ET120 e 9,00x22,5 ET175: 85 € + IVA con 1 pedana, 80 € con 2, poi 1 € di sconto a ruota per ogni pedana aggiunta, fino a 73 € con 9 pedane.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="TRK LEAD.CO · da 85 a 73 € + IVA a ruota">
+<meta property="og:description" content="Ogni pedana aggiunta, 1 € di sconto a ruota. Fino ad esaurimento merce dedicata. Scegli le pedane, guarda il tuo prezzo e ordina su WhatsApp.">
+<meta property="og:image" content="https://makwheels.github.io/mak-promo/marco-podda/promo-trk-lead/anteprima.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://makwheels.github.io/mak-promo/marco-podda/promo-trk-lead/">
+<meta name="theme-color" content="#14161a">
+<link rel="apple-touch-icon" href="icona.png">
+<style>
+:root{
+  --red:#da2128; --red2:#a80f15; --ink:#14161a; --ink2:#23262c; --mute:#5d626b; --card:#f3f4f6; --line:#e2e4e8; --bg:#fff; --verde:#25d366; --ok:#14833b;
+  --titolo:"DIN Condensed","Avenir Next Condensed","Arial Narrow",system-ui,sans-serif;
+  --testo:"Avenir Next",-apple-system,system-ui,sans-serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--testo);font-size:16px;line-height:1.4}
+body{padding-bottom:calc(96px + env(safe-area-inset-bottom))}
+.wrap{max-width:540px;margin:0 auto;overflow:hidden}
+h2{font-family:var(--titolo);font-weight:700;font-size:29px;letter-spacing:.5px;margin:0 0 4px;text-transform:uppercase;line-height:1}
+h2 em{font-style:normal;color:var(--red)}
+.sub{color:var(--mute);margin:0 0 9px;font-size:14px;line-height:1.25}
+section{padding:12px 12px 6px}
+
+/* testata: logo, LEAD.CO e le due ruote */
+.hero{line-height:0;background:#14161a}
+.hero img{width:100%;height:auto;display:block}
+.lancio{background:linear-gradient(90deg,var(--red2),var(--red));color:#fff;text-align:center;padding:9px 12px 8px;line-height:1.15}
+.lancio b{display:block;font-family:var(--titolo);font-style:italic;font-size:29px;line-height:1;padding-top:3px;text-transform:uppercase}
+.lancio span{display:block;font-size:13px;font-weight:600}
+.lancio em{display:block;font-style:normal;font-size:12px;font-weight:700;margin-top:5px;padding-top:5px;border-top:1px solid rgba(255,255,255,.35)}
+
+#secOrdine{scroll-margin-top:10px}
+.live{position:fixed;top:0;left:0;right:0;z-index:26;display:flex;align-items:center;justify-content:center;gap:10px;padding:calc(8px + env(safe-area-inset-top)) 16px 8px;background:var(--ink);color:#fff;font-size:14px;font-weight:600;box-shadow:0 4px 16px rgba(0,0,0,.25);transform:translateY(-110%);transition:transform .25s}
+.live.su{transform:none}
+.live b{font-family:var(--titolo);font-style:italic;font-size:30px;line-height:1;padding-top:3px}
+.live i{font-style:normal;background:var(--red);border-radius:999px;padding:3px 9px;font-size:13px;white-space:nowrap}
+.live i:empty{display:none}
+
+/* pannello del prezzo */
+.prezzo{background:linear-gradient(160deg,var(--ink2),var(--ink) 70%);color:#fff;border-radius:18px;padding:14px 14px 12px;position:relative;overflow:hidden}
+.prezzo .testa{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#c7cad0;min-height:28px}
+.sconto{background:var(--red);color:#fff;font-family:var(--titolo);font-weight:700;font-size:20px;line-height:1;border-radius:999px;padding:6px 11px 3px;white-space:nowrap;transition:opacity .25s}
+.sconto.zero{opacity:0}
+.cifra{display:flex;align-items:flex-end;gap:10px;margin-top:2px}
+.ora{font-family:var(--titolo);font-weight:700;font-style:italic;font-size:70px;line-height:.92;letter-spacing:-.5px;display:inline-block;transform-origin:left bottom}
+.ora.vuoto{color:#747982}
+.base{padding-bottom:6px;line-height:1.15}
+.base s[hidden]{display:none}
+.base s{display:block;font-family:var(--titolo);font-size:26px;color:#9ba0a8;text-decoration-color:var(--red);text-decoration-thickness:3px}
+.base span{display:block;font-size:13px;font-weight:600;color:#fff}
+.colpo{animation:colpo .45s cubic-bezier(.2,1.5,.5,1)}
+@keyframes colpo{0%{transform:scale(.72);color:#ff9a9e}100%{transform:none;color:#fff}}
+
+/* la scala: una colonna per pedana, più alta quanto più si risparmia */
+.scala{display:grid;grid-template-columns:repeat(9,1fr);gap:3px;align-items:end;height:62px;margin-top:4px}
+.gr{display:flex;flex-direction:column;justify-content:flex-end;height:100%;min-width:0}
+.gr .col{background:#3a3e46;border-radius:5px 5px 2px 2px;display:flex;align-items:flex-start;justify-content:center;font-family:var(--titolo);font-weight:700;font-size:18px;line-height:1;padding-top:4px;color:#b5b9c0;transition:background .25s,color .25s}
+.gr.fatto .col{background:#74212a;color:#fff}
+.gr.qui .col{background:var(--red);color:#fff;box-shadow:0 0 0 2px #fff}
+.nped{display:grid;grid-template-columns:repeat(9,1fr);gap:3px;margin-top:4px;text-align:center;font-size:11px;color:#9ba0a8;font-weight:600}
+.nped .qui{color:#fff}
+.didasc{font-size:11px;color:#9ba0a8;margin-top:8px}
+.conti{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;padding-top:8px;border-top:1px solid #3a3e46}
+.conti small{display:block;font-size:12px;color:#b5b9c0;line-height:1.25}
+.conti b{display:block;font-family:var(--titolo);font-weight:700;font-size:27px;line-height:1.05;padding-top:3px;white-space:nowrap}
+.conti .ris b{color:#ff8f94}
+.spinta{margin-top:8px;background:rgba(255,255,255,.09);border-radius:10px;padding:9px 11px;font-size:14px;line-height:1.3}
+.spinta b{color:#fff}
+.spinta.max{background:var(--ok)}
+
+/* i due articoli, ognuno sotto la sua ruota */
+.card{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.riga{background:var(--card);border-radius:14px;padding:9px 6px 8px;text-align:center;border:2px solid transparent;min-width:0}
+.riga.on{border-color:var(--red)}
+.riga h3{margin:0 0 6px;font-family:var(--titolo);font-size:22px;line-height:1;padding-top:2px;white-space:nowrap}
+.qta{display:inline-flex;align-items:center;background:#fff;border:1px solid var(--line);border-radius:12px}
+.qta button{width:48px;height:48px;border:0;background:none;color:var(--ink);font-size:26px;font-weight:600;padding:0;cursor:pointer;touch-action:manipulation}
+.qta button.piu{background:var(--red);color:#fff;border-radius:0 11px 11px 0}
+.qta button:disabled{opacity:.3}
+.qta button.piu:disabled{background:#8a8f98;opacity:1}
+.qta output{width:38px;text-align:center;font-family:var(--titolo);font-size:30px;font-weight:700;padding-top:5px;line-height:1}
+.ruote{font-size:13px;color:var(--mute);line-height:1.2;margin-top:6px}
+.riga.on .ruote{color:var(--ink);font-weight:700}
+.piede{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 2px 0;font-size:14px;font-weight:600;min-height:40px}
+.piede button{font:inherit;font-size:14px;font-weight:600;color:var(--mute);background:none;border:0;text-decoration:underline;padding:6px 0;cursor:pointer}
+.piede span.pieno{color:var(--red)}
+
+label.f{display:block;font-size:13px;color:var(--mute);margin:14px 0 6px;text-transform:uppercase;letter-spacing:1px}
+input[type=text]{width:100%;font:inherit;font-size:17px;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 14px}
+.nota{font-size:13px;color:var(--mute);margin-top:8px}
+
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;color:var(--ink);background:var(--card);border-radius:14px;padding:15px 10px;font-weight:600}
+.btn.b2b{background:var(--ink);color:#fff}
+footer{padding:26px 16px 10px;text-align:center;color:var(--mute);font-size:13px}
+footer img{width:170px;display:block;margin:0 auto 10px}
+footer b{color:var(--ink)}
+
+.cta{position:fixed;left:0;right:0;bottom:0;z-index:30;padding:10px 16px calc(10px + env(safe-area-inset-bottom));
+  background:linear-gradient(rgba(255,255,255,0),rgba(255,255,255,.96) 30%)}
+.cta a{display:flex;align-items:center;justify-content:center;gap:10px;max-width:508px;margin:0 auto;
+  background:var(--verde);color:#062e16;text-decoration:none;font-weight:800;font-size:18px;border-radius:16px;padding:16px;
+  animation:pulsa 2.4s infinite}
+.cta a svg{width:24px;height:24px;fill:currentColor;flex:none}
+@keyframes pulsa{0%,100%{box-shadow:0 0 0 0 rgba(37,211,102,.55)}60%{box-shadow:0 0 0 14px rgba(37,211,102,0)}}
+
+/* schermi bassi (iPhone piccoli): i tasti devono restare nella prima schermata */
+@media (max-height:600px){
+  .hero img{height:190px;object-fit:cover;object-position:50% 100%}
+  .sub{display:none}
+  h2{margin-bottom:8px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+<div class="live" id="live" aria-hidden="true"><span id="liveN"></span><b id="liveP"></b><i id="liveS"></i></div>
+<div class="wrap">
+
+<div class="hero"><img src="testata.jpg" alt="TRK by MAK, ruote LEAD.CO 11,75x22,5 ET120 e 9,00x22,5 ET175" width="1086" height="764"></div>
+<div class="lancio"><b>Da 85 € a 73 € + IVA a ruota</b><span>2 pedane 80 €, poi −1 € a ruota per pedana · max 9</span><em>Fino ad esaurimento merce dedicata per l'offerta… affrettati!</em></div>
+
+<section id="secOrdine">
+  <h2>Componi qui il tuo <em>ordine</em> ↓</h2>
+  <p class="sub">Tocca <b>+</b> sotto la ruota che vuoi. Ogni pedana è di 12 ruote di un unico articolo; puoi sceglierne di entrambi.</p>
+  <div class="card" id="righe"></div>
+
+
+  <div class="prezzo" id="prezzo">
+    <div class="testa"><span id="quante" aria-live="polite">Nessuna pedana</span><span class="sconto zero" id="sconto"></span></div>
+    <div class="cifra">
+      <span class="ora vuoto" id="ora" aria-live="polite">85 €</span>
+      <span class="base"><s id="barrato" hidden>85 €</s><span id="unita">+ IVA a ruota</span></span>
+    </div>
+    <div class="didasc" aria-hidden="true">Prezzo a ruota + IVA, per numero di pedane</div>
+    <div class="scala" id="scala" aria-hidden="true"></div>
+    <div class="nped" id="nped" aria-hidden="true"></div>
+    <div class="conti">
+      <div><small>Totale ordine + IVA</small><b id="tot">–</b></div>
+      <div class="ris"><small>Risparmi rispetto a 85 €</small><b id="ris">–</b></div>
+    </div>
+    <div class="spinta" id="spinta"></div>
+  </div>
+
+  <div class="piede"><span id="limite">0 pedane su 9</span><button type="button" id="azzera" hidden>Azzera</button></div>
+
+  <label class="f" for="officina">Nome dell'azienda (facoltativo)</label>
+  <input type="text" id="officina" autocomplete="organization" placeholder="Es. Rossi Truck Service">
+  <p class="nota">Il prezzo vale per tutte le ruote dell'ordine, in base al numero totale di pedane.</p>
+</section>
+
+<section>
+  <div class="btns">
+    <a class="btn" href="tel:+393398605989">📞 Chiamami</a>
+    <a class="btn b2b" href="https://b2bshop.makwheels.it/" target="_blank" rel="noopener">🛒 Portale B2B</a>
+  </div>
+</section>
+
+<footer><img src="logo-trk.png" alt="TRK" width="700" height="167" style="height:auto"><b>Marco Podda</b> · Agente MAK · 339 860 5989<br><small>Conteggio anonimo delle visite, senza cookie.</small></footer>
+</div>
+
+<div class="cta">
+  <a id="wa" href="#" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.7a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.2-.2-.5-.3z"/></svg>
+    <span id="waTesto">Scrivimi su WhatsApp</span>
+  </a>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const TELEFONO = "393398605989", NOME = "Marco";
+  const RUOTE_PEDANA = 12, MAX = 9;
+  /* 1 pedana 85 €, 2 pedane 80 €, poi 1 € in meno per ogni pedana: con 9 pedane 73 € */
+  const prezzoPer = n => n <= 1 ? 85 : 82 - n;
+  const BASE = prezzoPer(1);
+  const ARTICOLI = [
+    {cod: "F1223CCLS120X2", nome: "11,75×22,5 ET120"},
+    {cod: "F9023CCLS175X3", nome: "9,00×22,5 ET175"}
+  ];
+  const ped = ARTICOLI.map(() => 0);
+  const $ = id => document.getElementById(id);
+  const num = (v, dec) => v.toFixed(dec).replace(".", ",").replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  const euro = v => num(v, 2) + " €";
+  const parola = n => n === 1 ? "1 pedana" : n + " pedane";
+
+  /* righe degli articoli */
+  const righe = ARTICOLI.map((a, i) => {
+    const d = document.createElement("div");
+    d.className = "riga";
+    d.innerHTML = '<h3>' + a.nome + '</h3><div class="qta"><button type="button" class="meno" aria-label="Togli una pedana ' + a.nome + '">−</button><output aria-live="polite">0</output><button type="button" class="piu" aria-label="Aggiungi una pedana ' + a.nome + '">+</button></div><div class="ruote"></div>';
+    d.querySelector(".meno").addEventListener("click", () => { if (ped[i] > 0) { ped[i]--; aggiorna(); } });
+    d.querySelector(".piu").addEventListener("click", () => {
+      if (totale() < MAX) { ped[i]++; aggiorna(true); }
+    });
+    $("righe").appendChild(d);
+    return d;
+  });
+
+  /* scala dei prezzi */
+  for (let n = 1; n <= MAX; n++) {
+    const g = document.createElement("div");
+    g.className = "gr";
+    g.innerHTML = '<div class="col" style="height:' + (40 + (BASE - prezzoPer(n)) * 5) + '%">' + prezzoPer(n) + '</div>';
+    $("scala").appendChild(g);
+    const e = document.createElement("span");
+    e.textContent = n;
+    $("nped").appendChild(e);
+  }
+  const colonne = [...$("scala").children], numeri = [...$("nped").children];
+
+  const totale = () => ped.reduce((a, b) => a + b, 0);
+
+  function aggiorna(aggiunta) {
+    const n = totale(), p = n ? prezzoPer(n) : BASE, ruote = n * RUOTE_PEDANA, sc = BASE - p;
+
+    righe.forEach((d, i) => {
+      d.classList.toggle("on", ped[i] > 0);
+      d.querySelector("output").textContent = ped[i];
+      d.querySelector(".meno").disabled = !ped[i];
+      d.querySelector(".piu").disabled = n >= MAX;
+      d.querySelector(".ruote").textContent = ped[i] ? parola(ped[i]) + " · " + ped[i] * RUOTE_PEDANA + " ruote" : "pedane da 12 ruote";
+    });
+
+    $("quante").textContent = n ? parola(n) + " · " + ruote + " ruote" : "Nessuna pedana";
+    const ora = $("ora");
+    const prima = ora.textContent;
+    ora.textContent = p + " €";
+    ora.classList.toggle("vuoto", !n);
+    if (n && (prima !== ora.textContent || aggiunta)) {
+      ora.classList.remove("colpo"); void ora.offsetWidth; ora.classList.add("colpo");
+    }
+    $("barrato").hidden = !sc;
+    $("sconto").classList.toggle("zero", !sc);
+    if (sc) $("sconto").textContent = "− " + sc + " € a ruota · −" + num(sc / BASE * 100, 1) + "%";
+
+    colonne.forEach((g, i) => {
+      g.classList.toggle("fatto", i + 1 < n);
+      g.classList.toggle("qui", i + 1 === n);
+      numeri[i].classList.toggle("qui", i + 1 === n);
+    });
+
+    $("tot").textContent = n ? euro(ruote * p) : "–";
+    $("ris").textContent = n ? (sc ? euro(ruote * sc) : "0,00 €") : "–";
+
+    const sp = $("spinta");
+    sp.classList.toggle("max", n >= MAX);
+    if (!n) sp.innerHTML = "Tocca <b>+</b> su un articolo per aggiungere la prima pedana: <b>85 € + IVA</b> a ruota.";
+    else if (n >= MAX) sp.innerHTML = "✓ <b>Prezzo più basso raggiunto: 73 € + IVA a ruota.</b> Hai il massimo di 9 pedane.";
+    else {
+      const dopo = prezzoPer(n + 1), extra = (n + 1) * RUOTE_PEDANA * (BASE - dopo) - ruote * sc;
+      sp.innerHTML = "Con la " + (n + 1) + "ª pedana: <b>" + dopo + " € a ruota</b> su tutto l'ordine e risparmi altri <b>" + euro(extra) + "</b>.";
+    }
+
+    $("liveN").textContent = n ? parola(n) : "";
+    $("liveP").textContent = p + " € + IVA";
+    $("liveS").textContent = sc ? "− " + sc + " € a ruota" : "";
+    mostraLive();
+
+    const lim = $("limite");
+    lim.textContent = n >= MAX ? "Massimo raggiunto: 9 pedane su 9" : n + (n === 1 ? " pedana" : " pedane") + " su 9";
+    lim.classList.toggle("pieno", n >= MAX);
+    $("azzera").hidden = !n;
+    aggiornaWa();
+  }
+
+  function aggiornaWa() {
+    const n = totale();
+    let testo, etichetta;
+    if (n) {
+      const p = prezzoPer(n), ruote = n * RUOTE_PEDANA, off = $("officina").value.trim();
+      testo = "Ciao " + NOME + ", vorrei ordinare l'offerta *TRK LEAD.CO*:\n" +
+        ARTICOLI.map((a, i) => ped[i] ? "• " + a.cod + " " + a.nome.replace("×", "x") + ": " + parola(ped[i]) + " (" + ped[i] * RUOTE_PEDANA + " ruote)" : "").filter(Boolean).join("\n") +
+        "\nTotale: " + parola(n) + ", " + ruote + " ruote a " + euro(p) + " + IVA = " + euro(ruote * p) + " + IVA" +
+        "\n\nAzienda: " + off;
+      etichetta = "Ordina " + parola(n) + " a " + p + " €";
+    } else {
+      testo = "Ciao " + NOME + ", ho visto l'offerta TRK LEAD.CO a pedane, da 85 a 73 € + IVA a ruota. Mi dai qualche informazione?";
+      etichetta = "Scrivimi su WhatsApp";
+    }
+    $("wa").href = "https://wa.me/" + TELEFONO + "?text=" + encodeURIComponent(testo);
+    $("waTesto").textContent = etichetta;
+  }
+
+  $("azzera").addEventListener("click", () => { ped.fill(0); aggiorna(); });
+  $("officina").addEventListener("input", aggiornaWa);
+
+  /* la barra del prezzo compare quando il prezzo grande è fuori schermo e i bottoni sono ancora davanti */
+  function mostraLive() {
+    const righeBox = $("righe").getBoundingClientRect();
+    const o = $("ora").getBoundingClientRect();
+    const su = totale() > 0 && (o.bottom < 0 || o.top > innerHeight - 80) && righeBox.top < innerHeight && righeBox.bottom > 0;
+    $("live").classList.toggle("su", su);
+  }
+  addEventListener("scroll", mostraLive, {passive: true});
+  addEventListener("resize", mostraLive);
+
+  aggiorna();
+});
+</script>
+<script src="/mak-promo/conta.js" defer></script>
+</body>
+</html>
