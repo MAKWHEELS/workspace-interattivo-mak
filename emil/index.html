@@ -39,8 +39,13 @@ p.sub{color:var(--mute);font-size:15px;margin:6px 0 20px}
 .v.nuova{box-shadow:0 0 0 3px var(--red);animation:lampeggia 1.2s ease-in-out infinite}
 @keyframes lampeggia{50%{box-shadow:0 0 0 3px rgba(218,33,40,.08)}}
 @media (prefers-reduced-motion:reduce){.v.nuova{animation:none}}
+/* aggiorna-pagina */
+.riga-k{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.aggiorna{font:inherit;font-size:13px;font-weight:700;color:var(--ink);background:var(--card);border:0;border-radius:999px;padding:8px 13px;cursor:pointer;white-space:nowrap;-webkit-tap-highlight-color:transparent}
+.aggiorna:active{background:#e2e4e8}
+@media (max-width:430px){.riga-k .k{letter-spacing:1.5px;font-size:12px;white-space:nowrap}.aggiorna{padding:7px 11px;font-size:12px}}
 </style></head><body><div class="wrap" id="inizio">
-<div class="k">WORKSPACE INTERATTIVO MAK</div>
+<div class="riga-k"><div class="k">WORKSPACE INTERATTIVO MAK</div><button type="button" class="aggiorna" id="aggiorna" aria-label="Aggiorna la pagina">↻ Aggiorna</button></div>
 <h1>Emil <span>Colombani</span></h1>
 <p class="sub">Locandine, Tool e Tutor formativi. Qui trovi quelle da tenere per te o inviare ai clienti, con il tuo numero (333 314 0092): «Chiamami» e WhatsApp arrivano a te. Copia il link e mandalo ai clienti: in chat compare l'anteprima. Ci sono anche informazioni riservate: il materiale di Tutor Agente segnato come riservato resta solo per te e il suo link non va inviato a nessuno. Scegli una sezione.</p>
 <nav class="tasti" aria-label="Sezioni">
@@ -139,4 +144,16 @@ document.addEventListener("DOMContentLoaded", () => {
   mostra();
 })();
 </script>
-<script src="/workspace-interattivo-mak/conta.js" data-elenco defer></script></body></html>
+<script src="/workspace-interattivo-mak/conta.js" data-elenco defer></script><script>/* aggiorna-pagina */
+(() => {
+  /* il segnalibro sulla Home dell'iPhone tiene la pagina vecchia: si ricarica con un indirizzo nuovo */
+  const nuova = () => location.replace(location.pathname + "?v=" + Date.now() + location.hash);
+  const b = document.getElementById("aggiorna");
+  if (b) b.addEventListener("click", () => { b.textContent = "↻ Aggiorno…"; nuova(); });
+  const caricata = Date.now(), ATTESA = 15 * 60e3;
+  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible" && Date.now() - caricata > ATTESA) nuova(); });
+  addEventListener("pageshow", e => { if (e.persisted) nuova(); });
+  if (/[?&]v=\d+/.test(location.search)) history.replaceState(null, "", location.pathname + location.hash);
+})();
+</script>
+</body></html>
