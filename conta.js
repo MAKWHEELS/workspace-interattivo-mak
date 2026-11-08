@@ -1,6 +1,6 @@
-/* conta.js — contatore anonimo delle locandine (makwheels.github.io/mak-promo).
+/* conta.js — contatore anonimo delle locandine (makwheels.github.io/workspace-interattivo-mak).
  * Conta solo l'apertura della pagina e i tocchi su WhatsApp, Chiama e Portale B2B. Niente cookie, niente testo dei messaggi.
- * /mak-promo/<agente>/ (data-elenco) · /mak-promo/<agente>/<campagna>/ · /mak-promo/<campagna>/ (agente «base»)
+ * /workspace-interattivo-mak/<agente>/ (data-elenco) · /workspace-interattivo-mak/<agente>/<campagna>/ · /workspace-interattivo-mak/<campagna>/ (agente «base»)
  * Se qualcosa va storto non succede niente: la pagina funziona lo stesso.
  */
 (function () {
@@ -8,7 +8,7 @@
   var me = document.currentScript;
   var elenco = !!(me && me.hasAttribute("data-elenco"));
 
-  var parti = location.pathname.replace(/^\/mak-promo\/?/, "").split("/").filter(function (p) { return p && p.indexOf(".") < 0; });
+  var parti = location.pathname.replace(/^\/workspace-interattivo-mak\/?/, "").split("/").filter(function (p) { return p && p.indexOf(".") < 0; });
   var agente = "base", campagna = "";
   if (elenco) { agente = parti[0] || "base"; campagna = "_elenco"; }
   else if (parti.length >= 2) { agente = parti[0]; campagna = parti[1]; }
