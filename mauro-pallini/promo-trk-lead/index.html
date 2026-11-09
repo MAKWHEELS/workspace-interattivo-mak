@@ -8,10 +8,10 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="TRK LEAD.CO · da 85 a 73 € + IVA a ruota">
 <meta property="og:description" content="Ogni pedana aggiunta, 1 € di sconto a ruota. Fino ad esaurimento merce dedicata. Scegli le pedane, guarda il tuo prezzo e ordina su WhatsApp.">
-<meta property="og:image" content="https://makwheels.github.io/workspace-interattivo-mak/mauro-pallini/promo-trk-lead/anteprima.jpg">
+<meta property="og:image" content="https://makwheels.github.io/mak-promo/mauro-pallini/trk-lead-pedane/anteprima.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:url" content="https://makwheels.github.io/workspace-interattivo-mak/mauro-pallini/promo-trk-lead/">
+<meta property="og:url" content="https://makwheels.github.io/mak-promo/mauro-pallini/trk-lead-pedane/">
 <meta name="theme-color" content="#14161a">
 <link rel="apple-touch-icon" href="icona.png">
 <style>
@@ -133,7 +133,7 @@ footer b{color:var(--ink)}
 
 <section id="secOrdine">
   <h2>Componi qui il tuo <em>ordine</em> ↓</h2>
-  <p class="sub">Tocca <b>+</b> sotto la ruota che vuoi. Ogni pedana è di 12 ruote di un unico articolo; puoi sceglierne di entrambi.</p>
+  <p class="sub">Tocca <b>+</b> sotto la ruota che vuoi. Ogni pedana è di un unico articolo: 12 ruote la 11,75×22,5, 16 ruote la 9,00×22,5. Puoi sceglierne di entrambi.</p>
   <div class="card" id="righe"></div>
 
 
@@ -180,13 +180,13 @@ footer b{color:var(--ink)}
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const TELEFONO = "393398781190", NOME = "Mauro";
-  const RUOTE_PEDANA = 12, MAX = 9;
+  const MAX = 9;
   /* 1 pedana 85 €, 2 pedane 80 €, poi 1 € in meno per ogni pedana: con 9 pedane 73 € */
   const prezzoPer = n => n <= 1 ? 85 : 82 - n;
   const BASE = prezzoPer(1);
   const ARTICOLI = [
-    {cod: "F1223CCLS120X2", nome: "11,75×22,5 ET120"},
-    {cod: "F9023CCLS175X3", nome: "9,00×22,5 ET175"}
+    {cod: "F1223CCLS120X2", nome: "11,75×22,5 ET120", ruote: 12},
+    {cod: "F9023CCLS175X3", nome: "9,00×22,5 ET175", ruote: 16}
   ];
   const ped = ARTICOLI.map(() => 0);
   const $ = id => document.getElementById(id);
@@ -220,16 +220,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const colonne = [...$("scala").children], numeri = [...$("nped").children];
 
   const totale = () => ped.reduce((a, b) => a + b, 0);
+  const totRuote = () => ped.reduce((s, q, i) => s + q * ARTICOLI[i].ruote, 0);
+  const MIN_PEDANA = Math.min(...ARTICOLI.map(a => a.ruote));
 
   function aggiorna(aggiunta) {
-    const n = totale(), p = n ? prezzoPer(n) : BASE, ruote = n * RUOTE_PEDANA, sc = BASE - p;
+    const n = totale(), p = n ? prezzoPer(n) : BASE, ruote = totRuote(), sc = BASE - p;
 
     righe.forEach((d, i) => {
       d.classList.toggle("on", ped[i] > 0);
       d.querySelector("output").textContent = ped[i];
       d.querySelector(".meno").disabled = !ped[i];
       d.querySelector(".piu").disabled = n >= MAX;
-      d.querySelector(".ruote").textContent = ped[i] ? parola(ped[i]) + " · " + ped[i] * RUOTE_PEDANA + " ruote" : "pedane da 12 ruote";
+      d.querySelector(".ruote").textContent = ped[i] ? parola(ped[i]) + " · " + ped[i] * ARTICOLI[i].ruote + " ruote" : "pedane da " + ARTICOLI[i].ruote + " ruote";
     });
 
     $("quante").textContent = n ? parola(n) + " · " + ruote + " ruote" : "Inizia a comporre il tuo ordine partendo da…";
@@ -258,8 +260,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!n) sp.innerHTML = "Tocca <b>+</b> su un articolo per aggiungere la prima pedana: <b>85 € + IVA</b> a ruota.";
     else if (n >= MAX) sp.innerHTML = "✓ <b>Prezzo più basso raggiunto: 73 € + IVA a ruota.</b> Hai il massimo di 9 pedane.";
     else {
-      const dopo = prezzoPer(n + 1), extra = (n + 1) * RUOTE_PEDANA * (BASE - dopo) - ruote * sc;
-      sp.innerHTML = "Con la " + (n + 1) + "ª pedana: <b>" + dopo + " € a ruota</b> su tutto l'ordine e risparmi altri <b>" + euro(extra) + "</b>.";
+      const dopo = prezzoPer(n + 1), extra = (ruote + MIN_PEDANA) * (BASE - dopo) - ruote * sc;
+      sp.innerHTML = "Con la " + (n + 1) + "ª pedana: <b>" + dopo + " € a ruota</b> su tutto l'ordine e risparmi altri <b>almeno " + euro(extra) + "</b>.";
     }
 
     $("liveN").textContent = n ? parola(n) : "";
@@ -278,9 +280,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const n = totale();
     let testo, etichetta;
     if (n) {
-      const p = prezzoPer(n), ruote = n * RUOTE_PEDANA, off = $("officina").value.trim();
+      const p = prezzoPer(n), ruote = totRuote(), off = $("officina").value.trim();
       testo = "Ciao " + NOME + ", vorrei ordinare l'offerta *TRK LEAD.CO*:\n" +
-        ARTICOLI.map((a, i) => ped[i] ? "• " + a.cod + " " + a.nome.replace("×", "x") + ": " + parola(ped[i]) + " (" + ped[i] * RUOTE_PEDANA + " ruote)" : "").filter(Boolean).join("\n") +
+        ARTICOLI.map((a, i) => ped[i] ? "• " + a.cod + " " + a.nome.replace("×", "x") + ": " + parola(ped[i]) + " (" + ped[i] * a.ruote + " ruote)" : "").filter(Boolean).join("\n") +
         "\nTotale: " + parola(n) + ", " + ruote + " ruote a " + euro(p) + " + IVA = " + euro(ruote * p) + " + IVA" +
         "\n\nAzienda: " + off;
       etichetta = "Ordina " + parola(n) + " a " + p + " €";
@@ -308,6 +310,6 @@ document.addEventListener("DOMContentLoaded", () => {
   aggiorna();
 });
 </script>
-<script src="/workspace-interattivo-mak/conta.js" defer></script>
+<script src="/mak-promo/conta.js" defer></script>
 </body>
 </html>
