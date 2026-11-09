@@ -51,6 +51,15 @@ section{padding:28px 16px 6px}
 .numero .az a.ch{animation:squilla 2.8s infinite}
 @keyframes squilla{0%,86%,100%{transform:none}88%{transform:rotate(-3deg)}90%{transform:rotate(3deg)}92%{transform:rotate(-3deg)}94%{transform:rotate(2deg)}96%{transform:none}}
 
+/* aggiornamento strumento */
+.agg{background:#fff4e5;border-radius:16px;padding:14px;border:2px solid #f0b357}
+.agg p{margin:0 0 12px;font-size:14px;color:#6b3d00}
+.agg p b{color:#8a4b00}
+.agg .lk{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.agg .lk a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;text-align:center;text-decoration:none;border-radius:12px;padding:12px 8px;background:#fff;color:var(--ink);border:1px solid #f0d3a3}
+.agg .lk a b{font-family:var(--titolo);font-size:22px;line-height:1;padding-top:3px}
+.agg .lk a span{font-size:12px;color:var(--mute)}
+
 /* vettura e procedure */
 .card{background:var(--card);border-radius:16px;padding:14px}
 .due{display:grid;grid-template-columns:1fr 1fr;gap:8px}
@@ -120,6 +129,18 @@ footer b{color:var(--ink)}
     <div class="az">
       <a class="ch" href="tel:+393920981064">📞 Chiama</a>
       <a href="mailto:support@mate-tech.it">✉️ Scrivi una mail</a>
+    </div>
+  </div>
+</section>
+
+<section id="secAgg">
+  <h2>Prima: lo strumento è <em>aggiornato?</em></h2>
+  <p class="sub">Prima di chiamare l'assistenza verifica di aver aggiornato lo strumento: spesso il problema si risolve così.</p>
+  <div class="agg">
+    <p><b>Come si aggiorna:</b> segui il tutorial del tuo strumento. Batteria carica e non scollegarlo finché non ha finito.</p>
+    <div class="lk">
+      <a href="https://www.youtube.com/watch?v=IFMsSr5geL4" target="_blank" rel="noopener"><b>▶ MATE / ATEQ</b><span>Video tutorial</span></a>
+      <a href="aggiornamento-autel.pdf" target="_blank" rel="noopener"><b>📄 AUTEL</b><span>Guida PDF TS508 / TS601</span></a>
     </div>
   </div>
 </section>
@@ -236,6 +257,13 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   aggiornaWa();
+});
+</script>
+<script>/* tocchi sui tutorial di aggiornamento, contati come ricerche */
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".agg .lk a").forEach(a => a.addEventListener("click", () => {
+    if (window.conta) window.conta("ricerca", "tutorial " + (a.href.indexOf("youtube") >= 0 ? "ATEQ" : "AUTEL"));
+  }));
 });
 </script>
 <script>/* ricerche per il contatore anonimo (conta.js) */
