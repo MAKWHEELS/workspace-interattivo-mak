@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bulloneria per la tua auto · MAK</title>
+<meta name="description" content="Scegli marca, modello e anno: bulloneria originale e kit di montaggio aftermarket MAK per la tua auto, con foto, misure e prezzi netti + IVA. Ordine su WhatsApp.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Bulloneria e kit di montaggio per la tua auto · MAK">
+<meta property="og:description" content="Originale o aftermarket: scegli marca, modello e anno e ordina su WhatsApp.">
+<meta property="og:image" content="https://makwheels.github.io/workspace-interattivo-mak/silvana/bulloneria-auto/anteprima.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://makwheels.github.io/workspace-interattivo-mak/silvana/bulloneria-auto/">
+<meta name="theme-color" content="#da2128">
+<link rel="apple-touch-icon" href="icona.png">
+<style>
+:root{
+  --red:#da2128; --ink:#14161a; --mute:#5d626b; --card:#f3f4f6; --line:#e2e4e8; --bg:#fff; --verde:#25d366; --ok:#14833b;
+  --titolo:"DIN Condensed","Avenir Next Condensed","Arial Narrow",system-ui,sans-serif;
+  --testo:"Avenir Next",-apple-system,system-ui,sans-serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--testo);font-size:16px;line-height:1.4}
+body{padding-top:calc(56px + env(safe-area-inset-top));padding-bottom:calc(96px + env(safe-area-inset-bottom))}
+.wrap{max-width:540px;margin:0 auto;overflow:hidden}
+h2{font-family:var(--titolo);font-weight:700;font-size:32px;letter-spacing:.5px;margin:0 0 4px;text-transform:uppercase;line-height:1}
+h2 em{font-style:normal;color:var(--red)}
+.sub{color:var(--mute);margin:0 0 14px;font-size:15px}
+section{padding:28px 16px 6px}
+.hero{line-height:0}
+.hero img{width:100%;height:auto;display:block}
+
+.avviso{position:fixed;top:0;left:0;right:0;z-index:25;display:flex;align-items:center;justify-content:center;gap:10px;
+  padding:calc(10px + env(safe-area-inset-top)) 16px 10px;background:var(--ink);color:#fff;text-decoration:none;font-size:14px;line-height:1.3;
+  box-shadow:0 4px 16px rgba(0,0,0,.25);transition:transform .35s}
+.avviso span{max-width:470px}
+.avviso i{flex:none;font-style:normal;width:30px;height:30px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;animation:giu 1.6s infinite}
+@keyframes giu{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+.avviso.via{transform:translateY(-110%)}
+#secAuto{scroll-margin-top:10px}
+
+.card{background:var(--card);border-radius:16px;padding:14px}
+label.f{display:block;font-size:13px;color:var(--mute);margin:12px 0 6px;text-transform:uppercase;letter-spacing:1px}
+label.f:first-child{margin-top:0}
+select,input[type=text]{width:100%;font:inherit;font-size:17px;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 12px}
+select{-webkit-appearance:none;appearance:none;padding-right:28px;
+  background-image:linear-gradient(45deg,transparent 50%,var(--red) 50%),linear-gradient(135deg,var(--red) 50%,transparent 50%);
+  background-position:calc(100% - 15px) 50%,calc(100% - 9px) 50%;background-size:6px 6px;background-repeat:no-repeat}
+select:disabled{opacity:.45}
+.info{font-size:13px;color:var(--mute);margin-top:10px}
+.vuoto{background:#fff;border-radius:14px;padding:16px 12px;border:2px dashed #cfd2d8;font-size:14px;color:var(--mute)}
+
+/* sezioni dei risultati */
+.gruppo{margin:14px 0 6px;font-family:var(--titolo);font-size:20px;text-transform:uppercase;color:var(--mute);letter-spacing:.5px}
+.gruppo b{color:var(--ink)}
+.quando{font-size:13px;color:var(--mute);margin:-2px 0 8px}
+.art{background:var(--card);border-radius:16px;padding:12px;border:2px solid transparent;margin-bottom:10px;opacity:0;transform:translateY(12px);transition:opacity .4s,transform .4s,border-color .2s}
+.art.vis{opacity:1;transform:none}
+.art.on{border-color:var(--red);background:#fff}
+.art .testa{display:grid;grid-template-columns:88px 1fr;gap:12px;align-items:start}
+.art .foto{width:88px;height:88px;background:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.art .foto img{max-width:82px;max-height:82px;display:block}
+.art .foto span{font-family:var(--titolo);font-size:15px;color:var(--mute);text-align:center;padding:4px}
+.art h3{margin:0;font-family:var(--titolo);font-size:21px;line-height:1.05;text-transform:uppercase;padding-top:2px}
+.art .c{font-size:12px;font-weight:600;color:var(--mute);letter-spacing:.3px;margin-top:2px}
+.art .pcd{display:inline-block;margin-top:5px;font-size:12px;font-weight:700;background:var(--ink);color:#fff;border-radius:20px;padding:2px 9px}
+.art ul{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:6px}
+.art li{display:grid;grid-template-columns:34px 1fr;gap:8px;align-items:center;font-size:13px;color:#2b2e33;background:#fff;border-radius:10px;padding:5px 8px}
+.art li img{width:34px;height:34px;object-fit:contain}
+.art li i{width:34px;height:34px;border-radius:8px;background:var(--card)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.chips span{font-size:12px;font-weight:600;background:#fff;border:1px solid var(--line);border-radius:20px;padding:3px 9px;color:#2b2e33}
+.art .giu{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px}
+.art .pr b{font-family:var(--titolo);font-size:28px;line-height:1;color:var(--red);padding-top:3px;display:inline-block}
+.art .pr small{display:block;font-size:12px;color:var(--mute)}
+.qta{display:flex;align-items:center;background:#fff;border:1px solid var(--line);border-radius:12px;flex:none}
+.qta button{width:36px;height:42px;border:0;background:none;color:var(--ink);font-size:21px}
+.qta input{width:38px;height:42px;border:0;background:none;color:var(--ink);text-align:center;font-family:var(--titolo);font-size:24px;padding:5px 0 0;-moz-appearance:textfield}
+.qta input::-webkit-outer-spin-button,.qta input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.art.on .qta{border-color:var(--red)}
+.link{font-size:14px;margin-top:6px}
+.link a{color:var(--red);font-weight:600}
+
+.riep{font-size:14px;color:var(--mute);white-space:pre-line;min-height:20px}
+.totale{margin-top:12px;padding-top:12px;border-top:1px dashed #b9bdc4;display:flex;justify-content:space-between;align-items:flex-end;gap:10px}
+.totale span{font-size:13px;color:var(--mute);line-height:1.3}
+.totale b{font-family:var(--titolo);font-size:36px;line-height:1;white-space:nowrap}
+.azzera{margin-top:12px;width:100%;font:inherit;font-weight:600;font-size:14px;border-radius:12px;padding:11px 6px;border:1px dashed #b9bdc4;background:#fff;color:var(--ink)}
+.salta{animation:salta .45s}
+@keyframes salta{30%{transform:scale(1.03)}60%{transform:scale(.99)}}
+.nota{font-size:13px;color:var(--mute);margin-top:8px}
+
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;color:var(--ink);background:var(--card);border-radius:14px;padding:15px 10px;font-weight:600}
+.btn.b2b{background:var(--ink);color:#fff}
+footer{padding:26px 16px 10px;text-align:center;color:var(--mute);font-size:13px}
+footer img{width:130px;display:block;margin:0 auto 10px}
+footer b{color:var(--ink)}
+.cta{position:fixed;left:0;right:0;bottom:0;z-index:30;padding:10px 16px calc(10px + env(safe-area-inset-bottom));
+  background:linear-gradient(rgba(255,255,255,0),rgba(255,255,255,.96) 30%)}
+.cta a{display:flex;align-items:center;justify-content:center;gap:10px;max-width:508px;margin:0 auto;
+  background:var(--verde);color:#062e16;text-decoration:none;font-weight:800;font-size:18px;border-radius:16px;padding:16px;animation:pulsa 2.4s infinite}
+.cta a svg{width:24px;height:24px;fill:currentColor;flex:none}
+@keyframes pulsa{0%,100%{box-shadow:0 0 0 0 rgba(37,211,102,.55)}60%{box-shadow:0 0 0 14px rgba(37,211,102,0)}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.art{opacity:1;transform:none}}
+
+/* spiegami a voce */
+.spv{padding:16px 16px 0}
+.spv button{width:100%;display:flex;align-items:center;gap:12px;font:inherit;border:0;border-radius:16px;padding:12px 14px;background:#14161a;color:#fff;text-align:left;cursor:pointer}
+.spv .spv-ic{flex:0 0 44px;height:44px;border-radius:50%;background:#da2128;display:flex;align-items:center;justify-content:center}
+.spv .spv-ic svg{width:20px;height:20px;fill:#fff}
+.spv .spv-tx{flex:1;min-width:0}
+.spv .spv-tx b{display:block;font-family:"DIN Condensed","Avenir Next Condensed","Arial Narrow",system-ui,sans-serif;font-weight:700;font-size:24px;line-height:1;text-transform:uppercase;letter-spacing:.5px;padding-top:3px;color:#fff}
+.spv .spv-tx small{display:block;font-size:12px;opacity:.75;margin-top:2px;color:#fff}
+.spv .spv-pr{display:block;height:4px;border-radius:2px;background:rgba(255,255,255,.2);margin-top:7px;overflow:hidden}
+.spv .spv-pr i{display:block;height:100%;width:0;background:#da2128}
+.spv button.spv-va .spv-ic{animation:spvPulsa 1.2s infinite}
+@keyframes spvPulsa{50%{box-shadow:0 0 0 7px rgba(218,33,40,.25)}}
+.spv-richiamo{animation:spvRichiamo .7s 4}
+@keyframes spvRichiamo{50%{transform:scale(1.05)}}
+</style>
+</head>
+<body>
+<a class="avviso" id="avviso" href="#secAuto">
+  <span><b>Che auto è?</b> Scegli marca, modello e anno: ti mostro la bulloneria giusta</span><i>↓</i>
+</a>
+<div class="wrap">
+
+<div class="hero">
+  <img src="locandina.jpg" alt="Bulloneria per la tua auto: bulloneria originale e kit di montaggio aftermarket MAK, scegli marca, modello e anno" width="1620" height="2025">
+</div>
+<div class="spv">
+  <button type="button" id="spvBtn" aria-label="Spiegami a voce la promo">
+    <span class="spv-ic" id="spvIc"></span>
+    <span class="spv-tx"><b>Spiegami a voce</b><small id="spvSub">In 20 secondi · alza il volume</small><span class="spv-pr"><i id="spvPr"></i></span></span>
+  </button>
+  <audio id="spvAudio" src="../../voce/bulloneria-auto.mp3" preload="none"></audio>
+</div>
+
+
+<section id="secAuto">
+  <h2>La tua <em>auto</em></h2>
+  <p class="sub">Scegli marca, modello e anno: sotto trovi la bulloneria originale e i kit di montaggio.</p>
+  <div class="card">
+    <label class="f" for="marca">Marca</label>
+    <select id="marca"><option value="">Caricamento…</option></select>
+    <label class="f" for="modello">Modello</label>
+    <select id="modello" disabled><option value="">Prima la marca</option></select>
+    <label class="f" for="anno">Anno</label>
+    <select id="anno" disabled><option value="">Prima il modello</option></select>
+    <div class="info" id="info"></div>
+  </div>
+</section>
+
+<section id="secOE" hidden>
+  <h2>Bulloneria <em>originale</em></h2>
+  <p class="sub">Le stesse misure della casa: per le ruote originali o per le ruote MAK dedicate che usano la bulloneria originale.</p>
+  <div id="listaOE"></div>
+</section>
+
+<section id="secAM" hidden>
+  <h2>Kit di <em>montaggio</em></h2>
+  <p class="sub">Per le ruote aftermarket. Il kit giusto dipende dalla ruota: guarda il PCD e la riga «quando serve».</p>
+  <div id="listaAM"></div>
+  <p class="link">Ti serve solo l'anello? <a href="../anelli-centraggio/">Anelli di centraggio sciolti →</a></p>
+</section>
+
+<section id="secOrdine" hidden>
+  <h2>Il tuo <em>ordine</em></h2>
+  <div class="card" id="ordine">
+    <div class="riep" id="riep"></div>
+    <div class="totale"><span id="totTesto">Totale + IVA</span><b id="tot">–</b></div>
+    <button type="button" class="azzera" id="azzera">Azzera</button>
+    <label class="f" for="officina">Officina (facoltativo)</label>
+    <input type="text" id="officina" placeholder="Nome dell'officina" autocomplete="organization">
+  </div>
+  <p class="nota">Puoi ordinare anche da solo sul portale B2B (Altre ricerche → Bulloneria originale / Kit montaggio) con gli stessi codici.</p>
+</section>
+
+<section>
+  <div class="btns">
+    <a class="btn" href="tel:+393386800250">📞 Chiamami</a>
+    <a class="btn b2b" href="https://b2bshop.makwheels.it/" target="_blank" rel="noopener">🛒 Portale B2B</a>
+  </div>
+</section>
+
+<footer><img src="logo-mak-nero.svg" alt="MAK"><b>Silvana Rinaldi</b> · Agente MAK · 338 680 0250<br><span id="aggiornato">Prezzi netti + IVA dal portale B2B MAK.</span><br><small>Conteggio anonimo delle visite, senza cookie.</small></footer>
+</div>
+
+<div class="cta"><a id="wa" href="#" target="_blank" rel="noopener">
+  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.7a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.2-.2-.5-.3z"/></svg>
+  <span id="waTesto">Scrivimi su WhatsApp</span></a></div>
+
+<script>
+const D = "../../comune/bulloneria-auto/";
+const TELEFONO = "393386800250";
+const GRUPPI = [
+  ["anello_bulloni", "Anello + bulloni o dadi"],
+  ["solo_bulloni", "Solo bulloni o dadi"],
+  ["stella", "Bulloneria a stella"],
+  ["flottanti", "Bulloni flottanti"],
+  ["solo_anello", "Solo anello"],
+  ["altro", "Altri kit"]
+];
+
+document.addEventListener("DOMContentLoaded", () => {
+  const $ = id => document.getElementById(id);
+  const euro = n => n.toFixed(2).replace(".", ",") + " €";
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
+  let INDICE = null, MARCA = null, DATI = null, AUTO = null;
+  const q = {};      // codice -> quantità
+  const articoli = {}; // codice -> articolo (della marca caricata)
+  const schede = []; // {cod, el, campo}
+
+  const opzioni = (sel, voci, vuota) => {
+    sel.innerHTML = '<option value="">' + vuota + '</option>' + voci.map(([v, t]) => '<option value="' + esc(v) + '">' + esc(t) + '</option>').join("");
+  };
+
+  fetch(D + "marche.json").then(r => r.json()).then(j => {
+    INDICE = j;
+    opzioni($("marca"), j.marche.filter(m => m.m.length).map(m => [m.c, m.n]), "Scegli la marca");
+    $("aggiornato").textContent = "Prezzi netti + IVA dal portale B2B MAK, aggiornati al " + j.data.split("-").reverse().join("/") + ".";
+  }).catch(() => { $("marca").innerHTML = '<option value="">Errore di caricamento: ricarica la pagina</option>'; });
+
+  $("marca").addEventListener("change", () => {
+    const c = $("marca").value;
+    MARCA = INDICE.marche.find(m => m.c === c) || null;
+    DATI = null; AUTO = null; mostra();
+    $("anno").disabled = true; opzioni($("anno"), [], "Prima il modello");
+    if (!MARCA) { $("modello").disabled = true; opzioni($("modello"), [], "Prima la marca"); return; }
+    opzioni($("modello"), MARCA.m.map((m, i) => [String(i), m.n]), "Caricamento…");
+    $("modello").disabled = true;
+    fetch(D + "dati/" + c + ".json").then(r => r.json()).then(d => {
+      DATI = d;
+      opzioni($("modello"), MARCA.m.map((m, i) => [String(i), m.n]), "Scegli il modello");
+      $("modello").disabled = false;
+    }).catch(() => { opzioni($("modello"), [], "Errore di caricamento: riprova"); });
+  });
+
+  $("modello").addEventListener("change", () => {
+    AUTO = null; mostra();
+    const m = MARCA && MARCA.m[+$("modello").value];
+    if (!m || $("modello").value === "") { $("anno").disabled = true; opzioni($("anno"), [], "Prima il modello"); return; }
+    const etichetta = y => (y.a || "tutti gli anni") + (y.t ? " · Tipo " + y.t : "") + (y.c && y.c !== "M1" ? " · " + y.c : "");
+    opzioni($("anno"), m.y.map((y, i) => [String(i), etichetta(y)]), m.y.length > 1 ? "Scegli l'anno" : "Scegli");
+    $("anno").disabled = false;
+    if (m.y.length === 1) { $("anno").value = "0"; $("anno").dispatchEvent(new Event("change")); }
+  });
+
+  $("anno").addEventListener("change", () => {
+    const m = MARCA && MARCA.m[+$("modello").value];
+    const y = m && $("anno").value !== "" ? m.y[+$("anno").value] : null;
+    AUTO = y ? {marca: MARCA.n, modello: m.n, anno: y.a, tipo: y.t, cat: y.c, v: DATI.v[y.id] || {oe: [], am: []}} : null;
+    mostra();
+    if (AUTO && window.conta) window.conta("ricerca", (AUTO.marca + " " + AUTO.modello + " " + AUTO.anno).slice(0, 120));
+  });
+
+  function scheda(cod, pcd) {
+    const a = DATI.a[cod]; articoli[cod] = a;
+    if (!(cod in q)) q[cod] = 0;
+    const d = document.createElement("div");
+    d.className = "art";
+    const foto = a.f ? '<img alt="" loading="lazy" src="' + D + 'foto/' + a.f + '">' : '<span>' + esc(a.d.split(" ").slice(-1)[0]) + '</span>';
+    const righe = a.kf ? a.k.map((t, i) => '<li>' + (a.kf[i] ? '<img alt="" loading="lazy" src="' + D + 'foto/' + a.kf[i] + '">' : '<i></i>') + '<span>' + esc(t) + '</span></li>').join("") : "";
+    const chips = a.kf ? "" : '<div class="chips">' + a.k.map(t => '<span>' + esc(t) + '</span>').join("") + '</div>';
+    d.innerHTML = '<div class="testa"><div class="foto">' + foto + '</div><div><h3>' + esc(a.d) + '</h3><div class="c">' + cod + '</div>' +
+      (pcd ? '<span class="pcd">per ruote PCD ' + esc(pcd) + '</span>' : '') + '</div></div>' +
+      (righe ? '<ul>' + righe + '</ul>' : '') + chips +
+      '<div class="giu"><span class="pr">' + (a.p ? '<b>' + euro(a.p) + '</b><small>netto + IVA</small>' : '<b style="font-size:20px">Su richiesta</b>') + '</span>' +
+      '<div class="qta"><button type="button" aria-label="Meno">−</button><input type="number" inputmode="numeric" min="0" max="999" value="' + q[cod] + '" aria-label="Quantità ' + esc(a.d) + '"><button type="button" aria-label="Più">+</button></div></div>';
+    const [meno, campo, piu] = d.querySelector(".qta").children;
+    meno.addEventListener("click", () => { if (q[cod] > 0) { q[cod]--; aggiorna(); } });
+    piu.addEventListener("click", () => { if (q[cod] < 999) { q[cod]++; aggiorna(); } });
+    campo.addEventListener("focus", () => campo.select());
+    campo.addEventListener("input", () => { q[cod] = Math.min(999, Math.max(0, parseInt(campo.value, 10) || 0)); aggiorna(true); });
+    schede.push({cod, el: d, campo});
+    return d;
+  }
+
+  const io = "IntersectionObserver" in window ? new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("vis"); io.unobserve(e.target); } }), {threshold: .1}) : null;
+
+  function mostra() {
+    schede.length = 0;
+    Object.keys(q).forEach(k => delete q[k]);  // ordine legato all'auto scelta
+    $("listaOE").innerHTML = ""; $("listaAM").innerHTML = "";
+    const vis = !!AUTO;
+    ["secOE", "secAM", "secOrdine"].forEach(s => $(s).hidden = !vis);
+    if (!vis) { $("info").textContent = ""; aggiorna(); return; }
+    $("info").textContent = AUTO.v.oe.length + AUTO.v.am.length ? "" : "Per questa auto il portale non ha bulloneria a catalogo: scrivimi e la cerco io.";
+    if (AUTO.v.oe.length) AUTO.v.oe.forEach(c => $("listaOE").appendChild(scheda(c)));
+    else $("listaOE").innerHTML = '<div class="vuoto">Non c’è a catalogo per questa auto: chiedimi.</div>';
+    if (AUTO.v.am.length) {
+      GRUPPI.forEach(([g, nome]) => {
+        const voci = AUTO.v.am.filter(([c]) => (DATI.a[c].c || "altro") === g);
+        if (!voci.length) return;
+        const h = document.createElement("div"); h.className = "gruppo"; h.innerHTML = "<b>" + nome + "</b>";
+        $("listaAM").appendChild(h);
+        const w = DATI.a[voci[0][0]].w;
+        if (w) { const p = document.createElement("p"); p.className = "quando"; p.textContent = w.includes(": ") ? "Quando serve: " + w.split(": ").slice(1).join(": ") : w; $("listaAM").appendChild(p); }
+        voci.forEach(([c, pcd]) => $("listaAM").appendChild(scheda(c, pcd)));
+      });
+    } else $("listaAM").innerHTML = '<div class="vuoto">Nessun kit aftermarket a catalogo per questa auto: chiedimi.</div>';
+    schede.forEach(s => io ? io.observe(s.el) : s.el.classList.add("vis"));
+    aggiorna();
+  }
+
+  const scelti = () => Object.keys(q).filter(c => q[c] > 0 && articoli[c]).map(c => ({c, n: q[c], a: articoli[c]}));
+  const autoTesto = () => AUTO ? AUTO.marca + " " + AUTO.modello + " (" + (AUTO.anno || "") + (AUTO.tipo ? ", Tipo " + AUTO.tipo : "") + ")" : "";
+
+  function aggiorna(daTastiera) {
+    schede.forEach(s => {
+      if (!daTastiera || document.activeElement !== s.campo) s.campo.value = q[s.cod];
+      s.el.classList.toggle("on", q[s.cod] > 0);
+    });
+    const s = scelti();
+    const tot = s.reduce((t, x) => t + x.n * (x.a.p || 0), 0);
+    if (s.length) {
+      $("riep").textContent = s.map(x => x.n + " × " + x.a.d + " · " + (x.a.p ? euro(x.n * x.a.p) : "su richiesta")).join("\n");
+      $("tot").textContent = tot ? euro(tot) : "–";
+      $("totTesto").textContent = s.reduce((t, x) => t + x.n, 0) + " pezzi · totale netto + IVA";
+      $("ordine").classList.remove("salta"); void $("ordine").offsetWidth; $("ordine").classList.add("salta");
+    } else {
+      $("riep").textContent = "Nessun articolo scelto: metti le quantità nelle schede qui sopra.";
+      $("tot").textContent = "–"; $("totTesto").textContent = "Totale + IVA";
+    }
+    aggiornaWa();
+  }
+
+  function aggiornaWa() {
+    const s = scelti(), off = $("officina").value.trim();
+    let testo, etichetta;
+    if (s.length) {
+      const tot = s.reduce((t, x) => t + x.n * (x.a.p || 0), 0);
+      testo = "Ciao Silvana, per la mia auto " + autoTesto() + " vorrei:\n" +
+        s.map(x => "• " + x.n + " × " + x.c + " " + x.a.d + " (" + (x.a.p ? euro(x.a.p) : "prezzo da chiedere") + ")").join("\n") +
+        (tot ? "\nTotale: " + euro(tot) + " + IVA" : "") + "\n\nOfficina: " + off;
+      etichetta = "Invia l'ordine su WhatsApp";
+    } else if (AUTO) {
+      testo = "Ciao Silvana, mi aiuti con la bulloneria per " + autoTesto() + "?" + (off ? "\n\nOfficina: " + off : "");
+      etichetta = "Chiedimi della tua auto";
+    } else {
+      testo = "Ciao Silvana, mi aiuti a trovare la bulloneria per la mia auto?";
+      etichetta = "Scrivimi su WhatsApp";
+    }
+    $("wa").href = "https://wa.me/" + TELEFONO + "?text=" + encodeURIComponent(testo);
+    $("waTesto").textContent = etichetta;
+  }
+  $("azzera").addEventListener("click", () => { Object.keys(q).forEach(c => q[c] = 0); aggiorna(); });
+  $("officina").addEventListener("input", aggiornaWa);
+
+  $("avviso").addEventListener("click", e => { e.preventDefault(); $("secAuto").scrollIntoView({behavior: "smooth", block: "start"}); });
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(es => es.forEach(e => $("avviso").classList.toggle("via", e.isIntersecting || e.boundingClientRect.top < 0)), {threshold: [0, .05]})
+      .observe($("secAuto"));
+  }
+  aggiornaWa();
+});
+</script>
+<script src="/workspace-interattivo-mak/conta.js" defer></script>
+<script>
+/* Spiegami a voce: a fine ascolto richiama il bottone WhatsApp in fondo */
+(() => {
+  const b = document.getElementById("spvBtn"), a = document.getElementById("spvAudio"),
+    ic = document.getElementById("spvIc"), pr = document.getElementById("spvPr"), sub = document.getElementById("spvSub");
+  const PLAY = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>',
+    PAUSA = '<svg viewBox="0 0 24 24"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>';
+  ic.innerHTML = PLAY;
+  b.addEventListener("click", () => { a.paused ? a.play() : a.pause(); });
+  a.addEventListener("play", () => { ic.innerHTML = PAUSA; b.classList.add("spv-va"); sub.textContent = "Sto spiegando… tocca per la pausa"; });
+  a.addEventListener("pause", () => { ic.innerHTML = PLAY; b.classList.remove("spv-va"); if (!a.ended) sub.textContent = "In pausa · tocca per continuare"; });
+  a.addEventListener("timeupdate", () => { if (a.duration) pr.style.width = (a.currentTime / a.duration * 100) + "%"; });
+  a.addEventListener("ended", () => {
+    sub.textContent = "Tocca per riascoltare"; pr.style.width = "0";
+    const c = document.querySelector(".cta a") || document.querySelector(".cta");
+    if (c) { c.classList.remove("spv-richiamo"); void c.offsetWidth; c.classList.add("spv-richiamo"); }
+  });
+})();
+</script>
+</body>
+</html>
