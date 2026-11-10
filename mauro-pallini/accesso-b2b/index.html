@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Primo accesso al B2B MAK</title>
+<meta name="description" content="Dal sito makwheels.it al portale B2B in 4 passi: dove toccare, come scrivere il codice utente (la seconda lettera è una l minuscola), cosa fare al primo accesso.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Primo accesso al B2B MAK · in 4 passi">
+<meta property="og:description" content="Dal sito makwheels.it al portale: dove toccare, come scrivere il codice utente, cosa fare al primo accesso.">
+<meta property="og:image" content="https://makwheels.github.io/workspace-interattivo-mak/mauro-pallini/accesso-b2b/anteprima.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://makwheels.github.io/workspace-interattivo-mak/mauro-pallini/accesso-b2b/">
+<meta name="theme-color" content="#da2128">
+<link rel="apple-touch-icon" href="icona.png">
+<style>
+:root{
+  --red:#da2128; --ink:#14161a; --mute:#5d626b; --card:#f3f4f6; --line:#e2e4e8; --bg:#fff; --verde:#25d366; --ok:#14833b; --giallo:#ffe066;
+  --titolo:"DIN Condensed","Avenir Next Condensed","Arial Narrow",system-ui,sans-serif;
+  --testo:"Avenir Next",-apple-system,system-ui,sans-serif;
+  --mono:Menlo,"SF Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--testo);font-size:16px;line-height:1.4}
+body{padding-top:calc(56px + env(safe-area-inset-top));padding-bottom:calc(96px + env(safe-area-inset-bottom))}
+.wrap{max-width:540px;margin:0 auto;overflow:hidden}
+h2{font-family:var(--titolo);font-weight:700;font-size:32px;letter-spacing:.5px;margin:0 0 4px;text-transform:uppercase;line-height:1}
+h2 em{font-style:normal;color:var(--red)}
+.sub{color:var(--mute);margin:0 0 16px;font-size:15px}
+section{padding:28px 16px 6px}
+.hero{line-height:0}
+.hero img{width:100%;height:auto;display:block}
+
+.avviso{position:fixed;top:0;left:0;right:0;z-index:25;display:flex;align-items:center;justify-content:center;gap:10px;
+  padding:calc(10px + env(safe-area-inset-top)) 16px 10px;background:var(--ink);color:#fff;text-decoration:none;font-size:14px;line-height:1.3;
+  box-shadow:0 4px 16px rgba(0,0,0,.25);transition:transform .35s}
+.avviso span{max-width:470px}
+.avviso i{flex:none;font-style:normal;width:30px;height:30px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;animation:giu 1.6s infinite}
+@keyframes giu{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+.avviso.via{transform:translateY(-110%)}
+#secPassi{scroll-margin-top:10px}
+
+/* passi */
+.passi{display:grid;gap:14px}
+.passo{display:grid;grid-template-columns:44px 1fr;gap:12px;background:var(--card);border-radius:16px;padding:14px}
+.passo .n{width:44px;height:44px;border-radius:50%;background:var(--red);color:#fff;font-family:var(--titolo);font-weight:700;font-size:28px;display:flex;align-items:center;justify-content:center;padding-top:4px}
+.passo h3{margin:4px 0 2px;font-family:var(--titolo);font-size:24px;line-height:1.05;text-transform:uppercase}
+.passo p{margin:0;font-size:14px;color:var(--mute)}
+.passo p b{color:var(--ink)}
+.tel{grid-column:1/3;justify-self:center;width:230px;background:var(--ink);border-radius:30px;padding:11px 10px;margin-top:6px;box-shadow:0 10px 22px rgba(0,0,0,.22)}
+.schermo{position:relative;border-radius:20px;overflow:hidden;line-height:0;background:#fff}
+.schermo img{width:100%;height:auto;display:block}
+.cerchio{position:absolute;width:52px;height:52px;margin:-26px 0 0 -26px;border:4px solid var(--red);border-radius:50%;box-shadow:0 0 0 3px rgba(255,255,255,.85);animation:pulsaC 1.6s infinite}
+.cerchio.largo{border-radius:24px;height:40px;margin-top:-20px}
+@keyframes pulsaC{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+.passo.solo .tel{display:none}
+.vai{display:grid;grid-template-columns:1fr;gap:8px;margin-top:14px}
+.vai a.grande{display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;background:var(--red);color:#fff;font-weight:700;border-radius:14px;padding:15px}
+.vai a.piccolo{text-align:center;font-size:14px;color:var(--mute)}
+.nota{font-size:13px;color:var(--mute);margin-top:10px;text-align:center}
+
+/* codice */
+.codice{background:var(--card);border-radius:16px;padding:16px;border-left:8px solid var(--red)}
+.esempio{font-family:var(--mono);font-size:40px;line-height:1.1;letter-spacing:1px;text-align:center;margin:4px 0 8px}
+.esempio i{font-style:normal;background:var(--giallo);border-radius:8px;padding:0 3px;box-shadow:0 0 0 3px var(--red) inset}
+.codice p{margin:0 0 12px;font-size:14px;color:#2b2e33}
+.conf{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.conf div{text-align:center;background:#fff;border-radius:12px;padding:6px 0 8px;border:3px solid var(--line)}
+.conf div.ok{border-color:var(--ok)}
+.conf b{display:block;font-family:var(--mono);font-size:38px;line-height:1.15}
+.conf span{font-size:12px;font-weight:700}
+.conf .ok span{color:var(--ok)} .conf .no span{color:var(--red)}
+label.f{display:block;font-size:13px;color:var(--mute);margin:14px 0 6px;text-transform:uppercase;letter-spacing:1px}
+input[type=text],select{width:100%;font:inherit;font-size:17px;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 12px}
+#prova{font-family:var(--mono);font-size:20px}
+select{-webkit-appearance:none;appearance:none;padding-right:28px;
+  background-image:linear-gradient(45deg,transparent 50%,var(--red) 50%),linear-gradient(135deg,var(--red) 50%,transparent 50%);
+  background-position:calc(100% - 15px) 50%,calc(100% - 9px) 50%;background-size:6px 6px;background-repeat:no-repeat}
+.esito{margin-top:8px;font-size:14px;font-weight:600;min-height:20px}
+.esito.ok{color:var(--ok)} .esito.no{color:var(--red)}
+.aiuto{font-size:12px;color:var(--mute);margin-top:6px}
+
+.pwd{background:#fff4e5;border:2px solid #f0b357;border-radius:16px;padding:14px;color:#6b3d00;font-size:15px}
+.pwd b{color:#8a4b00}
+
+.card{background:var(--card);border-radius:16px;padding:14px}
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;color:var(--ink);background:var(--card);border-radius:14px;padding:15px 10px;font-weight:600}
+.btn.b2b{background:var(--ink);color:#fff}
+footer{padding:26px 16px 10px;text-align:center;color:var(--mute);font-size:13px}
+footer img{width:130px;display:block;margin:0 auto 10px}
+footer b{color:var(--ink)}
+
+.cta{position:fixed;left:0;right:0;bottom:0;z-index:30;padding:10px 16px calc(10px + env(safe-area-inset-bottom));
+  background:linear-gradient(rgba(255,255,255,0),rgba(255,255,255,.96) 30%)}
+.cta a{display:flex;align-items:center;justify-content:center;gap:10px;max-width:508px;margin:0 auto;
+  background:var(--verde);color:#062e16;text-decoration:none;font-weight:800;font-size:18px;border-radius:16px;padding:16px;
+  animation:pulsa 2.4s infinite}
+.cta a svg{width:24px;height:24px;fill:currentColor;flex:none}
+@keyframes pulsa{0%,100%{box-shadow:0 0 0 0 rgba(37,211,102,.55)}60%{box-shadow:0 0 0 14px rgba(37,211,102,0)}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<a class="avviso" id="avviso" href="#secPassi">
+  <span><b>Prima volta nel B2B?</b> Segui i passi: ti porto fino all'accesso</span><i>↓</i>
+</a>
+<div class="wrap">
+
+<div class="hero">
+  <img src="locandina.jpg" alt="Primo accesso al B2B MAK in 4 passi: sito makwheels.it, tre lineette, Area rivenditori B2B, codice utente e password. La seconda lettera del codice utente è una l minuscola." width="1620" height="2025">
+</div>
+
+<section id="secPassi">
+  <h2>I <em>passi</em></h2>
+  <p class="sub">Dal telefono. Da computer è uguale: le tre lineette sono sempre in alto a destra.</p>
+  <div class="passi">
+    <div class="passo">
+      <span class="n">1</span>
+      <div><h3>Apri makwheels.it</h3><p>Compare un avviso sui cookie: premi <b>Rifiuta</b> o <b>Accetta</b>, per entrare va bene uno dei due.</p></div>
+      <div class="tel"><div class="schermo"><img src="schermate/01-cookie.png" alt="Sito makwheels.it con l'avviso sui cookie" width="462" height="1000">
+        <span class="cerchio largo" style="left:50%;top:36.4%;width:200px;margin-left:-100px"></span></div></div>
+    </div>
+    <div class="passo">
+      <span class="n">2</span>
+      <div><h3>Tocca le tre lineette</h3><p>Sono in <b>alto a destra</b>, accanto al logo MAK.</p></div>
+      <div class="tel"><div class="schermo"><img src="schermate/02-home.png" alt="Home di makwheels.it con le tre lineette in alto a destra" width="462" height="1000">
+        <span class="cerchio" style="left:91.1%;top:6.5%"></span></div></div>
+    </div>
+    <div class="passo">
+      <span class="n">3</span>
+      <div><h3>Area rivenditori B2B</h3><p>Nel menu che si apre tocca <b>Area rivenditori B2B</b>.</p></div>
+      <div class="tel"><div class="schermo"><img src="schermate/03-menu.png" alt="Menu di makwheels.it con la voce Area rivenditori B2B" width="462" height="1000">
+        <span class="cerchio largo" style="left:33.4%;top:46%;width:150px;margin-left:-75px"></span></div></div>
+    </div>
+    <div class="passo solo">
+      <span class="n">4</span>
+      <div><h3>Di nuovo i cookie</h3><p>Anche il portale B2B mostra l'avviso: di nuovo <b>Rifiuta</b> o <b>Accetta</b>.</p></div>
+    </div>
+    <div class="passo">
+      <span class="n">5</span>
+      <div><h3>Codice utente e password</h3><p>Scrivili come te li ho mandati (<b>tutto minuscolo</b>, guarda qui sotto), poi <b>Accedi</b>.</p></div>
+      <div class="tel"><div class="schermo"><img src="schermate/04-login.png" alt="Pagina di accesso del B2B con i campi Username e Password" width="750" height="1000">
+        <span class="cerchio largo" style="left:53.4%;top:55.5%;width:170px;margin-left:-85px"></span>
+        <span class="cerchio largo" style="left:53.4%;top:67.6%;width:170px;margin-left:-85px"></span></div></div>
+    </div>
+    <div class="passo solo">
+      <span class="n">6</span>
+      <div><h3>Password nuova</h3><p>Al primo accesso il B2B ti chiede una <b>password nuova</b>: sceglila, scrivila e conservala. Quella che ti ho mandato vale solo la prima volta.</p></div>
+    </div>
+  </div>
+  <div class="vai">
+    <a class="grande" id="apri" href="https://www.makwheels.it/" target="_blank" rel="noopener">Apri makwheels.it →</a>
+    <a class="piccolo" href="https://b2bshop.makwheels.it/login.php" target="_blank" rel="noopener">oppure vai diretto all'accesso: b2bshop.makwheels.it</a>
+  </div>
+</section>
+
+<section>
+  <h2>Il codice <em>utente</em></h2>
+  <p class="sub">È lo sbaglio più frequente: guarda la seconda lettera.</p>
+  <div class="codice">
+    <div class="esempio" aria-label="esempio: c elle 012345 punto xx">c<i>l</i>012345.xx</div>
+    <p>Esempio inventato: il tuo te lo mando io. La seconda lettera è una <b>l (elle) minuscola</b> e il codice è <b>tutto minuscolo</b>, punto e lettere finali compresi.</p>
+    <div class="conf">
+      <div class="ok"><b>l</b><span>elle ✓</span></div>
+      <div class="no"><b>I</b><span>i maiuscola ✗</span></div>
+      <div class="no"><b>1</b><span>uno ✗</span></div>
+    </div>
+    <label class="f" for="prova">Prova a scriverlo qui</label>
+    <input type="text" id="prova" placeholder="il tuo codice utente" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false">
+    <div class="esito" id="esito"></div>
+    <div class="aiuto">Controllo solo la forma, sul tuo telefono: il codice non viene mandato a nessuno. Se il telefono mette la maiuscola all'inizio, correggila.</div>
+  </div>
+</section>
+
+<section>
+  <div class="pwd">🔑 <b>Al primo accesso</b> il B2B ti chiede una password nuova. Se non la ricordi più, scrivimi: te ne do una nuova.</div>
+</section>
+
+<section>
+  <h2>Non riesci a <em>entrare?</em></h2>
+  <p class="sub">Dimmi dove ti sei fermato: ti scrivo io. Non mandarmi la password.</p>
+  <div class="card">
+    <label class="f" for="fermo">Mi sono fermato a</label>
+    <select id="fermo">
+      <option value="">Scegli…</option>
+      <option value="1">1 · avviso dei cookie sul sito</option>
+      <option value="2">2 · non trovo le tre lineette</option>
+      <option value="3">3 · non trovo Area rivenditori B2B</option>
+      <option value="4">4 · avviso dei cookie sul B2B</option>
+      <option value="5">5 · mi dice codice o password errati</option>
+      <option value="6">6 · cambio della password</option>
+      <option value="pwd">Non ricordo la password</option>
+    </select>
+    <label class="f" for="officina">Officina</label>
+    <input type="text" id="officina" placeholder="Nome dell'officina" autocomplete="organization">
+  </div>
+</section>
+
+<section>
+  <div class="btns">
+    <a class="btn" href="tel:+393398781190">📞 Chiamami</a>
+    <a class="btn b2b" href="https://b2bshop.makwheels.it/" target="_blank" rel="noopener">🛒 Portale B2B</a>
+  </div>
+</section>
+
+<footer><img src="logo-mak-nero.svg" alt="MAK"><b>Mauro Pallini</b> · Agente MAK · 339 878 1190<br>Schermate del sito makwheels.it e del portale B2B, novembre 2026.<br><small>Conteggio anonimo delle visite, senza cookie.</small></footer>
+</div>
+
+<div class="cta"><a id="wa" href="#" target="_blank" rel="noopener">
+  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.7a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.2-.2-.5-.3z"/></svg>
+  <span id="waTesto">Scrivimi su WhatsApp</span></a></div>
+
+<script>
+const TELEFONO = "393398781190";
+
+document.addEventListener("DOMContentLoaded", () => {
+  const $ = id => document.getElementById(id);
+
+  /* controllo della forma del codice utente: tutto locale, non esce dalla pagina */
+  $("prova").addEventListener("input", () => {
+    const v = $("prova").value, e = $("esito");
+    if (!v) { e.textContent = ""; e.className = "esito"; return; }
+    let msg = "";
+    if (/\s/.test(v)) msg = "Togli gli spazi.";
+    else if (v.length >= 2 && v[1] !== "l") msg = "La seconda lettera dev'essere una l (elle) minuscola" + (v[1] === "I" ? ": hai scritto una I maiuscola." : v[1] === "1" ? ": hai scritto un 1 (uno)." : ".");
+    else if (/[A-Z]/.test(v)) msg = "Scrivi tutto minuscolo.";
+    e.textContent = msg || (v.length >= 2 ? "Forma giusta ✓" : "");
+    e.className = "esito " + (msg ? "no" : "ok");
+  });
+
+  function aggiornaWa() {
+    const s = $("fermo"), off = $("officina").value.trim();
+    let testo;
+    if (s.value) {
+      testo = "Ciao Mauro, non riesco a entrare nel B2B.\nMi sono fermato a: " + s.options[s.selectedIndex].text + "\n\nOfficina: " + off;
+      $("waTesto").textContent = "Chiedimi aiuto su WhatsApp";
+    } else {
+      testo = "Ciao Mauro, ho bisogno di aiuto per entrare nel B2B." + (off ? "\n\nOfficina: " + off : "");
+      $("waTesto").textContent = "Scrivimi su WhatsApp";
+    }
+    $("wa").href = "https://wa.me/" + TELEFONO + "?text=" + encodeURIComponent(testo);
+  }
+  $("fermo").addEventListener("change", () => {
+    aggiornaWa();
+    if ($("fermo").value && window.conta) window.conta("ricerca", "passo " + $("fermo").value);
+  });
+  $("officina").addEventListener("input", aggiornaWa);
+  aggiornaWa();
+
+  $("avviso").addEventListener("click", e => {
+    e.preventDefault();
+    $("secPassi").scrollIntoView({behavior: "smooth", block: "start"});
+  });
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(es => es.forEach(e => $("avviso").classList.toggle("via", e.isIntersecting || e.boundingClientRect.top < 0)), {threshold: [0, .05]})
+      .observe($("secPassi"));
+  }
+});
+</script>
+<script src="/workspace-interattivo-mak/conta.js" defer></script>
+</body>
+</html>
