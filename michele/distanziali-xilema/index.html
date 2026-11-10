@@ -119,6 +119,21 @@ footer b{color:var(--ink)}
 @keyframes pulsa{0%,100%{box-shadow:0 0 0 0 rgba(37,211,102,.55)}60%{box-shadow:0 0 0 14px rgba(37,211,102,0)}}
 
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* spiegami a voce */
+.spv{padding:16px 16px 0}
+.spv button{width:100%;display:flex;align-items:center;gap:12px;font:inherit;border:0;border-radius:16px;padding:12px 14px;background:#14161a;color:#fff;text-align:left;cursor:pointer}
+.spv .spv-ic{flex:0 0 44px;height:44px;border-radius:50%;background:#da2128;display:flex;align-items:center;justify-content:center}
+.spv .spv-ic svg{width:20px;height:20px;fill:#fff}
+.spv .spv-tx{flex:1;min-width:0}
+.spv .spv-tx b{display:block;font-family:"DIN Condensed","Avenir Next Condensed","Arial Narrow",system-ui,sans-serif;font-weight:700;font-size:24px;line-height:1;text-transform:uppercase;letter-spacing:.5px;padding-top:3px;color:#fff}
+.spv .spv-tx small{display:block;font-size:12px;opacity:.75;margin-top:2px;color:#fff}
+.spv .spv-pr{display:block;height:4px;border-radius:2px;background:rgba(255,255,255,.2);margin-top:7px;overflow:hidden}
+.spv .spv-pr i{display:block;height:100%;width:0;background:#da2128}
+.spv button.spv-va .spv-ic{animation:spvPulsa 1.2s infinite}
+@keyframes spvPulsa{50%{box-shadow:0 0 0 7px rgba(218,33,40,.25)}}
+.spv-richiamo{animation:spvRichiamo .7s 4}
+@keyframes spvRichiamo{50%{transform:scale(1.05)}}
 </style>
 </head>
 <body>
@@ -130,6 +145,14 @@ footer b{color:var(--ink)}
 <div class="hero">
   <img src="locandina.jpg" alt="Distanziali Xilema da MAK: 54 marche, oltre 870 modelli, spessori da 5 a 30 mm; con anello di centraggio, senza anello, con boccole, fuoristrada" width="1620" height="2025">
 </div>
+<div class="spv">
+  <button type="button" id="spvBtn" aria-label="Spiegami a voce la promo">
+    <span class="spv-ic" id="spvIc"></span>
+    <span class="spv-tx"><b>Spiegami a voce</b><small id="spvSub">In 20 secondi · alza il volume</small><span class="spv-pr"><i id="spvPr"></i></span></span>
+  </button>
+  <audio id="spvAudio" src="../../voce/distanziali-xilema.mp3" preload="none"></audio>
+</div>
+
 
 <section id="secVettura">
   <h2>Trova i <em>distanziali</em></h2>
@@ -324,5 +347,24 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 <script src="/workspace-interattivo-mak/conta.js" defer></script>
+<script>
+/* Spiegami a voce: a fine ascolto richiama il bottone WhatsApp in fondo */
+(() => {
+  const b = document.getElementById("spvBtn"), a = document.getElementById("spvAudio"),
+    ic = document.getElementById("spvIc"), pr = document.getElementById("spvPr"), sub = document.getElementById("spvSub");
+  const PLAY = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>',
+    PAUSA = '<svg viewBox="0 0 24 24"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>';
+  ic.innerHTML = PLAY;
+  b.addEventListener("click", () => { a.paused ? a.play() : a.pause(); });
+  a.addEventListener("play", () => { ic.innerHTML = PAUSA; b.classList.add("spv-va"); sub.textContent = "Sto spiegando… tocca per la pausa"; });
+  a.addEventListener("pause", () => { ic.innerHTML = PLAY; b.classList.remove("spv-va"); if (!a.ended) sub.textContent = "In pausa · tocca per continuare"; });
+  a.addEventListener("timeupdate", () => { if (a.duration) pr.style.width = (a.currentTime / a.duration * 100) + "%"; });
+  a.addEventListener("ended", () => {
+    sub.textContent = "Tocca per riascoltare"; pr.style.width = "0";
+    const c = document.querySelector(".cta a") || document.querySelector(".cta");
+    if (c) { c.classList.remove("spv-richiamo"); void c.offsetWidth; c.classList.add("spv-richiamo"); }
+  });
+})();
+</script>
 </body>
 </html>
