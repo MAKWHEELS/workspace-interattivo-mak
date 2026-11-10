@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Refill MULTIsens MATE</title>
-<meta name="description" content="Refill sensori TPMS MATE MULTIsens MP6: da 20,40 € a 15,90 € cad. + IVA a pacchetto, minimo 20 pezzi anche misti. Scegli i pezzi e mandami l'ordine su WhatsApp.">
+<meta name="description" content="Refill sensori TPMS MATE MULTIsens MP6: da 20,40 € a 15,90 € cad. IVA esclusa a pacchetto, minimo 20 pezzi anche misti. Scegli i pezzi e mandami l'ordine su WhatsApp.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Refill MULTIsens · 15,90 € cad. + IVA da 20 pezzi">
+<meta property="og:title" content="Refill MULTIsens · 15,90 € cad. IVA esclusa da 20 pezzi">
 <meta property="og:description" content="Sensori TPMS MATE MULTIsens MP6 universali: da 20,40 € a 15,90 € a pacchetto. Scegli i pezzi e ordina su WhatsApp.">
 <meta property="og:image" content="https://makwheels.github.io/workspace-interattivo-mak/ivan/refill-multisens/anteprima.jpg">
 <meta property="og:image:width" content="1200">
@@ -143,7 +143,7 @@ footer b{color:var(--ink)}
 <div class="wrap">
 
 <div class="hero">
-  <img src="locandina.jpg" alt="MATE Refill 20 pezzi: sensori TPMS MULTIsens MP6 universali da 20,40 euro a 15,90 euro cadauno più IVA a pacchetto, minimo 20 pezzi anche misti. Si programmano con MATE MA41" width="1620" height="2025">
+  <img src="locandina.jpg" alt="MATE Refill 20 pezzi: sensori TPMS MULTIsens MP6 universali da 20,40 euro a 15,90 euro cadauno IVA esclusa a pacchetto, minimo 20 pezzi anche misti. Si programmano con MATE MA41" width="1620" height="2025">
 </div>
 <div class="spv">
   <button type="button" id="spvBtn" aria-label="Spiegami a voce la promo">
@@ -156,9 +156,9 @@ footer b{color:var(--ink)}
 
 <section>
   <div class="salto" id="salto">
-    <div class="box singolo"><small>Acquisto singolo</small><b>€ 20,40</b><em>cad. + IVA</em></div>
+    <div class="box singolo"><small>Acquisto singolo</small><b>€ 20,40</b><em>cad. IVA esclusa</em></div>
     <div class="fr">→</div>
-    <div class="box pacchetto"><small>A pacchetto da 20</small><b>€ 15,90<i>cad.</i></b><em>+ IVA · minimo 20 pezzi totali</em></div>
+    <div class="box pacchetto"><small>A pacchetto da 20</small><b>€ 15,90<i>cad.</i></b><em>IVA esclusa · minimo 20 pezzi totali</em></div>
   </div>
   <p class="risp">Risparmi <b>4,50 € a sensore</b> · <b>90 € ogni 20 pezzi</b></p>
 </section>
@@ -175,7 +175,7 @@ footer b{color:var(--ink)}
     </div>
     <div class="barra" id="barra"><i></i></div>
     <div class="stato" id="stato"></div>
-    <div class="totale"><span id="totTesto">Totale indicativo + IVA</span><b id="tot">–</b></div>
+    <div class="totale"><span id="totTesto">Totale indicativo IVA esclusa</span><b id="tot">–</b></div>
     <label class="f" for="officina">Officina (facoltativo)</label>
     <input type="text" id="officina" placeholder="Nome dell'officina" autocomplete="organization">
   </div>
@@ -184,7 +184,7 @@ footer b{color:var(--ink)}
 
 <section>
   <h2>Valvole di <em>ricambio</em></h2>
-  <p class="sub">Le scatoline con 4 valvole per cambiare la valvola al sensore, una per versione. 10,00 € + IVA a kit. Non contano per i 20 pezzi del refill.</p>
+  <p class="sub">Le scatoline con 4 valvole per cambiare la valvola al sensore, una per versione. 10,00 € IVA esclusa a kit. Non contano per i 20 pezzi del refill.</p>
   <div class="card ric" id="ricambi"></div>
 </section>
 
@@ -219,9 +219,9 @@ const SENSORI = [
   {cod:"930000MP6M", nome:"Metal Silver", desc:"valvola metallo silver", img:"mp6-silver.png"}
 ];
 const RICAMBI = [
-  {cod:"9300000RKR", nome:"Rubber", desc:"kit 4 valvole in gomma · 10,00 € + IVA", img:"9300000RKR.jpg"},
-  {cod:"9300000SKM", nome:"Metal Black", desc:"kit 4 valvole metallo nere · 10,00 € + IVA", img:"9300000SKM.jpg"},
-  {cod:"9300000RKM", nome:"Metal Silver", desc:"kit 4 valvole metallo · 10,00 € + IVA", img:"9300000RKM.jpg"}
+  {cod:"9300000RKR", nome:"Rubber", desc:"kit 4 valvole in gomma · 10,00 € IVA esclusa", img:"9300000RKR.jpg"},
+  {cod:"9300000SKM", nome:"Metal Black", desc:"kit 4 valvole metallo nere · 10,00 € IVA esclusa", img:"9300000SKM.jpg"},
+  {cod:"9300000RKM", nome:"Metal Silver", desc:"kit 4 valvole metallo · 10,00 € IVA esclusa", img:"9300000RKM.jpg"}
 ];
 const PROMO = {minimo: 20, refill: 15.90, singolo: 20.40, telefono: "393338012609"};
 
@@ -283,15 +283,15 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!n) {
       $("stato").textContent = "0 pezzi su 20 minimi";
       $("tot").textContent = "–";
-      $("totTesto").textContent = "Totale indicativo + IVA";
+      $("totTesto").textContent = "Totale indicativo IVA esclusa";
     } else if (!ok) {
       $("stato").textContent = n + " pezzi: ne mancano " + (PROMO.minimo - n) + " per il prezzo refill";
       $("tot").textContent = euro(n * PROMO.singolo);
-      $("totTesto").textContent = n + " × 20,40 € (prezzo singolo) + IVA";
+      $("totTesto").textContent = n + " × 20,40 € (prezzo singolo) IVA esclusa";
     } else {
       $("stato").textContent = "✓ " + n + " pezzi: prezzo refill a 15,90 € cad.";
       $("tot").textContent = euro(n * PROMO.refill);
-      $("totTesto").textContent = n + " × 15,90 € + IVA · risparmi " + euro(n * (PROMO.singolo - PROMO.refill));
+      $("totTesto").textContent = n + " × 15,90 € IVA esclusa · risparmi " + euro(n * (PROMO.singolo - PROMO.refill));
     }
     if (n) {
       $("ordine").classList.remove("salta");
@@ -309,12 +309,12 @@ document.addEventListener("DOMContentLoaded", () => {
       testo = "Ciao Ivan, vorrei ordinare il *Refill MATE MULTIsens MP6*:\n" +
         SENSORI.map((s, i) => pz[i] ? "• " + s.cod + " " + s.nome + ": " + pz[i] + " pz" : "").filter(Boolean).join("\n") +
         "\nTotale: " + n + " pz" +
-        (n >= PROMO.minimo ? " a 15,90 € cad. + IVA" : " (sotto il minimo di 20 per il prezzo refill)") +
-        (rk.length ? "\n\nValvole di ricambio:\n" + rk.join("\n") + "\nTotale ricambi: " + euro(totKit()) + " + IVA" : "") +
+        (n >= PROMO.minimo ? " a 15,90 € cad. IVA esclusa" : " (sotto il minimo di 20 per il prezzo refill)") +
+        (rk.length ? "\n\nValvole di ricambio:\n" + rk.join("\n") + "\nTotale ricambi: " + euro(totKit()) + " IVA esclusa" : "") +
         "\n\nOfficina: " + off;
       etichetta = n >= PROMO.minimo ? "Invia l'ordine su WhatsApp" : "Invia (ne mancano " + (PROMO.minimo - n) + " al refill)";
     } else if (rk.length) {
-      testo = "Ciao Ivan, vorrei ordinare le valvole di ricambio MATE MULTIsens:\n" + rk.join("\n") + "\nTotale: " + euro(totKit()) + " + IVA\n\nOfficina: " + $("officina").value.trim();
+      testo = "Ciao Ivan, vorrei ordinare le valvole di ricambio MATE MULTIsens:\n" + rk.join("\n") + "\nTotale: " + euro(totKit()) + " IVA esclusa\n\nOfficina: " + $("officina").value.trim();
       etichetta = "Invia l'ordine su WhatsApp";
     } else {
       testo = "Ciao Ivan, ho visto la promo Refill MATE MULTIsens a 15,90 €. Mi dai qualche informazione?";

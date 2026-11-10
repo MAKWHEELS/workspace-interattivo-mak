@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>AdBlue MAK</title>
-<meta name="description" content="AdBlue by Azotal da MAK: confezioni da 200, 750, 800 e 1.000 litri, da 215 € a 645 € + IVA. Scegli i bancali e mandami l'ordine su WhatsApp.">
+<meta name="description" content="AdBlue by Azotal da MAK: confezioni da 200, 750, 800 e 1.000 litri, da 215 € a 645 € IVA esclusa. Scegli i bancali e mandami l'ordine su WhatsApp.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="AdBlue by Azotal · dal fustino alla cisterna">
 <meta property="og:description" content="200, 750, 800 e 1.000 litri: più litri, meno costa al litro. Scegli i bancali e ordina su WhatsApp.">
@@ -165,7 +165,7 @@ footer b{color:var(--ink)}
       <div><span>Merce</span><span id="merce"></span></div>
       <div><span id="trTesto">Trasporto</span><span id="tr"></span></div>
     </div>
-    <div class="totale"><span id="totTesto">Totale + IVA</span><b id="tot">–</b></div>
+    <div class="totale"><span id="totTesto">Totale IVA esclusa</span><b id="tot">–</b></div>
     <label class="f" for="officina">Officina (facoltativo)</label>
     <input type="text" id="officina" placeholder="Nome dell'officina" autocomplete="organization">
   </div>
@@ -260,7 +260,7 @@ document.addEventListener("DOMContentLoaded", () => {
       $("trTesto").textContent = "Trasporto Nord e Toscana (" + k.bancali + " × 30 €)";
       $("tr").textContent = euro(k.tr);
       $("tot").textContent = euro(k.merce + k.tr);
-      $("totTesto").textContent = litri(k.l) + " · totale + IVA";
+      $("totTesto").textContent = litri(k.l) + " · totale IVA esclusa";
       $("ordine").classList.remove("salta");
       void $("ordine").offsetWidth;
       $("ordine").classList.add("salta");
@@ -268,7 +268,7 @@ document.addEventListener("DOMContentLoaded", () => {
       $("riep").textContent = "Nessuna confezione scelta: metti i bancali qui sopra.";
       $("conti").hidden = true;
       $("tot").textContent = "–";
-      $("totTesto").textContent = "Totale + IVA";
+      $("totTesto").textContent = "Totale IVA esclusa";
     }
     aggiornaWa();
   }
@@ -280,7 +280,7 @@ document.addEventListener("DOMContentLoaded", () => {
       testo = "Ciao Silvana, vorrei ordinare *AdBlue by Azotal*:\n" +
         k.s.map(x => "• " + x.n + " × " + x.c.cod + " " + x.c.nome + " (" + x.c.dett + ") · " + euro(x.c.prezzo)).join("\n") +
         "\nTotale: " + litri(k.l) + ", " + k.bancali + (k.bancali === 1 ? " bancale" : " bancali") +
-        ", merce " + euro(k.merce) + " + trasporto " + euro(k.tr) + " = " + euro(k.merce + k.tr) + " + IVA" +
+        ", merce " + euro(k.merce) + " + trasporto " + euro(k.tr) + " = " + euro(k.merce + k.tr) + " IVA esclusa" +
         "\n\nOfficina: " + $("officina").value.trim();
       etichetta = "Invia l'ordine su WhatsApp";
     } else {

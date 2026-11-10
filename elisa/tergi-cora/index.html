@@ -142,7 +142,7 @@ footer b{color:var(--ink)}
 <div class="wrap">
 
 <div class="hero">
-  <img src="locandina.jpg" alt="Spazzole tergi CO.RA. TotalFit a −60% sul listino con espositore da muro incluso: kit 70 a 327,20 euro, kit 140 a 671,46 euro più IVA" width="1620" height="2025">
+  <img src="locandina.jpg" alt="Spazzole tergi CO.RA. TotalFit a −60% sul listino con espositore da muro incluso: kit 70 a 327,20 euro, kit 140 a 671,46 euro IVA esclusa" width="1620" height="2025">
   <div class="pioggia" id="pioggia"></div>
 </div>
 <div class="spv">
@@ -176,7 +176,7 @@ footer b{color:var(--ink)}
     <label class="f2" for="officina">Officina (facoltativo)</label>
     <input type="text" id="officina" placeholder="Nome dell'officina" autocomplete="organization">
   </div>
-  <p class="nota">Prezzi netti + IVA, listino CO.RA. del 1/5/2025. Le quantità diverse dalla composizione della promo te le confermo io.</p>
+  <p class="nota">Prezzi netti IVA esclusa, listino CO.RA. del 1/5/2025. Le quantità diverse dalla composizione della promo te le confermo io.</p>
 </section>
 
 <section>
@@ -287,7 +287,7 @@ document.addEventListener("DOMContentLoaded", () => {
       : n === obiettivo ? "✓ " + n + " spazzole, come la promo " + promo + "."
       : "✓ " + n + " spazzole: " + (n - obiettivo) + " in più della promo " + promo + ".";
     $("tot").textContent = n ? euro(tot) : "–";
-    $("totTesto").innerHTML = n ? "Promo " + promo + " · " + n + " spazzole + espositore, + IVA<br><em>Risparmi " + euro(list - tot) + " sul listino</em>" : "Totale + IVA";
+    $("totTesto").innerHTML = n ? "Promo " + promo + " · " + n + " spazzole + espositore, IVA esclusa<br><em>Risparmi " + euro(list - tot) + " sul listino</em>" : "Totale IVA esclusa";
     if (!primo && !tutto) { $("ordine").classList.remove("salta"); void $("ordine").offsetWidth; $("ordine").classList.add("salta"); }
     primo = false;
     aggiornaWa();
@@ -302,7 +302,7 @@ document.addEventListener("DOMContentLoaded", () => {
       testo = "Ciao Elisa, vorrei la *promo " + promo + " spazzole tergi CO.RA. TotalFit* (" + PROMO[promo].testo + ") con espositore da muro:\n" +
         s.map(c => "• " + c[0] + " (" + c[1] + " mm): " + q[c[0]] + " pz").join("\n") +
         "\n• EXPOTERGIMURO espositore: 1 pz (incluso)" +
-        "\nTotale: " + n + " spazzole, " + euro(tot) + " + IVA" +
+        "\nTotale: " + n + " spazzole, " + euro(tot) + " IVA esclusa" +
         "\n\nOfficina: " + $("officina").value.trim();
       etichetta = "Ordina la promo " + promo + " su WhatsApp";
     } else {

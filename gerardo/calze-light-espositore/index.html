@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Starter kit calze NPK</title>
-<meta name="description" content="Starter kit NPK: 10 paia di calze da neve Multigrip Light con le taglie che scegli tu + espositore da banco a 188,40 € + IVA. Trova la taglia dalla misura del pneumatico e ordina su WhatsApp.">
+<meta name="description" content="Starter kit NPK: 10 paia di calze da neve Multigrip Light con le taglie che scegli tu + espositore da banco a 188,40 € IVA esclusa. Trova la taglia dalla misura del pneumatico e ordina su WhatsApp.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Starter kit calze NPK · 10 paia Light + espositore a 188,40 € + IVA">
+<meta property="og:title" content="Starter kit calze NPK · 10 paia Light + espositore a 188,40 € IVA esclusa">
 <meta property="og:description" content="Metti la misura del pneumatico, trovi la taglia, componi il tuo kit da 10 paia e me lo mandi su WhatsApp.">
 <meta property="og:image" content="https://makwheels.github.io/workspace-interattivo-mak/gerardo/calze-light-espositore/anteprima.jpg">
 <meta property="og:image:width" content="1200">
@@ -150,7 +150,7 @@ footer b{color:var(--ink)}
 <div class="wrap">
 
 <div class="hero">
-  <img src="locandina.jpg" alt="Starter kit NPK: 10 paia di calze da neve Multigrip Light con taglie a scelta più espositore da banco a 188,40 euro più IVA, 18,84 euro a paio" width="1620" height="2025">
+  <img src="locandina.jpg" alt="Starter kit NPK: 10 paia di calze da neve Multigrip Light con taglie a scelta più espositore da banco a 188,40 euro IVA esclusa, 18,84 euro a paio" width="1620" height="2025">
   <div class="fiocchi" id="fiocchi"></div>
 </div>
 <div class="spv">
@@ -186,7 +186,7 @@ footer b{color:var(--ink)}
       <button type="button" class="mix" id="mix">Mix più ordinato</button>
       <button type="button" id="azzera">Azzera</button>
     </div>
-    <div class="totale"><span id="totTesto">Kit completo: 10 paia + espositore, + IVA</span><b id="tot">188,40 €</b></div>
+    <div class="totale"><span id="totTesto">Kit completo: 10 paia + espositore, IVA esclusa</span><b id="tot">188,40 €</b></div>
     <label class="f" for="officina">Officina (facoltativo)</label>
     <input type="text" id="officina" placeholder="Nome dell'officina" autocomplete="organization">
   </div>
@@ -328,7 +328,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const n = totale();
     let testo, etichetta;
     if (n) {
-      testo = "Ciao Gerardo, vorrei lo *Starter kit calze NPK Light + espositore* (188,40 € + IVA):\n" +
+      testo = "Ciao Gerardo, vorrei lo *Starter kit calze NPK Light + espositore* (188,40 € IVA esclusa):\n" +
         TAGLIE.filter(t => q[t]).map(t => "• Taglia " + t + " (" + codice(t) + "): " + q[t] + (q[t] === 1 ? " paio" : " paia") + (misure[t].size ? " · " + [...misure[t]].join(", ") : "")).join("\n") +
         "\nTotale: " + n + " paia" + (n < KIT.paia ? " (ne mancano " + (KIT.paia - n) + ")" : n > KIT.paia ? " (" + (n - KIT.paia) + " oltre il kit da 10)" : "") +
         "\n\nOfficina: " + $("officina").value.trim();

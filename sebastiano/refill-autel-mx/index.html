@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Refill AUTEL MX</title>
-<meta name="description" content="Refill sensori TPMS AUTEL MX: da 22,45 € a 18,47 € cad. + IVA a pacchetto, minimo 20 pezzi anche misti. Scegli i pezzi e mandami l'ordine su WhatsApp.">
+<meta name="description" content="Refill sensori TPMS AUTEL MX: da 22,45 € a 18,47 € cad. IVA esclusa a pacchetto, minimo 20 pezzi anche misti. Scegli i pezzi e mandami l'ordine su WhatsApp.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Refill AUTEL MX · 18,47 € cad. + IVA da 20 pezzi">
+<meta property="og:title" content="Refill AUTEL MX · 18,47 € cad. IVA esclusa da 20 pezzi">
 <meta property="og:description" content="Sensori TPMS AUTEL MX universali: da 22,45 € a 18,47 € a pacchetto. Scegli i pezzi e ordina su WhatsApp.">
 <meta property="og:image" content="https://makwheels.github.io/workspace-interattivo-mak/sebastiano/refill-autel-mx/anteprima.jpg">
 <meta property="og:image:width" content="1200">
@@ -143,7 +143,7 @@ footer b{color:var(--ink)}
 <div class="wrap">
 
 <div class="hero">
-  <img src="locandina.jpg" alt="MATE Refill 20 pezzi: sensori TPMS AUTEL MX universali da 22,45 euro a 18,47 euro cadauno più IVA a pacchetto, minimo 20 pezzi anche misti. Si programmano con AUTEL TS508 WF" width="1620" height="2025">
+  <img src="locandina.jpg" alt="MATE Refill 20 pezzi: sensori TPMS AUTEL MX universali da 22,45 euro a 18,47 euro cadauno IVA esclusa a pacchetto, minimo 20 pezzi anche misti. Si programmano con AUTEL TS508 WF" width="1620" height="2025">
 </div>
 <div class="spv">
   <button type="button" id="spvBtn" aria-label="Spiegami a voce la promo">
@@ -156,9 +156,9 @@ footer b{color:var(--ink)}
 
 <section>
   <div class="salto" id="salto">
-    <div class="box singolo"><small>Acquisto singolo</small><b>€ 22,45</b><em>cad. + IVA</em></div>
+    <div class="box singolo"><small>Acquisto singolo</small><b>€ 22,45</b><em>cad. IVA esclusa</em></div>
     <div class="fr">→</div>
-    <div class="box pacchetto"><small>A pacchetto da 20</small><b>€ 18,47<i>cad.</i></b><em>+ IVA · minimo 20 pezzi totali</em></div>
+    <div class="box pacchetto"><small>A pacchetto da 20</small><b>€ 18,47<i>cad.</i></b><em>IVA esclusa · minimo 20 pezzi totali</em></div>
   </div>
   <p class="risp">Risparmi <b>3,98 € a sensore</b> · <b>79,60 € ogni 20 pezzi</b></p>
 </section>
@@ -175,7 +175,7 @@ footer b{color:var(--ink)}
     </div>
     <div class="barra" id="barra"><i></i></div>
     <div class="stato" id="stato"></div>
-    <div class="totale"><span id="totTesto">Totale indicativo + IVA</span><b id="tot">–</b></div>
+    <div class="totale"><span id="totTesto">Totale indicativo IVA esclusa</span><b id="tot">–</b></div>
     <label class="f" for="officina">Officina (facoltativo)</label>
     <input type="text" id="officina" placeholder="Nome dell'officina" autocomplete="organization">
   </div>
@@ -184,7 +184,7 @@ footer b{color:var(--ink)}
 
 <section>
   <h2>Valvole di <em>ricambio</em></h2>
-  <p class="sub">Le scatoline con 4 valvole per cambiare la valvola al sensore, una per versione. 13,50 € + IVA a kit. Non contano per i 20 pezzi del refill.</p>
+  <p class="sub">Le scatoline con 4 valvole per cambiare la valvola al sensore, una per versione. 13,50 € IVA esclusa a kit. Non contano per i 20 pezzi del refill.</p>
   <div class="card ric" id="ricambi"></div>
 </section>
 
@@ -219,9 +219,9 @@ const SENSORI = [
   {cod:"93000000MX", nome:"Metal Silver", desc:"valvola metallo silver", img:"mx-silver.png"}
 ];
 const RICAMBI = [
-  {cod:"930000ASKR", nome:"Rubber", desc:"kit 4 valvole in gomma · 13,50 € + IVA", img:"930000ASKR.jpg"},
-  {cod:"930000ASKM", nome:"Metal Black", desc:"kit 4 valvole metallo nero · 13,50 € + IVA", img:"930000ASKM.jpg"},
-  {cod:"9300000KAM", nome:"Metal Silver", desc:"kit 4 valvole metallo · 13,50 € + IVA", img:"9300000KAM.jpg"}
+  {cod:"930000ASKR", nome:"Rubber", desc:"kit 4 valvole in gomma · 13,50 € IVA esclusa", img:"930000ASKR.jpg"},
+  {cod:"930000ASKM", nome:"Metal Black", desc:"kit 4 valvole metallo nero · 13,50 € IVA esclusa", img:"930000ASKM.jpg"},
+  {cod:"9300000KAM", nome:"Metal Silver", desc:"kit 4 valvole metallo · 13,50 € IVA esclusa", img:"9300000KAM.jpg"}
 ];
 const PREZZO_KIT = 13.50;
 const PROMO = {minimo: 20, refill: 18.47, singolo: 22.45, telefono: "393423535576"};
@@ -284,15 +284,15 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!n) {
       $("stato").textContent = "0 pezzi su 20 minimi";
       $("tot").textContent = "–";
-      $("totTesto").textContent = "Totale indicativo + IVA";
+      $("totTesto").textContent = "Totale indicativo IVA esclusa";
     } else if (!ok) {
       $("stato").textContent = n + " pezzi: ne mancano " + (PROMO.minimo - n) + " per il prezzo refill";
       $("tot").textContent = euro(n * PROMO.singolo);
-      $("totTesto").textContent = n + " × 22,45 € (prezzo singolo) + IVA";
+      $("totTesto").textContent = n + " × 22,45 € (prezzo singolo) IVA esclusa";
     } else {
       $("stato").textContent = "✓ " + n + " pezzi: prezzo refill a 18,47 € cad.";
       $("tot").textContent = euro(n * PROMO.refill);
-      $("totTesto").textContent = n + " × 18,47 € + IVA · risparmi " + euro(n * (PROMO.singolo - PROMO.refill));
+      $("totTesto").textContent = n + " × 18,47 € IVA esclusa · risparmi " + euro(n * (PROMO.singolo - PROMO.refill));
     }
     if (n) {
       $("ordine").classList.remove("salta");
@@ -310,12 +310,12 @@ document.addEventListener("DOMContentLoaded", () => {
       testo = "Ciao Sebastiano, vorrei ordinare il *Refill AUTEL MX*:\n" +
         SENSORI.map((s, i) => pz[i] ? "• " + s.cod + " " + s.nome + ": " + pz[i] + " pz" : "").filter(Boolean).join("\n") +
         "\nTotale: " + n + " pz" +
-        (n >= PROMO.minimo ? " a 18,47 € cad. + IVA" : " (sotto il minimo di 20 per il prezzo refill)") +
-        (rk.length ? "\n\nValvole di ricambio:\n" + rk.join("\n") + "\nTotale ricambi: " + euro(totKit()) + " + IVA" : "") +
+        (n >= PROMO.minimo ? " a 18,47 € cad. IVA esclusa" : " (sotto il minimo di 20 per il prezzo refill)") +
+        (rk.length ? "\n\nValvole di ricambio:\n" + rk.join("\n") + "\nTotale ricambi: " + euro(totKit()) + " IVA esclusa" : "") +
         "\n\nOfficina: " + off;
       etichetta = n >= PROMO.minimo ? "Invia l'ordine su WhatsApp" : "Invia (ne mancano " + (PROMO.minimo - n) + " al refill)";
     } else if (rk.length) {
-      testo = "Ciao Sebastiano, vorrei ordinare le valvole di ricambio AUTEL MX:\n" + rk.join("\n") + "\nTotale: " + euro(totKit()) + " + IVA\n\nOfficina: " + $("officina").value.trim();
+      testo = "Ciao Sebastiano, vorrei ordinare le valvole di ricambio AUTEL MX:\n" + rk.join("\n") + "\nTotale: " + euro(totKit()) + " IVA esclusa\n\nOfficina: " + $("officina").value.trim();
       etichetta = "Invia l'ordine su WhatsApp";
     } else {
       testo = "Ciao Sebastiano, ho visto la promo Refill AUTEL MX a 18,47 €. Mi dai qualche informazione?";

@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>NPK Super Promo 30+3</title>
-<meta name="description" content="30 kit gonfia e ripara EZ Repair a 18,33 € + IVA l'uno e 3 kit di emergenza EZ Drive in omaggio: 550 € + IVA. Solo fino al 15 novembre.">
+<meta name="description" content="30 kit gonfia e ripara EZ Repair a 18,33 € IVA esclusa l'uno e 3 kit di emergenza EZ Drive in omaggio: 550 € IVA esclusa. Solo fino al 15 novembre.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="NPK 30+3 · 3 EZ Drive in omaggio">
-<meta property="og:description" content="30 EZ Repair a 18,33 € + IVA l'uno, 3 EZ Drive in omaggio: 550 € + IVA. Solo fino al 15 novembre. Guarda quanto ci guadagni e ordina su WhatsApp.">
+<meta property="og:description" content="30 EZ Repair a 18,33 € IVA esclusa l'uno, 3 EZ Drive in omaggio: 550 € IVA esclusa. Solo fino al 15 novembre. Guarda quanto ci guadagni e ordina su WhatsApp.">
 <meta property="og:image" content="https://makwheels.github.io/workspace-interattivo-mak/gianluca/promo-npk-30-3/anteprima.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -144,7 +144,7 @@ footer b{color:var(--ink)}
   <div class="kicker">Super promo <em>del mese</em></div>
   <div class="grande">30<span>+</span>3</div>
   <div class="prod">
-    <figure><img src="ez-repair.webp" alt="Kit gonfia e ripara NPK EZ Repair" width="700" height="638"><figcaption><small>30 × EZ Repair</small><b>18,33 €</b><i>cad. + IVA</i></figcaption></figure>
+    <figure><img src="ez-repair.webp" alt="Kit gonfia e ripara NPK EZ Repair" width="700" height="638"><figcaption><small>30 × EZ Repair</small><b>18,33 €</b><i>cad. IVA esclusa</i></figcaption></figure>
     <figure><img src="ez-drive.webp" alt="Kit di emergenza NPK EZ Drive" width="760" height="596"><figcaption><small>3 × EZ Drive</small><b class="om">OMAGGIO</b><i>kit di emergenza</i></figcaption></figure>
   </div>
 </div>
@@ -171,7 +171,7 @@ footer b{color:var(--ink)}
   <div class="pacco">
     <div class="voce"><span><b>30</b> EZ Repair · kit gonfia e ripara</span><b>18,33 € cad.</b></div>
     <div class="voce"><span><b>3</b> EZ Drive · kit di emergenza</span><b class="om">OMAGGIO</b></div>
-    <div class="totale"><small>Tutto a soli<br>1 pacchetto per cliente</small><b>550 €<span>+ IVA</span></b></div>
+    <div class="totale"><small>Tutto a soli<br>1 pacchetto per cliente</small><b>550 €<span>IVA esclusa</span></b></div>
     <div class="valore">I 3 EZ Drive li hai gratis: al pubblico valgono <b>121 € l'uno</b>, cioè <b>363 €</b> IVA inclusa da incassare in più.</div>
   </div>
 </section>
@@ -180,7 +180,7 @@ footer b{color:var(--ink)}
   <h2>Quanto ci <em>guadagni</em> ↓</h2>
   <p class="sub">Metti il prezzo a cui li rivendi (IVA inclusa). Partiamo dai prezzi al pubblico di noproblemkit.com.</p>
   <div class="calc">
-    <div class="rv"><div><b>EZ Repair</b><small>30 pezzi · a te 18,33 € + IVA</small></div>
+    <div class="rv"><div><b>EZ Repair</b><small>30 pezzi · a te 18,33 € IVA esclusa</small></div>
       <div class="qta"><button type="button" class="meno" data-k="r" aria-label="Abbassa il prezzo di EZ Repair">−</button><output id="pr" aria-live="polite">43 €</output><button type="button" class="piu" data-k="r" aria-label="Alza il prezzo di EZ Repair">+</button></div></div>
     <div class="rv"><div><b>EZ Drive</b><small>3 pezzi · a te gratis</small></div>
       <div class="qta"><button type="button" class="meno" data-k="d" aria-label="Abbassa il prezzo di EZ Drive">−</button><output id="pd" aria-live="polite">121 €</output><button type="button" class="piu" data-k="d" aria-label="Alza il prezzo di EZ Drive">+</button></div></div>
@@ -244,7 +244,7 @@ document.addEventListener("DOMContentLoaded", () => {
     el.textContent = euro(g);
     el.style.color = g > 0 ? "" : "var(--red)";
     if (anima) { el.classList.remove("colpo"); void el.offsetWidth; el.classList.add("colpo"); }
-    $("dett").innerHTML = "Incassi <b>" + euro(incasso) + "</b> + IVA vendendo tutti i 33 kit. " +
+    $("dett").innerHTML = "Incassi <b>" + euro(incasso) + "</b> IVA esclusa vendendo tutti i 33 kit. " +
       "Su ogni EZ Repair ti restano <b>" + euro(unoR) + "</b>, e i 3 EZ Drive sono tutto guadagno: <b>" + euro(N_D * prezzo.d / IVA) + "</b>.";
   }
   document.querySelectorAll(".qta button").forEach(b => b.addEventListener("click", () => {
@@ -277,7 +277,7 @@ document.addEventListener("DOMContentLoaded", () => {
       etichetta = "Chiedimi le promo in corso";
     } else {
       testo = "Ciao " + NOME + ", vorrei ordinare la *Super promo NPK 30+3*:\n" +
-        "• 30 EZ Repair a 18,33 € + IVA l'uno\n• 3 EZ Drive in omaggio\nTotale: 550 € + IVA" +
+        "• 30 EZ Repair a 18,33 € IVA esclusa l'uno\n• 3 EZ Drive in omaggio\nTotale: 550 € IVA esclusa" +
         "\n\nOfficina: " + off;
       etichetta = "Ordina la promo 30+3";
     }

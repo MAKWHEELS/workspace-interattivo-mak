@@ -123,7 +123,7 @@ footer b{color:var(--ink)}
 <div class="wrap">
 
 <div class="hero">
-  <img src="locandina.jpg" alt="Riempi il carrello MAK: 12 articoli per l'officina a prezzi netti più IVA, da aggiungere al prossimo ordine" width="1620" height="2025">
+  <img src="locandina.jpg" alt="Riempi il carrello MAK: 12 articoli per l'officina a prezzi netti IVA esclusa, da aggiungere al prossimo ordine" width="1620" height="2025">
 </div>
 <div class="spv">
   <button type="button" id="spvBtn" aria-label="Spiegami a voce la promo">
@@ -136,7 +136,7 @@ footer b{color:var(--ink)}
 
 <section id="secOrdine">
   <h2>Scegli gli <em>articoli</em></h2>
-  <p class="sub">Prezzi netti + IVA. Metti la quantità di quello che ti serve.</p>
+  <p class="sub">Prezzi netti IVA esclusa. Metti la quantità di quello che ti serve.</p>
   <div class="lista" id="lista"></div>
 </section>
 
@@ -144,7 +144,7 @@ footer b{color:var(--ink)}
   <h2>Il tuo <em>ordine</em></h2>
   <div class="card" id="ordine">
     <div class="riep" id="riep"></div>
-    <div class="totale"><span id="totTesto">Totale + IVA</span><b id="tot">–</b></div>
+    <div class="totale"><span id="totTesto">Totale IVA esclusa</span><b id="tot">–</b></div>
     <button type="button" class="azzera" id="azzera">Azzera</button>
     <label class="f" for="officina">Officina (facoltativo)</label>
     <input type="text" id="officina" placeholder="Nome dell'officina" autocomplete="organization">
@@ -215,14 +215,14 @@ document.addEventListener("DOMContentLoaded", () => {
     if (s.length) {
       $("riep").appendChild(document.createTextNode(s.map(x => x.n + " × " + x.p.nome + " · " + euro(x.n * x.p.prezzo)).join("\n")));
       $("tot").textContent = euro(tot);
-      $("totTesto").innerHTML = s.reduce((a, x) => a + x.n, 0) + " pezzi · totale + IVA" + (risp ? '<br><em>Risparmi ' + euro(risp) + ' sui listini</em>' : "");
+      $("totTesto").innerHTML = s.reduce((a, x) => a + x.n, 0) + " pezzi · totale IVA esclusa" + (risp ? '<br><em>Risparmi ' + euro(risp) + ' sui listini</em>' : "");
       $("ordine").classList.remove("salta");
       void $("ordine").offsetWidth;
       $("ordine").classList.add("salta");
     } else {
       $("riep").textContent = "Nessun articolo scelto: metti le quantità qui sopra.";
       $("tot").textContent = "–";
-      $("totTesto").textContent = "Totale + IVA";
+      $("totTesto").textContent = "Totale IVA esclusa";
     }
     aggiornaWa();
   }
@@ -234,7 +234,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const tot = s.reduce((a, x) => a + x.n * x.p.prezzo, 0);
       testo = "Ciao Emil, aggiungi al mio ordine questi articoli *Riempi il carrello*:\n" +
         s.map(x => "• " + x.n + " × " + x.p.cod + " " + x.p.nome + " (" + euro(x.p.prezzo) + ")").join("\n") +
-        "\nTotale: " + euro(tot) + " + IVA" +
+        "\nTotale: " + euro(tot) + " IVA esclusa" +
         "\n\nOfficina: " + $("officina").value.trim();
       etichetta = "Invia l'ordine su WhatsApp";
     } else {

@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>TRK LEAD.CO a pedane</title>
-<meta name="description" content="Ruote truck LEAD.CO 11,75x22,5 ET120 e 9,00x22,5 ET175: 85 € + IVA con 1 pedana, 80 € con 2, poi 1 € di sconto a ruota per ogni pedana aggiunta, fino a 73 € con 9 pedane.">
+<meta name="description" content="Ruote truck LEAD.CO 11,75x22,5 ET120 e 9,00x22,5 ET175: 85 € IVA esclusa con 1 pedana, 80 € con 2, poi 1 € di sconto a ruota per ogni pedana aggiunta, fino a 73 € con 9 pedane.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="TRK LEAD.CO · da 85 a 73 € + IVA a ruota">
+<meta property="og:title" content="TRK LEAD.CO · da 85 a 73 € IVA esclusa a ruota">
 <meta property="og:description" content="Ogni pedana aggiunta, 1 € di sconto a ruota. Fino ad esaurimento merce dedicata. Scegli le pedane, guarda il tuo prezzo e ordina su WhatsApp.">
 <meta property="og:image" content="https://makwheels.github.io/mak-promo/matteo/trk-lead-pedane/anteprima.jpg">
 <meta property="og:image:width" content="1200">
@@ -152,7 +152,7 @@ footer b{color:var(--ink)}
   <audio id="spvAudio" src="../../voce/promo-trk-lead.mp3" preload="none"></audio>
 </div>
 
-<div class="lancio"><b>Da 85 € a 73 € + IVA a ruota</b><span>2 pedane 80 €, poi −1 € a ruota per pedana · max 9</span><em>Fino ad esaurimento merce dedicata per l'offerta… affrettati!</em></div>
+<div class="lancio"><b>Da 85 € a 73 € IVA esclusa a ruota</b><span>2 pedane 80 €, poi −1 € a ruota per pedana · max 9</span><em>Fino ad esaurimento merce dedicata per l'offerta… affrettati!</em></div>
 
 <section id="secOrdine">
   <h2>Componi qui il tuo <em>ordine</em> ↓</h2>
@@ -164,13 +164,13 @@ footer b{color:var(--ink)}
     <div class="testa"><span id="quante" aria-live="polite">Inizia a comporre il tuo ordine partendo da…</span><span class="sconto zero" id="sconto"></span></div>
     <div class="cifra">
       <span class="ora vuoto" id="ora" aria-live="polite">85 €</span>
-      <span class="base"><s id="barrato" hidden>85 €</s><span id="unita">+ IVA a ruota</span></span>
+      <span class="base"><s id="barrato" hidden>85 €</s><span id="unita">IVA esclusa a ruota</span></span>
     </div>
-    <div class="didasc" aria-hidden="true">Prezzo a ruota + IVA, per numero di pedane</div>
+    <div class="didasc" aria-hidden="true">Prezzo a ruota IVA esclusa, per numero di pedane</div>
     <div class="scala" id="scala" aria-hidden="true"></div>
     <div class="nped" id="nped" aria-hidden="true"></div>
     <div class="conti">
-      <div><small>Totale ordine + IVA</small><b id="tot">–</b></div>
+      <div><small>Totale ordine IVA esclusa</small><b id="tot">–</b></div>
       <div class="ris"><small>Risparmi rispetto a 85 €</small><b id="ris">–</b></div>
     </div>
     <div class="spinta" id="spinta"></div>
@@ -280,15 +280,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const sp = $("spinta");
     sp.classList.toggle("max", n >= MAX);
-    if (!n) sp.innerHTML = "Tocca <b>+</b> su un articolo per aggiungere la prima pedana: <b>85 € + IVA</b> a ruota.";
-    else if (n >= MAX) sp.innerHTML = "✓ <b>Prezzo più basso raggiunto: 73 € + IVA a ruota.</b> Hai il massimo di 9 pedane.";
+    if (!n) sp.innerHTML = "Tocca <b>+</b> su un articolo per aggiungere la prima pedana: <b>85 € IVA esclusa</b> a ruota.";
+    else if (n >= MAX) sp.innerHTML = "✓ <b>Prezzo più basso raggiunto: 73 € IVA esclusa a ruota.</b> Hai il massimo di 9 pedane.";
     else {
       const dopo = prezzoPer(n + 1), extra = (ruote + MIN_PEDANA) * (BASE - dopo) - ruote * sc;
       sp.innerHTML = "Con la " + (n + 1) + "ª pedana: <b>" + dopo + " € a ruota</b> su tutto l'ordine e risparmi altri <b>almeno " + euro(extra) + "</b>.";
     }
 
     $("liveN").textContent = n ? parola(n) : "";
-    $("liveP").textContent = p + " € + IVA";
+    $("liveP").textContent = p + " € IVA esclusa";
     $("liveS").textContent = sc ? "− " + sc + " € a ruota" : "";
     mostraLive();
 
@@ -306,11 +306,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const p = prezzoPer(n), ruote = totRuote(), off = $("officina").value.trim();
       testo = "Ciao " + NOME + ", vorrei ordinare l'offerta *TRK LEAD.CO*:\n" +
         ARTICOLI.map((a, i) => ped[i] ? "• " + a.cod + " " + a.nome.replace("×", "x") + ": " + parola(ped[i]) + " (" + ped[i] * a.ruote + " ruote)" : "").filter(Boolean).join("\n") +
-        "\nTotale: " + parola(n) + ", " + ruote + " ruote a " + euro(p) + " + IVA = " + euro(ruote * p) + " + IVA" +
+        "\nTotale: " + parola(n) + ", " + ruote + " ruote a " + euro(p) + " IVA esclusa = " + euro(ruote * p) + " IVA esclusa" +
         "\n\nAzienda: " + off;
       etichetta = "Ordina " + parola(n) + " a " + p + " €";
     } else {
-      testo = "Ciao " + NOME + ", ho visto l'offerta TRK LEAD.CO a pedane, da 85 a 73 € + IVA a ruota. Mi dai qualche informazione?";
+      testo = "Ciao " + NOME + ", ho visto l'offerta TRK LEAD.CO a pedane, da 85 a 73 € IVA esclusa a ruota. Mi dai qualche informazione?";
       etichetta = "Scrivimi su WhatsApp";
     }
     $("wa").href = "https://wa.me/" + TELEFONO + "?text=" + encodeURIComponent(testo);

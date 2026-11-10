@@ -246,9 +246,9 @@ footer b{color:var(--ink)}
   <div class="card" id="rinnovo">
     <label class="f">Cosa vuoi rinnovare</label>
     <div class="voci" id="voci">
-      <input type="checkbox" id="v_agg" value="agg"><label for="v_agg"><span class="sp"></span><span class="t"><b>Aggiornamento TS900</b><small>12 mesi · cod. 7200000029</small></span><span class="p">270 €<i>+IVA</i></span></label>
-      <input type="checkbox" id="v_full" value="full"><label for="v_full"><span class="sp"></span><span class="t"><b>Sblocco Full SGW</b><small>12 mesi · tutte le marche · cod. 7200000046</small></span><span class="p">390 €<i>+IVA</i></span></label>
-      <input type="checkbox" id="v_fca" value="fca"><label for="v_fca"><span class="sp"></span><span class="t"><b>Sblocco FCA + Maserati</b><small id="fcaSub">12 mesi · Stellantis · cod. 7200000012</small></span><span class="p">160 €<i>+IVA</i></span></label>
+      <input type="checkbox" id="v_agg" value="agg"><label for="v_agg"><span class="sp"></span><span class="t"><b>Aggiornamento TS900</b><small>12 mesi · cod. 7200000029</small></span><span class="p">270 €<i>IVA esclusa</i></span></label>
+      <input type="checkbox" id="v_full" value="full"><label for="v_full"><span class="sp"></span><span class="t"><b>Sblocco Full SGW</b><small>12 mesi · tutte le marche · cod. 7200000046</small></span><span class="p">390 €<i>IVA esclusa</i></span></label>
+      <input type="checkbox" id="v_fca" value="fca"><label for="v_fca"><span class="sp"></span><span class="t"><b>Sblocco FCA + Maserati</b><small id="fcaSub">12 mesi · Stellantis · cod. 7200000012</small></span><span class="p">160 €<i>IVA esclusa</i></span></label>
     </div>
     <label class="check"><input type="checkbox" id="v_ctrl"> Non so cosa mi scade: controllamelo tu</label>
 
@@ -267,7 +267,7 @@ footer b{color:var(--ink)}
     <label class="f" for="officina">Officina</label>
     <input type="text" id="officina" autocomplete="organization" placeholder="Nome dell'officina">
 
-    <div class="tot"><span>Totale</span><b id="totale">0,00 €<i>+ IVA</i></b></div>
+    <div class="tot"><span>Totale</span><b id="totale">0,00 €<i>IVA esclusa</i></b></div>
     <p class="nota">Attivazione: aggiornamento entro 7 giorni lavorativi, sblocco SGW entro 10 (tempi MATE). Il Full SGW comprende già FCA.</p>
   </div>
   <p class="nota">Se preferisci, puoi ordinare i codici sul portale B2B scrivendo il numero di serie nelle note del carrello.</p>
@@ -364,7 +364,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function aggiorna() {
     const sc = scelte(), ser = $("seriale").value, ctrl = $("v_ctrl").checked, off = $("officina").value.trim();
     const tot = sc.reduce((s, k) => s + VOCI[k].prezzo, 0);
-    $("totale").innerHTML = euro(tot) + "<i>+ IVA</i>";
+    $("totale").innerHTML = euro(tot) + "<i>IVA esclusa</i>";
 
     const avv = $("serialeAvv");
     avv.className = "avv";
@@ -380,7 +380,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (sc.length || ctrl || ser || foto) {
       testo = "Ciao Ivan, per il mio *AUTEL TS900*:\n" +
         (sc.length ? "vorrei rinnovare\n" + sc.map(k => "• " + VOCI[k].nome + " (" + VOCI[k].codice + ") – " + euro(VOCI[k].prezzo)).join("\n") +
-          "\nTotale " + euro(tot) + " + IVA\n" : "") +
+          "\nTotale " + euro(tot) + " IVA esclusa\n" : "") +
         (ctrl ? "• Controllami tu le scadenze di aggiornamento e SGW\n" : "") +
         "\nNumero di serie: " + (ser || "…") +
         (foto ? "\nFoto dell'etichetta: in allegato" : "") +

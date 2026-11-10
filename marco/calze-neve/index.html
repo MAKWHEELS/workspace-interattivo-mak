@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Calze da neve NPK</title>
-<meta name="description" content="Calze da neve NPK omologate UNI EN 16662-1: The Original 32,24 €, Re-Grip 24,80 €, Multigrip Light 18,60 €, EZ Urban 15,50 € netti al paio + IVA. Metti la misura del pneumatico, trovi taglia e codice di ogni linea e ordini su WhatsApp.">
+<meta name="description" content="Calze da neve NPK omologate UNI EN 16662-1: The Original 32,24 €, Re-Grip 24,80 €, Multigrip Light 18,60 €, EZ Urban 15,50 € netti al paio IVA esclusa. Metti la misura del pneumatico, trovi taglia e codice di ogni linea e ordini su WhatsApp.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Calze da neve NPK · trova la taglia giusta">
-<meta property="og:description" content="Da 15,50 € netti al paio + IVA. Metti la misura del pneumatico: ti dico taglia e prezzo di ogni linea NPK e mi mandi l'ordine su WhatsApp.">
+<meta property="og:description" content="Da 15,50 € netti al paio IVA esclusa. Metti la misura del pneumatico: ti dico taglia e prezzo di ogni linea NPK e mi mandi l'ordine su WhatsApp.">
 <meta property="og:image" content="https://makwheels.github.io/workspace-interattivo-mak/marco/calze-neve/anteprima.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -148,7 +148,7 @@ footer b{color:var(--ink)}
 <div class="wrap">
 
 <div class="hero">
-  <img src="locandina.jpg" alt="Calze da neve NPK omologate UNI EN 16662-1, netti al paio più IVA: The Original 32,24 euro, Re-Grip 24,80 euro, Multigrip Light 18,60 euro, EZ Urban 15,50 euro" width="1296" height="1620">
+  <img src="locandina.jpg" alt="Calze da neve NPK omologate UNI EN 16662-1, netti al paio IVA esclusa: The Original 32,24 euro, Re-Grip 24,80 euro, Multigrip Light 18,60 euro, EZ Urban 15,50 euro" width="1296" height="1620">
   <div class="fiocchi" id="fiocchi"></div>
 </div>
 <div class="spv">
@@ -279,7 +279,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const taglie = tt[i] ? tt[i].split("/") : [];
       r.className = "es " + (taglie.length ? "ok" : "no");
       r.innerHTML = '<img src="' + li.img + '" alt=""><div class="tx"><b>' + li.nome + '</b>' +
-        (taglie.length ? '<strong>TG.' + taglie.join(" o ") + '</strong> · <em>' + euro(li.prezzo) + ' + IVA</em><br>' + taglie.map(t => li.codici[t]).join(" / ") + (taglie.length > 1 ? '<br>La tabella NPK dà due taglie: scegli tu o chiedimi.' : '')
+        (taglie.length ? '<strong>TG.' + taglie.join(" o ") + '</strong> · <em>' + euro(li.prezzo) + ' IVA esclusa</em><br>' + taglie.map(t => li.codici[t]).join(" / ") + (taglie.length > 1 ? '<br>La tabella NPK dà due taglie: scegli tu o chiedimi.' : '')
                        : 'Misura non in tabella') + '</div><div class="bt"></div>';
       taglie.forEach(t => {
         const b = document.createElement("button");
@@ -341,7 +341,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     const n = paia();
     const imp = [...ord.values()].reduce((a, r) => a + r.q * LINEE[r.i].prezzo, 0);
-    $("tot").textContent = n ? euro(imp) + " + IVA" : "0 paia";
+    $("tot").textContent = n ? euro(imp) + " IVA esclusa" : "0 paia";
     $("totPaia").textContent = n ? n + (n === 1 ? " paio" : " paia") : "";
     if (anima) { $("ordine").classList.remove("salta"); void $("ordine").offsetWidth; $("ordine").classList.add("salta"); }
     aggiornaWa();
@@ -353,7 +353,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (n) {
       testo = "Ciao Marco, vorrei queste *calze da neve NPK*:\n" +
         [...ord.values()].map(r => "• " + LINEE[r.i].nome + " " + etichetta(r.i, r.t) + " (" + LINEE[r.i].codici[r.t] + "): " + r.q + (r.q === 1 ? " paio" : " paia") + " × " + euro(LINEE[r.i].prezzo) + (r.misure.size ? " · " + [...r.misure].join(", ") : "")).join("\n") +
-        "\nTotale: " + n + (n === 1 ? " paio" : " paia") + ", " + euro([...ord.values()].reduce((a, r) => a + r.q * LINEE[r.i].prezzo, 0)) + " + IVA" +
+        "\nTotale: " + n + (n === 1 ? " paio" : " paia") + ", " + euro([...ord.values()].reduce((a, r) => a + r.q * LINEE[r.i].prezzo, 0)) + " IVA esclusa" +
         "\n\nOfficina: " + $("officina").value.trim();
       et = "Invia l'ordine (" + n + (n === 1 ? " paio" : " paia") + ")";
     } else {
@@ -367,7 +367,7 @@ document.addEventListener("DOMContentLoaded", () => {
   /* schede delle linee */
   LINEE.forEach(li => {
     const d = document.createElement("div");
-    d.innerHTML = '<img src="' + li.img + '" alt="' + li.nome + '"><b>' + li.nome + '</b><em>' + li.taglie.length + ' taglie · ' + li.taglie[0] + '–' + li.taglie[li.taglie.length - 1] + '</em><span>' + li.frase + '</span><strong>' + euro(li.prezzo) + '</strong><small>netto al paio + IVA</small>';
+    d.innerHTML = '<img src="' + li.img + '" alt="' + li.nome + '"><b>' + li.nome + '</b><em>' + li.taglie.length + ' taglie · ' + li.taglie[0] + '–' + li.taglie[li.taglie.length - 1] + '</em><span>' + li.frase + '</span><strong>' + euro(li.prezzo) + '</strong><small>netto al paio IVA esclusa</small>';
     $("linee").appendChild(d);
   });
   const schede = [...$("linee").children];

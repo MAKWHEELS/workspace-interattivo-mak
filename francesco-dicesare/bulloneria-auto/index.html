@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Bulloneria per la tua auto · MAK</title>
-<meta name="description" content="Scegli marca, modello e anno: bulloneria originale e kit di montaggio aftermarket MAK per la tua auto, con foto, misure e prezzi netti + IVA. Ordine su WhatsApp.">
+<meta name="description" content="Scegli marca, modello e anno: bulloneria originale e kit di montaggio aftermarket MAK per la tua auto, con foto, misure e prezzi netti IVA esclusa. Ordine su WhatsApp.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Bulloneria e kit di montaggio per la tua auto · MAK">
 <meta property="og:description" content="Originale o aftermarket: scegli marca, modello e anno e ordina su WhatsApp.">
@@ -170,7 +170,7 @@ footer b{color:var(--ink)}
   <h2>Il tuo <em>ordine</em></h2>
   <div class="card" id="ordine">
     <div class="riep" id="riep"></div>
-    <div class="totale"><span id="totTesto">Totale + IVA</span><b id="tot">–</b></div>
+    <div class="totale"><span id="totTesto">Totale IVA esclusa</span><b id="tot">–</b></div>
     <button type="button" class="azzera" id="azzera">Azzera</button>
     <label class="f" for="officina">Officina (facoltativo)</label>
     <input type="text" id="officina" placeholder="Nome dell'officina" autocomplete="organization">
@@ -185,7 +185,7 @@ footer b{color:var(--ink)}
   </div>
 </section>
 
-<footer><img src="logo-mak-nero.svg" alt="MAK"><b>Francesco Di Cesare</b> · Agente MAK · 345 850 3816<br><span id="aggiornato">Prezzi netti + IVA dal portale B2B MAK.</span><br><small>Conteggio anonimo delle visite, senza cookie.</small></footer>
+<footer><img src="logo-mak-nero.svg" alt="MAK"><b>Francesco Di Cesare</b> · Agente MAK · 345 850 3816<br><span id="aggiornato">Prezzi netti IVA esclusa.</span><br><small>Conteggio anonimo delle visite, senza cookie.</small></footer>
 </div>
 
 <div class="cta"><a id="wa" href="#" target="_blank" rel="noopener">
@@ -220,7 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
   fetch(D + "marche.json").then(r => r.json()).then(j => {
     INDICE = j;
     opzioni($("marca"), j.marche.filter(m => m.m.length).map(m => [m.c, m.n]), "Scegli la marca");
-    $("aggiornato").textContent = "Prezzi netti + IVA dal portale B2B MAK, aggiornati al " + j.data.split("-").reverse().join("/") + ".";
+    $("aggiornato").textContent = "Prezzi netti IVA esclusa.";
   }).catch(() => { $("marca").innerHTML = '<option value="">Errore di caricamento: ricarica la pagina</option>'; });
 
   $("marca").addEventListener("change", () => {
@@ -267,7 +267,7 @@ document.addEventListener("DOMContentLoaded", () => {
     d.innerHTML = '<div class="testa"><div class="foto">' + foto + '</div><div><h3>' + esc(a.d) + '</h3><div class="c">' + cod + '</div>' +
       (pcd ? '<span class="pcd">per ruote PCD ' + esc(pcd) + '</span>' : '') + '</div></div>' +
       (righe ? '<ul>' + righe + '</ul>' : '') + chips +
-      '<div class="giu"><span class="pr">' + (a.p ? '<b>' + euro(a.p) + '</b><small>netto + IVA</small>' : '<b style="font-size:20px">Su richiesta</b>') + '</span>' +
+      '<div class="giu"><span class="pr">' + (a.p ? '<b>' + euro(a.p) + '</b><small>netto IVA esclusa</small>' : '<b style="font-size:20px">Su richiesta</b>') + '</span>' +
       '<div class="qta"><button type="button" aria-label="Meno">−</button><input type="number" inputmode="numeric" min="0" max="999" value="' + q[cod] + '" aria-label="Quantità ' + esc(a.d) + '"><button type="button" aria-label="Più">+</button></div></div>';
     const [meno, campo, piu] = d.querySelector(".qta").children;
     meno.addEventListener("click", () => { if (q[cod] > 0) { q[cod]--; aggiorna(); } });
@@ -318,11 +318,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (s.length) {
       $("riep").textContent = s.map(x => x.n + " × " + x.a.d + " · " + (x.a.p ? euro(x.n * x.a.p) : "su richiesta")).join("\n");
       $("tot").textContent = tot ? euro(tot) : "–";
-      $("totTesto").textContent = s.reduce((t, x) => t + x.n, 0) + " pezzi · totale netto + IVA";
+      $("totTesto").textContent = s.reduce((t, x) => t + x.n, 0) + " pezzi · totale netto IVA esclusa";
       $("ordine").classList.remove("salta"); void $("ordine").offsetWidth; $("ordine").classList.add("salta");
     } else {
       $("riep").textContent = "Nessun articolo scelto: metti le quantità nelle schede qui sopra.";
-      $("tot").textContent = "–"; $("totTesto").textContent = "Totale + IVA";
+      $("tot").textContent = "–"; $("totTesto").textContent = "Totale IVA esclusa";
     }
     aggiornaWa();
   }
@@ -334,7 +334,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const tot = s.reduce((t, x) => t + x.n * (x.a.p || 0), 0);
       testo = "Ciao Francesco, per la mia auto " + autoTesto() + " vorrei:\n" +
         s.map(x => "• " + x.n + " × " + x.c + " " + x.a.d + " (" + (x.a.p ? euro(x.a.p) : "prezzo da chiedere") + ")").join("\n") +
-        (tot ? "\nTotale: " + euro(tot) + " + IVA" : "") + "\n\nOfficina: " + off;
+        (tot ? "\nTotale: " + euro(tot) + " IVA esclusa" : "") + "\n\nOfficina: " + off;
       etichetta = "Invia l'ordine su WhatsApp";
     } else if (AUTO) {
       testo = "Ciao Francesco, mi aiuti con la bulloneria per " + autoTesto() + "?" + (off ? "\n\nOfficina: " + off : "");

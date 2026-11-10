@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Copriruota Farad MAK</title>
-<meta name="description" content="Copriruota Farad MAK: kit di 4 da 22,00 € + IVA, Silver e M.Black, 14, 15 e 16 pollici. Scegli e mandami l'ordine su WhatsApp.">
+<meta name="description" content="Copriruota Farad MAK: kit di 4 da 22,00 € IVA esclusa, Silver e M.Black, 14, 15 e 16 pollici. Scegli e mandami l'ordine su WhatsApp.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Copriruota Farad · Kit di 4 da 22,00 € + IVA">
+<meta property="og:title" content="Copriruota Farad · Kit di 4 da 22,00 € IVA esclusa">
 <meta property="og:description" content="Silver e M.Black, 14, 15 e 16 pollici. Scegli colore, misura e quantità e mandami l'ordine su WhatsApp in un tocco.">
 <meta property="og:image" content="https://makwheels.github.io/workspace-interattivo-mak/enrico/copriruota-farad/anteprima.jpg">
 <meta property="og:image:width" content="1200">
@@ -93,7 +93,7 @@ footer b{color:var(--ink)}
 <body>
 <a class="avviso" id="avviso" href="#secOrdine"><span><b>Vuoi ordinare?</b> Scegli colore e misura: l'ordine me lo mandi su WhatsApp</span><i>↓</i></a>
 <div class="wrap">
-<div class="hero"><img src="locandina.jpg" alt="Copriruota Farad MAK, Silver e M.Black. Kit di 4 copricerchi: 14 pollici 22,00 euro, 15 pollici 24,00 euro, 16 pollici 26,00 euro, più IVA" width="1620" height="2025"></div>
+<div class="hero"><img src="locandina.jpg" alt="Copriruota Farad MAK, Silver e M.Black. Kit di 4 copricerchi: 14 pollici 22,00 euro, 15 pollici 24,00 euro, 16 pollici 26,00 euro, IVA esclusa" width="1620" height="2025"></div>
 <div class="spv">
   <button type="button" id="spvBtn" aria-label="Spiegami a voce la promo">
     <span class="spv-ic" id="spvIc"></span>
@@ -102,7 +102,7 @@ footer b{color:var(--ink)}
   <audio id="spvAudio" src="../../voce/copriruota-farad.mp3" preload="none"></audio>
 </div>
 
-<section><div class="prezzo"><b><small>DA</small>22,00 €</b><p><strong>Kit di 4 copricerchi</strong>, Silver o M.Black, nelle misure 14, 15 e 16 pollici. Prezzi + IVA.</p></div></section>
+<section><div class="prezzo"><b><small>DA</small>22,00 €</b><p><strong>Kit di 4 copricerchi</strong>, Silver o M.Black, nelle misure 14, 15 e 16 pollici. Prezzi IVA esclusa.</p></div></section>
 <section id="secOrdine">
   <h2>Scegli <em>colore e misura</em></h2>
   <p class="sub">Con + e − imposti quanti kit vuoi per ogni misura.</p>
@@ -166,7 +166,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (p.length) {
       const t = document.createElement("div");
       t.innerHTML = "<b>Riepilogo</b>\n";
-      t.appendChild(document.createTextNode(p.map(voce).join("\n") + "\nTotale: " + euro(tot) + " + IVA"));
+      t.appendChild(document.createTextNode(p.map(voce).join("\n") + "\nTotale: " + euro(tot) + " IVA esclusa"));
       riep.appendChild(t);
     }
     aggiornaWa(p, tot);
@@ -175,7 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let testo, etichetta;
     if (p.length) {
       testo = "Ciao Enrico, vorrei ordinare i *Copriruota Farad*:\n" + p.map(r => "• " + voce(r)).join("\n") +
-        "\nTotale: " + euro(tot) + " + IVA\n\nOfficina: " + $("officina").value.trim();
+        "\nTotale: " + euro(tot) + " IVA esclusa\n\nOfficina: " + $("officina").value.trim();
       etichetta = "Invia l'ordine su WhatsApp";
     } else {
       testo = "Ciao Enrico, ho visto i Copriruota Farad MAK. Mi dai qualche informazione?";

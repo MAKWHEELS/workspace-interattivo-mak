@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Promo NPK Mix ruotini + sensori + omaggio</title>
-<meta name="description" content="2 kit ruotino NPK fino a 17&quot; + 16 sensori TPMS MATE o Autel a 520 € + IVA, con avvitatore Ingersoll Rand 231 GXP in omaggio. Scegli le auto, il sensore e lo stelo e ordina su WhatsApp.">
+<meta name="description" content="2 kit ruotino NPK fino a 17&quot; + 16 sensori TPMS MATE o Autel a 520 € IVA esclusa, con avvitatore Ingersoll Rand 231 GXP in omaggio. Scegli le auto, il sensore e lo stelo e ordina su WhatsApp.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="PROMO NPK MIX RUOTINI + SENSORI + OMAGGIO · 520 € + IVA">
-<meta property="og:description" content="2 kit ruotino NPK in acciaio fino a 17&quot; (140 € cad.) e 16 sensori TPMS MATE Multisens o Autel MX (15 € cad.): 520 € + IVA, con avvitatore Ingersoll Rand 231 GXP in omaggio. Scegli auto, sensore e stelo e ordina su WhatsApp.">
+<meta property="og:title" content="PROMO NPK MIX RUOTINI + SENSORI + OMAGGIO · 520 € IVA esclusa">
+<meta property="og:description" content="2 kit ruotino NPK in acciaio fino a 17&quot; (140 € cad.) e 16 sensori TPMS MATE Multisens o Autel MX (15 € cad.): 520 € IVA esclusa, con avvitatore Ingersoll Rand 231 GXP in omaggio. Scegli auto, sensore e stelo e ordina su WhatsApp.">
 <meta property="og:image" content="https://makwheels.github.io/workspace-interattivo-mak/emil/promo-npk-mix-sensori/anteprima.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -199,7 +199,7 @@ footer b{color:var(--ink)}
   <div class="contiene">
     <div><b>2</b>kit ruotino NPK<br>fino a 17"</div><i>+</i><div><b>16</b>sensori TPMS<br>MATE o Autel</div>
   </div>
-  <div class="prezzone"><small>Tutto a soli</small><b>520 €<span>+ IVA</span></b></div>
+  <div class="prezzone"><small>Tutto a soli</small><b>520 €<span>IVA esclusa</span></b></div>
   <div class="omaggio"><span>Omaggio</span>Avvitatore Ingersoll Rand 231 GXP</div>
 </div>
 <div class="spv">
@@ -213,7 +213,7 @@ footer b{color:var(--ink)}
 
 <section id="passo1">
   <h2><span class="n" id="n1">1</span><span>Il <em>primo ruotino</em>: scegli l'auto</span></h2>
-  <div class="prezzo"><b>140,00 €</b><small>+ IVA · 1 kit ruotino<br>accessori inclusi</small></div>
+  <div class="prezzo"><b>140,00 €</b><small>IVA esclusa · 1 kit ruotino<br>accessori inclusi</small></div>
   <p class="sub">Kit ruota di scorta in acciaio completo di accessori: sacca, cric, chiave, guanti e antipioggia.</p>
   <div class="box" data-r="0">
     <label class="f" for="marca0">Marca</label>
@@ -228,7 +228,7 @@ footer b{color:var(--ink)}
 
 <section id="passo2">
   <h2><span class="n" id="n2">2</span><span>Il <em>secondo ruotino</em>: scegli l'auto</span></h2>
-  <div class="prezzo"><b>140,00 €</b><small>+ IVA · 1 kit ruotino<br>accessori inclusi</small></div>
+  <div class="prezzo"><b>140,00 €</b><small>IVA esclusa · 1 kit ruotino<br>accessori inclusi</small></div>
   <label class="stessa"><input type="checkbox" id="stessa"> Stesso kit del primo ruotino</label>
   <div class="box" data-r="1">
     <label class="f" for="marca1">Marca</label>
@@ -244,7 +244,7 @@ footer b{color:var(--ink)}
 
 <section id="passo3">
   <h2><span class="n" id="n3">3</span><span>I <em>16 sensori TPMS</em></span></h2>
-  <div class="prezzo"><b>15,00 € cad.</b><small>+ IVA · <b>16 × 15 € = 240 €</b></small></div>
+  <div class="prezzo"><b>15,00 € cad.</b><small>IVA esclusa · <b>16 × 15 € = 240 €</b></small></div>
   <p class="sub">Prima scegli il sensore, poi dividi i 16 pezzi tra i tipi di stelo che ti servono.</p>
   <div class="box">
     <div class="marchi" role="group" aria-label="Scegli il sensore">
@@ -281,9 +281,9 @@ footer b{color:var(--ink)}
   <h2><span>Il tuo <em>ordine</em></span></h2>
   <div class="box riep">
     <div id="voci"></div>
-    <div class="totale"><small>Tutto a soli</small><b>520 €<span>+ IVA</span></b></div>
+    <div class="totale"><small>Tutto a soli</small><b>520 €<span>IVA esclusa</span></b></div>
   </div>
-  <p class="valore">Fuori dall'offerta questi prodotti valgono 700 € + IVA.</p>
+  <p class="valore">Fuori dall'offerta questi prodotti valgono 700 € IVA esclusa.</p>
   <label class="f" for="officina">Nome dell'officina (facoltativo)</label>
   <input type="text" id="officina" autocomplete="organization" placeholder="Es. Gomme Rossi">
 </section>
@@ -457,14 +457,14 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
     const S = SENS[st.m], off = $("officina").value.trim();
-    let t = "Ciao " + NOME + ", vorrei ordinare la *Promo NPK Mix ruotini + sensori + omaggio* (520 € + IVA):\n";
+    let t = "Ciao " + NOME + ", vorrei ordinare la *Promo NPK Mix ruotini + sensori + omaggio* (520 € IVA esclusa):\n";
     const r0 = ruotino(0), r1 = ruotino(1);
     const riga = (q, x) => "• " + q + " kit ruotino " + KIT[x.kit][0] + " (" + KIT[x.kit][1] + ") per " + x.auto + "\n";
     t += r0.kit === r1.kit && r0.auto === r1.auto ? riga(2, r0) : riga(1, r0) + riga(1, r1);
     t += "• 16 sensori TPMS " + S.nome + " a 15 € cad.:\n";
     STELI.filter(([k]) => st.s[k]).forEach(([k, nome]) => { t += "   - " + st.s[k] + " × stelo " + nome.toLowerCase() + " (" + S.codici[k] + ")\n"; });
     t += "• In omaggio: avvitatore Ingersoll Rand 231 GXP\n";
-    t += "Totale: 520 € + IVA\n\nOfficina: " + off;
+    t += "Totale: 520 € IVA esclusa\n\nOfficina: " + off;
     a.href = "https://wa.me/" + TELEFONO + "?text=" + encodeURIComponent(t);
     $("waTesto").textContent = "Ordina la Promo NPK Mix su WhatsApp";
   }

@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Cavalletto EZ JACK 45S · MAK</title>
-<meta name="description" content="Cavalletto ruota universale EZ JACK 45S: sposti l'auto senza le sue ruote. Verifica se monta sulla vettura (PCD e mozzo) e se regge il peso. 239,00 € + IVA, codice 7600000CRU.">
+<meta name="description" content="Cavalletto ruota universale EZ JACK 45S: sposti l'auto senza le sue ruote. Verifica se monta sulla vettura (PCD e mozzo) e se regge il peso. 239,00 € IVA esclusa, codice 7600000CRU.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Cavalletto EZ JACK 45S · 239,00 € + IVA">
+<meta property="og:title" content="Cavalletto EZ JACK 45S · 239,00 € IVA esclusa">
 <meta property="og:description" content="Monta sulla tua vettura? Regge il peso? Verificalo qui e ordina su WhatsApp.">
 <meta property="og:image" content="https://makwheels.github.io/workspace-interattivo-mak/sebastiano/cavalletto-ez-jack-45s/anteprima.jpg">
 <meta property="og:image:width" content="1200">
@@ -159,7 +159,7 @@ footer b{color:var(--ink)}
 <div class="wrap">
 
 <div class="hero">
-  <img src="locandina.jpg" alt="Cavalletto ruota universale EZ JACK 45S: 1.587 kg per ruota, 4 e 5 fori PCD 98-130, foro centrale 77 mm, offset -94 mm. 239,00 euro più IVA, codice B2B 7600000CRU" width="1620" height="2025">
+  <img src="locandina.jpg" alt="Cavalletto ruota universale EZ JACK 45S: 1.587 kg per ruota, 4 e 5 fori PCD 98-130, foro centrale 77 mm, offset -94 mm. 239,00 euro IVA esclusa, codice B2B 7600000CRU" width="1620" height="2025">
 </div>
 <div class="spv">
   <button type="button" id="spvBtn" aria-label="Spiegami a voce la promo">
@@ -250,7 +250,7 @@ footer b{color:var(--ink)}
   <div class="card">
     <div class="riga">
       <img src="foto/ruota.jpg" alt="">
-      <div class="x"><b>EZ JACK 45S</b><small>7600000CRU · 239,00 € + IVA cad.</small></div>
+      <div class="x"><b>EZ JACK 45S</b><small>7600000CRU · 239,00 € IVA esclusa cad.</small></div>
       <div class="qta"><button type="button" id="meno" aria-label="Meno">−</button><input type="number" id="pezzi" inputmode="numeric" min="1" max="99" value="2" aria-label="Pezzi"><button type="button" id="piu" aria-label="Più">+</button></div>
     </div>
     <div class="tot"><span id="totN">2 pezzi · IVA esclusa</span><b id="tot">478,00 €</b></div>
@@ -403,7 +403,7 @@ document.addEventListener("DOMContentLoaded", () => {
   $("officina").addEventListener("input", aggiornaWa);
 
   function aggiornaWa() {
-    let t = "Ciao Sebastiano, vorrei *" + pezzi + " cavallett" + (pezzi === 1 ? "o" : "i") + " EZ JACK 45S* (cod. 7600000CRU, 239,00 € + IVA cad.).";
+    let t = "Ciao Sebastiano, vorrei *" + pezzi + " cavallett" + (pezzi === 1 ? "o" : "i") + " EZ JACK 45S* (cod. 7600000CRU, 239,00 € IVA esclusa cad.).";
     if (ultimaVerifica) t += "\nVettura: " + ultimaVerifica + ".";
     if (ultimoCarico) t += "\nCarico: " + ultimoCarico + ".";
     const o = $("officina").value.trim();

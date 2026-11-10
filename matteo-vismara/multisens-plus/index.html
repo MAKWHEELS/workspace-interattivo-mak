@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MATE MULTIsens+ promo lancio</title>
-<meta name="description" content="Nuovo sensore TPMS universale MATE MULTIsens+, progettato da HUF: promo lancio dal 9 al 22 novembre 2026 a 14,00 € + IVA a sensore, minimo 40 pezzi (560,00 € + IVA, spedizione inclusa). Scegli Rubber, Metal Silver e Metal Black e mandami l'ordine su WhatsApp.">
+<meta name="description" content="Nuovo sensore TPMS universale MATE MULTIsens+, progettato da HUF: promo lancio dal 9 al 22 novembre 2026 a 14,00 € IVA esclusa a sensore, minimo 40 pezzi (560,00 € IVA esclusa, spedizione inclusa). Scegli Rubber, Metal Silver e Metal Black e mandami l'ordine su WhatsApp.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="MATE MULTIsens+ · promo lancio 14,00 € + IVA">
+<meta property="og:title" content="MATE MULTIsens+ · promo lancio 14,00 € IVA esclusa">
 <meta property="og:description" content="Il nuovo sensore TPMS universale MATE, dal 9 al 22 novembre: minimo 40 pezzi, spedizione inclusa. Scegli le versioni e ordina su WhatsApp.">
 <meta property="og:image" content="https://makwheels.github.io/workspace-interattivo-mak/matteo-vismara/multisens-plus/anteprima.jpg">
 <meta property="og:image:width" content="1200">
@@ -142,7 +142,7 @@ footer b{color:var(--ink)}
 <div class="wrap">
 
 <div class="hero">
-  <img src="locandina.jpg" alt="Volantino MAK e MATE: MULTIsens+, il nuovo sensore TPMS universale MATE nelle versioni Rubber, Metal Silver e Metal Black; promo lancio dal 9 al 22 novembre 2026 a 14,00 euro al sensore IVA esclusa, ordine minimo 40 pezzi, totale 560 euro più IVA con spese di spedizione incluse, ordini in multipli di 10 per ciascuna valvola; programmabili con strumenti ATEQ con l'ultimo aggiornamento" width="1067" height="1474">
+  <img src="locandina.jpg" alt="Volantino MAK e MATE: MULTIsens+, il nuovo sensore TPMS universale MATE nelle versioni Rubber, Metal Silver e Metal Black; promo lancio dal 9 al 22 novembre 2026 a 14,00 euro al sensore IVA esclusa, ordine minimo 40 pezzi, totale 560 euro IVA esclusa con spese di spedizione incluse, ordini in multipli di 10 per ciascuna valvola; programmabili con strumenti ATEQ con l'ultimo aggiornamento" width="1067" height="1474">
 </div>
 <div class="spv">
   <button type="button" id="spvBtn" aria-label="Spiegami a voce la promo">
@@ -165,7 +165,7 @@ footer b{color:var(--ink)}
     </div>
     <div class="barra" id="barra"><i></i></div>
     <div class="stato" id="stato"></div>
-    <div class="totale"><span id="totTesto">Totale + IVA</span><b id="tot">–</b></div>
+    <div class="totale"><span id="totTesto">Totale IVA esclusa</span><b id="tot">–</b></div>
     <label class="f" for="officina">Officina (facoltativo)</label>
     <input type="text" id="officina" placeholder="Nome dell'officina" autocomplete="organization">
   </div>
@@ -285,15 +285,15 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!n) {
       $("stato").textContent = "0 pezzi su 40 minimi";
       $("tot").textContent = "–";
-      $("totTesto").textContent = "Totale + IVA";
+      $("totTesto").textContent = "Totale IVA esclusa";
     } else if (!ok) {
       $("stato").textContent = n + " pezzi: ne mancano " + (PROMO.minimo - n) + " per il minimo";
       $("tot").textContent = euro(n * PROMO.prezzo);
-      $("totTesto").textContent = n + " × 14,00 € + IVA (sotto il minimo di 40)";
+      $("totTesto").textContent = n + " × 14,00 € IVA esclusa (sotto il minimo di 40)";
     } else {
       $("stato").textContent = "✓ " + n + " pezzi: minimo raggiunto, spedizione inclusa";
       $("tot").textContent = euro(n * PROMO.prezzo);
-      $("totTesto").textContent = n + " × 14,00 € + IVA, spedizione inclusa";
+      $("totTesto").textContent = n + " × 14,00 € IVA esclusa, spedizione inclusa";
     }
     if (n) { $("ordine").classList.remove("salta"); void $("ordine").offsetWidth; $("ordine").classList.add("salta"); }
     aggiornaWa();
@@ -308,7 +308,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } else if (n) {
       testo = "Ciao Matteo, vorrei la *PROMO LANCIO MATE MULTIsens+* (9–22 novembre):\n" +
         VERSIONI.map((v, i) => pz[i] ? "• MULTIsens+ " + v.nome + ": " + pz[i] + " pz" : "").filter(Boolean).join("\n") +
-        "\nTotale: " + n + " pz × 14,00 € = " + euro(n * PROMO.prezzo) + " + IVA" +
+        "\nTotale: " + n + " pz × 14,00 € = " + euro(n * PROMO.prezzo) + " IVA esclusa" +
         (n >= PROMO.minimo ? ", spedizione inclusa" : " (sotto il minimo di 40)") +
         (fase === "prima" ? "\nLo inserisci appena parte la promo, il 9 novembre." : "") +
         "\n\nOfficina: " + $("officina").value.trim();
