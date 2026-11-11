@@ -90,6 +90,14 @@ select:disabled{opacity:.45}
 .salta{animation:salta .45s}
 @keyframes salta{30%{transform:scale(1.03)}60%{transform:scale(.99)}}
 .nota{font-size:13px;color:var(--mute);margin-top:8px}
+.tipi{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tipi input{position:absolute;opacity:0;pointer-events:none}
+.tipi label{display:block;text-align:center;background:#fff;border:2px solid var(--line);border-radius:12px;padding:12px 6px;font-weight:700;font-size:16px}
+.tipi input:checked+label{border-color:var(--red);color:var(--red)}
+.mis2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.art .usa{font-size:12px;color:var(--mute);margin-top:8px}
+.art .usa b{color:var(--ink)}
+.art .trov{display:inline-block;margin-top:5px;font-size:12px;font-weight:700;background:var(--red);color:#fff;border-radius:20px;padding:2px 9px}
 
 .btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .btn{display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;color:var(--ink);background:var(--card);border-radius:14px;padding:15px 10px;font-weight:600}
@@ -133,7 +141,7 @@ footer b{color:var(--ink)}
 <div class="spv">
   <button type="button" id="spvBtn" aria-label="Spiegami a voce la promo">
     <span class="spv-ic" id="spvIc"></span>
-    <span class="spv-tx"><b>Spiegami a voce</b><small id="spvSub">In 20 secondi · alza il volume</small><span class="spv-pr"><i id="spvPr"></i></span></span>
+    <span class="spv-tx"><b>Spiegami a voce</b><small id="spvSub">In 45 secondi · alza il volume</small><span class="spv-pr"><i id="spvPr"></i></span></span>
   </button>
   <audio id="spvAudio" src="../../voce/bulloneria-auto.mp3" preload="none"></audio>
 </div>
@@ -164,6 +172,24 @@ footer b{color:var(--ink)}
   <p class="sub">Per le ruote aftermarket. Il kit giusto dipende dalla ruota: guarda il PCD e la riga «quando serve».</p>
   <div id="listaAM"></div>
   <p class="link">Ti serve solo l'anello? <a href="../anelli-centraggio/">Anelli di centraggio sciolti →</a></p>
+</section>
+
+<section id="secMis">
+  <h2>Cerca per <em>misura</em></h2>
+  <p class="sub">Hai in mano il dado o il bullone? Scegli diametro × passo e chiave: ad esempio <b>dado 14×1,5 CH21</b> = diametro 14 mm, passo del filetto 1,5 mm, chiave 21.</p>
+  <div class="card">
+    <div class="tipi">
+      <input type="radio" name="tipo" id="tDado" value="dado" checked><label for="tDado">Dado</label>
+      <input type="radio" name="tipo" id="tBull" value="bullone"><label for="tBull">Bullone</label>
+    </div>
+    <div class="mis2">
+      <div><label class="f" for="filetto">Diametro × passo</label><select id="filetto"><option value="">Caricamento…</option></select></div>
+      <div><label class="f" for="chiave">Chiave</label><select id="chiave" disabled><option value="">Tutte</option></select></div>
+    </div>
+    <div id="boxLung" hidden><label class="f" for="lung">Lunghezza del gambo</label><select id="lung"><option value="">Tutte</option></select></div>
+    <div class="info" id="infoMis"></div>
+  </div>
+  <div id="listaMis"></div>
 </section>
 
 <section id="secOrdine" hidden>
@@ -211,7 +237,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let INDICE = null, MARCA = null, DATI = null, AUTO = null;
   const q = {};      // codice -> quantità
   const articoli = {}; // codice -> articolo (della marca caricata)
-  const schede = []; // {cod, el, campo}
+  const schede = []; // {cod, el, campo, origine}
+  const daMis = {};  // codici comparsi nella ricerca per misura
 
   const opzioni = (sel, voci, vuota) => {
     sel.innerHTML = '<option value="">' + vuota + '</option>' + voci.map(([v, t]) => '<option value="' + esc(v) + '">' + esc(t) + '</option>').join("");
@@ -256,8 +283,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (AUTO && window.conta) window.conta("ricerca", (AUTO.marca + " " + AUTO.modello + " " + AUTO.anno).slice(0, 120));
   });
 
-  function scheda(cod, pcd) {
-    const a = DATI.a[cod]; articoli[cod] = a;
+  function scheda(cod, pcd, a, origine, extra) {
+    a = a || DATI.a[cod]; articoli[cod] = a;
     if (!(cod in q)) q[cod] = 0;
     const d = document.createElement("div");
     d.className = "art";
@@ -265,8 +292,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const righe = a.kf ? a.k.map((t, i) => '<li>' + (a.kf[i] ? '<img alt="" loading="lazy" src="' + D + 'foto/' + a.kf[i] + '">' : '<i></i>') + '<span>' + esc(t) + '</span></li>').join("") : "";
     const chips = a.kf ? "" : '<div class="chips">' + a.k.map(t => '<span>' + esc(t) + '</span>').join("") + '</div>';
     d.innerHTML = '<div class="testa"><div class="foto">' + foto + '</div><div><h3>' + esc(a.d) + '</h3><div class="c">' + cod + '</div>' +
-      (pcd ? '<span class="pcd">per ruote PCD ' + esc(pcd) + '</span>' : '') + '</div></div>' +
-      (righe ? '<ul>' + righe + '</ul>' : '') + chips +
+      (pcd ? '<span class="pcd">per ruote PCD ' + esc(pcd) + '</span>' : '') + (extra && extra.trov ? '<span class="trov">' + esc(extra.trov) + '</span>' : '') + '</div></div>' +
+      (righe ? '<ul>' + righe + '</ul>' : '') + chips + (extra && extra.usa ? '<div class="usa">Abbinato sul portale a: <b>' + esc(extra.usa) + '</b></div>' : '') +
       '<div class="giu"><span class="pr">' + (a.p ? '<b>' + euro(a.p) + '</b><small>netto IVA esclusa</small>' : '<b style="font-size:20px">Su richiesta</b>') + '</span>' +
       '<div class="qta"><button type="button" aria-label="Meno">−</button><input type="number" inputmode="numeric" min="0" max="999" value="' + q[cod] + '" aria-label="Quantità ' + esc(a.d) + '"><button type="button" aria-label="Più">+</button></div></div>';
     const [meno, campo, piu] = d.querySelector(".qta").children;
@@ -274,18 +301,27 @@ document.addEventListener("DOMContentLoaded", () => {
     piu.addEventListener("click", () => { if (q[cod] < 999) { q[cod]++; aggiorna(); } });
     campo.addEventListener("focus", () => campo.select());
     campo.addEventListener("input", () => { q[cod] = Math.min(999, Math.max(0, parseInt(campo.value, 10) || 0)); aggiorna(true); });
-    schede.push({cod, el: d, campo});
+    schede.push({cod, el: d, campo, origine: origine || "auto"});
+    if (origine === "mis") daMis[cod] = true;
     return d;
   }
 
   const io = "IntersectionObserver" in window ? new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("vis"); io.unobserve(e.target); } }), {threshold: .1}) : null;
 
+  function togli(origine) {
+    // toglie le schede di una sezione; le quantità restano solo se il codice è ancora in un'altra sezione
+    // quelle prese per misura restano nell'ordine anche cambiando ricerca o auto (si tolgono con Azzera)
+    for (let i = schede.length - 1; i >= 0; i--) if (schede[i].origine === origine) schede.splice(i, 1);
+    Object.keys(q).forEach(k => { if (!schede.some(s => s.cod === k) && !(daMis[k] && q[k] > 0)) delete q[k]; });
+  }
+  const ordineVisibile = () => { $("secOrdine").hidden = !(AUTO || schede.length || Object.values(q).some(n => n > 0)); };
+
   function mostra() {
-    schede.length = 0;
-    Object.keys(q).forEach(k => delete q[k]);  // ordine legato all'auto scelta
+    togli("auto");  // ordine legato all'auto scelta
     $("listaOE").innerHTML = ""; $("listaAM").innerHTML = "";
     const vis = !!AUTO;
-    ["secOE", "secAM", "secOrdine"].forEach(s => $(s).hidden = !vis);
+    ["secOE", "secAM"].forEach(s => $(s).hidden = !vis);
+    ordineVisibile();
     if (!vis) { $("info").textContent = ""; aggiorna(); return; }
     $("info").textContent = AUTO.v.oe.length + AUTO.v.am.length ? "" : "Per questa auto il portale non ha bulloneria a catalogo: scrivimi e la cerco io.";
     if (AUTO.v.oe.length) AUTO.v.oe.forEach(c => $("listaOE").appendChild(scheda(c)));
@@ -301,11 +337,84 @@ document.addEventListener("DOMContentLoaded", () => {
         voci.forEach(([c, pcd]) => $("listaAM").appendChild(scheda(c, pcd)));
       });
     } else $("listaAM").innerHTML = '<div class="vuoto">Nessun kit aftermarket a catalogo per questa auto: chiedimi.</div>';
-    schede.forEach(s => io ? io.observe(s.el) : s.el.classList.add("vis"));
+    schede.forEach(s => s.origine === "auto" && (io ? io.observe(s.el) : s.el.classList.add("vis")));
     aggiorna();
   }
 
+  // ---- ricerca per misura (misure.json: tutti i kit con bulloni o dadi) ----
+  let MIS = null;
+  const tipo = () => document.querySelector('input[name=tipo]:checked').value;
+  const viteTesto = v => (v.t === "dado" ? "Dado" : "Bullone") + " " + v.m + (v.x ? " " + v.x : "") + (v.l ? ", lunghezza " + v.l + " mm" : "") + (v.s ? ", sede " + v.s : "") + (v.ch ? ", chiave " + v.ch : "");
+  const ordNum = (a, b) => parseFloat(a) - parseFloat(b);
+  const viti = () => MIS ? Object.entries(MIS).flatMap(([c, a]) => a.m.map(v => [c, a, v])) : [];
+  const STELLA = "stella";
+
+  function menuMis() {
+    const t = tipo(), v = viti().filter(([, , x]) => x.t === t);
+    const fil = [...new Set(v.map(([, , x]) => x.m))].sort((a, b) => ordNum(a.slice(1), b.slice(1)) || ordNum(a.split("× ")[1].replace(",", "."), b.split("× ")[1].replace(",", ".")));
+    const prima = $("filetto").value;
+    opzioni($("filetto"), fil.map(f => [f, f.replace("M", "") .replace(" × ", " × ")]), "Scegli");
+    if (fil.includes(prima)) $("filetto").value = prima;
+    menuChiave();
+  }
+  function menuChiave() {
+    const t = tipo(), f = $("filetto").value;
+    const v = viti().filter(([, , x]) => x.t === t && x.m === f);
+    const ch = [...new Set(v.map(([, , x]) => x.x === STELLA ? STELLA : x.ch).filter(Boolean))].sort((a, b) => a === STELLA ? 1 : b === STELLA ? -1 : ordNum(a, b));
+    const prima = $("chiave").value;
+    opzioni($("chiave"), ch.map(c => [c, c === STELLA ? "a stella (chiave speciale)" : "CH " + c]), "Tutte");
+    $("chiave").disabled = !f;
+    if (ch.includes(prima)) $("chiave").value = prima;
+    menuLung();
+  }
+  function menuLung() {
+    const t = tipo(), f = $("filetto").value, ch = $("chiave").value;
+    const v = viti().filter(([, , x]) => x.t === t && x.m === f && (!ch || (ch === STELLA ? x.x === STELLA : x.ch === ch)));
+    const l = [...new Set(v.map(([, , x]) => x.l).filter(Boolean))].sort(ordNum);
+    $("boxLung").hidden = t !== "bullone" || !f || l.length < 2;
+    const prima = $("lung").value;
+    opzioni($("lung"), l.map(x => [x, x + " mm"]), "Tutte");
+    if (l.includes(prima)) $("lung").value = prima;
+    risultatiMis();
+  }
+  function risultatiMis() {
+    togli("mis");
+    $("listaMis").innerHTML = "";
+    const t = tipo(), f = $("filetto").value, ch = $("chiave").value, l = $("boxLung").hidden ? "" : $("lung").value;
+    if (!f) { $("infoMis").textContent = ""; ordineVisibile(); aggiorna(); return; }
+    const ok = x => x.t === t && x.m === f && (!ch || (ch === STELLA ? x.x === STELLA : x.ch === ch)) && (!l || x.l === l);
+    const trovati = Object.entries(MIS).filter(([, a]) => a.m.some(ok));
+    $("infoMis").textContent = trovati.length ? trovati.length + (trovati.length === 1 ? " kit contiene" : " kit contengono") + " questa misura." : "Nessun kit a catalogo con questa misura: scrivimi.";
+    [[true, "Bulloneria originale"], [false, "Kit di montaggio aftermarket"]].forEach(([oe, nome]) => {
+      const voci = trovati.filter(([, a]) => !!a.o === oe).sort((x, y) => (x[1].p || 999) - (y[1].p || 999));
+      if (!voci.length) return;
+      const h = document.createElement("div"); h.className = "gruppo"; h.innerHTML = "<b>" + nome + "</b> · " + voci.length;
+      $("listaMis").appendChild(h);
+      voci.forEach(([c, a]) => {
+        const v = a.m.find(ok);
+        const u = a.u.slice(0, 6).join(", ") + (a.u.length > 6 ? " e altre " + (a.u.length - 6) : "");
+        $("listaMis").appendChild(scheda(c, "", a, "mis", {trov: viteTesto(v), usa: u}));
+      });
+    });
+    schede.forEach(s => s.origine === "mis" && (io ? io.observe(s.el) : s.el.classList.add("vis")));
+    ordineVisibile();
+    aggiorna();
+    if (window.conta) window.conta("ricerca", ("misura " + t + " " + f + (ch ? " CH" + ch : "") + (l ? " L" + l : "")).slice(0, 120));
+  }
+  let caricaMis = null;
+  const conMis = fn => () => {
+    if (MIS) return fn();
+    caricaMis = caricaMis || fetch(D + "misure.json").then(r => r.json()).then(j => { MIS = j; });
+    caricaMis.then(fn).catch(() => { $("infoMis").textContent = "Errore di caricamento: ricarica la pagina."; });
+  };
+  document.querySelectorAll('input[name=tipo]').forEach(r => r.addEventListener("change", conMis(menuMis)));
+  $("filetto").addEventListener("change", conMis(menuChiave));
+  $("chiave").addEventListener("change", conMis(menuLung));
+  $("lung").addEventListener("change", conMis(risultatiMis));
+  conMis(menuMis)();
+
   const scelti = () => Object.keys(q).filter(c => q[c] > 0 && articoli[c]).map(c => ({c, n: q[c], a: articoli[c]}));
+  const perMisura = c => daMis[c] && !(AUTO && (AUTO.v.oe.includes(c) || AUTO.v.am.some(([k]) => k === c)));
   const autoTesto = () => AUTO ? AUTO.marca + " " + AUTO.modello + " (" + (AUTO.anno || "") + (AUTO.tipo ? ", Tipo " + AUTO.tipo : "") + ")" : "";
 
   function aggiorna(daTastiera) {
@@ -332,8 +441,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let testo, etichetta;
     if (s.length) {
       const tot = s.reduce((t, x) => t + x.n * (x.a.p || 0), 0);
-      testo = "Ciao Gerardo, per la mia auto " + autoTesto() + " vorrei:\n" +
-        s.map(x => "• " + x.n + " × " + x.c + " " + x.a.d + " (" + (x.a.p ? euro(x.a.p) : "prezzo da chiedere") + ")").join("\n") +
+      testo = "Ciao Gerardo, " + (AUTO && s.some(x => !perMisura(x.c)) ? "per la mia auto " + autoTesto() + " " : "") + "vorrei:\n" +
+        s.map(x => "• " + x.n + " × " + x.c + " " + x.a.d + " (" + (x.a.p ? euro(x.a.p) : "prezzo da chiedere") + ")" + (perMisura(x.c) ? " – cercato per misura" : "")).join("\n") +
         (tot ? "\nTotale: " + euro(tot) + " IVA esclusa" : "") + "\n\nOfficina: " + off;
       etichetta = "Invia l'ordine su WhatsApp";
     } else if (AUTO) {
