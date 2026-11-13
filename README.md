@@ -151,7 +151,7 @@ Rigenera: `python3 _build/build.py`
 
 - Servizio Clienti MATE **392 098 1064**, dal lunedì al venerdì in orario d'ufficio, support@mate-tech.it (scelta di makwheels del 2026-11-03; il cellulare di Pepe non va pubblicato).
 - **Chiama e WhatsApp vanno all'assistenza, non all'agente** («non facciamo assistenza»): `tel:+393920981064` e `wa.me/393920981064`. Nelle copie dei colleghi il numero resta quello; cambiano solo la firma e la riga «Il mio agente MAK» del messaggio.
-- «La procedura della tua auto»: marca → modello → tipi di procedura e link all'app Apprendimento TPMS (`…/mak-tpms-relearn/#/<marca>/<modello>`) e alla scheda MATE in PDF. Dati in `marche.js`, generato da `_build/assistenza-mate-dati.py` da `../mak-tpms-relearn/data/brands.json`: rilanciarlo quando cambia l'app.
+- «La procedura della tua auto»: marca → modello → tipi di procedura e link all'app Apprendimento TPMS (`…/workspace-interattivo-mak/apprendimento-tpms/#/<marca>/<modello>`, copia dell'app MAKWHEELS/mak-tpms-relearn, che è privata) e alla scheda MATE in PDF. Dati in `marche.js`, generato da `_build/assistenza-mate-dati.py` da `../mak-tpms-relearn/data/brands.json`: rilanciarlo quando cambia l'app.
 - «Prepara la richiesta»: strumento, di cosa hai bisogno, officina (il seriale non serve, tolto il 2026-11-03) → messaggio WhatsApp all'assistenza con anche la vettura e l'agente.
 - Locandina: `../Locandine/assistenza-mate/locandina.html` (foto vera MA41 + TS508 da `Video Avatar/Immagini/MATE/`). Anteprima: `_build/anteprima-assistenza-mate.html`; icona: `_build/icona-assistenza-mate.html`.
 
