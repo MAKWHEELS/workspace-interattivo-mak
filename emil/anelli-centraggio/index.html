@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Anelli di centraggio MAK</title>
-<meta name="description" content="Anelli di centraggio aftermarket in plastica: 48 misure con diametro esterno da 60,1 a 74,1, novità 70,1. Trova il codice dal foro del cerchio e dal mozzo della vettura e ordina su WhatsApp.">
+<meta name="description" content="Anelli di centraggio aftermarket in plastica: 63 misure con diametro esterno da 60,1 a 74,1, novità 70,1. Trova il codice dal foro della ruota e dal mozzo della vettura e ordina su WhatsApp.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Anelli di centraggio · 48 misure, novità Ø 70,1">
-<meta property="og:description" content="Foro del cerchio + mozzo della vettura = il codice giusto. Scegli la vettura o la misura e ordina su WhatsApp.">
+<meta property="og:title" content="Anelli di centraggio · 63 misure, novità Ø 70,1">
+<meta property="og:description" content="Foro della ruota + mozzo della vettura = il codice giusto. Scegli la vettura o la misura: prezzi netti e ordine su WhatsApp.">
 <meta property="og:image" content="https://makwheels.github.io/workspace-interattivo-mak/emil/anelli-centraggio/anteprima.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -77,6 +77,9 @@ select:disabled{opacity:.45}
 .ris .cod{font-family:var(--titolo);font-size:30px;line-height:1;padding-top:3px}
 .ris .mis{font-size:14px;color:var(--mute)}
 .ris .mis b{color:var(--ink)}
+.ris .prz{font-size:13px;color:var(--mute);margin-top:2px}
+.ris .prz b{font-family:var(--titolo);font-size:22px;color:var(--red);font-weight:700}
+.riga .x small b.pz{color:var(--red)}
 .ris .az{display:flex;gap:8px;align-items:center;margin-top:10px}
 .ris p{margin:0;font-size:14px;color:var(--mute)}
 .ris p b{color:var(--ink)}
@@ -114,6 +117,8 @@ summary .tag{font-style:normal;font-size:10px;font-weight:700;background:var(--r
 .ord li b{font-family:var(--titolo);font-size:20px;padding-top:2px}
 .ord li span{color:var(--mute);font-size:13px}
 .ord li em{font-style:normal;font-family:var(--titolo);font-size:22px;white-space:nowrap}
+.ord li em{text-align:right}
+.ord li em small{display:block;font-family:var(--testo);font-size:13px;color:var(--mute)}
 .tot{display:flex;justify-content:space-between;align-items:flex-end;margin-top:8px;padding-top:10px;border-top:1px dashed #b9bdc4}
 .tot span{font-size:13px;color:var(--mute)}
 .tot b{font-family:var(--titolo);font-size:34px;line-height:1}
@@ -171,13 +176,14 @@ footer b{color:var(--ink)}
 </head>
 <body>
 <a class="avviso" id="avviso" href="#secTrova">
-  <span><b>Trova l'anello giusto:</b> foro del cerchio + mozzo della vettura</span><i>↓</i>
+  <span><b>Trova l'anello giusto:</b> foro della ruota + mozzo della vettura</span><i>↓</i>
 </a>
 <div class="wrap">
 
 <div class="hero">
-  <img src="locandina.jpg" alt="Anelli di centraggio aftermarket in plastica: 48 misure, diametri esterni 60,1, 65,1, 67,1, 70,1, 72,6, 73,1 e 74,1, novità 70,1" width="1620" height="2025">
+  <img src="locandina.jpg" alt="Anelli di centraggio aftermarket in plastica: 63 misure, diametri esterni 60,1, 65,1, 67,1, 70,1, 72, 72,6, 73,1 e 74,1, novità 70,1" width="1620" height="2025">
   <div class="gira"></div>
+
 </div>
 <div class="spv">
   <button type="button" id="spvBtn" aria-label="Spiegami a voce la promo">
@@ -190,9 +196,9 @@ footer b{color:var(--ink)}
 
 <section id="secTrova">
   <h2>Trova il tuo <em>anello</em></h2>
-  <p class="sub">L'esterno va nel foro del cerchio, l'interno sul mozzo della vettura. Scegli le due misure: ti do il codice.</p>
+  <p class="sub">L'esterno va nel foro della ruota, l'interno sul mozzo della vettura. Scegli le due misure: ti do il codice.</p>
   <div class="card" id="trova">
-    <label class="f"><span class="n">1</span>Foro del cerchio (esterno)</label>
+    <label class="f"><span class="n">1</span>Foro della ruota (esterno)</label>
     <div class="chips" id="esterni"></div>
 
     <label class="f"><span class="n">2</span>Mozzo della vettura (interno)</label>
@@ -202,15 +208,15 @@ footer b{color:var(--ink)}
     </div>
     <p class="mozzoAuto" id="mozzoAuto"></p>
     <p class="oppure">oppure tocca la misura del mozzo</p>
-    <div class="chips int" id="interni"><div class="vuoto" style="grid-column:1/-1">Prima scegli il foro del cerchio.</div></div>
+    <div class="chips int" id="interni"><div class="vuoto" style="grid-column:1/-1">Prima scegli il foro della ruota.</div></div>
 
-    <div class="ris no" id="ris"><p>Scegli il <b>foro del cerchio</b> e il <b>mozzo</b>: qui compare il codice dell'anello.</p></div>
+    <div class="ris no" id="ris"><p>Scegli il <b>foro della ruota</b> e il <b>mozzo</b>: qui compare il codice dell'anello.</p></div>
   </div>
 </section>
 
 <section>
   <h2>Tutta la <em>gamma</em></h2>
-  <p class="sub">48 misure divise per diametro esterno. Metti le quantità direttamente qui.</p>
+  <p class="sub">63 misure divise per diametro esterno. Metti le quantità direttamente qui.</p>
   <div id="gamma"></div>
 </section>
 
@@ -222,7 +228,7 @@ footer b{color:var(--ink)}
     <input type="text" id="officina" placeholder="Nome dell'officina" autocomplete="organization">
     <button type="button" class="azzera" id="azzera" hidden>Svuota l'ordine</button>
   </div>
-  <p class="nota">Gli anelli li trovi anche sul portale B2B. Disponibilità e prezzi te li confermo io.</p>
+  <p class="nota">Prezzi netti cadauno IVA esclusa del portale B2B, aggiornati al 12/11/2026. Gli anelli li trovi anche lì; la disponibilità te la confermo io.</p>
 </section>
 
 <section>
@@ -238,7 +244,7 @@ footer b{color:var(--ink)}
   <h2>Perché <em>servono</em></h2>
   <div class="punti">
     <div><b>Ruota centrata</b>Il peso va sul mozzo, non sui bulloni: niente vibrazioni.</div>
-    <div><b>Cerchi aftermarket</b>Il foro è più grande del mozzo: l'anello riempie lo spazio.</div>
+    <div><b>Ruote aftermarket</b>Il foro è più grande del mozzo: l'anello riempie lo spazio.</div>
     <div><b>Novità 70,1</b>Misura molto richiesta e difficile da trovare: 11 interni.</div>
     <div><b>Gamma completa</b>Da 60,1 a 74,1 di esterno, interni da 54,1 a 72,6.</div>
   </div>
@@ -258,13 +264,14 @@ footer b{color:var(--ink)}
   <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.7a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.2-.2-.5-.3z"/></svg>
   <span id="waTesto">Scrivimi su WhatsApp</span></a></div>
 
-<script src="dati.js"></script>
+<script src="dati.js?v=20261112-3"></script>
 <script>
 const TELEFONO = "393333140092";
 
 document.addEventListener("DOMContentLoaded", () => {
   const $ = id => document.getElementById(id);
   const v = n => String(n).replace(".", ",");
+  const eur = n => typeof n === "number" && !isNaN(n) ? n.toFixed(2).replace(".", ",") + " €" : "—";  /* «—» se il prezzo manca (dati vecchi in cache) */
   const ESTERNI = [...new Set(ANELLI.map(a => a[1]))].sort((a, b) => a - b);
   const PER = {};
   ANELLI.forEach(a => (PER[a[1]] = PER[a[1]] || []).push(a));
@@ -272,7 +279,7 @@ document.addEventListener("DOMContentLoaded", () => {
   ANELLI.forEach(a => q[a[0]] = 0);
   let est = null, intr = null, mozziVett = [];
 
-  /* 1. foro del cerchio */
+  /* 1. foro della ruota */
   ESTERNI.forEach((e, i) => {
     $("esterni").insertAdjacentHTML("beforeend",
       '<input type="radio" name="est" id="e' + i + '" value="' + e + '"><label for="e' + i + '"' + (e === 70.1 ? ' class="nuovo"' : '') + '>' + v(e) +
@@ -315,7 +322,7 @@ document.addEventListener("DOMContentLoaded", () => {
   /* 2b. interni disponibili per l'esterno scelto */
   function disegnaInterni() {
     const box = $("interni");
-    if (!est) { box.innerHTML = '<div class="vuoto" style="grid-column:1/-1">Prima scegli il foro del cerchio.</div>'; return; }
+    if (!est) { box.innerHTML = '<div class="vuoto" style="grid-column:1/-1">Prima scegli il foro della ruota.</div>'; return; }
     box.innerHTML = "";
     PER[est].forEach((a, i) => {
       box.insertAdjacentHTML("beforeend",
@@ -336,10 +343,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const box = $("ris");
     box.className = "ris no";
     if (!est || intr === null) {
-      box.innerHTML = "<p>Scegli il <b>foro del cerchio</b> e il <b>mozzo</b>: qui compare il codice dell'anello.</p>"; return;
+      box.innerHTML = "<p>Scegli il <b>foro della ruota</b> e il <b>mozzo</b>: qui compare il codice dell'anello.</p>"; return;
     }
     if (intr >= est) {
-      box.innerHTML = "<p>Mozzo Ø " + v(intr) + " e foro Ø " + v(est) + ": " + (intr === est ? "<b>l'anello non serve</b>, il cerchio è già centrato sul mozzo." : "<b>il foro del cerchio è più piccolo del mozzo</b>: questo cerchio non va su questa vettura.") + "</p>"; return;
+      box.innerHTML = "<p>Mozzo Ø " + v(intr) + " e foro Ø " + v(est) + ": " + (intr === est ? "<b>l'anello non serve</b>, la ruota è già centrata sul mozzo." : "<b>il foro della ruota è più piccolo del mozzo</b>: questa ruota non va su questa vettura.") + "</p>"; return;
     }
     const a = PER[est].find(x => x[2] === intr);
     if (!a) {
@@ -347,7 +354,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     box.className = "ris ok";
     box.innerHTML = disegnoAnello(est, intr) +
-      '<div><div class="cod">' + a[0] + '</div><div class="mis">Anello <b>' + v(est) + ' × ' + v(intr) + '</b> · plastica</div>' +
+      '<div><div class="cod">' + a[0] + '</div><div class="mis">Anello <b>' + v(est) + ' × ' + v(intr) + '</b> · plastica</div><div class="prz"><b>' + eur(a[3]) + '</b> cad. netto IVA esclusa</div>' +
       '<div class="az"><div class="qta"><button type="button" aria-label="Meno">−</button><input type="number" inputmode="numeric" min="1" max="999" value="' + qRis + '" aria-label="Pezzi"><button type="button" aria-label="Più">+</button></div>' +
       '<button type="button" class="agg">Aggiungi</button></div></div>';
     const [meno, campo, piu] = box.querySelector(".qta").children, agg = box.querySelector(".agg");
@@ -363,15 +370,16 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* gamma completa */
+  function daPrezzo(e) { const p = PER[e].map(a => a[3] || 0), m = Math.min(...p); return (m === Math.max(...p) ? "" : "da ") + eur(m); }
   const righe = {}, badge = {};
   ESTERNI.forEach(e => {
     const d = document.createElement("details");
-    d.innerHTML = '<summary><b>Ø ' + v(e) + '</b>' + (e === 70.1 ? '<em class="tag">NUOVO</em>' : '') + '<span>' + PER[e].length + ' misure · interni ' + v(PER[e][0][2]) + '–' + v(PER[e][PER[e].length - 1][2]) + '</span><i></i></summary>';
+    d.innerHTML = '<summary><b>Ø ' + v(e) + '</b>' + (e === 70.1 ? '<em class="tag">NUOVO</em>' : '') + '<span>' + PER[e].length + ' misure · interni ' + v(PER[e][0][2]) + '–' + v(PER[e][PER[e].length - 1][2]) + ' · ' + daPrezzo(e) + '</span><i></i></summary>';
     badge[e] = d.querySelector("summary i");
     PER[e].forEach(a => {
       const r = document.createElement("div");
       r.className = "riga";
-      r.innerHTML = '<div class="x"><b>' + v(a[1]) + ' × ' + v(a[2]) + '</b><small>' + a[0] + '</small></div>' +
+      r.innerHTML = '<div class="x"><b>' + v(a[1]) + ' × ' + v(a[2]) + '</b><small>' + a[0] + ' · <b class="pz">' + eur(a[3]) + '</b> cad.</small></div>' +
         '<div class="qta"><button type="button" aria-label="Meno">−</button><input type="number" inputmode="numeric" min="0" max="999" aria-label="Pezzi ' + a[0] + '"><button type="button" aria-label="Più">+</button></div>';
       const [meno, campo, piu] = r.querySelector(".qta").children;
       meno.addEventListener("click", () => { if (q[a[0]] > 0) { q[a[0]]--; disegna(); } });
@@ -399,10 +407,10 @@ document.addEventListener("DOMContentLoaded", () => {
       const n = PER[e].reduce((s, a) => s + q[a[0]], 0);
       badge[e].textContent = n + " pz"; badge[e].classList.toggle("on", n > 0);
     });
-    const s = scelti(), n = s.reduce((t, a) => t + q[a[0]], 0);
+    const s = scelti(), n = s.reduce((t, a) => t + q[a[0]], 0), tot = s.reduce((t, a) => t + q[a[0]] * (a[3] || 0), 0);
     $("lista").innerHTML = s.length
-      ? "<ul>" + s.map(a => "<li><span><b>" + v(a[1]) + " × " + v(a[2]) + "</b><br><span>" + a[0] + "</span></span><em>" + q[a[0]] + " pz</em></li>").join("") + "</ul>" +
-        '<div class="tot"><span>' + s.length + (s.length === 1 ? " misura" : " misure") + '</span><b>' + n + ' pz</b></div>'
+      ? "<ul>" + s.map(a => "<li><span><b>" + v(a[1]) + " × " + v(a[2]) + "</b><br><span>" + a[0] + " · " + eur(a[3]) + " cad.</span></span><em>" + q[a[0]] + " pz<br><small>" + eur(q[a[0]] * (a[3] || 0)) + "</small></em></li>").join("") + "</ul>" +
+        '<div class="tot"><span>' + s.length + (s.length === 1 ? " misura" : " misure") + " · " + n + ' pz<br>netto IVA esclusa</span><b>' + eur(tot) + '</b></div>'
       : '<div class="vuoto">Ancora niente: trova l\'anello qui sopra e tocca «Aggiungi», oppure metti le quantità nella gamma.</div>';
     $("azzera").hidden = !s.length;
     if (!primo) { $("ordine").classList.remove("salta"); void $("ordine").offsetWidth; $("ordine").classList.add("salta"); }
@@ -415,12 +423,13 @@ document.addEventListener("DOMContentLoaded", () => {
     let testo, etichetta;
     if (s.length) {
       testo = "Ciao Emil, vorrei questi *anelli di centraggio*:\n" +
-        s.map(a => "• " + a[0] + " (" + v(a[1]) + "x" + v(a[2]) + "): " + q[a[0]] + " pz").join("\n") +
+        s.map(a => "• " + a[0] + " (" + v(a[1]) + "x" + v(a[2]) + "): " + q[a[0]] + " pz x " + eur(a[3]) + " = " + eur(q[a[0]] * (a[3] || 0))).join("\n") +
+        "\nTotale: " + s.reduce((t, a) => t + q[a[0]], 0) + " pz, " + eur(s.reduce((t, a) => t + q[a[0]] * (a[3] || 0), 0)) + " IVA esclusa" +
         "\n\nOfficina: " + $("officina").value.trim();
       etichetta = "Ordina su WhatsApp";
     } else if (est && intr !== null) {
       const vet = $("modello").value !== "" && $("modello").selectedIndex > 0 ? $("marca").value + " " + $("modello").selectedOptions[0].text : "";
-      testo = "Ciao Emil, mi serve un anello di centraggio: foro cerchio Ø " + v(est) + ", mozzo Ø " + v(intr) + (vet ? " (" + vet + ")" : "") + ". Me lo trovi?";
+      testo = "Ciao Emil, mi serve un anello di centraggio: foro ruota Ø " + v(est) + ", mozzo Ø " + v(intr) + (vet ? " (" + vet + ")" : "") + ". Me lo trovi?";
       etichetta = "Chiedimi questo anello";
     } else {
       testo = "Ciao Emil, mi servono degli anelli di centraggio. Mi aiuti a trovare la misura?";
@@ -470,5 +479,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 })();
 </script>
+
 </body>
 </html>
