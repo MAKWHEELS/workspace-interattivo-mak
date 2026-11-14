@@ -1,0 +1,911 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Quale diagnosi AUTEL</title>
+<meta name="description" content="Rispondi a 4 domande e trova il tablet di diagnosi AUTEL giusto per la tua officina, dalla TS900 alla MS Ultra S2, con prezzi e schede complete.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Quale diagnosi AUTEL fa per te? · 4 domande, il tablet giusto">
+<meta property="og:description" content="Dalla TS900 alla MS Ultra S2: rispondi a 4 domande e ti dico il tablet giusto, con prezzo e scheda completa.">
+<meta property="og:image" content="https://makwheels.github.io/workspace-interattivo-mak/ivan/diagnosi-autel/anteprima.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://makwheels.github.io/workspace-interattivo-mak/ivan/diagnosi-autel/">
+<meta name="theme-color" content="#da2128">
+<link rel="apple-touch-icon" href="icona.png">
+<style>
+:root{
+  --red:#da2128; --ink:#14161a; --mute:#5d626b; --card:#f3f4f6; --line:#e2e4e8; --bg:#fff; --verde:#25d366;
+  --titolo:"DIN Condensed","Avenir Next Condensed","Arial Narrow",system-ui,sans-serif;
+  --testo:"Avenir Next",-apple-system,system-ui,sans-serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--testo);font-size:16px;line-height:1.4}
+body{padding-bottom:calc(96px + env(safe-area-inset-bottom));padding-top:calc(56px + env(safe-area-inset-top))}
+.wrap{max-width:540px;margin:0 auto;overflow:hidden}
+h2{font-family:var(--titolo);font-weight:700;font-size:32px;letter-spacing:.5px;margin:0 0 4px;text-transform:uppercase;line-height:1}
+h2 em{font-style:normal;color:var(--red)}
+.sub{color:var(--mute);margin:0 0 16px;font-size:15px}
+section{padding:28px 16px 6px}
+.card{background:var(--card);border-radius:16px;padding:16px}
+a{color:inherit}
+
+.hero{position:relative;overflow:hidden;line-height:0}
+.hero img{width:100%;height:auto;display:block}
+.hero::after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;pointer-events:none;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-18deg);animation:riflesso 5s 1s infinite}
+@keyframes riflesso{0%{left:-60%}35%,100%{left:130%}}
+
+.avviso{position:fixed;top:0;left:0;right:0;z-index:25;display:flex;align-items:center;justify-content:center;gap:10px;
+  padding:calc(10px + env(safe-area-inset-top)) 16px 10px;background:var(--ink);color:#fff;text-decoration:none;font-size:14px;line-height:1.3;
+  box-shadow:0 4px 16px rgba(0,0,0,.25);transition:transform .35s}
+.avviso span{max-width:470px}
+.avviso i{flex:none;font-style:normal;width:30px;height:30px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;animation:giu 1.6s infinite}
+@keyframes giu{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+.avviso.via{transform:translateY(-110%)}
+#secTest,#secRisultato,#secGamma{scroll-margin-top:10px}
+
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;color:var(--ink);background:var(--card);border-radius:14px;padding:15px 10px;font-weight:600}
+.btn.b2b{background:var(--ink);color:#fff}
+
+/* domande */
+.dom{margin-bottom:18px}
+.dom:last-child{margin-bottom:0}
+.dom .q{display:flex;gap:10px;align-items:baseline;margin:0 0 8px}
+.dom .q .n{flex:none;font-family:var(--titolo);font-size:30px;line-height:1;color:var(--red);min-width:22px}
+.dom .q b{font-size:17px}
+.dom .q small{display:block;color:var(--mute);font-size:13px;font-weight:400}
+.op{display:grid;gap:8px}
+.op.due{grid-template-columns:1fr 1fr}
+.op input{position:absolute;opacity:0;pointer-events:none}
+.op label{display:flex;align-items:center;gap:10px;background:#fff;border:2px solid var(--line);border-radius:14px;padding:11px 12px;cursor:pointer;font-size:15px;line-height:1.25;transition:border-color .2s,background .2s}
+.op label .sp{flex:none;width:22px;height:22px;border-radius:50%;border:2px solid #c9ccd2;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:800}
+.op input[type=checkbox]+label .sp{border-radius:7px}
+.op label small{display:block;color:var(--mute);font-size:12.5px}
+.op input:checked+label{border-color:var(--red);background:#fff5f5}
+.op input:checked+label .sp{background:var(--red);border-color:var(--red)}
+.op input:checked+label .sp::after{content:"✓"}
+
+/* risultato */
+.ris{background:var(--ink);color:#fff;border-radius:18px;padding:16px;position:relative;overflow:hidden}
+.ris .vuoto{color:#c9ccd2;font-size:15px;padding:6px 0}
+.ris .k{font-family:var(--titolo);font-size:18px;letter-spacing:2px;color:#ff6a6f;text-transform:uppercase}
+.ris h3{font-family:var(--titolo);font-size:40px;line-height:.95;margin:4px 0 6px;text-transform:uppercase}
+.ris .foto{background:#fff;border-radius:12px;padding:10px;margin:10px 0;line-height:0}
+.ris .foto img{width:100%;height:auto;max-height:230px;object-fit:contain;display:block}
+.ris .fr{font-size:16px;margin:0 0 10px}
+.ris h4{font-family:var(--titolo);font-size:21px;letter-spacing:.5px;text-transform:uppercase;margin:14px 0 6px;color:#fff}
+.ris ul{margin:0;padding-left:20px;font-size:14.5px;color:#e6e7ea}
+.ris ul li{margin-bottom:4px}
+.ris ul.perche li::marker{content:"✓  ";color:var(--verde)}
+.ris .prezzo{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-top:14px;padding-top:12px;border-top:1px dashed #4a4e56}
+.ris .prezzo b{font-family:var(--titolo);font-size:44px;line-height:1;color:#fff;white-space:nowrap}
+.ris .prezzo b i{font-style:normal;font-family:var(--testo);font-size:13px;color:#c9ccd2;margin-left:4px}
+.ris .prezzo span{font-size:13px;color:#c9ccd2;text-align:right}
+.ris .nota{font-size:13px;color:#c9ccd2;margin-top:8px}
+.ris .nota b{color:#fff}
+.ris .ts{display:block;margin-top:12px;background:#ffc928;color:#3d2e00;border-radius:12px;padding:11px 12px;font-size:14px;text-decoration:none}
+.salta{animation:salta .45s}
+@keyframes salta{30%{transform:scale(1.02)}60%{transform:scale(.995)}}
+.alt{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.alt button{font:inherit;text-align:left;background:#fff;border:2px solid var(--line);border-radius:14px;padding:10px;color:var(--ink);cursor:pointer}
+.alt button small{display:block;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--red);font-weight:700}
+.alt button b{display:block;font-family:var(--titolo);font-size:22px;line-height:1;text-transform:uppercase;margin:3px 0}
+.alt button span{display:block;font-size:12.5px;color:var(--mute);line-height:1.3}
+.alt button em{display:block;font-style:normal;font-family:var(--titolo);font-size:20px;margin-top:4px}
+.pepe{display:flex;align-items:center;gap:10px;margin-top:10px;background:#fff;border:2px solid var(--verde);border-radius:14px;padding:11px 12px;text-decoration:none;color:var(--ink);font-size:14px;line-height:1.3}
+.pepe i{flex:none;font-style:normal;width:36px;height:36px;border-radius:50%;background:var(--verde);display:flex;align-items:center;justify-content:center}
+.pepe i svg{width:20px;height:20px;fill:#062e16}
+.pepe b{display:block;font-size:15px}
+
+/* gamma */
+.gamma{display:grid;gap:12px}
+.mod{background:#fff;border:2px solid var(--line);border-radius:16px;padding:12px;transition:border-color .2s}
+.mod.sel{border-color:var(--red);box-shadow:0 6px 18px rgba(218,33,40,.12)}
+.mod .top{display:grid;grid-template-columns:112px 1fr;gap:12px;align-items:center}
+.mod .top img{width:112px;height:84px;object-fit:contain}
+.mod .lv{font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:var(--red);font-weight:700}
+.mod h3{font-family:var(--titolo);font-size:27px;line-height:1;margin:2px 0;text-transform:uppercase}
+.mod .pz{font-family:var(--titolo);font-size:24px;line-height:1}
+.mod .pz i{font-style:normal;font-family:var(--testo);font-size:12px;color:var(--mute);margin-left:3px}
+.mod .fr{font-size:14px;color:var(--mute);margin:8px 0 0}
+.mod .piu{font-size:13.5px;margin:8px 0 0;background:var(--card);border-radius:10px;padding:8px 10px}
+.mod .az{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.mod .az button,.mod .az a{font:inherit;font-size:14px;font-weight:700;border-radius:12px;padding:11px 8px;text-align:center;text-decoration:none;cursor:pointer}
+.mod .az .sc{background:var(--red);color:#fff;border:0}
+.mod.sel .az .sc{background:var(--verde);color:#062e16}
+.mod .az a{background:var(--card);color:var(--ink);border:0}
+.mod details{margin-top:8px;font-size:14px}
+.mod summary{cursor:pointer;font-weight:700;padding:8px 2px;color:var(--ink);list-style:none}
+.mod summary::-webkit-details-marker{display:none}
+.mod summary::after{content:" ›";color:var(--red)}
+.mod details[open] summary::after{content:" ⌄"}
+.mod h4{font-family:var(--titolo);font-size:18px;text-transform:uppercase;color:var(--red);margin:10px 0 4px}
+.mod ul{margin:0;padding-left:18px;color:#2b2e33}
+.mod ul li{margin-bottom:3px}
+.mod table{width:100%;border-collapse:collapse;font-size:13.5px}
+.mod th{text-align:left;color:var(--mute);font-weight:600;width:38%;vertical-align:top;padding:5px 8px 5px 0;border-bottom:1px solid var(--line)}
+.mod td{padding:5px 0;border-bottom:1px solid var(--line)}
+.mod .docs a{color:var(--ink);font-weight:600}
+.mod .pepe{margin-top:10px}
+
+/* servizi */
+.voci{display:grid;gap:8px}
+.voci input{position:absolute;opacity:0;pointer-events:none}
+.voci label{display:flex;align-items:center;gap:12px;background:#fff;border:2px solid var(--line);border-radius:14px;padding:12px 14px;cursor:pointer;transition:border-color .2s,background .2s}
+.voci label .sp{flex:none;width:24px;height:24px;border-radius:7px;border:2px solid #c9ccd2;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800}
+.voci input[type=radio]+label .sp{border-radius:50%}
+.voci label .t{flex:1}
+.voci label .t b{display:block;font-size:15px}
+.voci label .t small{color:var(--mute);font-size:12.5px}
+.voci label .p{font-family:var(--titolo);font-size:26px;line-height:1;color:var(--red);white-space:nowrap;padding-top:3px}
+.voci label .p i{font-style:normal;font-family:var(--testo);font-size:11px;color:var(--mute);margin-left:3px}
+.voci input:checked+label{border-color:var(--red);background:#fff5f5}
+.voci input:checked+label .sp{background:var(--red);border-color:var(--red)}
+.voci input:checked+label .sp::after{content:"✓"}
+.voci input:disabled+label{opacity:.45}
+.gr{font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--mute);margin:10px 0 0;font-weight:600}
+input[type=text]{width:100%;font:inherit;font-size:17px;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 14px}
+label.f{display:block;font-size:13px;color:var(--mute);margin:16px 0 6px;text-transform:uppercase;letter-spacing:1px}
+.tot{margin-top:16px;padding-top:14px;border-top:1px dashed #cfd2d8;display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.tot span{color:var(--mute);font-size:14px}
+.tot b{font-family:var(--titolo);font-size:34px;line-height:1;white-space:nowrap}
+.tot b i{font-style:normal;font-family:var(--testo);font-size:13px;color:var(--mute);margin-left:4px}
+.nota{font-size:13px;color:var(--mute);margin-top:10px}
+
+/* avvisi */
+.avv{display:grid;gap:10px}
+.av{display:flex;gap:12px;align-items:flex-start;background:var(--card);border-top:4px solid var(--red);border-radius:4px 4px 14px 14px;padding:14px}
+.av .ic{flex:none;width:40px;height:40px;border-radius:50%;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-size:19px}
+.av p{margin:0;font-size:14.5px;color:#2b2e33}
+.av b{color:var(--ink)}
+.rim{display:grid;gap:8px;margin-top:12px}
+.rim a{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--ink);color:#fff;text-decoration:none;border-radius:14px;padding:13px 14px;font-size:15px}
+.rim a b{font-weight:700}
+
+footer{padding:26px 16px 10px;text-align:center;color:var(--mute);font-size:13px}
+footer .loghi{display:flex;justify-content:center;align-items:center;gap:22px;margin-bottom:10px}
+footer .loghi img{height:30px;width:auto}
+footer b{color:var(--ink)}
+
+.cta{position:fixed;left:0;right:0;bottom:0;z-index:30;padding:10px 16px calc(10px + env(safe-area-inset-bottom));
+  background:linear-gradient(rgba(255,255,255,0),rgba(255,255,255,.96) 30%)}
+.cta a{display:flex;align-items:center;justify-content:center;gap:10px;max-width:508px;margin:0 auto;
+  background:var(--verde);color:#062e16;text-decoration:none;font-weight:800;font-size:18px;border-radius:16px;padding:16px;animation:pulsa 2.4s infinite}
+.cta a svg{width:24px;height:24px;fill:currentColor}
+@keyframes pulsa{0%,100%{box-shadow:0 0 0 0 rgba(37,211,102,.55)}60%{box-shadow:0 0 0 14px rgba(37,211,102,0)}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* spiegami a voce */
+.spv{padding:16px 16px 0}
+.spv button{width:100%;display:flex;align-items:center;gap:12px;font:inherit;border:0;border-radius:16px;padding:12px 14px;background:#14161a;color:#fff;text-align:left;cursor:pointer}
+.spv .spv-ic{flex:0 0 44px;height:44px;border-radius:50%;background:#da2128;display:flex;align-items:center;justify-content:center}
+.spv .spv-ic svg{width:20px;height:20px;fill:#fff}
+.spv .spv-tx{flex:1;min-width:0}
+.spv .spv-tx b{display:block;font-family:"DIN Condensed","Avenir Next Condensed","Arial Narrow",system-ui,sans-serif;font-weight:700;font-size:24px;line-height:1;text-transform:uppercase;letter-spacing:.5px;padding-top:3px;color:#fff}
+.spv .spv-tx small{display:block;font-size:12px;opacity:.75;margin-top:2px;color:#fff}
+.spv .spv-pr{display:block;height:4px;border-radius:2px;background:rgba(255,255,255,.2);margin-top:7px;overflow:hidden}
+.spv .spv-pr i{display:block;height:100%;width:0;background:#da2128}
+.spv button.spv-va .spv-ic{animation:spvPulsa 1.2s infinite}
+@keyframes spvPulsa{50%{box-shadow:0 0 0 7px rgba(218,33,40,.25)}}
+.spv-richiamo{animation:spvRichiamo .7s 4}
+@keyframes spvRichiamo{50%{transform:scale(1.05)}}
+</style>
+</head>
+<body>
+<a class="avviso" id="avviso" href="#secTest">
+  <span><b>Quale diagnosi fa per te?</b> Rispondi a 4 domande</span><i>↓</i>
+</a>
+<div class="wrap">
+
+<div class="hero">
+  <img src="locandina.jpg" alt="Quale diagnosi AUTEL fa per te? La scala dei tablet dalla TS900 alla MS Ultra S2, da 690 euro IVA esclusa" width="1620" height="2025">
+</div>
+<div class="spv">
+  <button type="button" id="spvBtn" aria-label="Spiegami a voce la promo">
+    <span class="spv-ic" id="spvIc"></span>
+    <span class="spv-tx"><b>Spiegami a voce</b><small id="spvSub">In 20 secondi · alza il volume</small><span class="spv-pr"><i id="spvPr"></i></span></span>
+  </button>
+  <audio id="spvAudio" src="../../voce/diagnosi-autel.mp3" preload="none"></audio>
+</div>
+
+
+<section>
+  <div class="btns">
+    <a class="btn" href="tel:+393338012609">📞 Chiamami</a>
+    <a class="btn b2b" href="https://b2bshop.makwheels.it/" target="_blank" rel="noopener">🛒 Portale B2B</a>
+  </div>
+</section>
+
+<section id="secTest">
+  <h2>Trova la tua <em>diagnosi</em></h2>
+  <p class="sub">Tocca le risposte: il consiglio si aggiorna subito.</p>
+  <div class="card">
+    <div class="dom">
+      <p class="q"><span class="n">1</span><b>Che lavoro fai?</b></p>
+      <div class="op" id="qLavoro">
+        <input type="radio" name="lavoro" id="l_gom" value="gom"><label for="l_gom"><span class="sp"></span>Gommista</label>
+        <input type="radio" name="lavoro" id="l_off" value="off"><label for="l_off"><span class="sp"></span>Officina meccanica</label>
+        <input type="radio" name="lavoro" id="l_ele" value="ele"><label for="l_ele"><span class="sp"></span>Elettrauto / officina specializzata</label>
+        <input type="radio" name="lavoro" id="l_con" value="con"><label for="l_con"><span class="sp"></span>Concessionaria o officina di marca</label>
+      </div>
+    </div>
+    <div class="dom">
+      <p class="q"><span class="n">2</span><b>Cosa vuoi fare con la diagnosi?<small>Anche più di una risposta.</small></b></p>
+      <div class="op" id="qUso">
+        <input type="checkbox" id="u_ser" value="ser"><label for="u_ser"><span class="sp"></span><span>Tagliandi e service<small>reset olio, freno elettrico, angolo sterzo, TPMS</small></span></label>
+        <input type="checkbox" id="u_err" value="err"><label for="u_err"><span class="sp"></span><span>Leggere e cancellare errori su tutte le centraline</span></label>
+        <input type="checkbox" id="u_cod" value="cod"><label for="u_cod"><span class="sp"></span><span>Codifiche e programmazione delle centraline<small>Pass-Thru, online con la casa madre</small></span></label>
+        <input type="checkbox" id="u_ada" value="ada"><label for="u_ada"><span class="sp"></span><span>Calibrazione ADAS<small>telecamere e radar</small></span></label>
+        <input type="checkbox" id="u_osc" value="osc"><label for="u_osc"><span class="sp"></span><span>Test dei componenti<small>da elettrauto, con la guida diagnostica</small></span></label>
+        <input type="checkbox" id="u_ev" value="ev"><label for="u_ev"><span class="sp"></span><span>Tante auto elettriche e ibride</span></label>
+        <input type="checkbox" id="u_max" value="max"><label for="u_max"><span class="sp"></span><span>Voglio il massimo<small>schermo grande, guida diagnostica</small></span></label>
+      </div>
+    </div>
+    <div class="dom">
+      <p class="q"><span class="n">3</span><b>Quante auto diverse ti entrano?</b></p>
+      <div class="op due" id="qVolume">
+        <input type="radio" name="volume" id="v_poc" value="poc"><label for="v_poc"><span class="sp"></span>Poche, sempre le stesse marche</label>
+        <input type="radio" name="volume" id="v_tan" value="tan"><label for="v_tan"><span class="sp"></span>Tante, di tutte le marche</label>
+      </div>
+    </div>
+    <div class="dom">
+      <p class="q"><span class="n">4</span><b>Hai già una diagnosi?</b></p>
+      <div class="op" id="qAttuale">
+        <input type="radio" name="attuale" id="a_no" value="no"><label for="a_no"><span class="sp"></span>No</label>
+        <input type="radio" name="attuale" id="a_ts" value="ts"><label for="a_ts"><span class="sp"></span>Sì, una TS900</label>
+        <input type="radio" name="attuale" id="a_alt" value="alt"><label for="a_alt"><span class="sp"></span>Sì, di un'altra marca</label>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="secRisultato">
+  <h2>Ti <em>consiglio</em></h2>
+  <div class="ris" id="ris"><p class="vuoto">Rispondi alle domande qui sopra: qui compare il tablet giusto per te, con il perché e il prezzo.</p></div>
+  <div class="alt" id="alt" hidden></div>
+</section>
+
+<section id="secGamma">
+  <h2>Tutta la <em>gamma</em></h2>
+  <p class="sub">Dal più semplice al più completo. Tocca «Scegli questo» per chiedermi l'offerta su un altro modello, poi aggiungi gli abbonamenti qui sotto.</p>
+  <div class="gamma" id="gamma"></div>
+</section>
+
+<section>
+  <h2>Da <em>aggiungere</em></h2>
+  <p class="sub">Abbonamenti di 12 mesi per il tablet che scegli.</p>
+  <div class="card">
+    <div class="voci" id="voci"></div>
+    <label class="f" for="officina">Officina</label>
+    <input type="text" id="officina" autocomplete="organization" placeholder="Nome dell'officina">
+    <div class="tot"><span id="totNome">Totale indicativo</span><b id="totale">0 €<i>IVA esclusa</i></b></div>
+    <p class="nota">Prezzi B2B IVA esclusa letti sul portale il <span id="letto"></span>. Con il bottone verde mi chiedi l'offerta o una prova: non è un ordine.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Prima di <em>scegliere</em></h2>
+  <div class="avv">
+    <div class="av"><span class="ic">🔓</span><p><b>Il gateway SGW si sblocca con l'abbonamento.</b> Senza, su molte auto recenti (FCA, VW, Mercedes, Renault, Nissan) leggi gli errori ma non scrivi in centralina: niente cancellazioni, reset e codifiche. Il Full SGW copre tutte le marche, e da ottobre 2026 Renault è illimitato.</p></div>
+    <div class="av"><span class="ic">🛞</span><p><b>La TS900 è pensata per il gommista che entra nella meccanica.</b> Service e TPMS completo sì, codifiche e programmazioni no: per quelle serve una MaxiSys.</p></div>
+    <div class="av"><span class="ic">⚡</span><p><b>Auto elettriche e ibride:</b> la MS 909 S2 è la prima della scala con la mappa della rete CAN. Per il lavoro sull'alta tensione chiedi a Salvatore Pepe di MATE, qui sotto.</p></div>
+  </div>
+  <div class="rim">
+    <a href="../ts900-rinnovi/"><span><b>Hai già la TS900?</b> Rinnova aggiornamento e SGW</span><span>›</span></a>
+    <a href="../assistenza-mate/"><span><b>Ti serve assistenza</b> sui tuoi strumenti MATE?</span><span>›</span></a>
+  </div>
+</section>
+
+
+<footer><div class="loghi"><img src="logo-mate-nero.svg" alt="MATE"><img src="logo-mak.svg" alt="MAK"></div><b>Ivan Parisi</b> · Agente MAK · 333 801 2609<br>Prezzi B2B MATE IVA esclusa. Dati tecnici dal sito e dal catalogo MATE 2026.<br><small>Conteggio anonimo delle visite, senza cookie.</small></footer>
+</div>
+
+<div class="cta"><a id="wa" href="#" target="_blank" rel="noopener">
+  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.7a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.2-.2-.5-.3z"/></svg>
+  <span id="waTesto">Scrivimi su WhatsApp</span></a></div>
+
+<script>
+/* Dati dei modelli e dei servizi: servono anche per le schede PDF (scheda_diagnosi_autel.py). */
+/*DATI*/
+const LETTO = "2026-11-13";
+const COMUNE = ["24 mesi di aggiornamenti inclusi", "Valigia e cavi inclusi", "Riconoscimento automatico del telaio (VIN) tramite VCI", "Oltre 40 funzioni di manutenzione (service)", "Report pre e post scansione da salvare o mandare via SMS, QR code ed email", "Assistenza da remoto con TeamViewer"];
+const MODELLI = [
+{
+"slug": "ts900",
+"nome": "TS900",
+"esteso": "AUTEL MaxiTPMS TS900",
+"codice": "7200000027",
+"prezzo": 690,
+"livello": "Service",
+"per": "il gommista che entra nella meccanica",
+"frase": "Tagliandi, freno elettrico, angolo sterzo e TPMS completo: la diagnosi del gommista.",
+"cosa": [
+"Reset olio e service, apertura del freno di stazionamento elettrico, reset angolo di sterzo, rigenerazione del filtro antiparticolato, ABS/SRS",
+"TPMS completo: attiva, legge e riapprende i sensori e programma i sensori AUTEL MX",
+"Legge e cancella gli errori e fa il check-up della vettura",
+"Non fa codifiche né programmazioni: per quelle serve una MaxiSys"
+],
+"in_piu": "",
+"tecnica": [
+[
+"Display",
+"8\" LCD 1280×800, touch"
+],
+[
+"Sistema",
+"Android 11, processore quad-core 1,8 GHz"
+],
+[
+"Memoria",
+"4 GB RAM + 64 GB, microSD fino a 64 GB"
+],
+[
+"Comunicazione",
+"MaxiVCI V200 Bluetooth e USB-C"
+],
+[
+"Connessioni",
+"Wi-Fi, Bluetooth, USB-C"
+],
+[
+"Fotocamera",
+"posteriore 16 MP"
+],
+[
+"Batteria",
+"7.700 mAh 3,7 V ai polimeri di litio"
+],
+[
+"Misure e peso",
+"26 × 16,9 × 3,4 cm · 0,99 kg"
+]
+],
+"valigia": [
+"Tablet TS900",
+"Interfaccia MaxiVCI V200",
+"Cavo USB-C",
+"Alimentatore",
+"Adattatore accendisigari e 2 fusibili di ricambio",
+"Valigia"
+],
+"rinnovo": {
+"codice": "7200000029",
+"prezzo": 270
+},
+"garanzia": "12 mesi (manuale AUTEL)",
+"documenti": [
+[
+"Manuale d'uso in italiano (PDF, MATE)",
+"https://www.mate-tech.it/wp-content/uploads/2025/07/MANUALE-Italiano-per-TS900.pdf"
+],
+[
+"Catalogo MATE 2026, pagina 12",
+"https://online.flippingbook.com/view/206043/12/"
+],
+[
+"Scheda sul sito MATE",
+"https://www.mate-tech.it/prodotto/autel-ts900-tablet-diagnosi/"
+]
+]
+},
+{
+"slug": "ms906max",
+"nome": "MS 906 MAX",
+"esteso": "AUTEL MaxiSys MS 906 MAX",
+"codice": "7200000053",
+"prezzo": 2200,
+"livello": "Diagnosi completa",
+"per": "l'officina meccanica che lavora su tutte le centraline",
+"frase": "Diagnosi su tutte le centraline, con codifica e adattamento: la base dell'officina.",
+"cosa": [
+"Legge e cancella gli errori di tutte le centraline, dati in tempo reale e test attivi",
+"Riparazione, codifica e adattamento (sito MATE)",
+"Protocolli recenti, compresi CAN FD e DoIP",
+"Si può attivare Remote Expert (assistenza di un tecnico AUTEL sulla vettura)"
+],
+"in_piu": "Schermo da 9,7\", tutte le centraline, codifica e adattamento, CAN FD/DoIP",
+"tecnica": [
+[
+"Display",
+"9,7\" TFT-LCD 1536×2048, touch capacitivo"
+],
+[
+"Sistema",
+"Android 10, processore octa-core"
+],
+[
+"Memoria",
+"4 GB RAM + 128 GB"
+],
+[
+"Comunicazione",
+"MaxiVCI V200 Bluetooth, CAN FD e DoIP"
+],
+[
+"Fotocamere",
+"16 MP posteriore e anteriore"
+],
+[
+"Audio",
+"microfono, doppio altoparlante, jack 3,5 mm"
+],
+[
+"Batteria",
+"11.600 mAh 3,8 V agli ioni di litio"
+],
+[
+"Peso",
+"1,2 kg"
+]
+],
+"valigia": [
+"Tablet MS 906 MAX",
+"Interfaccia MaxiVCI V200",
+"Cavi e alimentatore",
+"Valigia"
+],
+"rinnovo": null,
+"garanzia": "",
+"documenti": [
+[
+"Catalogo MATE 2026, pagina 13",
+"https://online.flippingbook.com/view/206043/13/"
+],
+[
+"Scheda sul sito MATE",
+"https://www.mate-tech.it/prodotto/autel-ms-906-max-tablet-diagnosi/"
+]
+]
+},
+{
+"slug": "ms908spro3",
+"nome": "MS 908S PRO3",
+"esteso": "AUTEL MaxiSys MS 908S PRO3",
+"codice": "7200000049",
+"prezzo": 3200,
+"livello": "Codifiche e programmazione",
+"per": "chi codifica e programma le centraline",
+"frase": "Codifiche e programmazione in Pass-Thru, collegati online con la casa madre.",
+"cosa": [
+"Copertura a livello originale (OE) per oltre 53 marchi europei, americani e asiatici, anche ibride, elettriche e commerciali",
+"Riparazione, codifica e adattamento",
+"Modulo Pass-Thru: comunica online con la casa madre per programmare le centraline",
+"Interfaccia MaxiFlash VCI con doppio Wi-Fi, più veloce"
+],
+"in_piu": "Pass-Thru verso la casa madre, interfaccia MaxiFlash, 53 marchi a livello originale, batteria da 8 ore",
+"tecnica": [
+[
+"Display",
+"9,7\" TFT-LCD 1536×2048, touch capacitivo"
+],
+[
+"Sistema",
+"Android 10, processore octa-core"
+],
+[
+"Memoria",
+"4 GB RAM + 128 GB, SD fino a 256 GB"
+],
+[
+"Comunicazione",
+"MaxiFlash VCI, Pass-Thru"
+],
+[
+"Connessioni",
+"doppio Wi-Fi, Bluetooth 5.0, GPS, 2 USB-A + mini USB, HDMI"
+],
+[
+"Fotocamere",
+"16 MP posteriore con flash e autofocus, 16 MP anteriore"
+],
+[
+"Batteria",
+"15.000 mAh 3,8 V, 8 ore di uso continuo"
+],
+[
+"Misure e peso",
+"30,4 × 22,8 × 4,3 cm · 1,66 kg"
+]
+],
+"valigia": [
+"Tablet MS 908S PRO3",
+"Interfaccia MaxiFlash VCI",
+"Cavi e alimentatore",
+"Valigia"
+],
+"rinnovo": null,
+"garanzia": "",
+"documenti": [
+[
+"Catalogo MATE 2026, pagina 14",
+"https://online.flippingbook.com/view/206043/14/"
+],
+[
+"Scheda sul sito MATE",
+"https://www.mate-tech.it/prodotto/strumento-diagnosi-autel-ms-908s-pro3/"
+]
+]
+},
+{
+"slug": "ms909s2",
+"nome": "MS 909 S2",
+"esteso": "AUTEL MaxiSys MS 909 S2",
+"codice": "7200000056",
+"prezzo": 4600,
+"livello": "ADAS",
+"per": "chi calibra gli ADAS o lavora su reti CAN, ibride ed elettriche",
+"frase": "Calibrazione ADAS e mappa della rete CAN, con Pass-Thru.",
+"cosa": [
+"Calibrazione dei sistemi ADAS (telecamere, radar, LiDAR, visione notturna) con il kit ADAS da comprare a parte",
+"Mappa topologica della rete CAN: vedi tutte le centraline del veicolo",
+"Interfaccia avanzata con DoIP, D-PDU e Mega CAN; Pass-Thru verso la casa madre",
+"Copertura OE per oltre 53 marchi, anche ibride ed elettriche"
+],
+"in_piu": "Calibrazione ADAS (con il kit), mappa topologica della rete CAN, interfaccia DoIP / D-PDU / Mega CAN",
+"tecnica": [
+[
+"Display",
+"9,7\" TFT-LCD 1536×2048, touch capacitivo"
+],
+[
+"Sistema",
+"Android 10, processore octa-core"
+],
+[
+"Memoria",
+"4 GB RAM + 128 GB, SD fino a 256 GB"
+],
+[
+"Comunicazione",
+"MaxiFlash VCI: DoIP, D-PDU, Mega CAN, CAN FD; Pass-Thru"
+],
+[
+"Connessioni",
+"doppio Wi-Fi, Bluetooth 5.0, GPS, 2 USB-A + mini USB, HDMI"
+],
+[
+"Fotocamere",
+"16 MP posteriore con flash e autofocus, 16 MP anteriore"
+],
+[
+"Batteria",
+"15.000 mAh 3,8 V, 8 ore di uso continuo"
+],
+[
+"Misure e peso",
+"30,4 × 22,8 × 4,3 cm · 1,66 kg"
+]
+],
+"valigia": [
+"Tablet MS 909 S2",
+"Interfaccia MaxiFlash VCI",
+"Cavi e alimentatore",
+"Valigia",
+"Kit ADAS: a parte"
+],
+"rinnovo": {
+"codice": "7200000030",
+"prezzo": 1100
+},
+"garanzia": "",
+"documenti": [
+[
+"Catalogo MATE 2026, pagina 15",
+"https://online.flippingbook.com/view/206043/15/"
+],
+[
+"Scheda sul sito MATE",
+"https://www.mate-tech.it/prodotto/strumento-diagnosi-autel-ms909-s2/"
+]
+]
+},
+{
+"slug": "msultras2",
+"nome": "MS Ultra S2",
+"esteso": "AUTEL MaxiSys MS Ultra S2",
+"codice": "7200000034",
+"prezzo": 6200,
+"livello": "Il massimo",
+"per": "chi vuole il massimo: schermo grande e guida diagnostica",
+"frase": "Il tablet più completo di AUTEL: 12,7 pollici, schermo diviso, guida diagnostica.",
+"cosa": [
+"Schermo da 12,7\" con più app aperte a schermo diviso",
+"Guida diagnostica e test dei componenti per confermare la riparazione",
+"Mappa topologica della rete CAN con le centraline",
+"Copertura OE per oltre 53 marchi, anche ibride ed elettriche"
+],
+"in_piu": "Schermo da 12,7\" a schermo diviso, guida diagnostica e test dei componenti, 256 GB, batteria più grande",
+"tecnica": [
+[
+"Display",
+"12,7\" TFT-LCD 2732×2048, touch capacitivo"
+],
+[
+"Sistema",
+"Android 10, processore octa-core (2,3 + 1,7 GHz)"
+],
+[
+"Memoria",
+"256 GB integrati, SD fino a 256 GB"
+],
+[
+"Comunicazione",
+"DoIP, CAN FD"
+],
+[
+"Connessioni",
+"doppio Wi-Fi, Bluetooth, GPS, 2 USB-A + mini USB, HDMI"
+],
+[
+"Fotocamere",
+"16 MP posteriore con flash e autofocus, 16 MP anteriore"
+],
+[
+"Batteria",
+"18.000 mAh 3,8 V, 8 ore di uso continuo"
+],
+[
+"Misure e peso",
+"36,7 × 28,1 × 3,4 cm · 2,18 kg"
+]
+],
+"valigia": [
+"Tablet MS Ultra S2",
+"Interfaccia VCI",
+"Cavi e alimentatore",
+"Valigia"
+],
+"rinnovo": {
+"codice": "7200000032",
+"prezzo": 1500
+},
+"garanzia": "",
+"documenti": [
+[
+"Catalogo MATE 2026, pagina 16",
+"https://online.flippingbook.com/view/206043/16/"
+],
+[
+"Scheda sul sito MATE",
+"https://www.mate-tech.it/prodotto/strumento-diagnosi-autel-ms-ultra-s2/"
+]
+]
+}
+];
+const SERVIZI = [
+{
+"id": "full",
+"nome": "Sblocco Full SGW 12 mesi",
+"codice": "7200000046",
+"prezzo": 390,
+"nota": "Tutte le marche con gateway; Renault illimitato dal 19/10/2026. Comprende FCA."
+},
+{
+"id": "fca",
+"nome": "Sblocco Stellantis FCA + Maserati 12 mesi",
+"codice": "7200000012",
+"prezzo": 160,
+"nota": "Solo il gruppo Stellantis-FCA."
+},
+{
+"id": "ass",
+"nome": "Assistenza AUTEL 12 mesi",
+"codice": "7200000036",
+"prezzo": 370,
+"nota": "Assistenza telefonica e da remoto."
+},
+{
+"id": "ht",
+"nome": "Haynes PRO Electronic + Tech 12 mesi",
+"codice": "7200000035",
+"prezzo": 630,
+"nota": "Banca dati tecnica Haynes PRO, versione completa."
+}
+];
+/*FINE DATI*/
+
+const TELEFONO = "393338012609";
+const PEPE = "393270888678";
+
+/* REGOLE DEL CONSIGLIO (decise il 2026-11-13). Il modello è il gradino più alto tra
+   quello del lavoro e quelli degli usi spuntati. Gradini: 0 TS900 · 1 MS 906 MAX · 2 MS 908S PRO3 ·
+   3 MS 909 S2 · 4 MS Ultra S2. MS 919 S2 tolta il 2026-11-13 su indicazione di Salvatore Pepe (MATE). */
+const REGOLE = {
+  lavoro: {
+    gom: {g: 0, nome: "Gommista", perche: "Sei gommista: ti serve il service e il TPMS completo"},
+    off: {g: 1, nome: "Officina meccanica", perche: "Per un'officina meccanica si parte dalla diagnosi completa di tutte le centraline"},
+    ele: {g: 1, nome: "Elettrauto / officina specializzata", perche: "Lavori sull'elettronica: ti serve almeno la diagnosi completa"},
+    con: {g: 2, nome: "Concessionaria o officina di marca", perche: "Sull'officina di marca servono codifiche e programmazioni"}
+  },
+  uso: {
+    ser: {g: 0, nome: "Tagliandi e service", perche: "Tagliandi, freno elettrico, angolo sterzo e TPMS: li fa già la TS900"},
+    err: {g: 1, nome: "Errori su tutte le centraline", perche: "Leggere e cancellare gli errori di tutte le centraline"},
+    cod: {g: 2, nome: "Codifiche e programmazione", perche: "Codifiche e programmazione in Pass-Thru, online con la casa madre"},
+    ada: {g: 3, nome: "Calibrazione ADAS", perche: "Calibrazione ADAS (con il kit ADAS a parte)"},
+    ev:  {g: 3, nome: "Auto elettriche e ibride", perche: "Tante elettriche e ibride: mappa della rete CAN e copertura OE"},
+    osc: {g: 4, nome: "Test dei componenti", perche: "Test dei componenti con la guida diagnostica dell'Ultra S2"},
+    max: {g: 4, nome: "Il massimo", perche: "Vuoi il massimo: schermo da 12,7\", schermo diviso e guida diagnostica"}
+  },
+  volume: {poc: "Poche, sempre le stesse marche", tan: "Tante, di tutte le marche"},
+  attuale: {no: "No", ts: "Sì, una TS900", alt: "Sì, di un'altra marca"}
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  const $ = id => document.getElementById(id);
+  const euro = n => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " €";
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"})[c]);
+  const valore = nome => { const x = document.querySelector('input[name="' + nome + '"]:checked'); return x ? x.value : ""; };
+  const usi = () => [...document.querySelectorAll("#qUso input:checked")].map(x => x.value);
+  $("letto").textContent = LETTO.slice(8, 10) + "/" + LETTO.slice(5, 7) + "/" + LETTO.slice(0, 4);
+
+  let consigliato = -1, scelto = -1;
+
+  function calcola() {
+    const lav = valore("lavoro"), u = usi();
+    if (!lav && !u.length) return {g: -1, perche: []};
+    let g = lav ? REGOLE.lavoro[lav].g : 0;
+    const perche = [];
+    u.forEach(k => { if (REGOLE.uso[k].g > g) g = REGOLE.uso[k].g; });
+    if (lav && REGOLE.lavoro[lav].g === g) perche.push(REGOLE.lavoro[lav].perche);
+    u.forEach(k => { if (REGOLE.uso[k].g === g) perche.push(REGOLE.uso[k].perche); });
+    if (!perche.length && lav) perche.push(REGOLE.lavoro[lav].perche);
+    if (valore("volume") === "tan" && g === 0) perche.push("Con tante marche diverse guarda anche la MS 906 MAX, qui sotto in «Se vuoi di più»");
+    if (valore("volume") === "tan" && g >= 1) perche.push("Tante marche diverse: la copertura completa ti serve tutta");
+    return {g, perche};
+  }
+
+  const pepeLink = nome => "https://wa.me/" + PEPE + "?text=" + encodeURIComponent(
+    "Ciao Salvatore, sono un cliente di Ivan Parisi (MAK). Ho una domanda tecnica sulla diagnosi AUTEL " + nome + ":");
+  const pepeHtml = nome => '<a class="pepe" href="' + pepeLink(nome) + '" target="_blank" rel="noopener" data-pepe="' + esc(nome) +
+    '"><i><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg></i><span><b>Info tecniche: scrivi a Salvatore Pepe</b>Tecnico MATE, ti spiega le funzioni del ' + esc(nome) + '</span></a>';
+
+  function mostraRisultato(r) {
+    const box = $("ris"), alt = $("alt");
+    if (r.g < 0) { alt.hidden = true; return; }
+    const m = MODELLI[r.g];
+    const att = valore("attuale");
+    box.innerHTML = '<div class="k">' + esc(m.livello) + ' · per ' + esc(m.per) + '</div><h3>AUTEL ' + esc(m.nome) + '</h3>' +
+      '<div class="foto"><img src="../../comune/diagnosi-autel/foto/' + m.slug + '.jpg" alt="AUTEL ' + esc(m.nome) + '"></div>' +
+      '<p class="fr">' + esc(m.frase) + '</p>' +
+      '<h4>Perché te lo consiglio</h4><ul class="perche">' + r.perche.map(p => "<li>" + esc(p) + "</li>").join("") + '</ul>' +
+      '<h4>Cosa fa</h4><ul>' + m.cosa.map(p => "<li>" + esc(p) + "</li>").join("") + '</ul>' +
+      '<div class="prezzo"><b>' + euro(m.prezzo) + '<i>IVA esclusa</i></b><span>24 mesi di aggiornamenti inclusi<br>cod. ' + m.codice + '</span></div>' +
+      (att === "ts" ? '<a class="ts" href="../ts900-rinnovi/">' + (r.g === 0 ? "<b>Hai già la TS900:</b> non ricomprarla, rinnova aggiornamento e SGW ›" : "<b>Hai già la TS900?</b> Puoi tenerla per il TPMS. Per rinnovarla ›") + '</a>' : "") +
+      (att === "alt" ? '<p class="nota"><b>Hai già un\'altra diagnosi?</b> Scrivimi quale: ti dico cosa cambia con questa.</p>' : "") +
+      pepeHtml(m.nome);
+    box.classList.remove("salta"); void box.offsetWidth; box.classList.add("salta");
+    const meno = r.g > 0 ? MODELLI[r.g - 1] : null, piu = r.g < MODELLI.length - 1 ? MODELLI[r.g + 1] : null;
+    alt.innerHTML = (meno ? '<button type="button" data-g="' + (r.g - 1) + '"><small>Se ti basta meno</small><b>' + esc(meno.nome) + '</b><span>Rinunci a: ' + esc(m.in_piu) + '</span><em>' + euro(meno.prezzo) + '</em></button>' : '<span></span>') +
+      (piu ? '<button type="button" data-g="' + (r.g + 1) + '"><small>Se vuoi di più</small><b>' + esc(piu.nome) + '</b><span>In più: ' + esc(piu.in_piu) + '</span><em>' + euro(piu.prezzo) + '</em></button>' : '<span></span>');
+    alt.hidden = false;
+  }
+
+  /* gamma completa */
+  $("gamma").innerHTML = MODELLI.map((m, i) => {
+    const sotto = i > 0 ? MODELLI[i - 1] : null;
+    const rinn = m.rinnovo ? "Dopo i 24 mesi: rinnovo 12 mesi a " + euro(m.rinnovo.prezzo) + " IVA esclusa (cod. " + m.rinnovo.codice + ")." : "Dopo i 24 mesi: rinnovo annuale, chiedimi il codice.";
+    return '<div class="mod" id="mod' + i + '"><div class="top"><img src="../../comune/diagnosi-autel/foto/' + m.slug + '.jpg" alt="AUTEL ' + esc(m.nome) + '" loading="lazy">' +
+      '<div><div class="lv">' + (i + 1) + ' · ' + esc(m.livello) + '</div><h3>' + esc(m.nome) + '</h3><div class="pz">' + euro(m.prezzo) + '<i>IVA esclusa</i></div></div></div>' +
+      '<p class="fr">' + esc(m.frase) + '</p>' +
+      (sotto ? '<p class="piu"><b>In più della ' + esc(sotto.nome) + ':</b> ' + esc(m.in_piu) + '</p>' : "") +
+      '<div class="az"><button type="button" class="sc" data-g="' + i + '">Scegli questo</button><a href="pdf/scheda-' + m.slug + '.pdf" target="_blank" rel="noopener">Scheda PDF ↓</a></div>' +
+      '<details><summary>Tutte le caratteristiche</summary>' +
+      '<h4>Cosa fa</h4><ul>' + m.cosa.map(x => "<li>" + esc(x) + "</li>").join("") + '</ul>' +
+      '<h4>Sempre compreso</h4><ul>' + COMUNE.map(x => "<li>" + esc(x) + "</li>").join("") + '</ul>' +
+      '<h4>Caratteristiche tecniche</h4><table>' + m.tecnica.map(t => "<tr><th>" + esc(t[0]) + "</th><td>" + esc(t[1]) + "</td></tr>").join("") + '</table>' +
+      '<h4>Nella valigia</h4><ul>' + m.valigia.map(x => "<li>" + esc(x) + "</li>").join("") + '</ul>' +
+      '<h4>Aggiornamenti e garanzia</h4><ul><li>24 mesi di aggiornamenti inclusi. ' + esc(rinn) + '</li><li>' + (m.garanzia ? "Garanzia " + esc(m.garanzia) + "." : "Garanzia: te la confermo io con l'offerta.") + '</li><li>Prezzo ' + euro(m.prezzo) + ' IVA esclusa · codice B2B ' + m.codice + '</li></ul>' +
+      '<h4>Documenti</h4><ul class="docs"><li><a href="pdf/scheda-' + m.slug + '.pdf" target="_blank" rel="noopener">Scheda MATE in PDF</a></li>' +
+      m.documenti.map(d => '<li><a href="' + d[1] + '" target="_blank" rel="noopener">' + esc(d[0]) + '</a></li>').join("") + '</ul>' +
+      pepeHtml(m.nome) + '</details></div>';
+  }).join("");
+
+  /* servizi da aggiungere */
+  $("voci").innerHTML = SERVIZI.map((s, i) => {
+    return '<input type="checkbox" id="s_' + s.id + '" value="' + s.id + '"' + (s.gruppo ? ' data-gruppo="' + s.gruppo + '"' : "") + '>' +
+      '<label for="s_' + s.id + '"><span class="sp"></span><span class="t"><b>' + esc(s.nome) + '</b><small>' + esc(s.nota) + ' · cod. ' + s.codice + '</small></span><span class="p">' + euro(s.prezzo) + '<i>IVA esclusa</i></span></label>';
+  }).join("");
+
+  function aggiorna() {
+    const r = calcola();
+    if (r.g !== consigliato) {
+      consigliato = r.g;
+      scelto = r.g;
+      if (r.g >= 0 && window.conta) window.conta("ricerca", MODELLI[r.g].nome);
+    }
+    mostraRisultato(r);
+    document.querySelectorAll(".mod").forEach((el, i) => el.classList.toggle("sel", i === scelto));
+    document.querySelectorAll(".mod .sc").forEach((b, i) => b.textContent = i === scelto ? "✓ Scelto" : "Scegli questo");
+    messaggio();
+  }
+
+  function messaggio() {
+    const sc = SERVIZI.filter(s => $("s_" + s.id).checked);
+    const m = scelto >= 0 ? MODELLI[scelto] : null;
+    const tot = (m ? m.prezzo : 0) + sc.reduce((t, s) => t + s.prezzo, 0);
+    $("totNome").textContent = m ? "Totale indicativo con la " + m.nome : "Totale indicativo";
+    $("totale").innerHTML = euro(tot) + "<i>IVA esclusa</i>";
+    const lav = valore("lavoro"), vol = valore("volume"), att = valore("attuale"), u = usi(), off = $("officina").value.trim();
+    let testo, etichetta;
+    if (m || sc.length) {
+      testo = "Ciao Ivan, ho fatto il test della diagnosi AUTEL:\n" +
+        "Lavoro: " + (lav ? REGOLE.lavoro[lav].nome : "…") + "\n" +
+        "Uso: " + (u.length ? u.map(k => REGOLE.uso[k].nome).join(", ") : "…") + "\n" +
+        "Auto: " + (vol ? REGOLE.volume[vol] : "…") + "\n" +
+        "Diagnosi attuale: " + (att ? REGOLE.attuale[att] : "…") + "\n" +
+        (consigliato >= 0 ? "Mi consigli: " + MODELLI[consigliato].nome + "\n" : "") +
+        (m ? "\n• AUTEL " + m.nome + " (" + m.codice + ") – " + euro(m.prezzo) + (scelto !== consigliato && consigliato >= 0 ? " (scelto da me)" : "") + "\n" : "\n") +
+        sc.map(s => "• " + s.nome + " (" + s.codice + ") – " + euro(s.prezzo)).join("\n") + (sc.length ? "\n" : "") +
+        "Totale indicativo " + euro(tot) + " IVA esclusa\n" +
+        "\nOfficina: " + off + "\nVorrei l'offerta (o vederlo in prova).";
+      etichetta = "Chiedimi l'offerta su WhatsApp";
+    } else {
+      testo = "Ciao Ivan, mi aiuti a scegliere la diagnosi AUTEL giusta per la mia officina?";
+      etichetta = "Scrivimi su WhatsApp";
+    }
+    $("wa").href = "https://wa.me/" + TELEFONO + "?text=" + encodeURIComponent(testo);
+    $("waTesto").textContent = etichetta;
+  }
+
+  document.querySelectorAll("#secTest input").forEach(x => x.addEventListener("change", aggiorna));
+  document.querySelectorAll("#voci input").forEach(x => x.addEventListener("change", () => {
+    if (x.dataset.gruppo && x.checked) document.querySelectorAll('#voci input[data-gruppo="' + x.dataset.gruppo + '"]').forEach(y => { if (y !== x) y.checked = false; });
+    if (x.id === "s_full") { if (x.checked) $("s_fca").checked = false; $("s_fca").disabled = x.checked; }
+    messaggio();
+  }));
+  $("officina").addEventListener("input", messaggio);
+
+  function scegli(g) {
+    scelto = g;
+    document.querySelectorAll(".mod").forEach((el, i) => el.classList.toggle("sel", i === g));
+    document.querySelectorAll(".mod .sc").forEach((b, i) => b.textContent = i === g ? "✓ Scelto" : "Scegli questo");
+    if (window.conta) window.conta("ricerca", "scelto " + MODELLI[g].nome);
+    messaggio();
+  }
+  $("gamma").addEventListener("click", e => { const b = e.target.closest(".sc"); if (b) scegli(+b.dataset.g); });
+  $("alt").addEventListener("click", e => {
+    const b = e.target.closest("button[data-g]"); if (!b) return;
+    const g = +b.dataset.g; scegli(g);
+    const el = $("mod" + g); el.querySelector("details").open = true;
+    el.scrollIntoView({behavior: "smooth", block: "start"});
+  });
+  /* tocco sul bottone di Salvatore Pepe: al contatore come ricerca «Pepe <modello>» */
+  document.addEventListener("click", e => {
+    const a = e.target.closest("a[data-pepe]");
+    if (a && window.conta) window.conta("ricerca", "Pepe " + a.dataset.pepe);
+  }, true);
+
+  $("avviso").addEventListener("click", e => { e.preventDefault(); $("secTest").scrollIntoView({behavior: "smooth", block: "start"}); });
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(es => es.forEach(e => $("avviso").classList.toggle("via", e.isIntersecting || e.boundingClientRect.top < 0)), {threshold: [0, .1]})
+      .observe($("secTest"));
+  }
+  aggiorna();
+});
+</script>
+<script src="/workspace-interattivo-mak/conta.js" defer></script>
+<script>
+/* Spiegami a voce: a fine ascolto richiama il bottone WhatsApp in fondo */
+(() => {
+  const b = document.getElementById("spvBtn"), a = document.getElementById("spvAudio"),
+    ic = document.getElementById("spvIc"), pr = document.getElementById("spvPr"), sub = document.getElementById("spvSub");
+  const PLAY = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>',
+    PAUSA = '<svg viewBox="0 0 24 24"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>';
+  ic.innerHTML = PLAY;
+  b.addEventListener("click", () => { a.paused ? a.play() : a.pause(); });
+  a.addEventListener("play", () => { ic.innerHTML = PAUSA; b.classList.add("spv-va"); sub.textContent = "Sto spiegando… tocca per la pausa"; });
+  a.addEventListener("pause", () => { ic.innerHTML = PLAY; b.classList.remove("spv-va"); if (!a.ended) sub.textContent = "In pausa · tocca per continuare"; });
+  a.addEventListener("timeupdate", () => { if (a.duration) pr.style.width = (a.currentTime / a.duration * 100) + "%"; });
+  a.addEventListener("ended", () => {
+    sub.textContent = "Tocca per riascoltare"; pr.style.width = "0";
+    const c = document.querySelector(".cta a") || document.querySelector(".cta");
+    if (c) { c.classList.remove("spv-richiamo"); void c.offsetWidth; c.classList.add("spv-richiamo"); }
+  });
+})();
+</script>
+</body>
+</html>
