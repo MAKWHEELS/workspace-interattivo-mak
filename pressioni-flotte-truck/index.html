@@ -1,0 +1,996 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="PRESSIONI FLOTTE TRUCK">
+<meta name="theme-color" content="#ffffff">
+<meta name="color-scheme" content="light">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png">
+<meta property="og:title" content="PRESSIONI FLOTTE TRUCK">
+<meta property="og:description" content="Controllo periodico di pressione e battistrada delle flotte truck. MATE by TRK.">
+<meta property="og:image" content="https://makwheels.github.io/workspace-interattivo-mak/tool-prodotti/pressioni-flotte-truck.jpg">
+<meta property="og:url" content="https://makwheels.github.io/workspace-interattivo-mak/pressioni-flotte-truck/">
+<meta property="og:type" content="website">
+<title>PRESSIONI FLOTTE TRUCK</title>
+<style>
+:root{--ink:#14161a;--ink2:#3d424a;--mute:#6b7079;--line:#e2e4e8;--bg:#f3f4f6;--card:#fff;--brand:#da2128;--acc:#14161a;--accTxt:#fff;
+--v:#1a9e55;--g:#e8a500;--r:#d92d20;--n:#8a9099;--vbg:#e3f5ea;--gbg:#fdf3d6;--rbg:#fde4e1;--gtx:#8a5d00;--body:#e9ebee;--safeB:env(safe-area-inset-bottom)}
+*{box-sizing:border-box}
+html{color-scheme:light}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-text-size-adjust:100%}
+a{color:inherit}
+header.top{position:sticky;top:0;z-index:20;background:#fff;color:var(--ink);border-bottom:3px solid var(--brand);padding:calc(env(safe-area-inset-top) + 10px) 16px 10px;display:flex;align-items:center;gap:8px}
+header.top img{height:20px;display:block}
+header.top .by{font-size:11px;letter-spacing:.12em;color:var(--mute);font-weight:700;margin-top:3px}
+header.top .tt{margin-left:auto;font-size:13px;font-weight:800;letter-spacing:.04em;line-height:1.15;color:var(--ink);text-align:right}
+main{max-width:760px;margin:0 auto;padding:14px 16px calc(96px + var(--safeB))}
+nav.bot{position:fixed;bottom:0;left:0;right:0;z-index:20;background:var(--card);border-top:1px solid var(--line);display:flex;padding-bottom:var(--safeB)}
+nav.bot a{flex:1;text-align:center;padding:7px 2px 6px;color:var(--mute);text-decoration:none;font-size:11px;display:flex;flex-direction:column;align-items:center;gap:2px}
+nav.bot a.on{color:var(--ink);font-weight:700}
+nav.bot svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+nav.bot a.plus .ic{background:var(--brand);color:#fff;border-radius:50%;width:42px;height:42px;display:grid;place-items:center;margin-top:-16px;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+h1{font-size:22px;margin:4px 0 12px;line-height:1.2}
+h2{font-size:17px;margin:22px 0 8px}
+h3{font-size:15px;margin:14px 0 6px}
+.crumb{font-size:14px;color:var(--mute);text-decoration:none;display:inline-block;margin-bottom:6px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin:0 0 12px}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.row.end{justify-content:flex-end}
+.sp{flex:1}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 10px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0 8px}
+label.f{display:block;font-size:13px;color:var(--mute);margin-bottom:10px;min-width:0}
+label.f>span{display:block;margin-bottom:4px}
+label.ck{display:flex;align-items:center;gap:8px;font-size:15px;margin:6px 0 10px}
+input,select,textarea{width:100%;font:inherit;font-size:16px;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:9px;padding:9px 10px;min-height:44px;-webkit-appearance:none;appearance:none}
+select{background-image:linear-gradient(45deg,transparent 50%,var(--mute) 50%),linear-gradient(135deg,var(--mute) 50%,transparent 50%);background-position:calc(100% - 16px) 50%,calc(100% - 11px) 50%;background-size:5px 5px;background-repeat:no-repeat;padding-right:28px}
+input[type=datetime-local],input[type=date]{min-width:0}
+textarea{min-height:70px;resize:vertical}
+input[type=checkbox]{width:22px;height:22px;min-height:0;accent-color:var(--brand);-webkit-appearance:checkbox;appearance:auto;flex:none}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);outline-offset:-1px}
+.btn{appearance:none;-webkit-appearance:none;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:15px;font-weight:600;border-radius:10px;padding:10px 14px;min-height:44px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:6px;text-align:center}
+.btn.pri{background:var(--acc);color:var(--accTxt);border-color:var(--acc)}
+.btn.red{background:var(--brand);border-color:var(--brand);color:#fff}
+.btn.dan{color:var(--r);border-color:var(--r);background:transparent}
+.btn.blk{display:flex;width:100%}
+.btn.sm{min-height:36px;padding:6px 11px;font-size:14px}
+.btn:disabled{opacity:.5}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.btns .btn{flex:1 1 140px}
+.list{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:12px}
+.li{display:flex;align-items:center;gap:10px;padding:11px 14px;border-top:1px solid var(--line);color:inherit;text-decoration:none;min-height:52px}
+.li:first-child{border-top:0}
+.li .m{flex:1;min-width:0}
+.li .t{font-weight:600;overflow:hidden;text-overflow:ellipsis}
+.li .s{font-size:13px;color:var(--mute)}
+.li .chev{color:var(--mute);font-size:20px}
+.empty{padding:16px;color:var(--mute);font-size:14px;text-align:center}
+.chip{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;border-radius:99px;padding:3px 9px;white-space:nowrap}
+.chip.v{background:var(--vbg);color:var(--v)}.chip.g{background:var(--gbg);color:var(--gtx)}.chip.r{background:var(--rbg);color:var(--r)}.chip.n{background:var(--bg);color:var(--mute);border:1px solid var(--line)}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.kpi b{display:block;font-size:24px;line-height:1.1}
+.kpi span{font-size:12px;color:var(--mute)}
+.note{background:var(--gbg);border-radius:10px;padding:10px 12px;font-size:14px;margin-bottom:12px}
+.note.info{background:var(--card);border:1px solid var(--line)}
+.muted{color:var(--mute)}.small{font-size:13px}
+.targa{font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:700;letter-spacing:.04em;background:var(--card);border:1.5px solid var(--ink2);border-radius:5px;padding:0 6px;white-space:nowrap}
+.scheme{display:block;margin:0 auto;width:100%;max-width:280px;height:auto;touch-action:manipulation}
+.scheme .wh{cursor:pointer}
+.scheme .body{fill:var(--body)}
+.scheme .ax{stroke:var(--ink2);stroke-width:3}
+.scheme .axn{fill:var(--card);stroke:var(--ink2);stroke-width:1.2}
+.scheme .axt{fill:var(--ink);font-size:10px;font-weight:700;text-anchor:middle}
+.scheme .lab{fill:var(--mute);font-size:10px;font-weight:600}
+.scheme .w-v{fill:var(--v)}.scheme .w-g{fill:var(--g)}.scheme .w-r{fill:var(--r)}.scheme .w-n{fill:var(--n)}
+.scheme .w-e{fill:var(--card);stroke:var(--ink2);stroke-width:1.5;stroke-dasharray:3 2}
+.scheme .w-x{fill:var(--card);stroke:var(--ink2);stroke-width:1.5}
+.scheme .sel rect{stroke:var(--brand);stroke-width:3.5;stroke-dasharray:none}
+.scheme .wt{fill:#fff;font-size:10px;font-weight:700;text-anchor:middle;pointer-events:none}
+.scheme .wt.d{fill:var(--ink)}
+.scheme .wt.s{font-size:8.5px;font-weight:600}
+.legend{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;font-size:12px;color:var(--mute);margin-top:6px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:4px;vertical-align:-1px}
+.sheet-bg{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:50;display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:var(--bg);width:100%;max-width:640px;max-height:92vh;max-height:92dvh;overflow:auto;-webkit-overflow-scrolling:touch;border-radius:16px 16px 0 0;padding:14px 16px calc(16px + var(--safeB))}
+.sheet h3{margin:0 0 2px;font-size:18px}
+.avviso-bg{position:fixed;inset:0;background:rgba(20,22,26,.6);z-index:80;display:flex;align-items:center;justify-content:center;padding:16px}
+.avviso{background:var(--card);border-radius:16px;max-width:560px;width:100%;max-height:90vh;max-height:90dvh;overflow:auto;-webkit-overflow-scrolling:touch;padding:20px 18px calc(18px + var(--safeB));border-top:5px solid var(--brand)}
+.legal h3{font-size:15px;margin:16px 0 4px}.legal p{margin:0 0 8px;font-size:14.5px;line-height:1.5;color:var(--ink2)}
+.foot{text-align:center;font-size:12.5px;color:var(--mute);margin:22px 0 4px;line-height:1.5}.foot a{color:var(--ink2)}
+.toast{position:fixed;left:50%;bottom:calc(88px + var(--safeB));transform:translateX(-50%);background:#14161a;color:#fff;padding:10px 16px;border-radius:10px;z-index:70;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none;max-width:90vw;text-align:center}
+.toast.on{opacity:1}
+.big input{font-size:30px;font-weight:700;text-align:center;min-height:58px}
+.thumbs{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0}
+.thumbs .th{position:relative}
+.thumbs img{width:76px;height:76px;object-fit:cover;border-radius:8px;display:block}
+.thumbs .x{position:absolute;top:-6px;right:-6px;width:24px;height:24px;border-radius:50%;background:#14161a;color:#fff;border:0;font-size:14px;line-height:24px;padding:0}
+table.t{width:100%;border-collapse:collapse;font-size:13px}
+table.t th,table.t td{padding:7px 5px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+table.t th{color:var(--mute);font-weight:600;font-size:12px}
+table.t td.n,table.t th.n{text-align:right;font-variant-numeric:tabular-nums}
+table.t tr.tap{cursor:pointer}
+.tblwrap{overflow-x:auto}
+.seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--card)}
+.seg button{flex:1;border:0;border-left:1px solid var(--line);background:transparent;color:var(--ink);font:inherit;font-size:14px;padding:8px 6px;min-height:42px}
+.seg button:first-child{border-left:0}
+.seg button.on{background:var(--acc);color:var(--accTxt);font-weight:700}
+.axle{border:1px solid var(--line);border-radius:10px;padding:10px;margin-bottom:10px;background:var(--bg)}
+.axle .hd{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.axle .hd b{white-space:nowrap}
+.chartbox{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 10px 8px;margin-bottom:12px}
+.chartbox svg{width:100%;height:auto;display:block}
+.chartbox .tip{font-size:13px;min-height:19px;color:var(--ink2);text-align:center;margin-top:2px}
+.ch-grid{stroke:var(--line);stroke-width:1}
+.ch-ax{fill:var(--mute);font-size:10px}
+.ch-line{fill:none;stroke:var(--ink);stroke-width:2}
+.ch-proj{fill:none;stroke:var(--ink2);stroke-width:1.5;stroke-dasharray:5 4}
+.ch-ref{stroke:var(--ink2);stroke-width:1;stroke-dasharray:3 3}
+.ch-mk{stroke:var(--card);stroke-width:2}
+.ch-mk.hl{stroke:var(--ink);stroke-width:2.5}
+.b-v{fill:var(--v);opacity:.13}.b-g{fill:var(--g);opacity:.18}.b-r{fill:var(--r);opacity:.14}
+.f-v{fill:var(--v)}.f-g{fill:var(--g)}.f-r{fill:var(--r)}.f-n{fill:var(--n)}
+.sec .body2{fill:#3a3f47}.sec .rim{fill:#9aa0aa}.sec .orig{fill:none;stroke:var(--mute);stroke-width:1.2;stroke-dasharray:4 3}
+.sec .grv{fill:var(--card)}.sec .lbl{fill:var(--ink);font-size:11px;font-weight:700;text-anchor:middle}
+.sec .lblm{fill:var(--mute);font-size:10px}
+.sec .thr-g{stroke:var(--g);stroke-width:1.5;stroke-dasharray:5 3}.sec .thr-r{stroke:var(--r);stroke-width:1.5;stroke-dasharray:5 3}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.stat b{display:block;font-size:20px}
+.stat span{font-size:12px;color:var(--mute)}
+details.card>summary{font-weight:700;cursor:pointer;list-style:none}
+details.card>summary::-webkit-details-marker{display:none}
+details.card>summary:after{content:"▾";float:right;color:var(--mute)}
+details.card[open]>summary{margin-bottom:10px}
+.pill{display:inline-block;font-size:11px;font-weight:700;color:var(--mute);border:1px solid var(--line);border-radius:6px;padding:0 5px;margin-left:4px}
+.search{margin-bottom:10px}
+@media (max-width:380px){.grid3{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<header class="top">
+  <img src="logo-mate-nero.svg" alt="MATE">
+  <span class="by">BY TRK</span>
+  <span class="tt">PRESSIONI<br>FLOTTE TRUCK</span>
+</header>
+<main id="app"></main>
+<nav class="bot" id="nav">
+  <a href="#/home" data-v="home"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>Home</a>
+  <a href="#/flotte" data-v="flotte"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="12" height="9" rx="1"/><path d="M14 10h4l3 3v3h-7z"/><circle cx="6" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>Flotte</a>
+  <a href="#/nuova" data-v="nuova" class="plus"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>Lettura</a>
+  <a href="#/dati" data-v="dati"><svg viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 17v3h16v-3"/></svg>Dati</a>
+  <a href="#/impostazioni" data-v="impostazioni"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>Impostazioni</a>
+</nav>
+<div class="toast" id="toast"></div>
+<script src="jspdf.umd.min.js"></script>
+<script>
+'use strict';
+const APP_VER='1.0.0';
+const FORMATO='mate-pressioni-truck';
+
+/* ---------- utilità ---------- */
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid=()=>(window.crypto&&crypto.randomUUID)?crypto.randomUUID():'id-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,10);
+const nowISO=()=>new Date().toISOString();
+const localNow=()=>{const d=new Date();return new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,16)};
+const today=()=>localNow().slice(0,10);
+const num=v=>{if(v===''||v==null)return null;const n=parseFloat(String(v).replace(/\s/g,'').replace(',','.'));return isFinite(n)?n:null};
+const fmt=(n,d=1)=>(n==null||isNaN(n))?'—':Number(n).toLocaleString('it-IT',{minimumFractionDigits:d,maximumFractionDigits:d});
+const fmtK=n=>(n==null||n==='')?'—':Number(n).toLocaleString('it-IT',{maximumFractionDigits:0});
+const fmtD=s=>{if(!s)return '—';const [d,t]=String(s).split('T');const p=d.split('-');if(p.length<3)return s;return `${p[2]}/${p[1]}/${p[0]}`+(t?' '+t.slice(0,5):'')};
+const fmtDs=s=>fmtD(String(s||'').slice(0,10));
+const dayNum=s=>{const [y,m,d]=String(s).slice(0,10).split('-').map(Number);return Math.round(Date.UTC(y,m-1,d)/864e5)};
+const dayStr=n=>new Date(n*864e5).toISOString().slice(0,10);
+const normTarga=t=>String(t||'').toUpperCase().replace(/[^A-Z0-9]/g,'');
+const normName=s=>String(s||'').trim().toLowerCase().replace(/\s+/g,' ');
+const clone=o=>JSON.parse(JSON.stringify(o));
+const isIOS=/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+const standalone=window.navigator.standalone===true||matchMedia('(display-mode: standalone)').matches;
+function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('on'),2200)}
+function slug(s){return String(s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^A-Za-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,40)||'flotta'}
+
+/* ---------- costanti di dominio ---------- */
+const DEF={gommista:'',gommistaInfo:'',operatore:'',nomeDispositivo:'',freq:30,preavviso:7,
+  pressGiallo:5,pressRosso:10,gemelleMax:0.3,battNuovo:16,battGiallo:5,battRosso:3,irrMm:2,tempGiallo:null,tempRosso:null,suggerimenti:true};
+const TIPI={trattore:'Trattore stradale',motrice:'Motrice / autocarro',semirimorchio:'Semirimorchio',rimorchio:'Rimorchio',bus:'Autobus',leggero:'Veicolo medio-leggero',altro:'Altro'};
+const POWERED=['trattore','motrice','bus','leggero','altro'];
+const TRAINATI=['semirimorchio','rimorchio'];
+const TIPI_ASSE={sterzante:'Sterzante',trattivo:'Trattivo',portante:'Portante',sollevabile:'Sollevabile'};
+const ANOM={'':'Nessuna',valvola:'Valvola o tappo mancante/danneggiato',foratura:'Foratura o perdita',fianco:'Taglio o bolla sul fianco',irregolare:'Usura irregolare',cerchio:'Crepa o danno sul cerchio',dadi:'Dadi allentati o indicatori spostati',sensore:'Sensore TPMS guasto o assente',gemelle:'Gemelle a contatto o sassi tra le gemelle',altro:'Altro (vedi note)'};
+const ANOM_GRAVI=['foratura','fianco','cerchio','dadi'];
+const AZ={'':'Nessuna',gonfiato:'Rigonfiato',sgonfiato:'Sgonfiato',valvola:'Sostituita valvola o tappo',riparato:'Riparato',sostituire:'Da sostituire',sostituito:'Sostituito',officina:'Da programmare in officina'};
+const ST={v:['✓','OK'],g:['!','Attenzione'],r:['✕','Fuori soglia'],n:['○','Senza riferimento']};
+const RANK={n:1,v:2,g:3,r:4};
+const worst=(...a)=>a.reduce((w,x)=>(x&&(!w||RANK[x]>RANK[w]))?x:w,null);
+const asse=(tipo,gem)=>({tipo,gem:!!gem,mis:'',pt:null,bn:null,bg:null,br:null,ruota:'',marcaP:''});
+const PRESETS=[
+  {id:'T2',nome:'Trattore 2 assi (4×2)',tipo:'trattore',a:[['sterzante',0],['trattivo',1]]},
+  {id:'T3s',nome:'Trattore 3 assi con sollevabile (6×2)',tipo:'trattore',a:[['sterzante',0],['trattivo',1],['sollevabile',0]]},
+  {id:'T3',nome:'Trattore 3 assi (6×4)',tipo:'trattore',a:[['sterzante',0],['trattivo',1],['trattivo',1]]},
+  {id:'M2',nome:'Motrice 2 assi (4×2)',tipo:'motrice',a:[['sterzante',0],['trattivo',1]]},
+  {id:'M3s',nome:'Motrice 3 assi (6×2)',tipo:'motrice',a:[['sterzante',0],['trattivo',1],['sollevabile',0]]},
+  {id:'M3',nome:'Motrice 3 assi (6×4)',tipo:'motrice',a:[['sterzante',0],['trattivo',1],['trattivo',1]]},
+  {id:'M4',nome:'Motrice 4 assi (8×4), mezzo d\'opera',tipo:'motrice',a:[['sterzante',0],['sterzante',0],['trattivo',1],['trattivo',1]]},
+  {id:'S3',nome:'Semirimorchio 3 assi, ruote singole',tipo:'semirimorchio',a:[['portante',0],['portante',0],['portante',0]]},
+  {id:'S3g',nome:'Semirimorchio 3 assi, gemellate',tipo:'semirimorchio',a:[['portante',1],['portante',1],['portante',1]]},
+  {id:'S2',nome:'Semirimorchio 2 assi, ruote singole',tipo:'semirimorchio',a:[['portante',0],['portante',0]]},
+  {id:'R2g',nome:'Rimorchio 2 assi, gemellate',tipo:'rimorchio',a:[['sterzante',1],['portante',1]]},
+  {id:'R2',nome:'Rimorchio 2 assi, ruote singole',tipo:'rimorchio',a:[['sterzante',0],['portante',0]]},
+  {id:'R3',nome:'Rimorchio 3 assi, ruote singole',tipo:'rimorchio',a:[['sterzante',0],['portante',0],['portante',0]]},
+  {id:'B2',nome:'Autobus 2 assi',tipo:'bus',a:[['sterzante',0],['trattivo',1]]},
+  {id:'L2',nome:'Veicolo medio-leggero 2 assi gemellato',tipo:'leggero',a:[['sterzante',0],['trattivo',1]]},
+];
+const sigla=assi=>(assi||[]).map(a=>a.gem?'4D':'2').join(' ');
+
+/* ---------- archivio (IndexedDB) ---------- */
+const S={flotte:[],mezzi:[],letture:[],meta:{},set:{...DEF}};
+const DB={db:null,
+  open(){return new Promise((res,rej)=>{const r=indexedDB.open('mate-pressioni-truck',1);
+    r.onupgradeneeded=()=>{const d=r.result;['flotte','mezzi','letture','meta'].forEach(s=>{if(!d.objectStoreNames.contains(s))d.createObjectStore(s,{keyPath:'id'})})};
+    r.onsuccess=()=>{this.db=r.result;res()};r.onerror=()=>rej(r.error)})},
+  all(s){return new Promise((res,rej)=>{const q=this.db.transaction(s).objectStore(s).getAll();q.onsuccess=()=>res(q.result||[]);q.onerror=()=>rej(q.error)})},
+  put(s,arr){return new Promise((res,rej)=>{if(!arr.length)return res();const t=this.db.transaction(s,'readwrite');const o=t.objectStore(s);arr.forEach(x=>o.put(clone(x)));t.oncomplete=()=>res();t.onerror=()=>rej(t.error);t.onabort=()=>rej(t.error)})},
+  clear(s){return new Promise((res,rej)=>{const t=this.db.transaction(s,'readwrite');t.objectStore(s).clear();t.oncomplete=()=>res();t.onerror=()=>rej(t.error)})}
+};
+async function load(){
+  await DB.open();
+  for(const s of ['flotte','mezzi','letture'])S[s]=await DB.all(s);
+  (await DB.all('meta')).forEach(x=>S.meta[x.id]=x.v);
+  S.set={...DEF,...(S.meta.settings||{})};
+  if(!S.meta.device)await setMeta('device',uid());
+  try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}
+}
+async function setMeta(k,v){S.meta[k]=v;await DB.put('meta',[{id:k,v}])}
+const devName=()=>S.set.nomeDispositivo||('dispositivo-'+String(S.meta.device||'').slice(0,6));
+function stamp(rec){rec.updatedAt=nowISO();if(!rec.createdAt)rec.createdAt=rec.updatedAt;rec.dev=devName();return rec}
+async function saveMany(store,recs){recs.forEach(rec=>{stamp(rec);const i=S[store].findIndex(x=>x.id===rec.id);if(i<0)S[store].push(rec);else S[store][i]=rec});
+  try{await DB.put(store,recs)}catch(e){alert('Errore nel salvataggio: '+(e&&e.message||e)+'\nSe ci sono molte foto, prova a esportare un backup ed eliminare le letture vecchie.')}}
+const save=(store,rec)=>saveMany(store,[rec]);
+
+const act=a=>a.filter(x=>!x.deleted);
+const getF=id=>S.flotte.find(x=>x.id===id);
+const getM=id=>S.mezzi.find(x=>x.id===id);
+const getL=id=>S.letture.find(x=>x.id===id);
+const flotteAtt=()=>act(S.flotte).sort((a,b)=>a.nome.localeCompare(b.nome,'it'));
+const mezziDi=fid=>act(S.mezzi).filter(m=>m.flottaId===fid).sort((a,b)=>a.targa.localeCompare(b.targa));
+const isEmptyR=r=>!r||(r.p==null&&r.b==null&&r.bE==null&&r.bC==null&&r.bI==null&&r.t==null&&!r.anom&&!r.az&&!r.note&&!(r.foto&&r.foto.length)&&r.pd==null);
+const nRuote=L=>Object.keys(L.ruote||{}).filter(k=>!isEmptyR(L.ruote[k])).length;
+const lettureDi=mid=>act(S.letture).filter(l=>l.mezzoId===mid&&nRuote(l)).sort((a,b)=>b.data.localeCompare(a.data));
+const ultima=mid=>lettureDi(mid)[0]||null;
+
+/* ---------- eliminazione e cestino ---------- */
+const isoLocal=t=>{const d=new Date(t);return isNaN(d)?'':new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,16)};
+const segna=(b,t)=>x=>(x.deleted=true,x.delBatch=b,x.deletedAt=t,x);
+async function eliminaFlotta(id){const f=getF(id);if(!f)return false;const M=mezziDi(id);const L=act(S.letture).filter(l=>l.flottaId===id);
+  if(!confirm(`Eliminare la flotta «${f.nome}» con ${M.length} mezzi e ${L.filter(nRuote).length} letture?\n\nPotrai ripristinarla dal Cestino (sezione Dati).`))return false;
+  const mk=segna(uid(),nowISO());await save('flotte',mk(f));await saveMany('mezzi',M.map(mk));await saveMany('letture',L.map(mk));toast('Flotta eliminata · ripristinabile dal Cestino');return true}
+async function eliminaMezzo(id){const m=getM(id);if(!m)return false;const L=act(S.letture).filter(l=>l.mezzoId===id);
+  if(!confirm(`Eliminare il mezzo ${m.targa} e le sue ${L.filter(nRuote).length} letture?\n\nPotrai ripristinarlo dal Cestino (sezione Dati).`))return false;
+  const mk=segna(uid(),nowISO());await save('mezzi',mk(m));await saveMany('letture',L.map(mk));
+  const ab=act(S.mezzi).filter(x=>x.abbinatoId===id);if(ab.length)await saveMany('mezzi',ab.map(x=>(x.abbinatoId='',x)));toast('Mezzo eliminato · ripristinabile dal Cestino');return true}
+async function eliminaLettura(id){const L=getL(id);if(!L)return false;
+  if(!confirm(`Eliminare la lettura di ${L.targa} del ${fmtD(L.data)}?\n\nPotrai ripristinarla dal Cestino (sezione Dati).`))return false;
+  await save('letture',segna(uid(),nowISO())(L));toast('Lettura eliminata · ripristinabile dal Cestino');return true}
+async function ripristina(store,id){const x=S[store].find(r=>r.id===id);if(!x)return;const b=x.delBatch;
+  const pulisci=r=>(r.deleted=false,delete r.delBatch,delete r.deletedAt,r);
+  for(const st of ['flotte','mezzi','letture']){const rs=S[st].filter(r=>r.deleted&&(r.id===id||(b&&r.delBatch===b)));if(rs.length)await saveMany(st,rs.map(pulisci))}
+  const padri=[];if(store!=='flotte'){const f=getF(x.flottaId);if(f&&f.deleted)padri.push(['flotte',f])}
+  if(store==='letture'){const m=getM(x.mezzoId);if(m&&m.deleted)padri.push(['mezzi',m])}
+  for(const [st,r] of padri)await save(st,pulisci(r));toast('Ripristinato')}
+function cestino(){const out=[];const batchF=new Set(S.flotte.filter(f=>f.deleted&&f.delBatch).map(f=>f.delBatch));
+  const batchM=new Set(S.mezzi.filter(m=>m.deleted&&m.delBatch).map(m=>m.delBatch));
+  S.flotte.filter(f=>f.deleted).forEach(f=>out.push({st:'flotte',id:f.id,t:f.deletedAt||f.updatedAt,lab:`Flotta «${f.nome}»`,sub:`${S.mezzi.filter(m=>m.delBatch&&m.delBatch===f.delBatch).length} mezzi`}));
+  S.mezzi.filter(m=>m.deleted&&!(m.delBatch&&batchF.has(m.delBatch))).forEach(m=>out.push({st:'mezzi',id:m.id,t:m.deletedAt||m.updatedAt,lab:`Mezzo ${m.targa}`,sub:(getF(m.flottaId)||{}).nome||''}));
+  S.letture.filter(l=>l.deleted&&nRuote(l)&&!(l.delBatch&&(batchF.has(l.delBatch)||batchM.has(l.delBatch)))).forEach(l=>out.push({st:'letture',id:l.id,t:l.deletedAt||l.updatedAt,lab:`Lettura ${l.targa} del ${fmtD(l.data)}`,sub:l.flottaNome||''}));
+  return out.sort((a,b)=>String(b.t).localeCompare(String(a.t)))}
+
+/* ---------- posizioni e valutazioni ---------- */
+function positions(assi){const out=[];(assi||[]).forEach((a,i)=>{const n=i+1;
+  if(a.gem)out.push({k:n+'SE',ax:i,side:'S',io:'E'},{k:n+'SI',ax:i,side:'S',io:'I'},{k:n+'DI',ax:i,side:'D',io:'I'},{k:n+'DE',ax:i,side:'D',io:'E'});
+  else out.push({k:n+'S',ax:i,side:'S'},{k:n+'D',ax:i,side:'D'})});return out}
+function posLabel(k,short){const m=String(k).match(/^(\d+)([SD])([EI]?)$/);if(!m)return k;
+  if(short)return `${m[1]} ${m[2]==='S'?'SX':'DX'}${m[3]?(m[3]==='E'?' est':' int'):''}`;
+  return `Asse ${m[1]} · ${m[2]==='S'?'sinistra':'destra'}${m[3]?(m[3]==='E'?' esterna':' interna'):''}`}
+const battVals=r=>r?[r.bE,r.bC,r.bI,r.b].filter(v=>v!=null):[];
+const battMin=r=>{const v=battVals(r);return v.length?Math.min(...v):null};
+function battIrr(r,set){if(!r)return null;const v=[r.bE,r.bC,r.bI];if(v.filter(x=>x!=null).length<3)return null;
+  const [e,c,i]=v;if(Math.max(e,c,i)-Math.min(e,c,i)<set.irrMm)return null;
+  if(c<e&&c<i)return 'Usura al centro (indicazione: possibile pressione alta)';
+  if(c>e&&c>i)return 'Usura sulle spalle (indicazione: possibile pressione bassa)';
+  return 'Usura su un lato (indicazione: controllare assetto e convergenza)'}
+const sogliaB=(a,set)=>({nuovo:(a&&a.bn)||set.battNuovo,g:(a&&a.bg!=null)?a.bg:set.battGiallo,r:(a&&a.br!=null)?a.br:set.battRosso});
+function valutaRuota(r,a,set,coppia){
+  const o={s:null,ps:null,bs:null,ts:null,as:null,motivi:[],dev:null};if(isEmptyR(r))return o;
+  const p=r.p,tgt=a&&a.pt;
+  if(p!=null){if(!tgt)o.ps='n';else{const d=(p-tgt)/tgt*100;o.dev=d;const ad=Math.abs(d);o.ps=ad>set.pressRosso?'r':ad>set.pressGiallo?'g':'v';
+    if(o.ps!=='v')o.motivi.push(`Pressione ${d>0?'alta':'bassa'} (${d>0?'+':''}${fmt(d,0)}% sul riferimento)`)}}
+  if(coppia!=null&&p!=null&&Math.abs(p-coppia)>set.gemelleMax){o.motivi.push(`Differenza con la gemella ${fmt(Math.abs(p-coppia))} bar`);o.ps=worst(o.ps,'g')}
+  const b=battMin(r);if(b!=null){const th=sogliaB(a,set);o.bs=b<=th.r?'r':b<=th.g?'g':'v';
+    if(o.bs!=='v')o.motivi.push(`Battistrada ${fmt(b)} mm`);const irr=battIrr(r,set);if(irr){o.motivi.push(irr);o.bs=worst(o.bs,'g')}}
+  if(r.t!=null&&(set.tempGiallo||set.tempRosso)){o.ts=(set.tempRosso&&r.t>=set.tempRosso)?'r':(set.tempGiallo&&r.t>=set.tempGiallo)?'g':'v';if(o.ts!=='v')o.motivi.push(`Temperatura ${fmt(r.t,0)} °C`)}
+  if(r.anom){o.motivi.push(ANOM[r.anom]||r.anom);o.as=ANOM_GRAVI.includes(r.anom)?'r':'g'}
+  o.s=worst(o.ps,o.bs,o.ts,o.as);return o}
+function valutaPos(L,p){const r=(L.ruote||{})[p.k];let coppia=null;
+  if(p.io){const alt=(L.ruote||{})[p.k.slice(0,-1)+(p.io==='E'?'I':'E')];if(alt&&alt.p!=null)coppia=alt.p}
+  return valutaRuota(r,(L.assi||[])[p.ax],S.set,coppia)}
+function esito(L){const P=positions(L.assi);const c={v:0,g:0,r:0,n:0,tot:P.length,fatte:0,ev:{}};
+  P.forEach(p=>{const r=(L.ruote||{})[p.k];if(isEmptyR(r))return;c.fatte++;const e=valutaPos(L,p);c.ev[p.k]=e;if(e.s)c[e.s]++});
+  c.worst=c.r?'r':c.g?'g':c.v?'v':c.n?'n':null;return c}
+function chipEsito(c){if(!c.fatte)return '<span class="chip n">Vuota</span>';
+  if(c.r)return `<span class="chip r">✕ ${c.r} fuori soglia</span>`;if(c.g)return `<span class="chip g">! ${c.g} da verificare</span>`;
+  if(c.v)return '<span class="chip v">✓ Tutto ok</span>';return '<span class="chip n">○ Senza riferimento</span>'}
+const chipS=s=>s?`<span class="chip ${s}">${ST[s][0]} ${ST[s][1]}</span>`:'<span class="muted">—</span>';
+function freqDi(m){const f=getF(m.flottaId);return num(m.freq)||num(f&&f.freq)||S.set.freq||30}
+function scadenza(m){const u=ultima(m.id);if(!u)return {s:'r',lab:'Mai controllato',ord:-1e6,last:null};
+  const due=dayNum(u.data)+freqDi(m);const diff=due-dayNum(today());
+  if(diff<0)return {s:'r',lab:`Scaduto da ${-diff} gg`,ord:diff,last:u,due};
+  if(diff<=S.set.preavviso)return {s:'g',lab:diff===0?'Scade oggi':`Scade tra ${diff} gg`,ord:diff,last:u,due};
+  return {s:'v',lab:`Prossimo il ${fmtDs(dayStr(due))}`,ord:diff,last:u,due}}
+
+/* ---------- schema del mezzo ---------- */
+function geom(tipo,assi){const cx=110,W=220,powered=!TRAINATI.includes(tipo),ys=[];
+  if(powered){let y=74;assi.forEach((a,i)=>{if(i>0)y+=(assi[i-1].tipo==='sterzante'&&a.tipo!=='sterzante')?128:62;ys.push(y)})}
+  else{let y=tipo==='rimorchio'?92:150;assi.forEach((a,i)=>{if(i>0)y+=(tipo==='rimorchio'&&i===1)?140:62;ys.push(y)})}
+  const H=(ys.length?ys[ys.length-1]:120)+44;const wheels=[];
+  ys.forEach((y,i)=>{const a=assi[i],h=46;
+    if(a.gem)[['SE',-94],['SI',-72],['DI',52],['DE',74]].forEach(([s,dx])=>wheels.push({k:(i+1)+s,x:cx+dx,y:y-h/2,w:20,h}));
+    else[['S',-86],['D',62]].forEach(([s,dx])=>wheels.push({k:(i+1)+s,x:cx+dx,y:y-h/2,w:24,h}))});
+  const body=[];
+  if(powered){body.push({t:'r',x:cx-60,y:10,w:120,h:44,rx:10},{t:'r',x:cx-22,y:54,w:44,h:H-64,rx:3})}
+  else if(tipo==='semirimorchio'){body.push({t:'r',x:cx-64,y:10,w:128,h:H-20,rx:6},{t:'c',x:cx,y:38,r:6})}
+  else{body.push({t:'l',x1:cx,y1:6,x2:cx,y2:52},{t:'r',x:cx-64,y:52,w:128,h:H-62,rx:6})}
+  return {W,H,cx,ys,wheels,body,powered}}
+function schemeSVG(tipo,assi,vals,opt){vals=vals||{};opt=opt||{};
+  if(!assi||!assi.length)return '<p class="muted small">Nessun asse configurato: modifica il mezzo.</p>';
+  const g=geom(tipo,assi);let s=`<svg class="scheme" viewBox="0 0 ${g.W} ${g.H}" role="img" aria-label="Schema delle ruote, vista dall'alto">`;
+  g.body.forEach(b=>{if(b.t==='r')s+=`<rect class="body" x="${b.x}" y="${b.y}" width="${b.w}" height="${b.h}" rx="${b.rx}"/>`;
+    else if(b.t==='c')s+=`<circle cx="${b.x}" cy="${b.y}" r="${b.r}" fill="none" stroke="currentColor" class="ax" style="stroke-width:2"/>`;
+    else s+=`<line class="ax" x1="${b.x1}" y1="${b.y1}" x2="${b.x2}" y2="${b.y2}"/>`});
+  s+=`<text class="lab" x="6" y="14">▲ marcia</text><text class="lab" x="6" y="${g.H-6}">SX</text><text class="lab" x="${g.W-6}" y="${g.H-6}" text-anchor="end">DX</text>`;
+  g.ys.forEach((y,i)=>{s+=`<line class="ax" x1="${g.cx-74}" y1="${y}" x2="${g.cx+74}" y2="${y}"/><circle class="axn" cx="${g.cx}" cy="${y}" r="9"/><text class="axt" x="${g.cx}" y="${y+3.5}">${i+1}</text>`});
+  g.wheels.forEach(w=>{const v=vals[w.k]||{};const cls=v.s?'w-'+v.s:(v.has?'w-x':'w-e');const dark=!v.s;const cxw=w.x+w.w/2;
+    s+=`<g class="wh${opt.sel===w.k?' sel':''}" data-pos="${w.k}"><rect x="${w.x}" y="${w.y}" width="${w.w}" height="${w.h}" rx="5" class="${cls}"/>`;
+    if(v.t1)s+=`<text class="wt${dark?' d':''}" x="${cxw}" y="${w.y+w.h/2-2}">${esc(v.t1)}</text>`;
+    if(v.t2)s+=`<text class="wt s${dark?' d':''}" x="${cxw}" y="${w.y+w.h/2+11}">${esc(v.t2)}</text>`;
+    s+=`<rect x="${w.x-4}" y="${w.y-4}" width="${w.w+8}" height="${w.h+8}" fill="transparent"/></g>`});
+  return s+'</svg>'}
+function valsDaLettura(L){const c=esito(L);const vals={};positions(L.assi).forEach(p=>{const r=(L.ruote||{})[p.k];if(isEmptyR(r))return;
+  const b=battMin(r);vals[p.k]={s:c.ev[p.k].s,has:true,t1:r.p!=null?fmt(r.p):'',t2:b!=null?fmt(b,0):''}});return vals}
+const LEGENDA='<div class="legend"><span><i style="background:var(--v)"></i>OK</span><span><i style="background:var(--g)"></i>Attenzione</span><span><i style="background:var(--r)"></i>Fuori soglia</span><span><i style="background:var(--n)"></i>Senza riferimento</span><span><i style="border:1.5px dashed var(--ink2)"></i>Da leggere</span></div><p class="small muted" style="text-align:center;margin:4px 0 0">Su ogni ruota: pressione in bar e, sotto, battistrada in mm.</p>';
+
+/* ---------- informativa sui dati ---------- */
+const AVVISO_VER='2026-11-14';
+const AVVISO_HTML=`<div class="legal">
+<h3>Dove sono conservati i dati</h3>
+<p>Tutte le informazioni inserite nell'app (flotte, mezzi, letture, foto e impostazioni) sono salvate <b>esclusivamente nella memoria di questo dispositivo</b>, all'interno del browser. Non vengono trasmesse né conservate su server del fornitore o di terzi: per questo il fornitore non può consultarle, recuperarle né ripristinarle.</p>
+<h3>Responsabilità sui dati inseriti</h3>
+<p>L'app è uno strumento di supporto al lavoro dell'officina. L'utente è l'unico responsabile della correttezza e della completezza dei dati inseriti, delle valutazioni che ne derivano e dell'uso che ne fa, anche nei rapporti con i propri clienti. Soglie, colori, stime di consumo e consigli hanno valore indicativo e non sostituiscono le prescrizioni dei costruttori di veicoli e pneumatici né la valutazione professionale dell'operatore.</p>
+<h3>Perdita dei dati</h3>
+<p>I dati possono andare persi, ad esempio cancellando i dati di navigazione, rimuovendo l'app, sostituendo o ripristinando il dispositivo, oppure in caso di guasto, furto o smarrimento. Il fornitore dell'app non risponde della perdita, del danneggiamento o dell'indisponibilità dei dati, né delle conseguenze che ne possono derivare.</p>
+<p>Per tutelare il proprio lavoro raccomandiamo di <b>esportare regolarmente un backup</b> dalla sezione <b>Dati</b> e di conservarlo in un luogo sicuro.</p>
+<h3>Dati di terzi</h3>
+<p>Se nell'app vengono inseriti dati riferiti ad altre persone (ad esempio i referenti delle flotte), l'utente ne cura il trattamento nel rispetto della normativa sulla protezione dei dati personali.</p>
+</div>`;
+function mostraAvviso(){if(document.querySelector('.avviso-bg'))return;const bg=document.createElement('div');bg.className='avviso-bg';
+  bg.innerHTML=`<div class="avviso" role="dialog" aria-modal="true" aria-labelledby="avt"><h2 id="avt" style="margin:0 0 4px">Benvenuti in PRESSIONI FLOTTE TRUCK</h2>
+  <p class="small muted" style="margin:0 0 6px">Prima di iniziare, la preghiamo di leggere con attenzione queste informazioni.</p>${AVVISO_HTML}
+  <label class="ck" style="margin-top:14px"><input type="checkbox" id="av_ok"> Ho letto e accetto queste condizioni</label>
+  <button class="btn red blk" id="av_go" disabled>Inizia a usare l'app</button></div>`;
+  document.body.appendChild(bg);document.body.style.overflow='hidden';
+  bg.querySelector('#av_ok').onchange=e=>{bg.querySelector('#av_go').disabled=!e.target.checked};
+  bg.querySelector('#av_go').onclick=async()=>{await setMeta('avvisoOk',{ver:AVVISO_VER,data:nowISO()});bg.remove();document.body.style.overflow=''}}
+const PIEDE=`<p class="foot">🔒 I dati sono salvati solo su questo dispositivo.<br><a href="#/info">Dati e responsabilità</a> · <a href="#/dati">Backup</a></p>`;
+
+/* ---------- router ---------- */
+const app=$('#app');const VIEWS={};let lastPath='';let DRAFT=null;
+function go(h){if(location.hash===h)render();else location.hash=h}
+function parseHash(){const h=location.hash.slice(1)||'/home';const [path,qs]=h.split('?');return {parts:path.split('/').filter(Boolean),q:Object.fromEntries(new URLSearchParams(qs||'')),path}}
+function render(){closeSheet();const {parts,q,path}=parseHash();const v=parts[0]||'home';
+  $$('#nav a').forEach(a=>a.classList.toggle('on',a.dataset.v===v||(v==='flotta'&&a.dataset.v==='flotte')||(v==='mezzo'&&a.dataset.v==='flotte')));
+  const fn=VIEWS[v]||VIEWS.home;if(path!==lastPath){window.scrollTo(0,0);lastPath=path}
+  try{fn(parts.slice(1),q)}catch(e){console.error(e);app.innerHTML=`<div class="card">Errore: ${esc(e.message)}</div>`}}
+window.addEventListener('hashchange',render);
+const on=(sel,ev,fn,root=app)=>$$(sel,root).forEach(el=>el.addEventListener(ev,e=>fn(e,el)));
+function notFound(t){app.innerHTML=`<div class="card">${esc(t||'Elemento non trovato.')}</div><a class="btn" href="#/home">Torna alla home</a>`}
+function mezzoLi(m,extra){const sc=scadenza(m);const u=sc.last;const c=u?esito(u):null;
+  return `<a class="li" href="#/mezzo/${m.id}"><div class="m"><div class="t"><span class="targa">${esc(m.targa)}</span> <span class="small muted">${esc(TIPI[m.tipo]||'')}</span>${m.tpms==='si'?'<span class="pill">TPMS</span>':''}</div>
+  <div class="s">${u?'Ultima lettura '+fmtDs(u.data):'Nessuna lettura'} · <span class="chip ${sc.s}" style="padding:1px 7px">${esc(sc.lab)}</span>${extra||''}</div></div>${c?chipEsito(c):''}<span class="chev">›</span></a>`}
+
+VIEWS.info=()=>{const ok=S.meta.avvisoOk;app.innerHTML=`<h1>Dati e responsabilità</h1><div class="card">${AVVISO_HTML}</div>
+  <p class="small muted">${ok?`Condizioni accettate su questo dispositivo il ${fmtD(isoLocal(ok.data))}.`:''}</p><a class="btn pri blk" href="#/dati">Vai a Backup e dati</a>`};
+
+/* ---------- HOME ---------- */
+VIEWS.home=()=>{let h='';
+  if(isIOS&&!standalone)h+=`<div class="note">📲 <b>Installa l'app sul telefono.</b> In Safari tocca <b>Condividi</b> → <b>Aggiungi alla schermata Home</b>. Così funziona offline e iOS non cancella i dati salvati.</div>`;
+  const nl=act(S.letture).filter(nRuote).length;const lb=S.meta.lastBackup;
+  if(nl&&(!lb||dayNum(today())-dayNum(lb)>7))h+=`<div class="note">💾 <b>${lb?'Ultimo backup il '+fmtDs(lb):'Nessun backup fatto'}.</b> I dati stanno solo su questo telefono: <a href="#/dati">esporta un backup</a>.</div>`;
+  h+=`<a class="btn red blk" href="#/nuova" style="min-height:52px;font-size:17px">+ NUOVA LETTURA</a>`;
+  h+=`<div class="kpis"><div class="kpi"><b>${flotteAtt().length}</b><span>Flotte</span></div><div class="kpi"><b>${act(S.mezzi).length}</b><span>Mezzi</span></div><div class="kpi"><b>${nl}</b><span>Letture</span></div></div>`;
+  const due=act(S.mezzi).filter(m=>m.attivo!==false).map(m=>({m,sc:scadenza(m)})).filter(x=>x.sc.s!=='v').sort((a,b)=>a.sc.ord-b.sc.ord);
+  h+=`<h2>Da controllare (${due.length})</h2><div class="list">`+(due.length?due.slice(0,30).map(x=>mezzoLi(x.m,' · '+esc((getF(x.m.flottaId)||{}).nome||''))).join(''):'<div class="empty">Nessun mezzo in scadenza.</div>')+'</div>';
+  const ult=act(S.letture).filter(nRuote).sort((a,b)=>b.data.localeCompare(a.data)).slice(0,10);
+  h+=`<h2>Ultime letture</h2><div class="list">`+(ult.length?ult.map(l=>`<a class="li" href="#/lettura/${l.id}"><div class="m"><div class="t"><span class="targa">${esc(l.targa)}</span> <span class="small muted">${esc(l.flottaNome||'')}</span></div><div class="s">${fmtD(l.data)} · ${esc(l.operatore||'—')} · ${nRuote(l)} ruote</div></div>${chipEsito(esito(l))}<span class="chev">›</span></a>`).join(''):'<div class="empty">Ancora nessuna lettura. Crea una flotta e i suoi mezzi, poi tocca «Nuova lettura».</div>')+'</div>';
+  if(!flotteAtt().length)h+=`<div class="btns"><a class="btn pri" href="#/flotta-edit/nuova">Crea la prima flotta</a><a class="btn" href="#/dati">Importa dati o prova con l'esempio</a></div>`;
+  h+=PIEDE;app.innerHTML=h};
+
+/* ---------- FLOTTE ---------- */
+VIEWS.flotte=()=>{const F=flotteAtt();
+  app.innerHTML=`<div class="row"><h1 class="sp">Flotte</h1><a class="btn pri sm" href="#/flotta-edit/nuova">+ Nuova flotta</a></div>
+  <input class="search" id="q" type="search" placeholder="Cerca flotta o targa">
+  <div class="list" id="ls"></div>`;
+  const draw=()=>{const q=normName($('#q').value),qt=normTarga($('#q').value);
+    const rows=F.filter(f=>!q||normName(f.nome).includes(q)||(qt&&mezziDi(f.id).some(m=>normTarga(m.targa).includes(qt))));
+    $('#ls').innerHTML=rows.length?rows.map(f=>{const M=mezziDi(f.id);const nd=M.filter(m=>m.attivo!==false&&scadenza(m).s!=='v').length;
+      return `<a class="li" href="#/flotta/${f.id}"><div class="m"><div class="t">${esc(f.nome)}</div><div class="s">${M.length} mezzi${f.citta?' · '+esc(f.citta):''}</div></div>${nd?`<span class="chip r">${nd} da controllare</span>`:(M.length?'<span class="chip v">✓ In regola</span>':'')}<span class="chev">›</span></a>`}).join(''):'<div class="empty">Nessuna flotta.</div>'};
+  draw();$('#q').addEventListener('input',draw)};
+
+VIEWS.flotta=([id])=>{const f=getF(id);if(!f||f.deleted)return notFound('Flotta non trovata.');const M=mezziDi(id);
+  const L=act(S.letture).filter(l=>l.flottaId===id&&nRuote(l)).sort((a,b)=>b.data.localeCompare(a.data));
+  const noTpms=M.filter(m=>m.tpms!=='si').length;
+  app.innerHTML=`<a class="crumb" href="#/flotte">‹ Flotte</a><h1>${esc(f.nome)}</h1>
+  <div class="card small">${[f.referente&&'Referente: '+esc(f.referente),f.telefono&&'Tel. '+esc(f.telefono),f.email&&esc(f.email),[f.indirizzo,f.citta].filter(Boolean).map(esc).join(', '),'Controllo ogni '+(num(f.freq)||S.set.freq)+' giorni',f.note&&'<i>'+esc(f.note)+'</i>'].filter(Boolean).join('<br>')}</div>
+  <div class="btns"><a class="btn red" href="#/nuova?f=${id}">+ NUOVA LETTURA</a><a class="btn pri" href="#/report/${id}">📄 PDF per il cliente</a></div>
+  <div class="kpis"><div class="kpi"><b>${M.length}</b><span>Mezzi</span></div><div class="kpi"><b>${L.length}</b><span>Letture</span></div><div class="kpi"><b>${noTpms}</b><span>Senza TPMS</span></div></div>
+  <div class="row"><h2 class="sp">Mezzi</h2><a class="btn sm" href="#/mezzo-edit/nuovo?f=${id}">+ Nuovo mezzo</a></div>
+  <div class="list">${M.length?M.map(m=>mezzoLi(m)).join(''):'<div class="empty">Nessun mezzo: aggiungi trattori, motrici e rimorchi.</div>'}</div>
+  <h2>Letture</h2><div class="list">${L.length?L.slice(0,40).map(l=>`<a class="li" href="#/lettura/${l.id}"><div class="m"><div class="t"><span class="targa">${esc(l.targa)}</span>${l.abbinatoTarga?' <span class="small muted">+ '+esc(l.abbinatoTarga)+'</span>':''}</div><div class="s">${fmtD(l.data)} · ${esc(l.operatore||'—')}</div></div>${chipEsito(esito(l))}<span class="chev">›</span></a>`).join(''):'<div class="empty">Nessuna lettura.</div>'}</div>
+  <div class="btns"><a class="btn" href="#/flotta-edit/${id}">✎ Modifica flotta</a><button class="btn" id="exp">⇪ Esporta questa flotta</button></div>
+  <button class="btn dan blk" id="delF">🗑 Elimina flotta</button>`;
+  $('#delF').onclick=async()=>{if(await eliminaFlotta(id))go('#/flotte')};
+  $('#exp').onclick=()=>esportaJSON({flottaId:id,foto:true})};
+
+VIEWS['flotta-edit']=([id],q)=>{const nuovo=id==='nuova';const f=nuovo?{id:uid(),nome:''}:clone(getF(id)||{});if(!nuovo&&!f.id)return notFound();
+  const fld=(k,l,t='text',ex='')=>`<label class="f"><span>${l}</span><input id="f_${k}" type="${t}" value="${esc(f[k]??'')}" ${ex}></label>`;
+  app.innerHTML=`<a class="crumb" href="${nuovo?'#/flotte':'#/flotta/'+id}">‹ Indietro</a><h1>${nuovo?'Nuova flotta':'Modifica flotta'}</h1>
+  <div class="card">${fld('nome','Nome flotta / ragione sociale *')}
+  <div class="grid2">${fld('referente','Referente')}${fld('telefono','Telefono','tel')}</div>
+  ${fld('email','Email','email')}
+  <div class="grid2">${fld('indirizzo','Indirizzo deposito')}${fld('citta','Città')}</div>
+  <div class="grid2">${fld('freq','Controllo ogni (giorni)','text',`inputmode="numeric" placeholder="${S.set.freq} (generale)"`)}${fld('piva','P. IVA (facoltativa)')}</div>
+  <label class="f"><span>Note</span><textarea id="f_note">${esc(f.note||'')}</textarea></label></div>
+  <div class="btns"><button class="btn pri" id="sv">Salva</button>${nuovo?'':'<button class="btn dan" id="del">Elimina flotta</button>'}</div>`;
+  $('#sv').onclick=async()=>{['nome','referente','telefono','email','indirizzo','citta','piva','note'].forEach(k=>f[k]=$('#f_'+k).value.trim());f.freq=num($('#f_freq').value);
+    if(!f.nome)return alert('Scrivi il nome della flotta.');
+    const dup=flotteAtt().find(x=>x.id!==f.id&&normName(x.nome)===normName(f.nome));if(dup&&!confirm('Esiste già una flotta con questo nome. Salvare comunque?'))return;
+    await save('flotte',f);toast('Flotta salvata');go(q.ret==='nuova'?'#/nuova?f='+f.id:'#/flotta/'+f.id)};
+  if(!nuovo)$('#del').onclick=async()=>{if(await eliminaFlotta(id))go('#/flotte')}};
+
+/* ---------- MEZZI ---------- */
+VIEWS.mezzo=([id])=>{const m=getM(id);if(!m||m.deleted)return notFound('Mezzo non trovato.');const f=getF(m.flottaId)||{};
+  const L=lettureDi(id);const u=L[0];const sc=scadenza(m);const ab=m.abbinatoId&&getM(m.abbinatoId);
+  app.innerHTML=`<a class="crumb" href="#/flotta/${m.flottaId}">‹ ${esc(f.nome||'Flotta')}</a>
+  <h1><span class="targa" style="font-size:22px">${esc(m.targa)}</span></h1>
+  <div class="card small">${esc(TIPI[m.tipo]||'')}${m.marca||m.modello?' · '+esc([m.marca,m.modello].filter(Boolean).join(' ')):''}${m.anno?' · '+esc(m.anno):''}<br>
+  Configurazione ${esc(sigla(m.assi))} · ${positions(m.assi).length} ruote · TPMS: <b>${m.tpms==='si'?'sì'+(m.tpmsTipo?' ('+esc(m.tpmsTipo)+')':''):m.tpms==='no'?'no':'non indicato'}</b>
+  ${ab&&!ab.deleted?`<br>Abbinato di solito a <a href="#/mezzo/${ab.id}"><span class="targa">${esc(ab.targa)}</span></a>`:''}${m.kmUltimo?'<br>Ultimi km rilevati: '+fmtK(m.kmUltimo):''}
+  <br><span class="chip ${sc.s}">${esc(sc.lab)}</span>${m.note?'<br><i>'+esc(m.note)+'</i>':''}</div>
+  <div class="btns"><a class="btn red" href="#/lettura/nuova?m=${id}">+ NUOVA LETTURA</a><a class="btn pri" href="#/report/${m.flottaId}?m=${id}">📄 PDF</a></div>
+  ${u?`<h2>Ultima lettura · ${fmtDs(u.data)}</h2><div class="card">${schemeSVG(m.tipo,u.assi&&u.assi.length?u.assi:m.assi,valsDaLettura(u))}${LEGENDA}<p class="small muted" style="text-align:center;margin:8px 0 0">Tocca una ruota per vedere storico e consumo.</p></div>`:
+  `<h2>Schema</h2><div class="card">${schemeSVG(m.tipo,m.assi,{})}<p class="small muted" style="text-align:center">Tocca una ruota per vedere storico e consumo.</p></div>`}
+  <h2>Storico letture (${L.length})</h2><div class="list">${L.length?L.map(l=>`<a class="li" href="#/lettura/${l.id}"><button class="btn sm dan" data-dl="${l.id}" aria-label="Elimina lettura" style="flex:none;padding:4px 9px">🗑</button><div class="m"><div class="t">${fmtD(l.data)}</div><div class="s">${esc(l.operatore||'—')}${l.km?' · km '+fmtK(l.km):''}${l.abbinatoTarga?' · con '+esc(l.abbinatoTarga):''}</div></div>${chipEsito(esito(l))}<span class="chev">›</span></a>`).join(''):'<div class="empty">Nessuna lettura.</div>'}</div>
+  <div class="btns"><a class="btn" href="#/mezzo-edit/${id}">✎ Modifica mezzo</a><a class="btn" href="#/mezzo-edit/nuovo?f=${m.flottaId}&dup=${id}">⧉ Duplica (altra targa)</a></div>
+  <button class="btn dan blk" id="delM">🗑 Elimina mezzo</button>`;
+  on('[data-dl]','click',async(e,b)=>{e.preventDefault();e.stopPropagation();if(await eliminaLettura(b.dataset.dl))render()});
+  $('#delM').onclick=async()=>{if(await eliminaMezzo(id))go('#/flotta/'+m.flottaId)};
+  on('.wh','click',(e,el)=>go(`#/ruota/${id}/${el.dataset.pos}`))};
+
+VIEWS['mezzo-edit']=([id],q)=>{const nuovo=id==='nuovo';let E;
+  if(nuovo){const src=q.dup&&getM(q.dup);E=src?{...clone(src),id:uid(),targa:'',telaio:'',kmUltimo:null,createdAt:null,updatedAt:null,abbinatoId:''}:{id:uid(),flottaId:q.f||'',targa:'',tipo:'trattore',assi:PRESETS[0].a.map(x=>asse(...x)),tpms:'',attivo:true}}
+  else{const m=getM(id);if(!m)return notFound();E=clone(m)}
+  if(!E.assi)E.assi=[];
+  const F=flotteAtt();
+  const opt=(o,v)=>Object.entries(o).map(([k,l])=>`<option value="${k}"${k===v?' selected':''}>${esc(l)}</option>`).join('');
+  const fld=(k,l,ex='')=>`<label class="f"><span>${l}</span><input id="m_${k}" value="${esc(E[k]??'')}" ${ex}></label>`;
+  app.innerHTML=`<a class="crumb" href="${nuovo?(E.flottaId?'#/flotta/'+E.flottaId:'#/flotte'):'#/mezzo/'+id}">‹ Indietro</a><h1>${nuovo?(q.dup?'Duplica mezzo':'Nuovo mezzo'):'Modifica mezzo'}</h1>
+  <div class="card"><div class="grid2">${fld('targa','Targa *','autocapitalize="characters" autocomplete="off" style="text-transform:uppercase"')}
+  <label class="f"><span>Tipo</span><select id="m_tipo">${opt(TIPI,E.tipo)}</select></label></div>
+  <label class="f"><span>Flotta *</span><select id="m_flotta"><option value="">— scegli —</option>${F.map(f=>`<option value="${f.id}"${f.id===E.flottaId?' selected':''}>${esc(f.nome)}</option>`).join('')}</select></label>
+  <div class="grid3">${fld('marca','Marca')}${fld('modello','Modello')}${fld('anno','Anno','inputmode="numeric"')}</div>
+  <div class="grid2">${fld('telaio','Telaio (facoltativo)')}${fld('codice','N. interno flotta')}</div></div>
+  <h2>Assi e pneumatici</h2>
+  <div class="card"><label class="f"><span>Configurazione rapida</span><select id="m_preset"><option value="">— scegli uno schema per caricare gli assi —</option>${PRESETS.map(p=>`<option value="${p.id}">${esc(p.nome)}</option>`).join('')}</select></label>
+  <div id="prev"></div><p class="small muted" style="text-align:center;margin:4px 0 0">Configurazione <b id="sig"></b> · assi numerati dal davanti</p></div>
+  <div id="axles"></div><button class="btn blk" id="addax">+ Aggiungi asse</button>
+  <h2>TPMS e altro</h2>
+  <div class="card"><label class="f"><span>Sensori TPMS montati</span><select id="m_tpms">${opt({'':'Non indicato',si:'Sì',no:'No'},E.tpms||'')}</select></label>
+  ${fld('tpmsTipo','Tipo sensori / sistema (es. marca, modello)')}
+  <label class="f"><span>Abbinato di solito a</span><select id="m_abb"></select></label>
+  <div class="grid2">${fld('freq','Controllo ogni (giorni)',`inputmode="numeric" placeholder="flotta / generale"`)}${fld('kmUltimo','Ultimi km','inputmode="numeric"')}</div>
+  <label class="ck"><input type="checkbox" id="m_att"${E.attivo!==false?' checked':''}> Mezzo attivo (incluso nelle scadenze)</label>
+  <label class="f"><span>Note</span><textarea id="m_note">${esc(E.note||'')}</textarea></label></div>
+  <div class="btns"><button class="btn pri" id="sv">Salva mezzo</button>${nuovo?'':'<button class="btn dan" id="del">Elimina mezzo</button>'}</div>`;
+  const drawAbb=()=>{const fid=$('#m_flotta').value;const altri=act(S.mezzi).filter(x=>x.flottaId===fid&&x.id!==E.id&&(TRAINATI.includes(x.tipo)!==TRAINATI.includes($('#m_tipo').value)));
+    $('#m_abb').innerHTML='<option value="">Nessuno</option>'+altri.map(x=>`<option value="${x.id}"${x.id===E.abbinatoId?' selected':''}>${esc(x.targa)} · ${esc(TIPI[x.tipo])}</option>`).join('')};
+  const drawPrev=()=>{$('#prev').innerHTML=schemeSVG($('#m_tipo').value,E.assi,{});$('#sig').textContent=sigla(E.assi)||'—'};
+  const drawAx=()=>{const tr=TRAINATI.includes($('#m_tipo').value);
+    $('#axles').innerHTML=E.assi.map((a,i)=>`<div class="axle" data-i="${i}"><div class="hd"><b>Asse ${i+1}</b><select data-k="tipo" style="flex:1">${opt(TIPI_ASSE,a.tipo)}</select>
+      <button class="btn sm" data-a="up" ${i?'':'disabled'} aria-label="Sposta su">↑</button><button class="btn sm dan" data-a="del" aria-label="Elimina asse">✕</button></div>
+      <label class="ck"><input type="checkbox" data-k="gem"${a.gem?' checked':''}> Ruote gemellate (4 ruote sull'asse)</label>
+      <div class="grid2"><label class="f"><span>Misura pneumatico</span><input data-k="mis" value="${esc(a.mis||'')}" placeholder="es. ${tr?'385/65 R22.5':'315/70 R22.5'}"></label>
+      <label class="f"><span>Pressione di riferimento (bar)</span><input data-k="pt" inputmode="decimal" value="${a.pt!=null?fmt(a.pt):''}" placeholder="a freddo"></label>
+      <label class="f"><span>Marca / modello pneumatico</span><input data-k="marcaP" value="${esc(a.marcaP||'')}"></label>
+      <label class="f"><span>Ruota</span><select data-k="ruota">${opt({'':'—',lega:'Lega',acciaio:'Acciaio'},a.ruota||'')}</select></label></div>
+      <div class="grid3"><label class="f"><span>Battistrada nuovo (mm)</span><input data-k="bn" inputmode="decimal" value="${a.bn!=null?fmt(a.bn):''}" placeholder="${fmt(S.set.battNuovo)}"></label>
+      <label class="f"><span>Giallo sotto (mm)</span><input data-k="bg" inputmode="decimal" value="${a.bg!=null?fmt(a.bg):''}" placeholder="${fmt(S.set.battGiallo)}"></label>
+      <label class="f"><span>Rosso sotto (mm)</span><input data-k="br" inputmode="decimal" value="${a.br!=null?fmt(a.br):''}" placeholder="${fmt(S.set.battRosso)}"></label></div>
+      <p class="small muted" style="margin:0">Campi del battistrada vuoti = valori generali delle impostazioni.</p></div>`).join('')||'<p class="muted">Nessun asse.</p>';drawPrev()};
+  drawAbb();drawAx();
+  $('#m_flotta').onchange=drawAbb;$('#m_tipo').onchange=()=>{drawAbb();drawAx()};
+  $('#m_preset').onchange=e=>{const p=PRESETS.find(x=>x.id===e.target.value);if(!p)return;
+    if(E.assi.length&&!confirm('Sostituire gli assi attuali con lo schema scelto?')){e.target.value='';return}
+    E.assi=p.a.map(x=>asse(...x));$('#m_tipo').value=p.tipo;drawAbb();drawAx();e.target.value=''};
+  const axEv=e=>{const box=e.target.closest('.axle');if(!box)return;const i=+box.dataset.i;const k=e.target.dataset.k;if(!k)return;
+    if(k==='gem'){E.assi[i].gem=e.target.checked;drawPrev();return}
+    E.assi[i][k]=['pt','bn','bg','br'].includes(k)?num(e.target.value):e.target.value;if(k==='tipo')drawPrev()};
+  $('#axles').addEventListener('input',axEv);$('#axles').addEventListener('change',axEv);
+  $('#axles').addEventListener('click',e=>{const b=e.target.closest('button[data-a]');if(!b)return;const i=+b.closest('.axle').dataset.i;
+    if(b.dataset.a==='del'){if(!confirm(`Eliminare l'asse ${i+1}?`))return;E.assi.splice(i,1)}else if(i>0){[E.assi[i-1],E.assi[i]]=[E.assi[i],E.assi[i-1]]}drawAx()});
+  $('#addax').onclick=()=>{const last=E.assi[E.assi.length-1];E.assi.push(last?{...clone(last)}:asse('portante',0));drawAx()};
+  $('#sv').onclick=async()=>{E.targa=normTarga($('#m_targa').value);E.tipo=$('#m_tipo').value;E.flottaId=$('#m_flotta').value;
+    ['marca','modello','anno','telaio','codice','tpmsTipo','note'].forEach(k=>E[k]=$('#m_'+k).value.trim());
+    E.tpms=$('#m_tpms').value;E.abbinatoId=$('#m_abb').value;E.freq=num($('#m_freq').value);E.kmUltimo=num($('#m_kmUltimo').value);E.attivo=$('#m_att').checked;
+    if(!E.targa)return alert('Scrivi la targa.');if(!E.flottaId)return alert('Scegli la flotta.');if(!E.assi.length)return alert('Configura almeno un asse.');
+    const dup=act(S.mezzi).find(x=>x.id!==E.id&&normTarga(x.targa)===E.targa);
+    if(dup&&!confirm(`La targa ${E.targa} esiste già (${(getF(dup.flottaId)||{}).nome||'altra flotta'}). Salvare comunque?`))return;
+    const recs=[E];if(E.abbinatoId){const o=getM(E.abbinatoId);if(o&&!o.abbinatoId){o.abbinatoId=E.id;await save('mezzi',o)}}
+    await save('mezzi',E);toast('Mezzo salvato');go(q.ret==='lettura'?'#/lettura/nuova?m='+E.id:'#/mezzo/'+E.id)};
+  if(!nuovo)$('#del').onclick=async()=>{const fid=getM(id).flottaId;if(await eliminaMezzo(id))go('#/flotta/'+fid)}};
+
+/* ---------- NUOVA LETTURA (scelta) ---------- */
+VIEWS.nuova=(_,q)=>{
+  if(!q.f){const F=flotteAtt();
+    app.innerHTML=`<h1>NUOVA LETTURA</h1><input class="search" id="q" type="search" placeholder="Cerca targa in tutte le flotte" autocapitalize="characters"><div id="res"></div>
+    <h2>Scegli la flotta</h2><div class="list">${F.length?F.map(f=>`<a class="li" href="#/nuova?f=${f.id}"><div class="m"><div class="t">${esc(f.nome)}</div><div class="s">${mezziDi(f.id).length} mezzi</div></div><span class="chev">›</span></a>`).join(''):'<div class="empty">Nessuna flotta.</div>'}</div>
+    <a class="btn blk" href="#/flotta-edit/nuova?ret=nuova">+ Nuova flotta</a>`;
+    $('#q').addEventListener('input',e=>{const t=normTarga(e.target.value);const r=t.length<2?[]:act(S.mezzi).filter(m=>normTarga(m.targa).includes(t)).slice(0,10);
+      $('#res').innerHTML=r.length?'<div class="list">'+r.map(m=>`<a class="li" href="#/lettura/nuova?m=${m.id}"><div class="m"><div class="t"><span class="targa">${esc(m.targa)}</span></div><div class="s">${esc((getF(m.flottaId)||{}).nome||'')} · ${esc(TIPI[m.tipo])}</div></div><span class="chev">›</span></a>`).join('')+'</div>':''});return}
+  const f=getF(q.f);if(!f)return notFound();const M=mezziDi(f.id).filter(m=>m.attivo!==false);
+  const ord=M.map(m=>({m,sc:scadenza(m)})).sort((a,b)=>a.sc.ord-b.sc.ord||a.m.targa.localeCompare(b.m.targa));
+  app.innerHTML=`<a class="crumb" href="#/nuova">‹ Flotte</a><h1>${esc(f.nome)}</h1><input class="search" id="q" type="search" placeholder="Filtra targa" autocapitalize="characters">
+  <h2>Scegli il mezzo</h2><div class="list" id="ls"></div><a class="btn blk" href="#/mezzo-edit/nuovo?f=${f.id}&ret=lettura">+ Nuovo mezzo</a>`;
+  const draw=()=>{const t=normTarga($('#q').value);const r=ord.filter(x=>!t||normTarga(x.m.targa).includes(t));
+    $('#ls').innerHTML=r.length?r.map(({m,sc})=>`<a class="li" href="#/lettura/nuova?m=${m.id}"><div class="m"><div class="t"><span class="targa">${esc(m.targa)}</span> <span class="small muted">${esc(TIPI[m.tipo])}</span></div><div class="s"><span class="chip ${sc.s}" style="padding:1px 7px">${esc(sc.lab)}</span></div></div><span class="chev">›</span></a>`).join(''):'<div class="empty">Nessun mezzo.</div>'};
+  draw();$('#q').addEventListener('input',draw)};
+
+/* ---------- LETTURA ---------- */
+function creaBozza(q){const m=getM(q.m);if(!m)return null;const f=getF(m.flottaId)||{};
+  const abId=q.ab||m.abbinatoId||'';const ab=abId&&getM(abId);
+  return {id:uid(),sessione:q.s||uid(),data:localNow(),flottaId:m.flottaId,flottaNome:f.nome||'',operatore:q.op||S.meta.lastOp||S.set.operatore||'',
+    mezzoId:m.id,targa:m.targa,tipoMezzo:m.tipo,abbinatoId:ab&&!ab.deleted?ab.id:'',abbinatoTarga:ab&&!ab.deleted?ab.targa:'',km:null,luogo:'',condizione:'freddo',
+    tpms:m.tpms||'',tpmsStato:'',assi:clone(m.assi||[]),ruote:{},note:''}}
+const isSaved=L=>S.letture.some(x=>x.id===L.id);
+async function salvaLettura(L){if(!isSaved(L)&&!nRuote(L))return;S.meta.lastOp=L.operatore;setMeta('lastOp',L.operatore);await save('letture',L);
+  const m=getM(L.mezzoId);if(m&&!m.deleted){const u=ultima(m.id);if(u&&u.id===L.id){let ch=false;
+    if(L.km&&(!m.kmUltimo||L.km>m.kmUltimo)){m.kmUltimo=L.km;ch=true}if(L.tpms&&L.tpms!==m.tpms){m.tpms=L.tpms;ch=true}if(ch)await save('mezzi',m)}}}
+VIEWS.lettura=([id],q)=>{
+  let L;if(id==='nuova'){L=creaBozza(q);if(!L)return notFound('Mezzo non trovato.');DRAFT=L;history.replaceState(null,'','#/lettura/'+L.id);lastPath='/lettura/'+L.id}
+  else L=getL(id)||(DRAFT&&DRAFT.id===id?DRAFT:null);
+  if(!L||L.deleted)return notFound('Lettura non trovata (forse non era stata salvata).');
+  const m=getM(L.mezzoId)||{};const P=positions(L.assi);
+  const fM=act(S.mezzi).filter(x=>x.flottaId===L.flottaId&&x.id!==L.mezzoId&&TRAINATI.includes(x.tipo)!==TRAINATI.includes(L.tipoMezzo));
+  const c=esito(L);
+  const tbl=P.map(p=>{const r=L.ruote[p.k];const e=c.ev[p.k];const b=battMin(r);
+    return `<tr class="tap" data-pos="${p.k}"><td>${posLabel(p.k,true)}</td><td class="n">${r&&r.p!=null?fmt(r.p):'—'}</td><td class="n">${b!=null?fmt(b):'—'}</td><td class="n">${r&&r.t!=null?fmt(r.t,0):'—'}</td><td>${e?chipS(e.s):'<span class="muted small">da leggere</span>'}${r&&r.foto&&r.foto.length?' 📷':''}</td></tr>`}).join('');
+  app.innerHTML=`<a class="crumb" href="#/mezzo/${L.mezzoId}">‹ ${esc(L.targa)}</a>
+  <div class="row"><h1 class="sp" style="margin-bottom:4px">Lettura <span class="targa" style="font-size:20px">${esc(L.targa)}</span></h1>${chipEsito(c)}</div>
+  <p class="small muted" style="margin:0 0 10px">${esc(L.flottaNome)} · ${esc(TIPI[L.tipoMezzo]||'')} · ${c.fatte}/${c.tot} ruote ${isSaved(L)?'· salvata':'· <b>non ancora salvata</b>'}</p>
+  <details class="card"${isSaved(L)?'':' open'}><summary>Dati della lettura · ${fmtD(L.data)}</summary>
+   <div class="grid2"><label class="f"><span>Data e ora</span><input type="datetime-local" data-h="data" value="${esc(L.data)}"></label>
+   <label class="f"><span>Letto da</span><input data-h="operatore" value="${esc(L.operatore)}" placeholder="nome operatore"></label>
+   <label class="f"><span>Km</span><input data-h="km" inputmode="numeric" value="${L.km??''}"></label>
+   <label class="f"><span>Abbinato a</span><select data-h="abbinatoId"><option value="">Nessuno (mezzo singolo)</option>${fM.map(x=>`<option value="${x.id}"${x.id===L.abbinatoId?' selected':''}>${esc(x.targa)} · ${esc(TIPI[x.tipo])}</option>`).join('')}</select></label></div>
+   <label class="f"><span>Condizione pneumatici</span><div class="seg" data-seg="condizione"><button data-v="freddo"${L.condizione==='freddo'?' class="on"':''}>A freddo</button><button data-v="caldo"${L.condizione==='caldo'?' class="on"':''}>A caldo</button></div></label>
+   <div class="grid2"><label class="f"><span>TPMS presente</span><select data-h="tpms"><option value="">Non indicato</option><option value="si"${L.tpms==='si'?' selected':''}>Sì</option><option value="no"${L.tpms==='no'?' selected':''}>No</option></select></label>
+   <label class="f"><span>Stato TPMS</span><select data-h="tpmsStato"><option value="">Non verificato</option><option value="ok"${L.tpmsStato==='ok'?' selected':''}>Funziona</option><option value="allarme"${L.tpmsStato==='allarme'?' selected':''}>Spia o allarme attivo</option><option value="guasto"${L.tpmsStato==='guasto'?' selected':''}>Guasto / sensori da sostituire</option></select></label></div>
+   <label class="f"><span>Luogo</span><input data-h="luogo" value="${esc(L.luogo||'')}" placeholder="es. deposito, piazzale, officina"></label>
+   <label class="f"><span>Note generali</span><textarea data-h="note">${esc(L.note||'')}</textarea></label>
+  </details>
+  ${L.condizione==='caldo'?'<div class="note">Lettura a caldo: le pressioni sono più alte di quelle a freddo, il confronto con il riferimento è indicativo.</div>':''}
+  <div class="card">${schemeSVG(L.tipoMezzo,L.assi,valsDaLettura(L))}${LEGENDA}
+   <button class="btn red blk" id="seq" style="margin-top:12px">${c.fatte?'Continua in sequenza':'Inizia: tocca una ruota o vai in sequenza'}</button></div>
+  <div class="card tblwrap"><table class="t"><thead><tr><th>Ruota</th><th class="n">bar</th><th class="n">mm</th><th class="n">°C</th><th>Esito</th></tr></thead><tbody>${tbl}</tbody></table></div>
+  <div class="btns"><button class="btn pri" id="fine">✓ Concludi lettura</button><a class="btn" href="#/report/${L.flottaId}?l=${L.id}" id="pdf">📄 PDF per il cliente</a></div>
+  <div class="btns">${isSaved(L)?'<button class="btn dan" id="del">🗑 Elimina lettura</button>':''}${(getM(L.mezzoId)&&JSON.stringify(L.assi)!==JSON.stringify(getM(L.mezzoId).assi))?'<button class="btn" id="sync">Aggiorna assi dal mezzo</button>':''}</div>`;
+  const hEv=async e=>{const k=e.target.dataset.h;if(!k)return;let v=e.target.value;
+    if(k==='km')v=num(v);if(k==='abbinatoId'){const a=getM(v);L.abbinatoTarga=a?a.targa:''}
+    L[k]=v;if(isSaved(L))await salvaLettura(L)};
+  on('[data-h]','change',hEv);
+  on('[data-seg] button','click',async(e,b)=>{L[b.parentNode.dataset.seg]=b.dataset.v;if(isSaved(L))await salvaLettura(L);render()});
+  on('.wh','click',(e,el)=>apriRuota(L,el.dataset.pos));on('tr.tap','click',(e,el)=>apriRuota(L,el.dataset.pos));
+  $('#seq').onclick=()=>{const p=P.find(p=>isEmptyR(L.ruote[p.k]))||P[0];if(p)apriRuota(L,p.k)};
+  $('#pdf').onclick=async e=>{if(!isSaved(L)){e.preventDefault();if(!nRuote(L))return alert('Inserisci almeno una ruota.');await salvaLettura(L);go('#/report/'+L.flottaId+'?l='+L.id)}};
+  $('#fine').onclick=async()=>{if(!nRuote(L)){if(confirm('Nessuna ruota inserita. Uscire senza salvare?'))go('#/mezzo/'+L.mezzoId);return}
+    await salvaLettura(L);toast('Lettura salvata');
+    if(L.abbinatoId&&getM(L.abbinatoId)&&!act(S.letture).some(x=>x.sessione===L.sessione&&x.mezzoId===L.abbinatoId&&nRuote(x))){
+      if(confirm(`Leggere ora anche ${L.abbinatoTarga}?`))return go(`#/lettura/nuova?m=${L.abbinatoId}&s=${L.sessione}&ab=${L.mezzoId}&op=${encodeURIComponent(L.operatore||'')}`)}
+    go('#/mezzo/'+L.mezzoId)};
+  const del=$('#del');if(del)del.onclick=async()=>{if(await eliminaLettura(L.id))go('#/mezzo/'+L.mezzoId)};
+  const sy=$('#sync');if(sy)sy.onclick=async()=>{if(!confirm('Sostituire gli assi di questa lettura con quelli attuali del mezzo? I valori delle ruote con la stessa posizione restano.'))return;
+    L.assi=clone(getM(L.mezzoId).assi);const ks=positions(L.assi).map(p=>p.k);Object.keys(L.ruote).forEach(k=>{if(!ks.includes(k))delete L.ruote[k]});if(isSaved(L))await salvaLettura(L);render()}};
+
+function compressImg(file,max=1280,q=.72){return new Promise((res,rej)=>{const url=URL.createObjectURL(file);const img=new Image();
+  img.onload=()=>{const r=Math.min(1,max/Math.max(img.naturalWidth,img.naturalHeight));const c=document.createElement('canvas');c.width=Math.round(img.naturalWidth*r);c.height=Math.round(img.naturalHeight*r);
+    c.getContext('2d').drawImage(img,0,0,c.width,c.height);URL.revokeObjectURL(url);res(c.toDataURL('image/jpeg',q))};img.onerror=e=>{URL.revokeObjectURL(url);rej(e)};img.src=url})}
+function sheet(html){closeSheet();const bg=document.createElement('div');bg.className='sheet-bg';bg.innerHTML=`<div class="sheet">${html}</div>`;
+  bg.addEventListener('click',e=>{if(e.target===bg)closeSheet()});document.body.appendChild(bg);document.body.style.overflow='hidden';return bg.firstChild}
+function closeSheet(){$$('.sheet-bg').forEach(x=>x.remove());document.body.style.overflow=''}
+function vediFoto(src){const sh=sheet(`<img src="${src}" style="width:100%;border-radius:10px"><button class="btn blk" style="margin-top:10px" id="cl">Chiudi</button>`);$('#cl',sh).onclick=closeSheet}
+
+function apriRuota(L,pos){const P=positions(L.assi);const p=P.find(x=>x.k===pos);if(!p)return;const a=L.assi[p.ax]||{};
+  const r=clone(L.ruote[pos]||{});r.foto=r.foto||[];let mode=(r.bE!=null||r.bC!=null||r.bI!=null)?3:1;
+  const th=sogliaB(a,S.set);const nv=v=>v!=null?fmt(v):'';
+  const opt=(o,v)=>Object.entries(o).map(([k,l])=>`<option value="${k}"${k===(v||'')?' selected':''}>${esc(l)}</option>`).join('');
+  const sh=sheet(`<div class="row"><div class="sp"><h3>${posLabel(pos)}</h3><div class="small muted">${esc(a.mis||'misura non indicata')} · ${esc(TIPI_ASSE[a.tipo]||'')}${a.gem?' gemellato':''} · riferimento <b>${a.pt?fmt(a.pt)+' bar':'non impostato'}</b></div></div><button class="btn sm" id="x">✕</button></div>
+  <div class="small muted" style="margin:4px 0 8px">${P.indexOf(p)+1} di ${P.length}</div>
+  <label class="f big"><span>Pressione (bar)</span><input id="wp" inputmode="decimal" value="${nv(r.p)}" placeholder="${a.pt?fmt(a.pt):'0,0'}" autocomplete="off"></label>
+  <label class="f"><span>Battistrada (mm) · giallo ≤ ${fmt(th.g)} · rosso ≤ ${fmt(th.r)}</span><div class="seg" id="bm"><button data-m="1"${mode===1?' class="on"':''}>Un valore</button><button data-m="3"${mode===3?' class="on"':''}>3 punti</button></div></label>
+  <div id="b1" class="${mode===1?'':'hide'}" style="${mode===1?'':'display:none'}"><label class="f"><input id="wb" inputmode="decimal" value="${nv(r.b)}" placeholder="mm"></label></div>
+  <div id="b3" style="${mode===3?'':'display:none'}" class="grid3"><label class="f"><span>Esterno</span><input id="wbE" inputmode="decimal" value="${nv(r.bE)}"></label><label class="f"><span>Centro</span><input id="wbC" inputmode="decimal" value="${nv(r.bC)}"></label><label class="f"><span>Interno</span><input id="wbI" inputmode="decimal" value="${nv(r.bI)}"></label></div>
+  <div id="prv" style="margin:2px 0 10px"></div>
+  <details${(r.t!=null||r.anom||r.az||r.note||r.foto.length||r.pd!=null)?' open':''}><summary class="small" style="font-weight:700;margin-bottom:8px;cursor:pointer">Temperatura, anomalie, intervento, foto</summary>
+   <div class="grid2"><label class="f"><span>Temperatura (°C)</span><input id="wt" inputmode="decimal" value="${r.t!=null?fmt(r.t,0):''}"></label>
+   <label class="f"><span>Pressione dopo intervento</span><input id="wpd" inputmode="decimal" value="${nv(r.pd)}" placeholder="bar"></label></div>
+   <label class="f"><span>Anomalia</span><select id="wan">${opt(ANOM,r.anom)}</select></label>
+   <label class="f"><span>Intervento</span><select id="waz">${opt(AZ,r.az)}</select></label>
+   <label class="f"><span>Note</span><input id="wno" value="${esc(r.note||'')}"></label>
+   <label class="btn blk" style="margin-bottom:6px">📷 Aggiungi foto<input type="file" accept="image/*" id="wf" multiple style="display:none"></label>
+   <div class="thumbs" id="th"></div></details>
+  <div class="btns"><button class="btn" id="cl">Svuota</button><button class="btn pri" id="ok">Salva</button><button class="btn red" id="nx">Salva e avanti ›</button></div>
+  <a class="small muted" href="#/ruota/${L.mezzoId}/${pos}">Storico e consumo di questa ruota ›</a>`);
+  const read=()=>{const o={p:num($('#wp',sh).value),t:num($('#wt',sh).value),pd:num($('#wpd',sh).value),anom:$('#wan',sh).value,az:$('#waz',sh).value,note:$('#wno',sh).value.trim(),foto:r.foto};
+    if(mode===1)o.b=num($('#wb',sh).value);else{o.bE=num($('#wbE',sh).value);o.bC=num($('#wbC',sh).value);o.bI=num($('#wbI',sh).value)}
+    Object.keys(o).forEach(k=>{if(o[k]==null||o[k]===''||(k==='foto'&&!o[k].length))delete o[k]});return o};
+  const prv=()=>{const o=read();let coppia=null;if(p.io){const alt=L.ruote[pos.slice(0,-1)+(p.io==='E'?'I':'E')];if(alt&&alt.p!=null)coppia=alt.p}
+    const e=valutaRuota(o,a,S.set,coppia);$('#prv',sh).innerHTML=e.s?chipS(e.s)+(e.motivi.length?' <span class="small">'+esc(e.motivi.join(' · '))+'</span>':''):''};
+  const drawTh=()=>{$('#th',sh).innerHTML=r.foto.map((f,i)=>`<div class="th"><img src="${f}" data-i="${i}"><button class="x" data-d="${i}">×</button></div>`).join('')};
+  drawTh();prv();sh.addEventListener('input',prv);sh.addEventListener('change',prv);
+  $('#th',sh).addEventListener('click',e=>{if(e.target.dataset.d!=null){r.foto.splice(+e.target.dataset.d,1);drawTh()}else if(e.target.dataset.i!=null)vediFoto(r.foto[+e.target.dataset.i])});
+  $('#wf',sh).onchange=async e=>{for(const f of e.target.files){try{r.foto.push(await compressImg(f))}catch(err){alert('Foto non leggibile')}}e.target.value='';drawTh()};
+  $('#bm',sh).addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;mode=+b.dataset.m;
+    $$('#bm button',sh).forEach(x=>x.classList.toggle('on',x===b));$('#b1',sh).style.display=mode===1?'':'none';$('#b3',sh).style.display=mode===3?'':'none';prv()});
+  $('#x',sh).onclick=closeSheet;
+  const commit=async()=>{const o=read();if(isEmptyR(o))delete L.ruote[pos];else L.ruote[pos]=o;await salvaLettura(L)};
+  $('#ok',sh).onclick=async()=>{await commit();closeSheet();render()};
+  $('#cl',sh).onclick=async()=>{if(!confirm('Svuotare i valori di questa ruota?'))return;delete L.ruote[pos];await salvaLettura(L);closeSheet();render()};
+  $('#nx',sh).onclick=async()=>{await commit();const i=P.indexOf(p);closeSheet();render();if(i<P.length-1)apriRuota(L,P[i+1].k);else toast('Ultima ruota: lettura completa')};
+  if(!isIOS)setTimeout(()=>$('#wp',sh).focus(),50)}
+
+/* ---------- RUOTA: storico e consumo ---------- */
+function ticks(min,max,n){const span=max-min||1;const raw=span/n;const mag=Math.pow(10,Math.floor(Math.log10(raw)));
+  const st=[1,2,2.5,5,10].map(x=>x*mag).find(x=>span/x<=n)||mag*10;const out=[];for(let v=Math.ceil(min/st)*st;v<=max+1e-9;v+=st)out.push(+v.toFixed(6));return out}
+function lineChart(o){const W=340,H=210,Lm=36,Rm=10,Tm=10,Bm=26;const pts=o.pts;if(!pts.length)return '<div class="empty">Nessun dato.</div>';
+  let xs=pts.map(p=>p.x);if(o.proj)xs=xs.concat(o.proj.map(p=>p.x));let x0=Math.min(...xs),x1=Math.max(...xs);
+  if(x1===x0){const pad=o.xType==='km'?1000:15;x0-=pad;x1+=pad}else{const pad=(x1-x0)*.04;x0-=pad;x1+=pad}
+  const y0=o.yMin,y1=o.yMax;const sx=x=>Lm+(x-x0)/(x1-x0)*(W-Lm-Rm),sy=y=>Tm+(1-(y-y0)/(y1-y0))*(H-Tm-Bm);
+  const cl=y=>Math.max(y0,Math.min(y1,y));
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(o.title||'grafico')}">`;
+  (o.bands||[]).forEach(b=>{const a=cl(b.a),c=cl(b.b);if(c<=a)return;s+=`<rect class="b-${b.c}" x="${Lm}" y="${sy(c)}" width="${W-Lm-Rm}" height="${sy(a)-sy(c)}"/>`});
+  ticks(y0,y1,5).forEach(t=>{s+=`<line class="ch-grid" x1="${Lm}" x2="${W-Rm}" y1="${sy(t)}" y2="${sy(t)}"/><text class="ch-ax" x="${Lm-5}" y="${sy(t)+3.5}" text-anchor="end">${fmt(t,t%1?1:0)}</text>`});
+  const xt=o.xType==='km'?ticks(x0,x1,3).filter(t=>t>=x0&&t<=x1):[x0+(x1-x0)*.06,(x0+x1)/2,x1-(x1-x0)*.06];
+  xt.forEach((t,i)=>{const lab=o.xType==='km'?fmtK(t):fmtDs(dayStr(Math.round(t)));s+=`<text class="ch-ax" x="${sx(t)}" y="${H-8}" text-anchor="${o.xType==='km'?'middle':i===0?'start':i===2?'end':'middle'}">${lab}</text>`});
+  (o.refs||[]).forEach(r=>{if(r.y<y0||r.y>y1)return;s+=`<line class="ch-ref" x1="${Lm}" x2="${W-Rm}" y1="${sy(r.y)}" y2="${sy(r.y)}"/><text class="ch-ax" x="${W-Rm-2}" y="${sy(r.y)-4}" text-anchor="end">${esc(r.lab)}</text>`});
+  if(o.proj)s+=`<path class="ch-proj" d="M${o.proj.map(p=>sx(p.x)+','+sy(cl(p.y))).join(' L')}"/>`;
+  s+=`<path class="ch-line" d="M${pts.map(p=>sx(p.x)+','+sy(cl(p.y))).join(' L')}"/>`;
+  pts.forEach((p,i)=>{s+=`<circle class="ch-mk f-${p.s||'n'}" data-mk="${i}" cx="${sx(p.x)}" cy="${sy(cl(p.y))}" r="5"/>`});
+  pts.forEach((p,i)=>{s+=`<circle data-tip="${esc(p.tip)}" data-i="${i}" cx="${sx(p.x)}" cy="${sy(cl(p.y))}" r="15" fill="transparent" style="cursor:pointer"/>`});
+  return `<div class="chartbox"><div class="small" style="font-weight:700;margin:0 4px 4px">${esc(o.title)}</div>${s}</svg><div class="tip">${esc(o.hint||'Tocca un punto per il dettaglio')}</div></div>`}
+document.addEventListener('click',e=>{const t=e.target.closest('[data-tip]');if(!t)return;const box=t.closest('.chartbox');if(!box)return;
+  box.querySelector('.tip').textContent=t.dataset.tip;$$('.ch-mk',box).forEach(x=>x.classList.toggle('hl',x.dataset.mk===t.dataset.i))});
+function regress(pts){const n=pts.length;if(n<2)return null;const mx=pts.reduce((s,p)=>s+p.x,0)/n,my=pts.reduce((s,p)=>s+p.y,0)/n;
+  let num_=0,den=0;pts.forEach(p=>{num_+=(p.x-mx)*(p.y-my);den+=(p.x-mx)**2});if(!den)return null;const b=num_/den;return {b,a:my-b*mx}}
+function sezioneSVG(r,a){const th=sogliaB(a,S.set);const nuovo=th.nuovo;const W=320,H=200,x0=40,x1=280,base=118,k=62/Math.max(nuovo,1);
+  const yOf=mm=>base-Math.max(0,Math.min(nuovo,mm))*k;
+  const has3=r&&(r.bE!=null||r.bC!=null||r.bI!=null);const one=r?r.b:null;
+  const pick=(...v)=>{const f=v.find(x=>x!=null);return f==null?null:f};
+  const vE=has3?pick(r.bE,r.bC,r.bI):one,vC=has3?pick(r.bC,r.bE,r.bI):one,vI=has3?pick(r.bI,r.bC,r.bE):one;
+  const mn=battMin(r);const s_=mn==null?'n':mn<=th.r?'r':mn<=th.g?'g':'v';const cxm=(x0+x1)/2;
+  let s=`<svg class="sec" viewBox="0 0 ${W} ${H}" role="img" aria-label="Sezione del pneumatico con battistrada residuo">`;
+  s+=`<path class="body2" d="M${x0+4},${base} C${x0-22},${base+14} ${x0-18},${base+52} ${x0+16},${base+64} L${x1-16},${base+64} C${x1+18},${base+52} ${x1+22},${base+14} ${x1-4},${base} Z"/>`;
+  s+=`<rect class="rim" x="${x0+22}" y="${base+56}" width="${x1-x0-44}" height="14" rx="3"/>`;
+  s+=`<path class="orig" d="M${x0+4},${base} L${x0+18},${yOf(nuovo)} L${x1-18},${yOf(nuovo)} L${x1-4},${base}"/>`;
+  if(vE!=null)s+=`<path class="f-${s_}" d="M${x0+4},${base} L${x0+20},${yOf(vE)} L${cxm},${yOf(vC)} L${x1-20},${yOf(vI)} L${x1-4},${base} Z"/>`;
+  [.27,.42,.58,.73].forEach(f=>{const gx=x0+(x1-x0)*f;s+=`<rect class="grv" x="${gx-4}" y="${yOf(nuovo)-2}" width="8" height="${base-yOf(nuovo)+1}"/>`});
+  s+=`<line class="thr-g" x1="${x0}" x2="${x1}" y1="${yOf(th.g)}" y2="${yOf(th.g)}"/><line class="thr-r" x1="${x0}" x2="${x1}" y1="${yOf(th.r)}" y2="${yOf(th.r)}"/>`;
+  s+=`<text class="lblm" x="${x1+4}" y="${yOf(th.g)-1}">${fmt(th.g,0)}</text><text class="lblm" x="${x1+4}" y="${Math.max(yOf(th.r)+8,yOf(th.g)+9)}">${fmt(th.r,0)}</text><text class="lblm" x="${x1+4}" y="${yOf(nuovo)+3}">${fmt(nuovo,0)} mm</text>`;
+  if(vE!=null){[[x0+30,vE],[cxm,vC],[x1-30,vI]].forEach(([x,v],i)=>{if(!has3&&i!==1)return;s+=`<text class="lbl" x="${x}" y="${yOf(nuovo)-8}">${fmt(v)} mm</text>`})}
+  else s+=`<text class="lbl" x="${cxm}" y="${yOf(nuovo)-8}">battistrada non misurato</text>`;
+  s+=`<text class="lblm" x="${x0}" y="${H-4}">ESTERNO</text><text class="lblm" x="${x1}" y="${H-4}" text-anchor="end">INTERNO</text></svg>`;
+  return `<div class="chartbox"><div class="small" style="font-weight:700;margin:0 4px 4px">Sezione del pneumatico · ultima misura</div>${s}
+   <div class="legend"><span><i style="border:1px dashed var(--mute)"></i>Nuovo ${fmt(nuovo,0)} mm</span><span><i style="background:var(--g)"></i>Giallo ≤ ${fmt(th.g)} mm</span><span><i style="background:var(--r)"></i>Rosso ≤ ${fmt(th.r)} mm</span></div></div>`}
+VIEWS.ruota=([mid,pos],q)=>{const m=getM(mid);if(!m)return notFound();
+  const Ls=lettureDi(mid).slice().reverse().filter(l=>l.ruote&&!isEmptyR(l.ruote[pos]));
+  const P=positions(m.assi);const p=P.find(x=>x.k===pos);const a=p?m.assi[p.ax]:null;const th=sogliaB(a,S.set);
+  const kmOk=Ls.filter(l=>l.km&&battMin(l.ruote[pos])!=null).length>=2;const xType=(q.x==='km'&&kmOk)?'km':'data';
+  const last=Ls.length?Ls[Ls.length-1].ruote[pos]:null;
+  let bp=Ls.map(l=>({l,y:battMin(l.ruote[pos])})).filter(x=>x.y!=null);
+  let start=0;for(let i=1;i<bp.length;i++)if(bp[i].y>bp[i-1].y+1.5)start=i;
+  const seg=bp.slice(start).map(x=>({x:xType==='km'?x.l.km:dayNum(x.l.data),y:x.y,l:x.l})).filter(x=>x.x!=null);
+  const reg=regress(seg);let stats='',proj=null;
+  if(reg&&reg.b<0&&seg.length>=2){const lastP=seg[seg.length-1];const rem=(lastP.y-th.r)/(-reg.b);const xr=lastP.x+Math.max(0,rem);
+    proj=[{x:lastP.x,y:lastP.y},{x:xr,y:th.r}];
+    if(xType==='km')stats=`<div class="stat"><b>${fmt(-reg.b*1000,2)} mm</b><span>consumo ogni 1.000 km</span></div><div class="stat"><b>${lastP.y<=th.r?'già al limite':'≈ '+fmtK(Math.max(0,rem))+' km'}</b><span>al rosso (${fmt(th.r)} mm), cioè a ≈ ${fmtK(xr)} km</span></div>`;
+    else stats=`<div class="stat"><b>${fmt(-reg.b*30,2)} mm</b><span>consumo al mese</span></div><div class="stat"><b>${lastP.y<=th.r?'già al limite':fmtDs(dayStr(Math.round(xr)))}</b><span>data stimata al rosso (${fmt(th.r)} mm)</span></div>`}
+  else if(seg.length>=2)stats='<div class="stat" style="grid-column:1/-1"><span>Nessun consumo misurabile tra le letture.</span></div>';
+  const bPts=bp.map((x,i)=>({x:xType==='km'?x.l.km:dayNum(x.l.data),y:x.y,s:x.y<=th.r?'r':x.y<=th.g?'g':'v',tip:`${fmtDs(x.l.data)}${x.l.km?' · km '+fmtK(x.l.km):''} · ${fmt(x.y)} mm${i<start?' (pneumatico precedente)':''}`})).filter(x=>x.x!=null);
+  const pPts=Ls.filter(l=>l.ruote[pos].p!=null).map(l=>{const pa=(l.assi||[])[p?p.ax:0]||a||{};const v=l.ruote[pos].p;const d=pa.pt?Math.abs(v-pa.pt)/pa.pt*100:null;
+    return {x:dayNum(l.data),y:v,s:d==null?'n':d>S.set.pressRosso?'r':d>S.set.pressGiallo?'g':'v',tip:`${fmtDs(l.data)} · ${fmt(v)} bar${pa.pt?' (rif. '+fmt(pa.pt)+')':''}${l.condizione==='caldo'?' · a caldo':''}`}});
+  const pt=a&&a.pt;let pMin=Math.min(...pPts.map(x=>x.y),pt?pt*(1-2*S.set.pressRosso/100):99),pMax=Math.max(...pPts.map(x=>x.y),pt?pt*(1+2*S.set.pressRosso/100):0);
+  if(!isFinite(pMin)||!isFinite(pMax)||pMin>=pMax){pMin=0;pMax=12}
+  pMin=Math.max(0,Math.floor(pMin-.5));pMax=Math.ceil(pMax+.5);
+  const pBands=pt?[{a:pMin,b:pt*(1-S.set.pressRosso/100),c:'r'},{a:pt*(1-S.set.pressRosso/100),b:pt*(1-S.set.pressGiallo/100),c:'g'},{a:pt*(1-S.set.pressGiallo/100),b:pt*(1+S.set.pressGiallo/100),c:'v'},{a:pt*(1+S.set.pressGiallo/100),b:pt*(1+S.set.pressRosso/100),c:'g'},{a:pt*(1+S.set.pressRosso/100),b:pMax,c:'r'}]:[];
+  app.innerHTML=`<a class="crumb" href="#/mezzo/${mid}">‹ ${esc(m.targa)}</a><h1>${posLabel(pos)}</h1>
+  <p class="small muted" style="margin-top:-6px">${esc(a&&a.mis||'misura non indicata')}${a&&a.marcaP?' · '+esc(a.marcaP):''} · riferimento ${pt?fmt(pt)+' bar':'non impostato'} · ${Ls.length} letture</p>
+  <div class="card" style="padding:10px">${schemeSVG(m.tipo,m.assi,{},{sel:pos})}</div>
+  ${sezioneSVG(last,a)}
+  ${kmOk?`<div class="seg" style="margin-bottom:10px"><button data-x="data"${xType==='data'?' class="on"':''}>Nel tempo</button><button data-x="km"${xType==='km'?' class="on"':''}>Per km</button></div>`:''}
+  ${stats?`<div class="stats">${stats}</div>`:''}
+  ${bPts.length?lineChart({title:'Battistrada (mm)'+(xType==='km'?' per km':' nel tempo'),pts:bPts,xType,yMin:0,yMax:Math.max(th.nuovo,...bPts.map(x=>x.y)),proj,
+     bands:[{a:0,b:th.r,c:'r'},{a:th.r,b:th.g,c:'g'},{a:th.g,b:Math.max(th.nuovo,...bPts.map(x=>x.y)),c:'v'}],refs:[{y:th.r,lab:'rosso '+fmt(th.r)},{y:th.g,lab:'giallo '+fmt(th.g)}],
+     hint:proj?'Tratteggio: proiezione fino al rosso. Tocca un punto.':'Tocca un punto per il dettaglio'}):'<div class="card muted small">Nessuna misura del battistrada per questa ruota.</div>'}
+  ${start>0?'<p class="small muted">Rilevato un cambio pneumatico: il consumo è calcolato dalle letture successive.</p>':''}
+  ${pPts.length?lineChart({title:'Pressione (bar) nel tempo',pts:pPts,xType:'data',yMin:pMin,yMax:pMax,bands:pBands,refs:pt?[{y:pt,lab:'rif. '+fmt(pt)}]:[]}):''}
+  <h2>Valori</h2><div class="card tblwrap"><table class="t"><thead><tr><th>Data</th><th class="n">km</th><th class="n">bar</th><th class="n">mm</th><th class="n">°C</th><th>Note</th></tr></thead><tbody>
+  ${Ls.slice().reverse().map(l=>{const r=l.ruote[pos];return `<tr class="tap" data-l="${l.id}"><td>${fmtDs(l.data)}</td><td class="n">${fmtK(l.km)}</td><td class="n">${fmt(r.p)}</td><td class="n">${battVals(r).length?[r.bE,r.bC,r.bI].some(v=>v!=null)?[r.bE,r.bC,r.bI].map(v=>fmt(v)).join(' / '):fmt(r.b):'—'}</td><td class="n">${r.t!=null?fmt(r.t,0):'—'}</td><td class="small">${esc([r.anom&&ANOM[r.anom],r.az&&AZ[r.az],r.note].filter(Boolean).join(' · '))}</td></tr>`}).join('')||'<tr><td colspan="6" class="muted">Nessuna lettura.</td></tr>'}</tbody></table></div>`;
+  on('.wh','click',(e,el)=>go(`#/ruota/${mid}/${el.dataset.pos}${q.x?'?x='+q.x:''}`));on('[data-x]','click',(e,b)=>go(`#/ruota/${mid}/${pos}?x=${b.dataset.x}`));
+  on('tr[data-l]','click',(e,el)=>go('#/lettura/'+el.dataset.l))};
+
+/* ---------- PDF per il cliente ---------- */
+VIEWS.report=([fid],q)=>{const f=getF(fid);if(!f)return notFound();const M=mezziDi(fid);
+  const preL=q.l&&getL(q.l);
+  app.innerHTML=`<a class="crumb" href="${preL?'#/lettura/'+preL.id:q.m?'#/mezzo/'+q.m:'#/flotta/'+fid}">‹ Indietro</a><h1>PDF per il cliente</h1>
+  <p class="small muted" style="margin-top:-6px">${esc(f.nome)}</p>
+  ${preL?`<div class="card">Lettura di <span class="targa">${esc(preL.targa)}</span> del ${fmtD(preL.data)}<label class="ck"><input type="checkbox" id="r_ab" checked> Aggiungi anche il mezzo abbinato letto nello stesso giro</label></div>`:`
+  <div class="card"><label class="f"><span>Quali letture</span><div class="seg" id="r_mode"><button data-v="ultime" class="on">Ultima di ogni mezzo</button><button data-v="periodo">In un periodo</button></div></label>
+  <div class="grid2" id="r_per" style="display:none"><label class="f"><span>Dal</span><input type="date" id="r_dal" value="${dayStr(dayNum(today())-30)}"></label><label class="f"><span>Al</span><input type="date" id="r_al" value="${today()}"></label></div>
+  <div class="row"><b class="sp">Mezzi</b><button class="btn sm" id="r_all">Tutti</button><button class="btn sm" id="r_none">Nessuno</button></div>
+  <div id="r_list" style="margin-top:6px">${M.map(m=>{const u=ultima(m.id);return `<label class="ck"><input type="checkbox" class="r_m" value="${m.id}"${(q.m?q.m===m.id:!!u)?' checked':''}${u?'':' disabled'}> <span class="targa">${esc(m.targa)}</span> <span class="small muted">${esc(TIPI[m.tipo])} · ${u?fmtDs(u.data):'nessuna lettura'}</span></label>`}).join('')||'<p class="muted">Nessun mezzo.</p>'}</div></div>`}
+  <div class="card"><label class="ck"><input type="checkbox" id="r_foto" checked> Includi le foto</label><label class="ck"><input type="checkbox" id="r_sug"${S.set.suggerimenti?' checked':''}> Includi i consigli</label><label class="ck"><input type="checkbox" id="r_cons" checked> Includi il consumo del battistrada</label>
+  <label class="f"><span>Nota per il cliente (facoltativa)</span><textarea id="r_nota" placeholder="es. Abbiamo ripristinato le pressioni su tutti i mezzi controllati."></textarea></label></div>
+  ${S.set.gommista?'':'<div class="note">Scrivi il nome della tua officina in <a href="#/impostazioni">Impostazioni</a>: comparirà nell\'intestazione del PDF.</div>'}
+  <div class="btns"><button class="btn red" id="r_share">📤 Crea e invia PDF</button><button class="btn" id="r_dl">⬇ Scarica PDF</button></div><p class="small muted" id="r_info"></p>`;
+  let mode='ultime';
+  const md=$('#r_mode');if(md)md.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;mode=b.dataset.v;$$('button',md).forEach(x=>x.classList.toggle('on',x===b));$('#r_per').style.display=mode==='periodo'?'':'none'});
+  const ra=$('#r_all');if(ra){ra.onclick=()=>$$('.r_m').forEach(c=>{if(!c.disabled)c.checked=true});$('#r_none').onclick=()=>$$('.r_m').forEach(c=>c.checked=false)}
+  const scegli=()=>{if(preL){const out=[preL];if($('#r_ab').checked){act(S.letture).filter(x=>x.sessione===preL.sessione&&x.id!==preL.id&&nRuote(x)).forEach(x=>out.push(x))}return out}
+    const ids=$$('.r_m').filter(c=>c.checked).map(c=>c.value);let out=[];
+    if(mode==='ultime')out=ids.map(id=>ultima(id)).filter(Boolean);
+    else{const a=$('#r_dal').value,b=$('#r_al').value;out=act(S.letture).filter(l=>ids.includes(l.mezzoId)&&nRuote(l)&&l.data.slice(0,10)>=a&&l.data.slice(0,10)<=b)}
+    return out.sort((x,y)=>x.data.localeCompare(y.data)||x.targa.localeCompare(y.targa))};
+  const run=async share=>{const Ls=scegli();if(!Ls.length)return alert('Nessuna lettura selezionata.');$('#r_info').textContent='Creo il PDF…';
+    try{const {blob,nome}=await creaPDF(f,Ls,{foto:$('#r_foto').checked,sug:$('#r_sug').checked,cons:$('#r_cons').checked,nota:$('#r_nota').value.trim()});
+      $('#r_info').textContent=`PDF pronto: ${Ls.length} ${Ls.length===1?'mezzo':'letture'}, ${Math.round(blob.size/1024)} KB.`;
+      await consegna(blob,nome,share,`Rapporto controllo pneumatici – ${f.nome}`)}catch(e){console.error(e);$('#r_info').textContent='Errore: '+e.message}};
+  $('#r_share').onclick=()=>run(true);$('#r_dl').onclick=()=>run(false)};
+
+async function consegna(blob,nome,share,titolo){const file=new File([blob],nome,{type:blob.type});
+  if(share&&navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({files:[file],title:titolo});return}catch(e){if(e.name==='AbortError')return}}
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=nome;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},4000)}
+let LOGO=null;
+function logoPng(){if(LOGO)return Promise.resolve(LOGO);return new Promise(res=>{const img=new Image();img.onload=()=>{try{const c=document.createElement('canvas');c.width=778;c.height=154;c.getContext('2d').drawImage(img,0,0,778,154);LOGO=c.toDataURL('image/png')}catch(e){LOGO=null}res(LOGO)};img.onerror=()=>res(null);img.src='logo-mate-nero.svg'})}
+function imgDim(src){return new Promise(res=>{const i=new Image();i.onload=()=>res({w:i.naturalWidth,h:i.naturalHeight});i.onerror=()=>res(null);i.src=src})}
+const pdfTxt=s=>String(s??'').replace(/[–—]/g,'-').replace(/[’‘]/g,"'").replace(/[“”]/g,'"').replace(/≈/g,'circa ').replace(/≤/g,'<=').replace(/[^\x00-\xFF]/g,'');
+function consigli(L,c,m){const out=[];const P=positions(L.assi);let pr=0,br=0,bg=0,irr=0,cer=0,gem=0;
+  P.forEach(p=>{const e=c.ev[p.k];if(!e)return;if(e.ps==='r')pr++;if(e.bs==='r')br++;else if(e.bs==='g')bg++;e.motivi.forEach(x=>{if(/^Usura/.test(x))irr++;if(/gemella/.test(x))gem++});
+    const r=L.ruote[p.k];if(r.anom==='cerchio')cer++});
+  if(pr)out.push(`Ripristinare la pressione di riferimento su ${pr} ${pr===1?'ruota':'ruote'} e verificare eventuali perdite (valvole, tallone, forature).`);
+  if(gem)out.push('Riequilibrare le pressioni tra le gemelle per evitare usura anomala e surriscaldamento.');
+  if(br)out.push(`Programmare la sostituzione di ${br} ${br===1?'pneumatico':'pneumatici'} con battistrada al limite.`);
+  if(bg)out.push(`Tenere sotto controllo ${bg} ${bg===1?'pneumatico':'pneumatici'} al prossimo passaggio.`);
+  if(irr)out.push('Usura irregolare rilevata: consigliata la verifica di assetto e convergenza.');
+  if(cer)out.push('Ruota danneggiata: valutare la sostituzione della ruota.');
+  if(L.tpms==='no'||(m&&m.tpms==='no'))out.push('Il mezzo non ha sensori TPMS: con il monitoraggio continuo della pressione si prevengono forature, consumi anomali e fermi macchina.');
+  if(L.tpmsStato==='allarme'||L.tpmsStato==='guasto')out.push('Sistema TPMS in allarme o guasto: controllare e, se serve, sostituire o riprogrammare i sensori.');
+  return out}
+async function creaPDF(f,Ls,opt){const {jsPDF}=window.jspdf;const doc=new jsPDF({unit:'mm',format:'a4',compress:true});
+  const logo=await logoPng();const W=210,Hp=297,M=14;const C={v:[26,158,85],g:[232,165,0],r:[217,45,32],n:[138,144,153]};
+  const ink=[20,22,26],mute=[107,112,121],line=[215,218,223],soft=[243,244,246];const set=S.set;let y=0;
+  const T=(s,x,yy,o)=>doc.text(pdfTxt(s),x,yy,o);
+  const font=(sz,b,col)=>{doc.setFont('helvetica',b?'bold':'normal');doc.setFontSize(sz);doc.setTextColor(...(col||ink))};
+  const header=()=>{if(logo)doc.addImage(logo,'PNG',M,9,34,6.75);font(8,true,mute);T('by TRK',M+36,15);
+    font(12.5,true);T('PRESSIONI FLOTTE TRUCK',W-M,12.5,{align:'right'});font(8.5,false,mute);
+    const g=['Rapporto controllo pneumatici',set.gommista,set.gommistaInfo].filter(Boolean).join(' - ');T(g,W-M,17.5,{align:'right'});
+    doc.setDrawColor(218,33,40);doc.setLineWidth(.7);doc.line(M,21,W-M,21);y=28};
+  const need=h=>{if(y+h>Hp-16){doc.addPage();header();return true}return false};
+  const chip=(s,x,yy)=>{if(!s)return;const lab=ST[s][1];font(7.5,true,[255,255,255]);const w=doc.getTextWidth(pdfTxt(lab))+5;doc.setFillColor(...C[s]);doc.roundedRect(x,yy-3.4,w,4.8,1.2,1.2,'F');T(lab,x+2.5,yy);return w};
+  const cnt=Ls.map(L=>({L,c:esito(L),m:getM(L.mezzoId)}));
+  // --- pagina di riepilogo ---
+  header();font(16,true);T(f.nome,M,y+2);y+=8;font(9,false,mute);
+  const dates=Ls.map(l=>l.data.slice(0,10)).sort();const per=dates[0]===dates[dates.length-1]?fmtDs(dates[0]):`dal ${fmtDs(dates[0])} al ${fmtDs(dates[dates.length-1])}`;
+  const ops=[...new Set(Ls.map(l=>l.operatore).filter(Boolean))].join(', ');
+  T(`Controllo ${per}${ops?' - eseguito da '+ops:''}`,M,y);y+=5;
+  const fi=[f.indirizzo,f.citta].filter(Boolean).join(', ');if(fi||f.referente){T([fi,f.referente&&'Referente: '+f.referente].filter(Boolean).join(' - '),M,y);y+=5}
+  y+=2;const tot={m:cnt.length,ru:0,r:0,g:0,v:0,nt:0};cnt.forEach(x=>{tot.ru+=x.c.fatte;tot.r+=x.c.r;tot.g+=x.c.g;tot.v+=x.c.v;if(x.L.tpms!=='si')tot.nt++});
+  const box=[[String(tot.m),'mezzi controllati'],[String(tot.ru),'ruote misurate'],[String(tot.r),'fuori soglia'],[String(tot.g),'da verificare'],[String(tot.nt),'mezzi senza TPMS']];
+  const bw=(W-2*M-4*3)/5;box.forEach((b,i)=>{const x=M+i*(bw+3);doc.setFillColor(...soft);doc.roundedRect(x,y,bw,17,2,2,'F');font(15,true,i===2&&tot.r?C.r:i===3&&tot.g?[160,110,0]:ink);T(b[0],x+4,y+8.5);font(7.5,false,mute);T(b[1],x+4,y+13.5)});y+=24;
+  if(opt.nota){font(9.5,false);const t=doc.splitTextToSize(pdfTxt(opt.nota),W-2*M-8);const h=t.length*4.6+6;doc.setFillColor(253,243,214);doc.roundedRect(M,y,W-2*M,h,2,2,'F');doc.text(t,M+4,y+6);y+=h+6}
+  font(11,true);T('Riepilogo per mezzo',M,y);y+=3;
+  const cols=[[M,'Targa'],[M+28,'Tipo'],[M+70,'Data'],[M+98,'Ruote'],[M+114,'TPMS'],[M+132,'Esito']];
+  const rowH=7;const thead=()=>{doc.setFillColor(...soft);doc.rect(M,y,W-2*M,rowH,'F');font(8,true,mute);cols.forEach(([x,l])=>T(l,x+1.5,y+4.7));y+=rowH};
+  thead();cnt.forEach(({L,c})=>{if(need(rowH+2))thead();font(9,true);T(L.targa,M+1.5,y+4.8);font(8.5,false);T(TIPI[L.tipoMezzo]||'',M+29.5,y+4.8);T(fmtD(L.data),M+71.5,y+4.8);T(`${c.fatte}/${c.tot}`,M+99.5,y+4.8);
+    T(L.tpms==='si'?'Si':L.tpms==='no'?'No':'-',M+115.5,y+4.8);
+    if(c.worst){const s=c.worst;const lab=s==='r'?`${c.r} fuori soglia`:s==='g'?`${c.g} da verificare`:s==='v'?'Tutto ok':'Senza rif.';font(7.5,true,[255,255,255]);const w=doc.getTextWidth(lab)+5;doc.setFillColor(...C[s]);doc.roundedRect(M+133.5,y+1.4,w,4.8,1.2,1.2,'F');T(lab,M+136,y+4.8)}
+    doc.setDrawColor(...line);doc.setLineWidth(.2);doc.line(M,y+rowH,W-M,y+rowH);y+=rowH});
+  y+=6;font(8,false,mute);const leg=`Soglie: pressione OK entro +/-${fmt(set.pressGiallo,0)}% dal riferimento, fuori soglia oltre +/-${fmt(set.pressRosso,0)}%; differenza massima tra gemelle ${fmt(set.gemelleMax)} bar; battistrada da verificare sotto ${fmt(set.battGiallo)} mm, fuori soglia sotto ${fmt(set.battRosso)} mm (salvo valori specifici del mezzo).`;
+  const lt=doc.splitTextToSize(pdfTxt(leg),W-2*M);need(lt.length*3.8);doc.text(lt,M,y);y+=lt.length*3.8;
+  // --- una pagina per lettura ---
+  for(const {L,c,m} of cnt){doc.addPage();header();const P=positions(L.assi);
+    font(9,false,mute);T('Targa',M,y);font(18,true);T(L.targa,M,y+7);const tw=doc.getTextWidth(pdfTxt(L.targa));font(10,false,mute);T(`${TIPI[L.tipoMezzo]||''}${m&&(m.marca||m.modello)?' - '+[m.marca,m.modello].filter(Boolean).join(' '):''}`,M+tw+4,y+7);
+    if(c.worst){const s=c.worst;const lab=s==='r'?`${c.r} FUORI SOGLIA`:s==='g'?`${c.g} DA VERIFICARE`:s==='v'?'TUTTO OK':'SENZA RIFERIMENTO';font(8.5,true,[255,255,255]);const w=doc.getTextWidth(lab)+7;doc.setFillColor(...C[s]);doc.roundedRect(W-M-w,y+2,w,6.5,1.5,1.5,'F');T(lab,W-M-w+3.5,y+6.6)}
+    y+=13;const info=[['Flotta',L.flottaNome],['Data',fmtD(L.data)],['Letto da',L.operatore||'-'],['Km',L.km?fmtK(L.km):'-'],['Abbinato a',L.abbinatoTarga||'-'],['Condizione',L.condizione==='caldo'?'a caldo':'a freddo'],
+      ['TPMS',L.tpms==='si'?'presente'+(m&&m.tpmsTipo?' ('+m.tpmsTipo+')':''):L.tpms==='no'?'assente':'non indicato'],['Stato TPMS',{ok:'funziona',allarme:'spia/allarme',guasto:'guasto'}[L.tpmsStato]||'non verificato'],['Luogo',L.luogo||'-'],['Configurazione',sigla(L.assi)+' - '+P.length+' ruote']];
+    doc.setFillColor(...soft);const ih=Math.ceil(info.length/2)*5.6+4;doc.roundedRect(M,y,W-2*M,ih,2,2,'F');
+    info.forEach(([k,v],i)=>{const x=M+4+(i%2)*((W-2*M)/2),yy=y+5.5+Math.floor(i/2)*5.6;font(8,false,mute);T(k,x,yy);font(8.8,true);T(String(v).slice(0,48),x+24,yy)});y+=ih+6;
+    // schema
+    const g=geom(L.tipoMezzo,L.assi);const sc=Math.min(62/g.W,92/g.H);const sx0=M,sy0=y;const X=v=>sx0+v*sc,Y=v=>sy0+v*sc;
+    doc.setFillColor(233,235,238);g.body.forEach(b=>{if(b.t==='r')doc.roundedRect(X(b.x),Y(b.y),b.w*sc,b.h*sc,b.rx*sc,b.rx*sc,'F');else if(b.t==='l'){doc.setDrawColor(61,66,74);doc.setLineWidth(.8);doc.line(X(b.x1),Y(b.y1),X(b.x2),Y(b.y2))}});
+    doc.setDrawColor(61,66,74);doc.setLineWidth(.9);g.ys.forEach((yy,i)=>{doc.line(X(g.cx-74),Y(yy),X(g.cx+74),Y(yy));doc.setFillColor(255,255,255);doc.circle(X(g.cx),Y(yy),9*sc,'FD');font(6.5,true);T(String(i+1),X(g.cx),Y(yy)+.9,{align:'center'})});
+    font(6,false,mute);T('marcia',X(4),Y(12));
+    g.wheels.forEach(w=>{const e=c.ev[w.k];const r=L.ruote[w.k];if(e&&e.s){doc.setFillColor(...C[e.s]);doc.roundedRect(X(w.x),Y(w.y),w.w*sc,w.h*sc,1.2,1.2,'F')}else{doc.setDrawColor(61,66,74);doc.setLineWidth(.3);doc.setFillColor(255,255,255);doc.roundedRect(X(w.x),Y(w.y),w.w*sc,w.h*sc,1.2,1.2,'FD')}
+      if(r&&r.p!=null){font(5.8,true,e&&e.s?[255,255,255]:ink);T(fmt(r.p),X(w.x+w.w/2),Y(w.y+w.h/2)+.6,{align:'center'})}});
+    const schemaH=g.H*sc;
+    // tabella ruote
+    const tx=M+70,tw2=W-M-tx;const tc=[[0,'Ruota'],[19,'Misura'],[43,'Bar'],[55,'Rif.'],[66,'Batt. mm'],[86,'°C'],[93,'Esito']];
+    let ty=sy0;doc.setFillColor(...soft);doc.rect(tx,ty,tw2,6,'F');font(7.2,true,mute);tc.forEach(([dx,l])=>T(l,tx+1+dx,ty+4.1));ty+=6;
+    const rh=5.4;const extra=[];let broke=false;
+    P.forEach(p=>{const r=L.ruote[p.k];const a=L.assi[p.ax]||{};const e=c.ev[p.k];
+      if(ty+rh>Hp-18){doc.addPage();header();ty=y=28;broke=true}
+      font(7.6,true);T(posLabel(p.k,true),tx+1,ty+3.8);font(7.2,false);T(String(a.mis||'-').slice(0,14),tx+1+19,ty+3.8);
+      font(7.6,true);T(r&&r.p!=null?fmt(r.p):'-',tx+1+43,ty+3.8);font(7.2,false,mute);T(a.pt?fmt(a.pt):'-',tx+1+55,ty+3.8);
+      font(7.4,false);const bt=r?([r.bE,r.bC,r.bI].some(v=>v!=null)?[r.bE,r.bC,r.bI].map(v=>v!=null?fmt(v):'-').join('/'):(r.b!=null?fmt(r.b):'-')):'-';T(bt,tx+1+66,ty+3.8);
+      T(r&&r.t!=null?fmt(r.t,0):'-',tx+1+86,ty+3.8);if(e&&e.s){doc.setFillColor(...C[e.s]);doc.circle(tx+1+94.5,ty+2.7,1.6,'F');font(7,false);T(ST[e.s][1],tx+1+97.5,ty+3.8)}else{font(7,false,mute);T('non letta',tx+1+93,ty+3.8)}
+      doc.setDrawColor(...line);doc.setLineWidth(.15);doc.line(tx,ty+rh,tx+tw2,ty+rh);ty+=rh;
+      if(r&&(e&&e.motivi.length||r.az||r.note||r.pd!=null))extra.push({p,r,e})});
+    y=(broke?ty:Math.max(sy0+schemaH,ty))+7;
+    if(extra.length){need(12);font(10.5,true);T('Anomalie e interventi',M,y);y+=5.5;
+      extra.forEach(({p,r,e})=>{const parts=[];if(e&&e.motivi.length)parts.push(e.motivi.join('; '));if(r.az)parts.push('Intervento: '+AZ[r.az]+(r.pd!=null?' (portata a '+fmt(r.pd)+' bar)':''));else if(r.pd!=null)parts.push('Pressione dopo intervento: '+fmt(r.pd)+' bar');if(r.note)parts.push('Note: '+r.note);
+        const t=doc.splitTextToSize(pdfTxt(parts.join(' - ')),W-2*M-34);need(t.length*4+2);font(8.5,true);T(posLabel(p.k,true),M,y);font(8.5,false);doc.text(t,M+34,y);if(e&&e.s){doc.setFillColor(...C[e.s]);doc.circle(M+30.5,y-1.1,1.5,'F')}y+=t.length*4+1.8})}
+    if(opt.cons&&m){const rows=[];P.forEach(p=>{const hist=lettureDi(m.id).filter(l=>l.data<=L.data&&l.ruote&&l.ruote[p.k]&&battMin(l.ruote[p.k])!=null).slice().reverse();
+        if(hist.length<2)return;let pts=hist.map(l=>({x:dayNum(l.data),y:battMin(l.ruote[p.k]),km:l.km}));let st=0;for(let i=1;i<pts.length;i++)if(pts[i].y>pts[i-1].y+1.5)st=i;pts=pts.slice(st);
+        const kmP=pts.filter(x=>x.km);const useKm=kmP.length>=2;const rg=regress(useKm?kmP.map(x=>({x:x.km,y:x.y})):pts);if(!rg||rg.b>=0)return;
+        const th=sogliaB(L.assi[p.ax],set);const lastP=pts[pts.length-1];const rem=(lastP.y-th.r)/(-rg.b);
+        rows.push([posLabel(p.k,true),fmt(pts[0].y)+' > '+fmt(lastP.y)+' mm',useKm?fmt(-rg.b*1000,2)+' mm/1000 km':fmt(-rg.b*30,2)+' mm/mese',lastP.y<=th.r?'al limite':useKm?'circa '+fmtK(rem)+' km':fmtDs(dayStr(Math.round(lastP.x+rem)))])});
+      if(rows.length){need(14+rows.length*5);y+=2;font(10.5,true);T('Consumo del battistrada',M,y);y+=2;const cc=[0,30,72,112];doc.setFillColor(...soft);doc.rect(M,y,W-2*M,5.6,'F');font(7.2,true,mute);['Ruota','Battistrada','Consumo','Al rosso'].forEach((l,i)=>T(l,M+1+cc[i],y+3.9));y+=5.6;
+        rows.forEach(r=>{need(5.2);font(7.8,false);r.forEach((v,i)=>T(v,M+1+cc[i],y+3.7));doc.setDrawColor(...line);doc.line(M,y+5,W-M,y+5);y+=5});y+=8}}
+    if(L.note){const t=doc.splitTextToSize(pdfTxt(L.note),W-2*M);need(8+t.length*4);font(10.5,true);T('Note',M,y);y+=5;font(8.8,false);doc.text(t,M,y);y+=t.length*4+3}
+    if(opt.sug){const cs=consigli(L,c,m);if(cs.length){need(10);font(10.5,true);T('Consigli',M,y);y+=5;cs.forEach(s=>{const t=doc.splitTextToSize(pdfTxt(s),W-2*M-5);need(t.length*4+1);font(8.8,false);T('-',M,y);doc.text(t,M+4,y);y+=t.length*4+1.2});y+=2}}
+    const nx=m?dayStr(dayNum(L.data)+freqDi(m)):null;if(nx){need(7);font(9,true);T(`Prossimo controllo consigliato: ${fmtDs(nx)}`,M,y);y+=7}
+    if(opt.foto){const fotos=[];P.forEach(p=>{const r=L.ruote[p.k];(r&&r.foto||[]).forEach(src=>fotos.push({src,lab:posLabel(p.k,true)}))});
+      if(fotos.length){need(12);font(10.5,true);T('Foto',M,y);y+=4;const fw=(W-2*M-2*4)/3;let col=0;let rowMax=0;
+        for(const ph of fotos){const d=await imgDim(ph.src);if(!d)continue;const fh=Math.min(fw*d.h/d.w,70);if(col===0){if(need(fh+6))y+=0}
+          const x=M+col*(fw+4);try{doc.addImage(ph.src,'JPEG',x,y,fw,fh)}catch(e){}font(7,false,mute);T(ph.lab,x,y+fh+3.5);rowMax=Math.max(rowMax,fh+6);col++;if(col===3){col=0;y+=rowMax;rowMax=0}}
+        if(col)y+=rowMax}}}
+  const n=doc.getNumberOfPages();for(let i=1;i<=n;i++){doc.setPage(i);font(7.5,false,mute);T(`PRESSIONI FLOTTE TRUCK - MATE by TRK - Rapporto generato il ${fmtD(localNow())}`,M,Hp-8);T(`Pagina ${i} di ${n}`,W-M,Hp-8,{align:'right'})}
+  const nome=`Controllo-pneumatici_${slug(f.nome)}_${Ls.length===1?normTarga(Ls[0].targa)+'_':''}${today()}.pdf`;
+  return {blob:doc.output('blob'),nome}}
+
+/* ---------- DATI: export / import ---------- */
+function pacchetto(opt){opt=opt||{};let F=S.flotte,M=S.mezzi,L=S.letture;
+  if(opt.flottaId){F=F.filter(f=>f.id===opt.flottaId);M=M.filter(m=>m.flottaId===opt.flottaId);L=L.filter(l=>l.flottaId===opt.flottaId)}
+  L=clone(L);if(!opt.foto)L.forEach(l=>{let had=false;Object.values(l.ruote||{}).forEach(r=>{if(r.foto&&r.foto.length){had=true;delete r.foto}});if(had)l._noFoto=true});
+  return {formato:FORMATO,versione:1,app:APP_VER,esportato:nowISO(),dispositivo:devName(),gommista:S.set.gommista,impostazioni:{...S.set,nomeDispositivo:undefined,operatore:undefined},flotte:clone(F),mezzi:clone(M),letture:L}}
+async function esportaJSON(opt){const p=pacchetto(opt);const f=opt.flottaId&&getF(opt.flottaId);
+  const nome=`mate-pressioni_${f?slug(f.nome)+'_':''}${slug(devName())}_${localNow().replace(/[:T]/g,'-')}.json`;
+  await consegna(new Blob([JSON.stringify(p)],{type:'application/json'}),nome,true,'Dati PRESSIONI FLOTTE TRUCK');
+  if(!opt.flottaId)await setMeta('lastBackup',today());toast('Esportazione pronta')}
+function csvCell(v){if(v==null)return '';if(typeof v==='number')return String(v).replace('.',',');const s=String(v);return /[;"\n\r]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s}
+function csvBlob(rows){return new Blob(['﻿'+rows.map(r=>r.map(csvCell).join(';')).join('\r\n')],{type:'text/csv;charset=utf-8'})}
+async function esportaCSV(kind){let rows;
+  if(kind==='letture'){rows=[['data','flotta','targa','tipo_mezzo','abbinato_a','letto_da','km','condizione','tpms','stato_tpms','luogo','posizione','asse','tipo_asse','gemellato','misura','pressione_rif_bar','pressione_bar','scostamento_%','esito_pressione','batt_unico_mm','batt_est_mm','batt_centro_mm','batt_int_mm','batt_min_mm','esito_battistrada','temperatura_c','anomalia','intervento','pressione_dopo_bar','note_ruota','foto','esito_ruota','note_lettura','id_lettura','dispositivo']];
+    act(S.letture).filter(nRuote).sort((a,b)=>a.data.localeCompare(b.data)).forEach(L=>{const c=esito(L);positions(L.assi).forEach(p=>{const r=L.ruote[p.k];if(isEmptyR(r))return;const a=L.assi[p.ax]||{};const e=c.ev[p.k];
+      rows.push([L.data.replace('T',' '),L.flottaNome,L.targa,TIPI[L.tipoMezzo]||L.tipoMezzo,L.abbinatoTarga,L.operatore,L.km,L.condizione,L.tpms,L.tpmsStato,L.luogo,posLabel(p.k),p.ax+1,TIPI_ASSE[a.tipo]||'',a.gem?'si':'no',a.mis,a.pt,r.p,e.dev!=null?Math.round(e.dev*10)/10:null,e.ps?ST[e.ps][1]:'',r.b,r.bE,r.bC,r.bI,battMin(r),e.bs?ST[e.bs][1]:'',r.t,r.anom?ANOM[r.anom]:'',r.az?AZ[r.az]:'',r.pd,r.note,(r.foto||[]).length,e.s?ST[e.s][1]:'',L.note,L.id,L.dev])})})}
+  else{rows=[['flotta','targa','tipo','marca','modello','anno','telaio','n_interno','configurazione','n_ruote','tpms','tipo_tpms','abbinato_a','km','controllo_ogni_gg','ultima_lettura','scadenza','assi (tipo|gemellato|misura|rif bar)','note']];
+    act(S.mezzi).forEach(m=>{const f=getF(m.flottaId)||{};const sc=scadenza(m);const ab=getM(m.abbinatoId);
+      rows.push([f.nome,m.targa,TIPI[m.tipo],m.marca,m.modello,m.anno,m.telaio,m.codice,sigla(m.assi),positions(m.assi).length,m.tpms,m.tpmsTipo,ab?ab.targa:'',m.kmUltimo,freqDi(m),sc.last?sc.last.data.slice(0,10):'',sc.lab,(m.assi||[]).map(a=>[TIPI_ASSE[a.tipo],a.gem?'gem':'sing',a.mis||'',a.pt!=null?a.pt:''].join('|')).join(' ; '),m.note])})}
+  await consegna(csvBlob(rows),`mate-pressioni_${kind}_${today()}.csv`,false,'CSV')}
+const newer=(a,b)=>(a.updatedAt||a.createdAt||'')>(b.updatedAt||b.createdAt||'');
+function fillBlanks(t,s){let ch=false;Object.keys(s).forEach(k=>{if(['id','createdAt','updatedAt','dev','deleted'].includes(k))return;
+  const empty=t[k]==null||t[k]===''||(Array.isArray(t[k])&&!t[k].length);if(empty&&s[k]!=null&&s[k]!==''&&!(Array.isArray(s[k])&&!s[k].length)){t[k]=s[k];ch=true}});return ch}
+async function importa(data,conImp){const R={flotte:{n:0,a:0,u:0,i:0},mezzi:{n:0,a:0,u:0,i:0},letture:{n:0,a:0,u:0,i:0}};const ch={flotte:new Map(),mezzi:new Map(),letture:new Map()};
+  const fmap={},mmap={};const put=(st,rec,touch)=>{ch[st].set(rec.id,{rec,touch})};
+  for(const f0 of data.flotte||[]){const f=clone(f0);if(!f.id||!f.nome)continue;const ex=getF(f.id);
+    if(ex){if(newer(f,ex)){Object.assign(ex,f);put('flotte',ex,false);R.flotte.a++}else R.flotte.u++;continue}
+    const same=!f.deleted&&flotteAtt().find(x=>normName(x.nome)===normName(f.nome));
+    if(same){fmap[f.id]=same.id;if(fillBlanks(same,f))put('flotte',same,true);R.flotte.i++;continue}
+    S.flotte.push(f);put('flotte',f,false);R.flotte.n++}
+  for(const m0 of data.mezzi||[]){const m=clone(m0);if(!m.id)continue;m.flottaId=fmap[m.flottaId]||m.flottaId;const ex=getM(m.id);
+    if(ex){if(newer(m,ex)){Object.assign(ex,m);put('mezzi',ex,false);R.mezzi.a++}else R.mezzi.u++;continue}
+    const same=!m.deleted&&act(S.mezzi).find(x=>normTarga(x.targa)===normTarga(m.targa));
+    if(same){mmap[m.id]=same.id;if(fillBlanks(same,m))put('mezzi',same,true);R.mezzi.i++;continue}
+    S.mezzi.push(m);put('mezzi',m,false);R.mezzi.n++}
+  S.mezzi.forEach(m=>{if(m.abbinatoId&&mmap[m.abbinatoId]){m.abbinatoId=mmap[m.abbinatoId];put('mezzi',m,false)}});
+  for(const l0 of data.letture||[]){const l=clone(l0);if(!l.id||!l.mezzoId)continue;l.flottaId=fmap[l.flottaId]||l.flottaId;l.mezzoId=mmap[l.mezzoId]||l.mezzoId;if(l.abbinatoId)l.abbinatoId=mmap[l.abbinatoId]||l.abbinatoId;
+    const ex=getL(l.id);
+    if(ex){const keepFoto=()=>{if(l._noFoto)Object.keys(ex.ruote||{}).forEach(k=>{const of=ex.ruote[k].foto;if(of&&of.length&&l.ruote&&l.ruote[k]&&!(l.ruote[k].foto||[]).length)l.ruote[k].foto=of})};
+      if(newer(l,ex)){keepFoto();if(l._noFoto&&!ex._noFoto)delete l._noFoto;Object.assign(ex,l);put('letture',ex,false);R.letture.a++}
+      else if(ex._noFoto&&!l._noFoto&&!newer(ex,l)){Object.keys(l.ruote||{}).forEach(k=>{if(ex.ruote[k]&&l.ruote[k].foto)ex.ruote[k].foto=l.ruote[k].foto});delete ex._noFoto;put('letture',ex,false);R.letture.a++}
+      else R.letture.u++;continue}
+    S.letture.push(l);put('letture',l,false);R.letture.n++}
+  for(const st of ['flotte','mezzi','letture']){const arr=[...ch[st].values()];arr.forEach(x=>{if(x.touch)stamp(x.rec)});if(arr.length)await DB.put(st,arr.map(x=>x.rec))}
+  if(conImp&&data.impostazioni){const keep={nomeDispositivo:S.set.nomeDispositivo,operatore:S.set.operatore,gommista:S.set.gommista||data.impostazioni.gommista,gommistaInfo:S.set.gommistaInfo||data.impostazioni.gommistaInfo};
+    S.set={...DEF,...data.impostazioni,...keep};await setMeta('settings',S.set)}
+  return R}
+VIEWS.dati=()=>{const nl=act(S.letture).filter(nRuote).length;const nf=act(S.letture).reduce((s,l)=>s+Object.values(l.ruote||{}).reduce((a,r)=>a+(r.foto||[]).length,0),0);
+  app.innerHTML=`<h1>Dati</h1>
+  <div class="note info small">🔒 I dati sono salvati <b>solo su questo dispositivo</b> e non su un server: se il telefono si guasta, si perde o si cancellano i dati del browser, senza un backup non sono recuperabili. Per passarli a un altro telefono o a un collega: <b>Esporta</b> qui, invia il file (AirDrop, WhatsApp, email), poi sull'altro dispositivo <b>Importa</b>. L'import <b>unisce</b>: le letture già presenti restano, quelle nuove si aggiungono, una lettura modificata vince la versione più recente. Flotte con lo stesso nome e mezzi con la stessa targa vengono riconosciuti e uniti.</div>
+  <div class="kpis"><div class="kpi"><b>${nl}</b><span>Letture</span></div><div class="kpi"><b>${nf}</b><span>Foto</span></div><div class="kpi"><b id="sz">…</b><span>Spazio usato</span></div></div>
+  <h2>Esporta</h2><div class="card"><p class="small muted" style="margin-top:0">Ultimo backup completo: <b>${S.meta.lastBackup?fmtDs(S.meta.lastBackup):'mai'}</b></p>
+  <label class="ck"><input type="checkbox" id="e_foto" checked> Includi le foto (file più pesante)</label>
+  <label class="f"><span>Cosa esportare</span><select id="e_f"><option value="">Tutto (backup completo)</option>${flotteAtt().map(f=>`<option value="${f.id}">Solo ${esc(f.nome)}</option>`).join('')}</select></label>
+  <button class="btn pri blk" id="e_json">⇪ Esporta file dati (.json)</button>
+  <div class="btns"><button class="btn" id="e_csvl">Letture in Excel (.csv)</button><button class="btn" id="e_csvm">Mezzi in Excel (.csv)</button></div>
+  <p class="small muted" style="margin:0">Il file .json serve per backup e import. I .csv si aprono con Excel per le analisi.</p></div>
+  <h2>Importa</h2><div class="card"><label class="btn blk">⇩ Scegli un file .json<input type="file" id="i_file" style="display:none"></label><div id="i_prev"></div></div>
+  <h2>Prova</h2><div class="card"><p class="small muted" style="margin-top:0">Crea una flotta di esempio con 3 mezzi e 4 letture per vedere schemi, grafici e PDF. Si elimina come una flotta normale.</p><button class="btn blk" id="demo">Carica dati di esempio</button></div>
+  <h2>Cestino</h2><div class="list" id="trash"></div>
+  <p class="foot"><a href="#/info">Dati e responsabilità</a></p>
+  <h2>Zona pericolosa</h2><div class="card"><button class="btn dan blk" id="wipe">Cancella tutti i dati da questo dispositivo</button></div>`;
+  if(navigator.storage&&navigator.storage.estimate)navigator.storage.estimate().then(e=>{$('#sz').textContent=e.usage>1048576?fmt(e.usage/1048576)+' MB':Math.round(e.usage/1024)+' KB'}).catch(()=>{$('#sz').textContent='—'});else $('#sz').textContent='—';
+  const drawTrash=()=>{const c=cestino();$('#trash').innerHTML=c.length?c.slice(0,60).map(x=>`<div class="li"><div class="m"><div class="t">${esc(x.lab)}</div><div class="s">${esc(x.sub)}${x.t?' · eliminato il '+fmtD(isoLocal(x.t)):''}</div></div><button class="btn sm" data-rs="${x.st}|${x.id}">↺ Ripristina</button></div>`).join(''):'<div class="empty">Il cestino è vuoto.</div>';
+    on('[data-rs]','click',async(e,b)=>{const [st,id]=b.dataset.rs.split('|');await ripristina(st,id);drawTrash()},$('#trash'))};drawTrash();
+  $('#e_json').onclick=()=>esportaJSON({flottaId:$('#e_f').value||null,foto:$('#e_foto').checked});
+  $('#e_csvl').onclick=()=>esportaCSV('letture');$('#e_csvm').onclick=()=>esportaCSV('mezzi');
+  $('#i_file').onchange=async e=>{const file=e.target.files[0];e.target.value='';if(!file)return;let data;
+    try{data=JSON.parse(await file.text())}catch(err){return alert('Il file non è un file dati valido.')}
+    if(data.formato!==FORMATO)return alert('Il file non è un export di PRESSIONI FLOTTE TRUCK.');
+    const nl2=(data.letture||[]).filter(l=>!getL(l.id)).length;
+    $('#i_prev').innerHTML=`<p class="small">File di <b>${esc(data.dispositivo||'?')}</b>${data.gommista?' ('+esc(data.gommista)+')':''}, esportato il ${fmtD((data.esportato||'').slice(0,16))}.<br>
+      ${(data.flotte||[]).length} flotte · ${(data.mezzi||[]).length} mezzi · ${(data.letture||[]).length} letture, di cui <b>${nl2} nuove</b> per questo dispositivo.</p>
+      <label class="ck"><input type="checkbox" id="i_imp"> Usa anche le soglie e le impostazioni del file</label><button class="btn red blk" id="i_go">Unisci i dati</button>`;
+    $('#i_go').onclick=async()=>{const R=await importa(data,$('#i_imp').checked);const t=k=>`${R[k].n} nuove, ${R[k].a} aggiornate, ${R[k].i} unite per nome/targa, ${R[k].u} già presenti`;
+      $('#i_prev').innerHTML=`<div class="note info small"><b>Import completato.</b><br>Flotte: ${t('flotte')}<br>Mezzi: ${t('mezzi')}<br>Letture: ${t('letture')}</div>`;toast('Dati uniti')}};
+  $('#demo').onclick=async()=>{await caricaDemo();toast('Esempio caricato');go('#/flotte')};
+  $('#wipe').onclick=async()=>{const t=prompt('Tutte le flotte, i mezzi e le letture di questo dispositivo verranno cancellati. Fai prima un backup.\nPer confermare scrivi ELIMINA');
+    if(t!=='ELIMINA')return;for(const s of ['flotte','mezzi','letture'])await DB.clear(s);S.flotte=[];S.mezzi=[];S.letture=[];toast('Dati cancellati');go('#/home')}};
+async function caricaDemo(){const f={id:uid(),nome:'Trasporti Esempio (demo)',referente:'Ufficio flotta',citta:'Napoli',freq:30,note:'Dati inventati per provare l\'app.'};
+  const ax=(t,g,mis,pt,marca)=>({...asse(t,g),mis,pt,marcaP:marca||''});
+  const tr={id:uid(),flottaId:f.id,targa:'EX123AA',tipo:'trattore',marca:'Esempio',modello:'Trattore 4x2',assi:[ax('sterzante',0,'315/70 R22.5',9),ax('trattivo',1,'315/70 R22.5',8.5)],tpms:'no',attivo:true};
+  const se={id:uid(),flottaId:f.id,targa:'XA456BB',tipo:'semirimorchio',marca:'Esempio',modello:'Centinato 3 assi',assi:[ax('portante',0,'385/65 R22.5',9),ax('portante',0,'385/65 R22.5',9),ax('portante',0,'385/65 R22.5',9)],tpms:'si',tpmsTipo:'sensori a valvola',attivo:true};
+  const mo={id:uid(),flottaId:f.id,targa:'EX789CC',tipo:'motrice',marca:'Esempio',modello:'Motrice 6x2',assi:[ax('sterzante',0,'315/80 R22.5',8.5),ax('trattivo',1,'315/80 R22.5',8),ax('sollevabile',0,'315/80 R22.5',8)],tpms:'',attivo:true};
+  tr.abbinatoId=se.id;se.abbinatoId=tr.id;await save('flotte',f);await saveMany('mezzi',[tr,se,mo]);
+  const base=dayNum(today());const Ls=[];const op='Operatore demo';
+  [120,90,60,25].forEach((ago,j)=>{const ses=uid();const d=dayStr(base-ago)+'T09:30';const km=210000+j*14000;
+    [[tr,se],[se,tr]].forEach(([m,ab])=>{const ru={};positions(m.assi).forEach((p,i)=>{const a=m.assi[p.ax];const wear=(a.tipo==='trattivo'?1.15:a.tipo==='sterzante'?.8:.6)*j+(i%3)*.2;
+        const r={p:Math.round((a.pt-(j===3&&p.k==='2SI'?1.4:(i%4)*.15))*10)/10};
+        if(a.tipo==='sterzante'&&j>=2){r.bE=Math.round((14-wear-1.6)*10)/10;r.bC=Math.round((14-wear)*10)/10;r.bI=Math.round((14-wear-.3)*10)/10}else r.b=Math.round((15-wear-(a.tipo==='trattivo'?3:0))*10)/10;
+        if(j===3&&p.k==='2SI'){r.anom='valvola';r.az='gonfiato';r.pd=8.5}ru[p.k]=r});
+      Ls.push({id:uid(),sessione:ses,data:d,flottaId:f.id,flottaNome:f.nome,operatore:op,mezzoId:m.id,targa:m.targa,tipoMezzo:m.tipo,abbinatoId:ab.id,abbinatoTarga:ab.targa,km:m===tr?km:null,luogo:'Deposito',condizione:'freddo',tpms:m.tpms,tpmsStato:m.tpms==='si'?'ok':'',assi:clone(m.assi),ruote:ru,note:''})})});
+  await saveMany('letture',Ls)}
+
+/* ---------- IMPOSTAZIONI ---------- */
+VIEWS.impostazioni=()=>{const s=S.set;const f=(k,l,t='text',ex='')=>`<label class="f"><span>${l}</span><input id="s_${k}" type="${t}" value="${s[k]!=null?esc(typeof s[k]==='number'?fmt(s[k],s[k]%1?1:0):s[k]):''}" ${ex}></label>`;const dec='inputmode="decimal"';
+  app.innerHTML=`<h1>Impostazioni</h1>
+  <h2>Officina</h2><div class="card">${f('gommista','Nome officina (in testa al PDF)')}${f('gommistaInfo','Indirizzo e telefono (in testa al PDF)')}
+  <div class="grid2">${f('operatore','Operatore predefinito')}${f('nomeDispositivo','Nome di questo dispositivo','text','placeholder="es. iPhone Marco"')}</div></div>
+  <h2>Controlli periodici</h2><div class="card"><div class="grid2">${f('freq','Controllo ogni (giorni)','text','inputmode="numeric"')}${f('preavviso','Avviso prima della scadenza (giorni)','text','inputmode="numeric"')}</div></div>
+  <h2>Soglie della pressione</h2><div class="card"><p class="small muted" style="margin-top:0">Scostamento dalla pressione di riferimento impostata su ogni asse.</p>
+  <div class="grid3">${f('pressGiallo','Giallo oltre (± %)','text',dec)}${f('pressRosso','Rosso oltre (± %)','text',dec)}${f('gemelleMax','Diff. max gemelle (bar)','text',dec)}</div></div>
+  <h2>Soglie del battistrada</h2><div class="card"><p class="small muted" style="margin-top:0">Valori generali: su ogni asse del mezzo puoi metterne di specifici.</p>
+  <div class="grid3">${f('battNuovo','Nuovo (mm)','text',dec)}${f('battGiallo','Giallo sotto (mm)','text',dec)}${f('battRosso','Rosso sotto (mm)','text',dec)}</div>
+  ${f('irrMm','Usura irregolare: differenza tra i 3 punti oltre (mm)','text',dec)}</div>
+  <h2>Soglie della temperatura</h2><div class="card"><p class="small muted" style="margin-top:0">Vuoto = la temperatura si registra ma non viene valutata.</p><div class="grid2">${f('tempGiallo','Giallo da (°C)','text',dec)}${f('tempRosso','Rosso da (°C)','text',dec)}</div></div>
+  <h2>PDF</h2><div class="card"><label class="ck"><input type="checkbox" id="s_suggerimenti"${s.suggerimenti?' checked':''}> Consigli inclusi di base nel PDF</label></div>
+  <div class="note small">I valori di partenza delle soglie sono indicativi: impostali secondo le indicazioni dei costruttori dei pneumatici e le regole dell'officina.</div>
+  <button class="btn pri blk" id="sv">Salva impostazioni</button>
+  <p class="small muted" style="text-align:center;margin-top:18px">PRESSIONI FLOTTE TRUCK · MATE by TRK · versione ${APP_VER}<br>Dati salvati solo su questo dispositivo · <a href="#/info">Dati e responsabilità</a></p>`;
+  $('#sv').onclick=async()=>{const n=S.set;['gommista','gommistaInfo','operatore','nomeDispositivo'].forEach(k=>n[k]=$('#s_'+k).value.trim());
+    ['freq','preavviso','pressGiallo','pressRosso','gemelleMax','battNuovo','battGiallo','battRosso','irrMm'].forEach(k=>{const v=num($('#s_'+k).value);n[k]=v!=null?v:DEF[k]});
+    ['tempGiallo','tempRosso'].forEach(k=>n[k]=num($('#s_'+k).value));n.suggerimenti=$('#s_suggerimenti').checked;
+    if(n.pressRosso<=n.pressGiallo)return alert('La soglia rossa della pressione deve essere più alta della gialla.');
+    if(n.battRosso>=n.battGiallo)return alert('Il rosso del battistrada deve essere più basso del giallo.');
+    if(n.battGiallo>=n.battNuovo)return alert('Il giallo del battistrada deve essere più basso del nuovo.');
+    await setMeta('settings',n);toast('Impostazioni salvate')}};
+
+/* ---------- avvio ---------- */
+load().then(()=>{render();const a=S.meta.avvisoOk;if(!a||a.ver!==AVVISO_VER)mostraAvviso()}).catch(e=>{app.innerHTML=`<div class="card">Impossibile aprire l'archivio del dispositivo: ${esc(e&&e.message||e)}.<br>Su iPhone non usare la navigazione privata.</div>`});
+if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script>
+</body>
+</html>
