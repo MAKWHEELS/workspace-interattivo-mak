@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lavoriamo insieme · Ivan, agente MAK</title>
+<meta name="description" content="MAK, leader italiano delle ruote in lega aftermarket, 100% Made in Italy: ruote MAK, kit ruota di scorta NPK e sensori TPMS MATE da un solo fornitore. Compra dal produttore, con un agente che ti segue di persona. Credenziali B2B gratuite, nessun minimo, nessun vincolo.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Lavoriamo insieme: MAK, NPK e MATE da un solo fornitore">
+<meta property="og:description" content="Ruote, ruotino e TPMS, un agente che ti segue e le credenziali B2B gratuite. Nessun minimo, nessun vincolo.">
+<meta property="og:image" content="https://makwheels.github.io/workspace-interattivo-mak/ivan/lavoriamo-insieme/anteprima.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://makwheels.github.io/workspace-interattivo-mak/ivan/lavoriamo-insieme/">
+<meta name="theme-color" content="#da2128">
+<link rel="apple-touch-icon" href="icona.png">
+<style>
+:root{
+  --red:#da2128; --ink:#14161a; --mute:#5d626b; --card:#f3f4f6; --line:#e2e4e8; --bg:#fff; --verde:#25d366;
+  --titolo:"DIN Condensed","Avenir Next Condensed","Arial Narrow",system-ui,sans-serif;
+  --testo:"Avenir Next",-apple-system,system-ui,sans-serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--testo);font-size:16px;line-height:1.4}
+body{padding-top:calc(56px + env(safe-area-inset-top));padding-bottom:calc(96px + env(safe-area-inset-bottom))}
+.wrap{max-width:540px;margin:0 auto;overflow:hidden}
+h2{font-family:var(--titolo);font-weight:700;font-size:32px;letter-spacing:.5px;margin:0 0 4px;text-transform:uppercase;line-height:1}
+h2 em{font-style:normal;color:var(--red)}
+.sub{color:var(--mute);margin:0 0 16px;font-size:15px}
+section{padding:28px 16px 6px}
+a{color:var(--red)}
+
+.hero{position:relative;overflow:hidden;line-height:0}
+.hero img{width:100%;height:auto;display:block}
+.hero::after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;pointer-events:none;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-18deg);animation:riflesso 5s 1s infinite}
+@keyframes riflesso{0%{left:-60%}35%,100%{left:130%}}
+
+.avviso{position:fixed;top:0;left:0;right:0;z-index:25;display:flex;align-items:center;justify-content:center;gap:10px;
+  padding:calc(10px + env(safe-area-inset-top)) 16px 10px;background:var(--ink);color:#fff;text-decoration:none;font-size:14px;line-height:1.3;
+  box-shadow:0 4px 16px rgba(0,0,0,.25);transition:transform .35s}
+.avviso span{max-width:470px}
+.avviso i{flex:none;font-style:normal;width:30px;height:30px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;animation:giu 1.6s infinite}
+@keyframes giu{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+.avviso.via{transform:translateY(-110%)}
+#secDati{scroll-margin-top:10px}
+
+/* chi è MAK */
+.intro{font-size:17px;margin:0 0 14px}
+.intro b{border-bottom:3px solid var(--red)}
+.numeri{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.numeri div{background:var(--ink);color:#fff;border-radius:14px;padding:14px 14px 12px}
+.numeri b{display:block;font-family:var(--titolo);font-size:44px;line-height:.95;padding-top:4px}
+.numeri b em{font-style:normal;color:var(--red)}
+.numeri span{display:block;font-size:13px;opacity:.85}
+.primati{list-style:none;margin:16px 0 0;padding:0}
+.primati li{display:grid;grid-template-columns:86px 1fr;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.primati li img{width:86px;height:auto;display:block}
+.primati li b{display:block;font-family:var(--titolo);font-size:22px;line-height:1;text-transform:uppercase;padding-top:3px}
+.primati li span{font-size:14px;color:var(--mute)}
+
+/* dal produttore */
+.confronto{display:grid;grid-template-columns:1fr 1fr;gap:0;border-radius:16px;overflow:hidden;border:1px solid var(--line)}
+.confronto div{padding:11px 12px;font-size:14px;line-height:1.3;border-top:1px solid var(--line)}
+.confronto .h{font-family:var(--titolo);font-size:22px;text-transform:uppercase;line-height:1;padding:14px 12px 10px;border-top:0}
+.confronto .no{background:var(--card);color:var(--mute)}
+.confronto .si{background:#fff;font-weight:600}
+.confronto .h.no{color:var(--mute)}
+.confronto .h.si{background:var(--red);color:#fff}
+.chiusa{background:var(--ink);color:#fff;border-radius:16px;padding:16px;margin-top:14px}
+.chiusa b{display:block;font-family:var(--titolo);font-size:26px;line-height:1;text-transform:uppercase;padding-top:3px}
+.chiusa b em{font-style:normal;color:var(--red)}
+.chiusa p{margin:8px 0 0;font-size:15px;opacity:.9}
+
+/* gamma */
+.gamma{display:grid;gap:10px}
+.prod{display:grid;grid-template-columns:92px 1fr;gap:12px;align-items:start;background:var(--card);border-radius:16px;padding:12px}
+.prod img{width:92px;height:92px;object-fit:contain;display:block;mix-blend-mode:multiply}
+.prod .ic{width:92px;height:92px;border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center}
+.prod .ic svg{width:56px;height:56px}
+.prod .m{font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--red)}
+.prod h3{margin:0;font-family:var(--titolo);font-size:24px;line-height:1;text-transform:uppercase;padding-top:3px}
+.prod p{margin:4px 0 0;font-size:14px;color:var(--mute)}
+.prod .uso{color:var(--ink);font-size:13px;margin-top:6px}
+.prod a{display:inline-block;margin-top:8px;font-size:14px;font-weight:700;text-decoration:none}
+.prod a::after{content:" →"}
+
+/* come lavoro, assistenza */
+.righe{list-style:none;margin:0;padding:0}
+.righe li{display:grid;grid-template-columns:40px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-size:15px}
+.righe li i{width:40px;height:40px;border-radius:50%;background:var(--red);color:#fff;font-style:normal;display:flex;align-items:center;justify-content:center;font-size:19px}
+.righe li b{display:block;font-family:var(--titolo);font-size:22px;line-height:1;text-transform:uppercase;padding-top:3px}
+.righe li a{font-weight:600;font-size:14px}
+
+/* senza impegno */
+.gratis{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.gratis div{background:var(--card);border-top:5px solid var(--red);border-radius:12px;padding:12px 10px 10px;text-align:center}
+.gratis b{display:block;font-family:var(--titolo);font-size:34px;line-height:1;color:var(--red);padding-top:3px}
+.gratis span{display:block;font-size:13px;line-height:1.25;margin-top:4px;font-weight:600}
+.nota{font-size:13px;color:var(--mute);margin-top:10px}
+
+/* modulo */
+.modulo{background:var(--card);border-radius:16px;padding:4px 14px 16px}
+label.f{display:block;font-size:12px;color:var(--mute);margin:14px 0 5px;text-transform:uppercase;letter-spacing:1px}
+label.f em{font-style:normal;color:var(--red)}
+.modulo input[type=text],.modulo input[type=tel],.modulo input[type=email]{width:100%;font:inherit;font-size:17px;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 13px}
+.modulo input.err{border-color:var(--red)}
+.due{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.due label.f{margin-top:14px}
+.spunta{display:flex;align-items:center;gap:10px;margin-top:14px;font-size:15px}
+.spunta input{width:22px;height:22px;accent-color:var(--red)}
+.avvisi{margin:12px 0 0;padding:0;list-style:none;font-size:14px;color:var(--red);font-weight:600}
+.avvisi li{margin-top:4px}
+.invia{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:14px;background:var(--verde);color:#062e16;text-decoration:none;font-weight:800;font-size:17px;border-radius:14px;padding:15px;border:0;width:100%;font-family:inherit}
+.invia svg{width:22px;height:22px;fill:currentColor;flex:none}
+.invia.spento{background:#cfd3d8;color:#5d626b}
+.privacy{font-size:13px;color:var(--mute);margin:10px 0 0}
+.trovare{background:var(--ink);color:#fff;border-radius:16px;padding:16px;margin-top:14px}
+.trovare b{display:block;font-family:var(--titolo);font-size:26px;line-height:1;text-transform:uppercase;padding-top:3px}
+.trovare p{margin:6px 0 0;font-size:14px;opacity:.85}
+.trovare input{width:100%;font:inherit;font-size:16px;color:var(--ink);background:#fff;border:0;border-radius:12px;padding:12px 13px;margin-top:10px}
+.trovare a{display:flex;align-items:center;justify-content:center;margin-top:10px;background:#fff;color:var(--ink);text-decoration:none;font-weight:800;border-radius:12px;padding:13px}
+
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;color:var(--ink);background:var(--card);border-radius:14px;padding:15px 10px;font-weight:600}
+.btn.b2b{background:var(--ink);color:#fff}
+footer{padding:26px 16px 10px;text-align:center;color:var(--mute);font-size:13px}
+footer img{width:150px;display:block;margin:0 auto 10px}
+footer b{color:var(--ink)}
+
+.cta{position:fixed;left:0;right:0;bottom:0;z-index:30;padding:10px 16px calc(10px + env(safe-area-inset-bottom));
+  background:linear-gradient(rgba(255,255,255,0),rgba(255,255,255,.96) 30%)}
+.cta a{display:flex;align-items:center;justify-content:center;gap:10px;max-width:508px;margin:0 auto;
+  background:var(--verde);color:#062e16;text-decoration:none;font-weight:800;font-size:18px;border-radius:16px;padding:16px;
+  animation:pulsa 2.4s infinite}
+.cta a svg{width:24px;height:24px;fill:currentColor;flex:none}
+@keyframes pulsa{0%,100%{box-shadow:0 0 0 0 rgba(37,211,102,.55)}60%{box-shadow:0 0 0 14px rgba(37,211,102,0)}}
+
+/* comparsa animata delle schede */
+.appare{opacity:0;transform:translateY(16px);transition:opacity .5s,transform .5s}
+.appare.vista{opacity:1;transform:none}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .appare{opacity:1;transform:none}
+}
+
+/* spiegami a voce */
+.spv{padding:16px 16px 0}
+.spv button{width:100%;display:flex;align-items:center;gap:12px;font:inherit;border:0;border-radius:16px;padding:12px 14px;background:#14161a;color:#fff;text-align:left;cursor:pointer}
+.spv .spv-ic{flex:0 0 44px;height:44px;border-radius:50%;background:#da2128;display:flex;align-items:center;justify-content:center}
+.spv .spv-ic svg{width:20px;height:20px;fill:#fff}
+.spv .spv-tx{flex:1;min-width:0}
+.spv .spv-tx b{display:block;font-family:"DIN Condensed","Avenir Next Condensed","Arial Narrow",system-ui,sans-serif;font-weight:700;font-size:24px;line-height:1;text-transform:uppercase;letter-spacing:.5px;padding-top:3px;color:#fff}
+.spv .spv-tx small{display:block;font-size:12px;opacity:.75;margin-top:2px;color:#fff}
+.spv .spv-pr{display:block;height:4px;border-radius:2px;background:rgba(255,255,255,.2);margin-top:7px;overflow:hidden}
+.spv .spv-pr i{display:block;height:100%;width:0;background:#da2128}
+.spv button.spv-va .spv-ic{animation:spvPulsa 1.2s infinite}
+@keyframes spvPulsa{50%{box-shadow:0 0 0 7px rgba(218,33,40,.25)}}
+.spv-richiamo{animation:spvRichiamo .7s 4}
+@keyframes spvRichiamo{50%{transform:scale(1.05)}}
+</style>
+</head>
+<body>
+<a class="avviso" id="avviso" href="#secDati">
+  <span><b>Vuoi lavorare con MAK?</b> Mandami i dati: ti attivo le credenziali B2B, gratis</span><i>↓</i>
+</a>
+<div class="wrap">
+
+<div class="hero">
+  <img src="locandina.jpg" alt="Lavoriamo insieme. Un fornitore, tre marchi, un agente che risponde. Compra direttamente dal produttore: MAK, leader italiano delle ruote in lega aftermarket. Dal 1991, 400.000 ruote prodotte ogni anno, 100% Made in Italy. Ruote in lega MAK, kit ruota di scorta NPK, sensori e tool TPMS MATE. Ivan Parisi, agente MAK, 333 801 2609" width="1620" height="2025">
+</div>
+<div class="spv">
+  <button type="button" id="spvBtn" aria-label="Spiegami a voce la promo">
+    <span class="spv-ic" id="spvIc"></span>
+    <span class="spv-tx"><b>Spiegami a voce</b><small id="spvSub">In 20 secondi · alza il volume</small><span class="spv-pr"><i id="spvPr"></i></span></span>
+  </button>
+  <audio id="spvAudio" src="../../voce/lavoriamo-insieme.mp3" preload="none"></audio>
+</div>
+
+
+<section>
+  <h2>Chi è <em>MAK</em></h2>
+  <p class="intro">MAK è l'azienda italiana <b>leader nel mercato aftermarket delle ruote in lega</b>. Dal 1991, a Carpenedolo (Brescia).</p>
+  <div class="numeri">
+    <div class="appare"><b data-conta="1991" data-plain="1">1991</b><span>anno di fondazione</span></div>
+    <div class="appare"><b data-conta="400000">400.000</b><span>ruote prodotte ogni anno</span></div>
+    <div class="appare"><b><em data-conta="100" data-suf="%">100%</em></b><span>prodotte in Italia, dal 2024</span></div>
+    <div class="appare"><b data-conta="120000">120.000</b><span>ruote a magazzino</span></div>
+  </div>
+  <ul class="primati">
+    <li class="appare"><img src="logo-mak-nero.svg" alt="MAK"><div><b>Ruote in lega</b><span>Leader in Italia nell'aftermarket, 100% Made in Italy.</span></div></li>
+    <li class="appare"><img src="logo-mate-nero.svg" alt="MATE"><div><b>Sensori e strumenti TPMS</b><span>Distributore esclusivo per l'Italia di MATE e Autel.</span></div></li>
+    <li class="appare"><img src="logo-npk.svg" alt="NPK"><div><b>Kit ruota di scorta</b><span>Kit NPK assemblati da MAK, per ogni vettura.</span></div></li>
+  </ul>
+</section>
+
+<section>
+  <h2>Perché comprare <em>da chi produce</em></h2>
+  <p class="sub">Senza passare dal grossista.</p>
+  <div class="confronto">
+    <div class="h no">Grossista</div><div class="h si">MAK</div>
+    <div class="no">Ti vende un codice</div><div class="si">Ti dice se va bene sulla tua vettura, e perché</div>
+    <div class="no">Ricarico dell'intermediario</div><div class="si">Miglior prezzo, direttamente dal produttore</div>
+    <div class="no">Il tecnico non c'è</div><div class="si">Ufficio tecnico, NAD, assistenza telefonica TPMS</div>
+    <div class="no">Un catalogo tra tanti</div><div class="si">Ruote, ruotini e sensori da un solo fornitore: un ordine, una spedizione</div>
+  </div>
+  <div class="chiusa"><b>Di mestiere facciamo <em>i consulenti</em></b><p>In tutti i nostri campi: ruote, omologazioni, TPMS. Il prezzo conta, ma prima è meglio sapere cosa montare.</p></div>
+</section>
+
+<section>
+  <h2>Tre marchi, <em>un fornitore</em></h2>
+  <p class="sub">Qualunque sia il tuo lavoro, puoi vendere tutto questo. Un solo ordine, una sola spedizione.</p>
+  <div class="gamma">
+    <div class="prod appare"><img src="foto/ruota-mak.png" alt="Ruota in lega MAK"><div><span class="m">MAK</span><h3>Ruote in lega</h3><p>Dedicate per marca e universali, in tante finiture. Ti preparo il preventivo per la vettura del tuo cliente.</p><a href="https://makwheels.it/catalogo-ruote-in-lega/" target="_blank" rel="noopener">Guarda il catalogo</a></div></div>
+    <div class="prod appare"><img src="foto/ma41.png" alt="Strumento TPMS MATE"><div><span class="m">MATE</span><h3>Sensori e strumenti TPMS</h3><p>Sensori universali e gli strumenti per programmarli, con i pacchetti per partire.</p><p class="uso">Ogni cambio gomme è l'occasione per controllare i sensori.</p><a href="../tool8-ma41/" target="_blank">Guarda un esempio</a></div></div>
+    <div class="prod appare"><img src="foto/ruotino-npk.jpg" alt="Kit ruota di scorta NPK"><div><span class="m">NPK</span><h3>Kit ruota di scorta</h3><p>Ruotino, cric, chiave e borsa: il kit giusto per ogni vettura.</p><p class="uso">Da proporre a chi cambia le gomme o fa il tagliando: tante auto nuove escono senza ruota di scorta.</p><a href="https://noproblemkit.com/prodotti/kit-ruota-di-scorta/" target="_blank" rel="noopener">Trova il kit per vettura</a></div></div>
+    <div class="prod appare"><img src="foto/kit-gomma-ruota.png" alt="Kit gomma e ruota MAK"><div><span class="m">MAK</span><h3>Kit ruota completi</h3><p>Ruota e pneumatico montati e bilanciati, con il sensore TPMS se serve: arrivano pronti da montare.</p><a href="../kit-gomma-ruota/" target="_blank">Guarda un esempio</a></div></div>
+    <div class="prod appare"><img src="foto/calze-npk.png" alt="Calze da neve NPK"><div><span class="m">NPK</span><h3>Calze da neve</h3><p>Cinque linee, la taglia giusta da ogni misura di pneumatico.</p><p class="uso">Da proporre con il cambio gomme invernale.</p><a href="../calze-neve/" target="_blank">Trova la taglia</a></div></div>
+    <div class="prod appare"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#da2128" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 14l2 2 4-4"/></svg></span><div><span class="m">SERVIZIO</span><h3>Trasformazioni a libretto NAD</h3><p>Ruote omologate da mettere a libretto: ti spiego come fare la pratica, passo per passo.</p><a href="../trasformazioni-nad/" target="_blank">Guarda come funziona</a></div></div>
+  </div>
+</section>
+
+<section>
+  <h2>Come <em>lavoro</em></h2>
+  <ul class="righe">
+    <li><i>📍</i><div><b>Un agente in zona</b>Passo in officina a trovarti e ti seguo di persona, dal preventivo all'ordine.</div></li>
+    <li><i>💬</i><div><b>Mi scrivi, ti rispondo io</b>Sul mio WhatsApp personale. E ti tengo aggiornato ogni settimana sulle novità.</div></li>
+    <li><i>🛒</i><div><b>Portale B2B aperto 24 ore</b>Disponibilità, prezzi e ordini quando vuoi tu. <a href="../accesso-b2b/" target="_blank">Come si entra</a></div></li>
+  </ul>
+</section>
+
+<section>
+  <h2>Assistenza <em>tecnica</em></h2>
+  <p class="sub">Quello che un grossista non ti dà.</p>
+  <ul class="righe">
+    <li><i>📄</i><div><b>Trasformazioni a libretto NAD</b>Abbinamenti ruota e pneumatico omologati, e la pratica spiegata. <a href="../trasformazioni-nad/" target="_blank">Vedi</a></div></li>
+    <li><i>🚗</i><div><b>Preventivi ruote per vettura</b>Misura, ET, canale e kit di montaggio giusti, verificati prima dell'ordine.</div></li>
+    <li><i>📡</i><div><b>Assistenza telefonica TPMS</b>Sensori, strumenti e procedure di apprendimento. <a href="../assistenza-mate/" target="_blank">Vedi</a></div></li>
+    <li><i>📐</i><div><b>Strumenti online gratuiti</b>Canali ETRTO, taglie delle calze da neve e altro, dal telefono. <a href="../canali-etrto/" target="_blank">Prova</a></div></li>
+  </ul>
+</section>
+
+<section>
+  <h2>Iniziare <em>non costa niente</em></h2>
+  <div class="gratis">
+    <div><b>✓</b><span>Credenziali B2B gratuite</span></div>
+    <div><b>✓</b><span>Nessun minimo d'ordine</span></div>
+    <div><b>✓</b><span>Nessun vincolo</span></div>
+  </div>
+  <p class="nota">Mi mandi i tuoi dati, ti codifico e ti attivo le credenziali di accesso al nostro B2B.</p>
+</section>
+
+<section id="secDati">
+  <h2>Mandami <em>i dati</em></h2>
+  <p class="sub">Per attivarti le credenziali B2B. I campi con <b style="color:var(--red)">*</b> bastano per partire.</p>
+  <form class="modulo" id="modulo" autocomplete="on" onsubmit="return false">
+    <label class="f" for="rs">Ragione sociale <em>*</em></label>
+    <input type="text" id="rs" autocomplete="organization" placeholder="Officina Rossi Srl">
+    <div class="due">
+      <div><label class="f" for="piva">P.IVA <em>*</em></label><input type="text" id="piva" inputmode="numeric" maxlength="13" placeholder="11 cifre" autocomplete="off"></div>
+      <div><label class="f" for="cf">Codice fiscale</label><input type="text" id="cf" autocapitalize="characters" maxlength="16" placeholder="se diverso" autocomplete="off"></div>
+    </div>
+    <label class="f" for="sdi">Codice SDI o PEC</label>
+    <input type="text" id="sdi" autocapitalize="none" placeholder="7 caratteri oppure indirizzo PEC" autocomplete="off">
+    <label class="f" for="via">Sede legale: via e numero</label>
+    <input type="text" id="via" autocomplete="address-line1" placeholder="Via Roma 1">
+    <div class="due">
+      <div><label class="f" for="cap">CAP</label><input type="text" id="cap" inputmode="numeric" maxlength="5" autocomplete="postal-code"></div>
+      <div><label class="f" for="comune">Comune e provincia</label><input type="text" id="comune" autocomplete="address-level2" placeholder="Comune (PR)"></div>
+    </div>
+    <label class="spunta"><input type="checkbox" id="stessa" checked> Consegna allo stesso indirizzo</label>
+    <div id="boxConsegna" hidden>
+      <label class="f" for="consegna">Indirizzo di consegna</label>
+      <input type="text" id="consegna" autocomplete="off" placeholder="Via, numero, CAP, comune">
+    </div>
+    <label class="f" for="ref">Referente</label>
+    <input type="text" id="ref" autocomplete="name" placeholder="Nome e cognome">
+    <div class="due">
+      <div><label class="f" for="cell">Cellulare <em>*</em></label><input type="tel" id="cell" autocomplete="tel" inputmode="tel"></div>
+      <div><label class="f" for="email">Email</label><input type="email" id="email" autocomplete="email" autocapitalize="none"></div>
+    </div>
+    <ul class="avvisi" id="avvisi" aria-live="polite"></ul>
+    <a class="invia spento" id="invia" href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.7a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.2-.2-.5-.3z"/></svg>
+      <span id="inviaTesto">Manda i dati su WhatsApp</span></a>
+    <p class="privacy">I dati partono solo nel messaggio WhatsApp a me: questa pagina non li salva e non li manda a nessun altro.</p>
+  </form>
+
+  <div class="trovare">
+    <b>Preferisci parlarne di persona?</b>
+    <p>Nessun modulo: dimmi solo di passare.</p>
+    <input type="text" id="offTrovare" placeholder="Officina e paese (facoltativo)" autocomplete="off">
+    <a id="trovare" href="#" target="_blank" rel="noopener">👋 Passami a trovare</a>
+  </div>
+</section>
+
+<section>
+  <div class="btns">
+    <a class="btn" href="tel:+393338012609">📞 Chiamami</a>
+    <a class="btn b2b" href="https://b2bshop.makwheels.it/" target="_blank" rel="noopener">🛒 Portale B2B</a>
+  </div>
+</section>
+
+<footer><img src="logo-mak-nero.svg" alt="MAK"><b>Ivan Parisi</b> · Agente MAK · 333 801 2609<br><small>MAK S.p.A. · Carpenedolo (BS)<br>Conteggio anonimo delle visite, senza cookie.</small></footer>
+</div>
+
+<div class="cta"><a id="wa" href="#" target="_blank" rel="noopener">
+  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.7a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.2-.2-.5-.3z"/></svg>
+  <span>Scrivimi su WhatsApp</span></a></div>
+
+<script>
+/* Fonti: makwheels.it/azienda (1991, 400.000 ruote, Made in Italy dal 2024), catalogo MAK (120.000 ruote a magazzino),
+   Tyrepress 2023 (MATE distribuito in esclusiva da MAK in Italia). Il modulo NON salva e NON invia dati: compone solo il link wa.me. */
+const TELEFONO = "393338012609";
+
+document.addEventListener("DOMContentLoaded", () => {
+  const $ = id => document.getElementById(id);
+  const wa = testo => "https://wa.me/" + TELEFONO + "?text=" + encodeURIComponent(testo);
+  const val = id => $(id).value.trim().replace(/\s+/g, " ");
+
+  /* bottone verde fisso */
+  $("wa").href = wa("Ciao Ivan, ho visto la pagina MAK e vorrei saperne di più.");
+
+  /* P.IVA italiana: 11 cifre con cifra di controllo */
+  function pivaOk(p) {
+    if (!/^\d{11}$/.test(p)) return false;
+    let s = 0;
+    for (let i = 0; i < 10; i++) {
+      let d = +p[i];
+      if (i % 2) { d *= 2; if (d > 9) d -= 9; }
+      s += d;
+    }
+    return (10 - s % 10) % 10 === +p[10];
+  }
+
+  function controlla() {
+    const piva = val("piva").replace(/^IT/i, "").replace(/\s/g, ""), cell = val("cell").replace(/[\s.\-\/]/g, ""),
+          sdi = val("sdi"), email = val("email");
+    const manca = [], avvisi = [];
+    if (!val("rs")) manca.push("ragione sociale");
+    if (!piva) manca.push("P.IVA");
+    if (!cell) manca.push("cellulare");
+    if (piva && !/^\d{11}$/.test(piva)) avvisi.push("La P.IVA ha 11 cifre.");
+    else if (piva && !pivaOk(piva)) avvisi.push("Controlla la P.IVA: l'ultima cifra non torna (il messaggio parte lo stesso).");
+    if (cell && cell.replace(/^\+?39/, "").replace(/\D/g, "").length < 9) avvisi.push("Il cellulare sembra troppo corto.");
+    if (sdi && sdi.indexOf("@") < 0 && !/^[A-Za-z0-9]{7}$/.test(sdi)) avvisi.push("Il codice SDI ha 7 caratteri; la PEC contiene una @.");
+    if (email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) avvisi.push("Controlla l'email.");
+    $("piva").classList.toggle("err", !!piva && !pivaOk(piva));
+    return {manca, avvisi, piva, cell};
+  }
+
+  function messaggio(piva) {
+    const sede = [val("via"), [val("cap"), val("comune")].filter(Boolean).join(" ")].filter(Boolean).join(", ");
+    const consegna = $("stessa").checked ? (sede ? "stessa sede" : "") : val("consegna");
+    const righe = [
+      "Ciao Ivan, ecco i dati per le credenziali B2B MAK.",
+      "Ragione sociale: " + val("rs"),
+      "P.IVA: " + piva + (val("cf") ? " · CF: " + val("cf").toUpperCase() : ""),
+      val("sdi") ? "SDI/PEC: " + val("sdi") : "",
+      sede ? "Sede: " + sede : "",
+      consegna ? "Consegna: " + consegna : "",
+      val("ref") ? "Referente: " + val("ref") : "",
+      "Cell: " + val("cell") + (val("email") ? " · Email: " + val("email") : "")
+    ];
+    return righe.filter(Boolean).join("\n");
+  }
+
+  let toccato = false;
+  function aggiorna() {
+    const c = controlla(), ok = !c.manca.length;
+    const li = [];
+    if (toccato && c.manca.length) li.push("Mancano: " + c.manca.join(", ") + ".");
+    c.avvisi.forEach(a => li.push(a));
+    $("avvisi").innerHTML = li.map(x => "<li>" + x + "</li>").join("");
+    $("invia").classList.toggle("spento", !ok);
+    $("inviaTesto").textContent = ok ? "Manda i dati su WhatsApp" : "Compila i campi con *";
+    $("invia").href = ok ? wa(messaggio(c.piva)) : "#";
+  }
+  document.querySelectorAll("#modulo input").forEach(i => i.addEventListener("input", aggiorna));
+  $("stessa").addEventListener("change", () => { $("boxConsegna").hidden = $("stessa").checked; aggiorna(); });
+  $("invia").addEventListener("click", e => {
+    if ($("invia").classList.contains("spento")) { e.preventDefault(); toccato = true; aggiorna(); return; }
+    window.conta && window.conta("ricerca", "modulo dati inviato");   /* solo il fatto, mai i dati */
+  });
+
+  /* passami a trovare */
+  function aggTrovare() {
+    const o = val("offTrovare");
+    $("trovare").href = wa("Ciao Ivan, ho visto la pagina MAK: passami a trovare quando sei in zona." + (o ? "\nOfficina e paese: " + o : ""));
+  }
+  $("offTrovare").addEventListener("input", aggTrovare);
+  $("trovare").addEventListener("click", () => window.conta && window.conta("ricerca", "passami a trovare"));
+  aggTrovare();
+  aggiorna();
+
+  /* avviso in alto: sparisce quando si arriva al modulo */
+  $("avviso").addEventListener("click", e => { e.preventDefault(); $("secDati").scrollIntoView({behavior: "smooth", block: "start"}); });
+  const animo = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(es => es.forEach(e => $("avviso").classList.toggle("via", e.isIntersecting || e.boundingClientRect.top < 0)), {threshold: [0, .1]})
+      .observe($("secDati"));
+
+    /* comparsa delle schede e numeri che salgono */
+    const fmt = (n, plain) => plain ? String(n) : n.toLocaleString("it-IT");
+    const conta = el => {
+      const fine = +el.dataset.conta, suf = el.dataset.suf || "", plain = !!el.dataset.plain, da = plain ? 1950 : 0, t0 = performance.now();
+      const passo = t => {
+        const k = Math.min(1, (t - t0) / 1200), v = Math.round(da + (fine - da) * (1 - Math.pow(1 - k, 3)));
+        el.textContent = fmt(v, plain) + suf;
+        if (k < 1) requestAnimationFrame(passo);
+      };
+      requestAnimationFrame(passo);
+    };
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add("vista");
+      if (animo) e.target.querySelectorAll("[data-conta]").forEach(conta);
+      io.unobserve(e.target);
+    }), {threshold: .2});
+    document.querySelectorAll(".appare").forEach(el => io.observe(el));
+  } else {
+    document.querySelectorAll(".appare").forEach(el => el.classList.add("vista"));
+  }
+});
+</script>
+<script src="/workspace-interattivo-mak/conta.js" defer></script>
+<script>
+/* Spiegami a voce: a fine ascolto richiama il bottone WhatsApp in fondo */
+(() => {
+  const b = document.getElementById("spvBtn"), a = document.getElementById("spvAudio"),
+    ic = document.getElementById("spvIc"), pr = document.getElementById("spvPr"), sub = document.getElementById("spvSub");
+  const PLAY = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>',
+    PAUSA = '<svg viewBox="0 0 24 24"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>';
+  ic.innerHTML = PLAY;
+  b.addEventListener("click", () => { a.paused ? a.play() : a.pause(); });
+  a.addEventListener("play", () => { ic.innerHTML = PAUSA; b.classList.add("spv-va"); sub.textContent = "Sto spiegando… tocca per la pausa"; });
+  a.addEventListener("pause", () => { ic.innerHTML = PLAY; b.classList.remove("spv-va"); if (!a.ended) sub.textContent = "In pausa · tocca per continuare"; });
+  a.addEventListener("timeupdate", () => { if (a.duration) pr.style.width = (a.currentTime / a.duration * 100) + "%"; });
+  a.addEventListener("ended", () => {
+    sub.textContent = "Tocca per riascoltare"; pr.style.width = "0";
+    const c = document.querySelector(".cta a") || document.querySelector(".cta");
+    if (c) { c.classList.remove("spv-richiamo"); void c.offsetWidth; c.classList.add("spv-richiamo"); }
+  });
+})();
+</script>
+</body>
+</html>
