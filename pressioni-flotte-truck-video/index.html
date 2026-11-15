@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta property="og:title" content="PRESSIONI FLOTTE TRUCK · Video presentazione">
+<meta property="og:description" content="In 60 secondi: il controllo di pressione e battistrada delle flotte truck dal telefono. MATE by TRK.">
+<meta property="og:image" content="https://makwheels.github.io/workspace-interattivo-mak/pressioni-flotte-truck-video/anteprima.jpg">
+<meta property="og:url" content="https://makwheels.github.io/workspace-interattivo-mak/pressioni-flotte-truck-video/">
+<meta property="og:type" content="video.other">
+<meta property="og:video" content="https://makwheels.github.io/workspace-interattivo-mak/pressioni-flotte-truck-video/pressioni-flotte-truck.mp4">
+<meta property="og:video:type" content="video/mp4">
+<meta property="og:video:width" content="1080">
+<meta property="og:video:height" content="1920">
+<meta name="theme-color" content="#101114">
+<title>Pressioni Flotte Truck · Video</title>
+<style>
+  :root{--bg:#101114;--card:#1c1e23;--ink:#f4f5f7;--muted:#a3a8b3;--rosso:#d92d20;--verde:#25d366}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.4 -apple-system,system-ui,"Helvetica Neue",Arial,sans-serif;-webkit-text-size-adjust:100%}
+  main{max-width:480px;margin:0 auto;padding:max(16px,env(safe-area-inset-top)) 16px max(24px,env(safe-area-inset-bottom))}
+  h1{font-size:20px;line-height:1.2;margin:4px 0 2px;font-weight:800;letter-spacing:.2px}
+  .sub{color:var(--muted);font-size:14px;margin:0 0 14px}
+  .vid{position:relative;width:100%;max-width:min(100%,calc(68vh * 9 / 16));margin:0 auto;aspect-ratio:9/16;border-radius:18px;overflow:hidden;background:#000;box-shadow:0 10px 30px rgba(0,0,0,.45)}
+  video{width:100%;height:100%;display:block;object-fit:cover;background:#000}
+  .bt{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
+  .bt button,.bt a{font:inherit;font-size:15px;font-weight:700;border:0;border-radius:12px;min-height:48px;padding:12px 8px;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent}
+  .bt .file{grid-column:1/-1;background:var(--rosso);color:#fff}
+  .bt .wa{background:var(--verde);color:#062e16}
+  .bt .cp{background:var(--card);color:var(--ink)}
+  .bt .ok{background:#14833b;color:#fff}
+  .nota{color:var(--muted);font-size:13px;margin:12px 2px 0;text-align:center}
+</style>
+</head>
+<body>
+<main>
+  <h1>PRESSIONI FLOTTE TRUCK</h1>
+  <p class="sub">Video presentazione · 60 secondi · MATE by TRK</p>
+  <div class="vid">
+    <video id="v" src="pressioni-flotte-truck.mp4" poster="copertina.jpg" controls playsinline preload="metadata"></video>
+  </div>
+  <div class="bt">
+    <button type="button" class="file" id="invia">Invia il video su WhatsApp</button>
+    <a class="wa" id="wa" target="_blank" rel="noopener">Manda il link</a>
+    <button type="button" class="cp" id="copia">Copia link</button>
+  </div>
+  <p class="nota" id="nota">Guardalo prima, poi invialo: il video arriva come file, il link apre questa pagina.</p>
+</main>
+<script>
+(() => {
+  const PAGINA = "https://makwheels.github.io/workspace-interattivo-mak/pressioni-flotte-truck-video/";
+  const NOME = "Pressioni Flotte Truck - MATE.mp4";
+  const TESTO = "Guarda in 60 secondi PRESSIONI FLOTTE TRUCK di MATE: il controllo gomme delle flotte dal telefono.";
+  const wa = document.getElementById("wa");
+  wa.href = "https://wa.me/?text=" + encodeURIComponent(TESTO + " " + PAGINA);
+
+  const copia = document.getElementById("copia");
+  copia.addEventListener("click", async () => {
+    try { await navigator.clipboard.writeText(PAGINA); }
+    catch (e) { const t = document.createElement("textarea"); t.value = PAGINA; document.body.appendChild(t); t.select(); document.execCommand("copy"); t.remove(); }
+    copia.textContent = "Link copiato"; copia.classList.add("ok");
+    setTimeout(() => { copia.textContent = "Copia link"; copia.classList.remove("ok"); }, 2000);
+  });
+
+  // invio del file: su iPhone la condivisione va chiamata subito al tocco, quindi
+  // il primo tocco scarica il video e il secondo apre la condivisione
+  const invia = document.getElementById("invia"), nota = document.getElementById("nota");
+  let file = null, scarico = false;
+  const puoFile = () => { try { return !!(navigator.canShare && navigator.canShare({ files: [new File([""], "x.mp4", { type: "video/mp4" })] })); } catch (e) { return false; } };
+  async function scarica() {
+    scarico = true; invia.textContent = "Preparo il video…";
+    try {
+      const r = await fetch("pressioni-flotte-truck.mp4");
+      const tot = +r.headers.get("content-length") || 0, rd = r.body.getReader(), parti = []; let n = 0;
+      for (;;) { const { done, value } = await rd.read(); if (done) break; parti.push(value); n += value.length;
+        if (tot) invia.textContent = "Preparo il video… " + Math.round(n * 100 / tot) + "%"; }
+      file = new File(parti, NOME, { type: "video/mp4" });
+      invia.textContent = "Video pronto: tocca per inviarlo";
+    } catch (e) { invia.textContent = "Invia il video su WhatsApp"; nota.textContent = "Non riesco a scaricare il video: usa «Manda il link»."; }
+    scarico = false;
+  }
+  invia.addEventListener("click", async () => {
+    if (!puoFile()) { // computer o browser senza condivisione file: si scarica il video
+      const a = document.createElement("a"); a.href = "pressioni-flotte-truck.mp4"; a.download = NOME; document.body.appendChild(a); a.click(); a.remove();
+      nota.textContent = "Video scaricato: allegalo in WhatsApp oppure usa «Manda il link».";
+      return;
+    }
+    if (scarico) return;
+    if (!file) return scarica();
+    try { await navigator.share({ files: [file], text: TESTO }); }
+    catch (e) { if (e.name !== "AbortError") nota.textContent = "Condivisione non riuscita: usa «Manda il link»."; }
+  });
+})();
+</script>
+</body>
+</html>
