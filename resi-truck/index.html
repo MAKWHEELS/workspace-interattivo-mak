@@ -1,0 +1,1337 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta property="og:title" content="RESI E CONTESTAZIONI TRUCK · TRK">
+<meta property="og:description" content="Richiesta di reso delle ruote truck TRK: foto, video e PDF pronto da inviare.">
+<meta property="og:image" content="https://makwheels.github.io/workspace-interattivo-mak/resi-truck/anteprima.jpg">
+<meta property="og:url" content="https://makwheels.github.io/workspace-interattivo-mak/resi-truck/">
+<meta property="og:type" content="website">
+<title>Resi TRK Truck</title>
+<meta name="description" content="Richiesta di reso per contestazione delle ruote truck TRK in acciaio e in lega: guidata, con foto e video, PDF pronto per WhatsApp e mail e storico delle pratiche.">
+<meta name="theme-color" content="#111111">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Resi TRK">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png">
+<style>
+:root{
+  --bg:#f3f3f1; --card:#ffffff; --ink:#151515; --muted:#5d5d5d; --line:#dcdcd8;
+  --red:#d71920; --red-ink:#ffffff; --red-soft:#fde8e8; --dark:#1b1b1b;
+  --ok:#1f8a4c; --ok-soft:#e3f4ea; --warn:#b35c00; --warn-soft:#fff1de; --blue:#1d63c9; --blue-soft:#e6eefb;
+  --wa:#1f9d55; --chip:#f0f0ec; --shadow:0 1px 2px rgba(0,0,0,.06),0 4px 14px rgba(0,0,0,.05);
+  --r:14px; --h:48px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f0f10; --card:#1a1a1c; --ink:#f1f1f1; --muted:#a9a9ad; --line:#323236;
+    --red:#e5262d; --red-soft:#3a1517; --dark:#000;
+    --ok:#4cc27e; --ok-soft:#14301f; --warn:#f0a24a; --warn-soft:#352612; --blue:#6aa2f5; --blue-soft:#15233a;
+    --wa:#1f9d55; --chip:#26262a; --shadow:none;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f0f10; --card:#1a1a1c; --ink:#f1f1f1; --muted:#a9a9ad; --line:#323236;
+  --red:#e5262d; --red-soft:#3a1517; --dark:#000;
+  --ok:#4cc27e; --ok-soft:#14301f; --warn:#f0a24a; --warn-soft:#352612; --blue:#6aa2f5; --blue-soft:#15233a;
+  --wa:#1f9d55; --chip:#26262a; --shadow:none;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;min-height:100vh}
+button,input,select,textarea{font:inherit;color:inherit}
+header.top{position:sticky;top:0;z-index:5;background:var(--dark);color:#fff;padding:calc(env(safe-area-inset-top) + 8px) 16px 8px;display:flex;align-items:center;gap:10px;min-height:56px}
+header.top .back{background:none;border:0;color:#fff;font-size:26px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:10px;cursor:pointer;flex:0 0 auto}
+header.top .back:active{background:#333}
+header.top .ttl{flex:1;min-width:0;font-weight:700;font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+header.top .role{flex:0 0 auto;font-size:12px;font-weight:700;letter-spacing:.04em;background:var(--red);color:#fff;border-radius:999px;padding:4px 10px;border:0;cursor:pointer}
+main{max-width:680px;margin:0 auto;padding:16px 16px calc(110px + env(safe-area-inset-bottom))}
+.brand{display:flex;justify-content:center;margin:6px 0 14px}
+.brand .lg{background:#fff;border-radius:14px;padding:12px 16px;display:inline-flex}
+.brand img{width:220px;max-width:70vw;height:auto;display:block}
+.brand.sm .lg{padding:8px 12px}.brand.sm img{width:150px}
+h1{font-size:22px;line-height:1.2;margin:4px 0 6px;text-align:center}
+h2{font-size:18px;margin:22px 0 10px}
+h3{font-size:16px;margin:0 0 6px}
+p{margin:0 0 10px}
+.sub{color:var(--muted);text-align:center;margin-bottom:18px}
+.muted{color:var(--muted)}
+.small{font-size:13.5px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin:0 0 12px;box-shadow:var(--shadow)}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:var(--h);border-radius:12px;border:1px solid var(--line);background:var(--card);font-weight:650;padding:10px 16px;cursor:pointer;text-align:center;text-decoration:none;color:var(--ink)}
+.btn.primary{background:var(--red);border-color:var(--red);color:var(--red-ink)}
+.btn.dark{background:var(--dark);border-color:var(--dark);color:#fff}
+:root[data-theme="dark"] .btn.dark{border-color:var(--line)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn.dark{border-color:var(--line)}}
+.btn.ok{background:var(--ok);border-color:var(--ok);color:#fff}
+.btn.wa{background:var(--wa);border-color:var(--wa);color:#fff}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.big{min-height:64px;font-size:18px}
+.btn + .btn{margin-top:10px}
+.btn svg{width:20px;height:20px;flex:0 0 auto}
+.row{display:flex;gap:10px}
+.row > *{flex:1;min-width:0}
+.row .btn + .btn{margin-top:0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid2 .btn + .btn{margin-top:0}
+label.f{display:block;font-weight:650;margin:14px 0 6px}
+label.f .req{color:var(--red)}
+.hint{font-size:13.5px;color:var(--muted);margin-top:5px}
+input[type=text],input[type=email],input[type=tel],input[type=date],input[type=search],select,textarea{width:100%;min-height:var(--h);border:1px solid var(--line);border-radius:12px;background:var(--card);padding:10px 12px;font-size:16px;-webkit-appearance:none;appearance:none}
+input[type=date]{display:block}
+select{background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 20px) 50%,calc(100% - 14px) 50%;background-size:6px 6px;background-repeat:no-repeat;padding-right:36px}
+textarea{min-height:84px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--red);outline-offset:1px}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.seg.s4{grid-template-columns:repeat(4,1fr);gap:8px}
+.seg.s3{grid-template-columns:repeat(3,1fr)}
+.opt{min-height:var(--h);border:2px solid var(--line);border-radius:12px;background:var(--card);font-weight:700;cursor:pointer;padding:8px 10px;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.15}
+.opt.on{border-color:var(--red);background:var(--red-soft);color:var(--ink)}
+.seg.s4 .opt{font-size:13.5px;padding:6px 4px}
+.chips{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.chips .opt{font-size:14px;min-height:46px;border-width:1.5px}
+.stepper{display:grid;grid-template-columns:var(--h) 1fr var(--h);gap:10px;align-items:center}
+.stepper button{height:var(--h);border-radius:12px;border:1px solid var(--line);background:var(--card);font-size:24px;font-weight:700;cursor:pointer}
+.stepper .v{height:var(--h);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+.banner{border-radius:12px;padding:12px 14px;margin:0 0 12px;font-size:14.5px;display:flex;gap:10px;align-items:flex-start}
+.banner.warn{background:var(--warn-soft);border:1px solid color-mix(in srgb,var(--warn) 35%,transparent)}
+.banner.ok{background:var(--ok-soft);border:1px solid color-mix(in srgb,var(--ok) 35%,transparent)}
+.banner.red{background:var(--red-soft);border:1px solid color-mix(in srgb,var(--red) 35%,transparent)}
+.banner b{font-weight:750}
+.banner .ic{flex:0 0 auto;font-size:18px;line-height:1.2}
+.progress{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:0 0 6px}
+.progress span{height:6px;border-radius:3px;background:var(--line)}
+.progress span.on{background:var(--red)}
+.steplbl{font-size:13px;color:var(--muted);margin:0 0 14px;font-weight:600}
+.motivi{display:grid;gap:10px}
+.mot{display:grid;grid-template-columns:58px 1fr;gap:12px;align-items:center;text-align:left;border:2px solid var(--line);border-radius:14px;background:var(--card);padding:12px;cursor:pointer;width:100%}
+.mot.on{border-color:var(--red);background:var(--red-soft)}
+.mot svg{width:58px;height:58px;display:block}
+.mot .t{font-weight:800;font-size:16px;line-height:1.2}
+.mot .d{font-size:13.5px;color:var(--muted);margin-top:3px}
+.check{display:grid;grid-template-columns:26px 1fr;gap:10px;align-items:start;cursor:pointer;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--card);margin-top:12px}
+.check input{width:22px;height:22px;margin:1px 0 0;accent-color:var(--red)}
+.slot{border:1px dashed var(--line);border-radius:12px;padding:12px;margin-top:10px}
+.slot.done{border-style:solid;border-color:color-mix(in srgb,var(--ok) 55%,transparent);background:var(--ok-soft)}
+.slot .hd{display:flex;align-items:center;gap:8px;justify-content:space-between}
+.slot .hd .n{font-weight:750;line-height:1.2}
+.tag{flex:0 0 auto;font-size:11.5px;font-weight:800;letter-spacing:.03em;border-radius:6px;padding:3px 7px;background:var(--chip);color:var(--muted);white-space:nowrap}
+.tag.a1{background:#d71920;color:#fff}.tag.a2{background:#1d63c9;color:#fff}.tag.a3{background:#222;color:#fff}
+.tag.okt{background:var(--ok);color:#fff}
+.thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:8px;margin-top:10px}
+.th{position:relative;aspect-ratio:1/1;border-radius:10px;overflow:hidden;background:var(--chip);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:12px;text-align:center;color:var(--muted)}
+.th img,.th video{width:100%;height:100%;object-fit:cover;display:block}
+.th .x{position:absolute;top:4px;right:4px;width:26px;height:26px;border-radius:50%;border:0;background:rgba(0,0,0,.7);color:#fff;font-size:15px;line-height:26px;cursor:pointer;padding:0}
+.th .vb{position:absolute;left:4px;bottom:4px;background:rgba(0,0,0,.7);color:#fff;font-size:11px;border-radius:5px;padding:1px 5px}
+.addrow{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.addbtn{position:relative;overflow:hidden;min-height:44px;border-radius:10px;border:1px solid var(--line);background:var(--card);font-weight:650;font-size:14.5px;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;padding:6px 8px;text-align:center}
+.addbtn input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.wheel{margin-top:14px}
+.wheel > h3{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.list .it{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:12px 0;border-top:1px solid var(--line);cursor:pointer}
+.list .it:first-child{border-top:0;padding-top:2px}
+.list .it .a{font-weight:700;line-height:1.25}
+.list .it .b{font-size:13.5px;color:var(--muted)}
+.list .it .c{font-size:12.5px;color:var(--muted);margin-top:2px}
+.pill{font-size:12px;font-weight:750;border-radius:999px;padding:4px 10px;white-space:nowrap}
+.pill.bozza{background:var(--warn-soft);color:var(--warn)}
+.pill.pronta{background:var(--blue-soft);color:var(--blue)}
+.pill.inviata{background:var(--ok-soft);color:var(--ok)}
+.pill.accettata{background:var(--ok);color:#fff}
+.pill.respinta{background:var(--red);color:#fff}
+.pill.chiusa{background:var(--chip);color:var(--muted)}
+.sum{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:15px;margin:0}
+.sum dt{color:var(--muted)}
+.sum dd{margin:0;font-weight:650;word-break:break-word}
+.todo{margin:8px 0 0;padding-left:20px;font-size:14.5px}
+.todo li{margin:3px 0}
+.stepbox{border:1px solid var(--line);border-radius:14px;padding:14px;margin-top:12px;background:var(--card)}
+.stepbox.done{border-color:color-mix(in srgb,var(--ok) 55%,transparent);background:var(--ok-soft)}
+.stepbox .sh{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.stepbox .num{flex:0 0 30px;height:30px;border-radius:50%;background:var(--red);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center}
+.stepbox.done .num{background:var(--ok)}
+.stepbox .sh b{font-size:16px;line-height:1.2}
+.doc{display:grid;grid-template-columns:52px 1fr;gap:14px;align-items:center}
+.doc .ico{width:52px;height:64px;border-radius:6px;background:#fff;border:1px solid var(--line);position:relative;display:flex;align-items:flex-end;justify-content:center;padding-bottom:7px}
+.doc .ico::before{content:"";position:absolute;top:0;left:0;right:0;height:10px;background:var(--red);border-radius:6px 6px 0 0}
+.doc .ico span{font-size:11px;font-weight:800;color:#d71920}
+.doc .nm{font-weight:750;line-height:1.25;word-break:break-word}
+.doc .mt{font-size:13.5px;color:var(--muted);margin-top:2px}
+.tl{list-style:none;margin:0;padding:0}
+.tl li{display:grid;grid-template-columns:14px 1fr;gap:12px;position:relative;padding:0 0 14px}
+.tl li::before{content:"";position:absolute;left:6px;top:14px;bottom:0;width:2px;background:var(--line)}
+.tl li:last-child::before{display:none}
+.tl .dot{width:14px;height:14px;border-radius:50%;background:var(--red);margin-top:3px}
+.tl .dot.g{background:var(--ok)}.tl .dot.b{background:var(--blue)}.tl .dot.n{background:var(--muted)}
+.tl .w{font-size:12.5px;color:var(--muted)}
+.tl .e{font-weight:650;line-height:1.3}
+.filters{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0 12px}
+.filters .opt{min-height:44px;font-size:13.5px;flex-direction:column;gap:0;padding:4px}
+.filters .opt b{font-size:16px}
+table.g{width:100%;border-collapse:collapse;font-size:14px}
+table.g th,table.g td{border:1px solid var(--line);padding:8px;text-align:left;vertical-align:top}
+table.g th{background:var(--chip);font-size:12.5px;text-transform:uppercase;letter-spacing:.02em}
+.footer-bar{position:fixed;left:0;right:0;bottom:0;z-index:6;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom))}
+.footer-bar .in{max-width:680px;margin:0 auto;display:grid;grid-template-columns:1fr 2fr;gap:10px}
+.footer-bar .in.one{grid-template-columns:1fr}
+.footer-bar .btn + .btn{margin-top:0}
+.toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));transform:translateX(-50%);background:#111;color:#fff;padding:10px 16px;border-radius:12px;font-size:14.5px;z-index:20;max-width:calc(100% - 32px);text-align:center;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+.who{display:grid;gap:12px}
+.who .opt{min-height:96px;flex-direction:column;gap:4px;font-size:19px}
+.who .opt small{font-weight:500;font-size:13.5px;color:var(--muted)}
+.links{display:grid;gap:4px;margin-top:6px}
+.lnk{background:none;border:0;color:var(--red);font-weight:650;cursor:pointer;padding:8px 0;text-align:left;text-decoration:underline;text-underline-offset:3px;font-size:15px}
+.center{text-align:center}
+hr{border:0;border-top:1px solid var(--line);margin:18px 0}
+.velo{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:25;display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:var(--bg);width:100%;max-width:680px;border-radius:18px 18px 0 0;padding:10px 16px calc(16px + env(safe-area-inset-bottom));max-height:92vh;overflow:auto}
+.sheet .mani{width:44px;height:5px;border-radius:3px;background:var(--line);margin:0 auto 12px}
+.sheet .tt{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:4px}
+.sheet .tt b{font-size:17px;line-height:1.25}
+.sheet .sb{font-size:13.5px;color:var(--muted);margin-bottom:14px}
+.btn.no{background:var(--red);border-color:var(--red);color:#fff}
+.btn.del{color:var(--red);border-color:color-mix(in srgb,var(--red) 45%,transparent)}
+.it .menu{width:40px;height:40px;border-radius:10px;border:1px solid var(--line);background:var(--card);font-size:20px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.list .it{grid-template-columns:1fr auto}
+.it .dx{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.busy{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:30;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;padding:24px;text-align:center}
+@media (max-width:370px){.chips{grid-template-columns:repeat(2,1fr)}.seg.s4{grid-template-columns:repeat(2,1fr)}.filters{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<header class="top" id="hdr"></header>
+<main id="app"></main>
+<div id="foot"></div>
+<script src="jspdf.umd.min.js"></script>
+<script>
+'use strict';
+/* =================== DATI DEL MODULO «TRUCK - RICHIESTA RESO PER CONTESTAZIONE» =================== */
+const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScdfXE6UTHspXH8azQVOo34G9oPqFMeVXhCzZ8TJAepm3h_OA/viewform';
+const ENTRY = {data:'281291671', agente:'587513035', mailAgente:'1252833794', resp:'1653786822', rs:'1122710700', codCli:'1991158751',
+  materiale:'2050719337', marca:'1567143271', misura:'957698453', codArt:'1762135931', qta:'55581645', motivo:'1334636268'};
+const RESPONSABILI = ['enrico.galante@makwheels.it','nonsoloruote@makwheels.it'];
+const MATERIALI = ['ACCIAIO','LEGA'];
+const MARCHE = ['ACCURIDE','AKO','ALEX RIMS','ATHLETE','GIANETTI','JAMAK','JMS','LEAD','MAXION GERMANIA','MAXION TURCHIA','NGW','POMLEAD'];
+const MISURE = ['5,5x16 - 5 FORI','6x17,5 - 6 FORI','6x17,5 - 8 FORI','6x17,5 - 10 FORI','6,75x17,5 - 6 FORI','6,75x17,5 - 8 FORI','6,75x17,5 - 10 FORI','6,75x19,5 - 8 FORI','7,5x19,5 - 8 FORI','7,5x19,5 - 10 FORI','8,25x19,5 - 8 FORI','11,75x19,5 - 10 FORI','14x19,5 - 8 FORI','14x19,5 - 10 FORI','7x20 - 10 FORI','7,5x20 - 10 FORI','8,5x20 - 10 FORI','7,5x22,5 - 8 FORI','7,5x22,5 - 10 FORI','8,25x22,5 - 10 FORI','9x22,5 - 10 FORI','11,75x22,5 - 10 FORI','14x22,5 - 10 FORI','15x22,5 - 10 FORI'];
+const MAXQ = 10;
+/* Google Drive per foto e video (script in apps-script/Code.gs). Se DRIVE_URL è vuoto, foto e video
+   restano nel PDF e i video partono allegati insieme al PDF. */
+const DRIVE_URL = 'https://script.google.com/macros/s/AKfycbz2rARPY1J91TLqFdHtpWO6JWGQDysl94Ji31KNBn6-kxDmdkX5ne9mXll4lG5NMFb-bA/exec';
+const DRIVE_KEY = 'trk-d17410c23440472d';
+const MAX_UP = 36 * 1024 * 1024;
+const MOTIVI = {
+  'CREPE NELLA RUOTA': {k:'crepe', verifica:'Assicurati che la crepa ci sia davvero e che faccia perdere pressione allo pneumatico.', dich:'La crepa è reale e provoca la perdita di pressione dello pneumatico.', a3:'Video della ruota', a3tipo:'video', a3hint:'Un video che mostri bene la crepa (e, se possibile, la perdita d\'aria). Bastano 10–20 secondi.'},
+  'CREPA NEL FORO VALVOLA': {k:'valvola', verifica:'Assicurati che la crepa sul foro valvola ci sia davvero.', dich:'La crepa sul foro valvola è reale.', a3:'Foto della crepa sul foro valvola', a3tipo:'foto', a3hint:'Da vicino, a fuoco: la crepa deve essere ben visibile.'},
+  'PROBLEMI DI BILANCIATURA': {k:'bilanc', verifica:'Assicurati che il problema di bilanciatura ci sia davvero.', dich:'Il problema di bilanciatura è reale.', a3:'Video della ruota sull\'equilibratrice', a3tipo:'video', a3hint:'Ruota in funzione sull\'equilibratrice, con i valori di bilanciatura finali ben leggibili.'},
+  'DIFETTI DI VERNICIATURA': {k:'vernice', verifica:'Assicurati che il difetto ci sia davvero.', dich:'Il difetto di verniciatura è reale.', a3:'Foto del difetto di verniciatura', a3tipo:'foto', a3hint:'Il difetto deve essere ben visibile e reale.'}
+};
+const STATI = {bozza:'Da finire', pronta:'PDF pronto', inviata:'Inviata', accettata:'Accettata', respinta:'Rifiutata', chiusa:'Chiusa'};
+
+/* =================== UTILITÀ =================== */
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const oggiISO = () => { const d = new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); };
+const dataIT = iso => { if(!iso) return ''; const [y,m,d] = iso.slice(0,10).split('-'); return `${d}/${m}/${y}`; };
+const oraIT = iso => { const d = new Date(iso), z = n => String(n).padStart(2,'0'); return `${z(d.getDate())}/${z(d.getMonth()+1)}/${d.getFullYear()} ${z(d.getHours())}:${z(d.getMinutes())}`; };
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,7);
+const cap = s => s ? s.charAt(0) + s.slice(1).toLowerCase() : '';
+const ls = {
+  get(k, def){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : def; }catch(e){ return def; } },
+  set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+};
+function toast(msg, ms=2600){ document.querySelectorAll('.toast').forEach(x => x.remove()); const t = document.createElement('div'); t.className='toast'; t.textContent = msg; document.body.appendChild(t); setTimeout(()=>t.remove(), ms); }
+function busy(on, msg='Un momento…'){ let b = $('#busy'); if(on){ if(!b){ b=document.createElement('div'); b.id='busy'; b.className='busy'; document.body.appendChild(b);} b.textContent = msg; } else if(b) b.remove(); }
+const mb = n => (n/1048576).toFixed(n > 10485760 ? 0 : 1).replace('.',',') + ' MB';
+function numeroPratica(){ const d = new Date(); const s = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; let r=''; for(let i=0;i<3;i++) r += s[Math.floor(Math.random()*s.length)]; return 'R' + String(d.getFullYear()).slice(2) + String(d.getMonth()+1).padStart(2,'0') + String(d.getDate()).padStart(2,'0') + '-' + r; }
+
+/* =================== ARCHIVIO SUL DISPOSITIVO (IndexedDB, foto, video e PDF compresi) =================== */
+const DB = (() => {
+  let p = null, mem = new Map(), ko = false;
+  function open(){
+    if(p) return p;
+    p = new Promise((res, rej) => {
+      try{
+        const r = indexedDB.open('trk-resi', 1);
+        r.onupgradeneeded = () => r.result.createObjectStore('pratiche', {keyPath:'id'});
+        r.onsuccess = () => res(r.result);
+        r.onerror = () => rej(r.error);
+      }catch(e){ rej(e); }
+    }).catch(() => { ko = true; return null; });
+    return p;
+  }
+  async function tx(mode, fn){
+    const d = await open();
+    if(!d) return fn(null);
+    return new Promise((res, rej) => {
+      const t = d.transaction('pratiche', mode), s = t.objectStore('pratiche'); let r;
+      try{ r = fn(s); }catch(e){ rej(e); return; }
+      t.oncomplete = () => res(r && 'result' in r ? r.result : undefined);
+      t.onerror = () => rej(t.error); t.onabort = () => rej(t.error);
+    });
+  }
+  return {
+    get memoria(){ return ko; },
+    all: () => tx('readonly', s => s ? s.getAll() : {result:[...mem.values()]}),
+    put: o => tx('readwrite', s => { if(s) return s.put(o); mem.set(o.id, o); return null; }),
+    del: id => tx('readwrite', s => { if(s) return s.delete(id); mem.delete(id); return null; })
+  };
+})();
+
+/* =================== STATO =================== */
+let profilo = ls.get('trk-resi-profilo', null);
+let pratiche = [];
+let cur = null;
+let vista = 'home';      // home | chi | profilo | step | scheda | guida | trasporto | import
+let step = 0;
+let filtro = 'tutte', cerca = '';
+let importDati = null;
+let urls = [];
+
+function nuovaRuota(){ return {front:[], a3:[], extra:[], matricola:''}; }
+function nuovaPratica(){
+  const ora = new Date().toISOString();
+  const p = {
+    id: uid(), num: numeroPratica(), creata: ora, agg: ora, mod: ora, stato: 'bozza', ruolo: profilo.ruolo,
+    data: oggiISO(),
+    cliente: profilo.ruolo === 'cliente' ? {rs: profilo.rs||'', cod: profilo.cod||'', ref: profilo.ref||'', tel: profilo.tel||''} : {rs:'', cod:'', ref:'', tel:''},
+    autore: autoreCorrente(),
+    materiale:'', marca:'', misura:'', codArt:'', qta:1, motivo:'', verificato:false,
+    ddtNum:'', ddtData:'', note:'',
+    ddt: [], ruote: [nuovaRuota()],
+    passi: {modulo:false},
+    pdf: null, esito: {note:''}, eventi: [], origine: null, token: uid() + uid()
+  };
+  evento(p, 'Richiesta creata', 'n');
+  return p;
+}
+function autoreCorrente(){
+  return profilo.ruolo === 'agente' ? {ruolo:'agente', nome: profilo.nome||'', contatto: profilo.mail||''}
+    : {ruolo:'cliente', nome: profilo.ref||'', contatto: profilo.tel||'', agNome: profilo.agNome||'', agTel: profilo.agTel||'', agMail: profilo.agMail||''};
+}
+function allineaRuote(p){ while(p.ruote.length < p.qta) p.ruote.push(nuovaRuota()); }
+function evento(p, cosa, colore){ (p.eventi = p.eventi || []).push({t: new Date().toISOString(), cosa, c: colore || 'r'}); }
+
+let salvaT = null;
+function salva(subito, dati=true){
+  if(!cur) return;
+  const ora = new Date().toISOString();
+  cur.agg = ora; if(dati) cur.mod = ora;
+  clearTimeout(salvaT);
+  const p = cur;
+  const f = () => DB.put(p).catch(() => toast('Non riesco a salvare sul telefono: lo spazio potrebbe essere pieno.'));
+  if(subito) return f(); salvaT = setTimeout(f, 400);
+}
+async function carica(){ pratiche = (await DB.all()) || []; pratiche.sort((a,b) => (b.agg||'').localeCompare(a.agg||'')); }
+const pdfAggiornato = p => p.pdf && p.pdf.creato >= p.mod;
+
+/* =================== VERIFICHE =================== */
+function mancantiDati(p){
+  const m = [], ag = profilo.ruolo === 'agente';
+  if(!p.cliente.rs.trim()) m.push('Ragione sociale del cliente');
+  if(ag && !p.cliente.cod.trim()) m.push('Codice cliente B2B');
+  if(!p.materiale) m.push('Materiale (acciaio o lega)');
+  if(!p.marca) m.push('Marca');
+  if(!p.misura) m.push('Misura');
+  if(ag && !p.codArt.trim()) m.push('Codice articolo');
+  return m;
+}
+function mancantiMotivo(p){ const m=[]; if(!p.motivo) m.push('Motivo della richiesta'); else if(!p.verificato) m.push('Conferma della verifica del difetto'); return m; }
+function mancantiFile(p){
+  const m = []; const mo = MOTIVI[p.motivo];
+  if(!p.ddt.length) m.push('Allegato 1: documento di acquisto MAK (DDT)');
+  for(let i=0;i<p.qta;i++){
+    const r = p.ruote[i];
+    if(!r.front.length) m.push(`Ruota ${i+1}: foto frontale con marcatura`);
+    if(!r.a3.length) m.push(`Ruota ${i+1}: ${mo ? mo.a3.toLowerCase() : 'allegato 3'}`);
+  }
+  return m;
+}
+const mancantiTutto = p => [...mancantiDati(p), ...mancantiMotivo(p), ...mancantiFile(p)];
+function primoPassoIncompleto(p){ if(mancantiDati(p).length) return 0; if(mancantiMotivo(p).length) return 1; if(mancantiFile(p).length) return 2; return 3; }
+
+/* =================== FOTO E VIDEO =================== */
+async function comprimi(file){
+  if(!file.type.startsWith('image/') || file.type === 'image/gif') return file;
+  try{
+    const bmp = await createImageBitmap(file);
+    const max = 2200; let {width:w, height:h} = bmp;
+    if(Math.max(w,h) <= max && file.size < 1.6e6){ bmp.close && bmp.close(); return file; }
+    const k = Math.min(1, max/Math.max(w,h)); w = Math.round(w*k); h = Math.round(h*k);
+    const c = document.createElement('canvas'); c.width = w; c.height = h;
+    c.getContext('2d').drawImage(bmp, 0, 0, w, h); bmp.close && bmp.close();
+    const b = await new Promise(r => c.toBlob(r, 'image/jpeg', 0.86));
+    return b && b.size < file.size ? new File([b], (file.name||'foto').replace(/\.\w+$/,'')+'.jpg', {type:'image/jpeg'}) : file;
+  }catch(e){ return file; }
+}
+async function aggiungiFile(list, files){
+  busy(true, 'Preparo i file…');
+  try{
+    for(const f of files){
+      const c = await comprimi(f);
+      list.push({id: uid(), nome: c.name || 'file', tipo: c.type || 'application/octet-stream', blob: c, size: c.size});
+    }
+    await salva(true);
+  } finally { busy(false); }
+}
+function estensione(f){
+  const n = (f.nome||'').match(/\.(\w{2,5})$/); if(n) return n[1].toLowerCase();
+  if(f.tipo.includes('jpeg')) return 'jpg'; if(f.tipo.includes('png')) return 'png'; if(f.tipo.includes('pdf')) return 'pdf';
+  if(f.tipo.includes('quicktime')) return 'mov'; if(f.tipo.includes('mp4')) return 'mp4'; if(f.tipo.includes('heic')) return 'heic';
+  return 'bin';
+}
+const isImg = f => f.tipo.startsWith('image/'), isVid = f => f.tipo.startsWith('video/');
+function nomeFileVideo(p, r, i){ const R = p.ruote[r]; return `ALLEGATO3_RUOTA${r+1}_VIDEO${R.a3.length>1?'_'+(i+1):''}.${estensione(R.a3[i])}`; }
+// File che non entrano nel PDF e partono insieme: video e DDT in PDF
+function fileAParte(p){
+  const out = [];
+  p.ddt.forEach((f,i) => { if(!isImg(f)) out.push(new File([f.blob], `ALLEGATO1_DDT${p.ddt.length>1?'_'+(i+1):''}.${estensione(f)}`, {type:f.tipo})); });
+  for(let r=0;r<p.qta;r++){
+    const R = p.ruote[r];
+    R.a3.forEach((f,i) => { if(!isImg(f) && !f.url) out.push(new File([f.blob], nomeFileVideo(p,r,i), {type:f.tipo})); });
+    R.extra.forEach((f,i) => { if(!isImg(f) && !f.url) out.push(new File([f.blob], `EXTRA_RUOTA${r+1}_${i+1}.${estensione(f)}`, {type:f.tipo})); });
+  }
+  return out;
+}
+
+/* =================== TESTI E LINK =================== */
+function linkImport(p){
+  const d = {v:1, num:p.num, tk:p.token, data:p.data, c:p.cliente, m:p.materiale, b:p.marca, s:p.misura, a:p.codArt, q:p.qta, o:p.motivo, dn:p.ddtNum, dd:p.ddtData, n:p.note, r:p.ruote.slice(0,p.qta).map(r=>r.matricola||'')};
+  const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(d)))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+  return location.href.split('#')[0] + '#p=' + b64;
+}
+function testoMessaggio(p){
+  const n = fileAParte(p).length;
+  return `Richiesta di reso per contestazione ruote truck TRK – pratica ${p.num}\n` +
+    `${p.cliente.rs} · ${p.qta} ${p.qta===1?'ruota':'ruote'} ${p.marca} ${p.misura} · ${cap(p.motivo)}\n` +
+    `In allegato il PDF con dati, foto e verifiche${n ? ` e ${n} ${n===1?'file':'file'} a parte (video)` : ''}.`;
+}
+function urlModulo(p){
+  const q = new URLSearchParams();
+  q.set('usp','pp_url');
+  const set = (k,v) => { if(v !== undefined && v !== null && String(v) !== '') q.set('entry.'+ENTRY[k], v); };
+  set('data', p.data); set('agente', profilo.nome); set('mailAgente', profilo.mail); set('resp', profilo.resp);
+  set('rs', p.cliente.rs); set('codCli', p.cliente.cod); set('materiale', p.materiale); set('marca', p.marca);
+  set('misura', p.misura); set('codArt', p.codArt); set('qta', String(p.qta)); set('motivo', p.motivo);
+  return FORM_URL + '?' + q.toString();
+}
+
+/* =================== PDF =================== */
+let logoData = null;
+async function caricaLogo(){
+  if(logoData) return logoData;
+  try{ const b = await (await fetch('logo-trk.png')).blob(); logoData = await new Promise(r => { const fr = new FileReader(); fr.onload = () => r(fr.result); fr.readAsDataURL(b); }); }catch(e){ logoData = null; }
+  return logoData;
+}
+async function immagine(blob, max=1500){
+  try{
+    const bmp = await createImageBitmap(blob);
+    const k = Math.min(1, max/Math.max(bmp.width, bmp.height));
+    const c = document.createElement('canvas'); c.width = Math.round(bmp.width*k); c.height = Math.round(bmp.height*k);
+    const x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0,0,c.width,c.height); x.drawImage(bmp, 0, 0, c.width, c.height); bmp.close && bmp.close();
+    return {data: c.toDataURL('image/jpeg', 0.8), w: c.width, h: c.height};
+  }catch(e){ return null; }
+}
+function fotogramma(blob){
+  return new Promise(res => {
+    const v = document.createElement('video'); v.muted = true; v.playsInline = true; v.setAttribute('playsinline',''); v.preload = 'auto';
+    const u = URL.createObjectURL(blob); let fatto = false;
+    const fine = r => { if(fatto) return; fatto = true; try{ v.pause(); }catch(e){} URL.revokeObjectURL(u); res(r); };
+    setTimeout(() => fine(null), 7000);
+    v.onloadeddata = () => { try{ v.currentTime = Math.min(0.8, (v.duration || 2) / 2); }catch(e){ fine(null); } };
+    v.onseeked = () => {
+      try{
+        if(!v.videoWidth) return fine(null);
+        const k = Math.min(1, 1400/Math.max(v.videoWidth, v.videoHeight));
+        const c = document.createElement('canvas'); c.width = Math.round(v.videoWidth*k); c.height = Math.round(v.videoHeight*k);
+        c.getContext('2d').drawImage(v, 0, 0, c.width, c.height);
+        fine({data: c.toDataURL('image/jpeg', 0.8), w: c.width, h: c.height});
+      }catch(e){ fine(null); }
+    };
+    v.onerror = () => fine(null);
+    v.src = u; v.load();
+    const pl = v.play(); if(pl && pl.then) pl.then(() => v.pause()).catch(() => {});
+  });
+}
+const pulisci = s => String(s ?? '').replace(/[–—]/g,'-').replace(/[’‘]/g,"'").replace(/[“”″]/g,'"').replace(/…/g,'...').replace(/×/g,'x').replace(/[^\x20-\x7E\xA0-\xFF\n]/g,'');
+function nomePdf(p){ return ('Reso TRK ' + p.num + ' ' + (p.cliente.rs||'')).replace(/[\\/:*?"<>|]/g,'').replace(/\s+/g,' ').trim().slice(0,80) + '.pdf'; }
+
+async function creaPDF(p, avanzamento){
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({unit:'mm', format:'a4', compress:true});
+  const W = 210, H = 297, M = 14, CW = W - 2*M, BASSO = H - 16;
+  const C = {ink:[24,24,24], muted:[105,105,105], line:[214,214,210], soft:[244,244,242], red:[215,25,32], blue:[29,99,201], dark:[34,34,34], ok:[31,138,76], white:[255,255,255]};
+  const fill = c => doc.setFillColor(...c), draw = c => doc.setDrawColor(...c), col = c => doc.setTextColor(...c);
+  const font = (st, sz) => { doc.setFont('helvetica', st); doc.setFontSize(sz); };
+  const T = s => pulisci(s);
+  const mo = MOTIVI[p.motivo];
+  const logo = await caricaLogo();
+  const ag = p.autore && p.autore.ruolo === 'agente';
+
+  function spunta(x, y, ok){
+    doc.setLineWidth(0.7);
+    if(ok){ draw(C.ok); doc.line(x, y, x+1.6, y+1.7); doc.line(x+1.6, y+1.7, x+4.4, y-1.8); }
+    else { draw(C.red); doc.line(x, y-1.6, x+3.2, y+1.6); doc.line(x+3.2, y-1.6, x, y+1.6); }
+    doc.setLineWidth(0.2);
+  }
+  // Riquadro con titolo e righe etichetta/valore; ritorna l'altezza
+  function misuraBox(rows, w){
+    font('bold', 10); let h = 10;
+    rows.forEach(([l, v]) => { const n = doc.splitTextToSize(T(v || '-'), w - 8).length; h += 3.6 + n*4.4 + 2.2; });
+    return h + 1.5;
+  }
+  function box(x, y, w, h, titolo, rows){
+    fill(C.white); draw(C.line); doc.setLineWidth(0.25); doc.roundedRect(x, y, w, h, 2, 2, 'FD');
+    fill(C.soft); doc.roundedRect(x, y, w, 8, 2, 2, 'F'); doc.rect(x, y+5, w, 3, 'F');
+    draw(C.line); doc.line(x, y+8, x+w, y+8);
+    font('bold', 8); col(C.muted); doc.text(T(titolo).toUpperCase(), x+4, y+5.4);
+    let yy = y + 13;
+    rows.forEach(([l, v]) => {
+      font('normal', 7.5); col(C.muted); doc.text(T(l), x+4, yy);
+      font('bold', 10); col(C.ink); const ln = doc.splitTextToSize(T(v || '-'), w - 8); doc.text(ln, x+4, yy + 4.4);
+      yy += 3.6 + ln.length*4.4 + 2.2;
+    });
+  }
+  function coppia(y, a, b){
+    const w = (CW - 6)/2, h = Math.max(misuraBox(a.rows, w), misuraBox(b.rows, w));
+    box(M, y, w, h, a.t, a.rows); box(M + w + 6, y, w, h, b.t, b.rows);
+    return y + h + 6;
+  }
+  function testataAllegati(){
+    if(logo) doc.addImage(logo, 'PNG', M, 9, 30, 30*167/700);
+    font('bold', 9); col(C.ink); doc.text('RESO PER CONTESTAZIONE - RUOTE TRUCK', W-M, 12, {align:'right'});
+    font('normal', 8.5); col(C.muted); doc.text(T(`Pratica ${p.num} · ${p.cliente.rs}`), W-M, 16.5, {align:'right'});
+    fill(C.red); doc.rect(M, 20.5, CW, 0.8, 'F');
+    return 27;
+  }
+  function fascia(y, testo, destra, colore){
+    fill(colore); doc.roundedRect(M, y, CW, 10, 2, 2, 'F');
+    font('bold', 11); col(C.white); doc.text(T(testo), M+4, y+6.7);
+    if(destra){ font('normal', 9.5); doc.text(T(destra), W-M-4, y+6.7, {align:'right'}); }
+    return y + 15;
+  }
+  // Un elemento immagine: didascalia con etichetta colorata + immagine adattata nel riquadro
+  function tasto(x, y, w, testo, url, colore){
+    fill(colore); doc.roundedRect(x, y, w, 9, 2, 2, 'F');
+    font('bold', 9.5); col(C.white); doc.text(testo, x + w/2, y + 6, {align:'center'});
+    doc.link(x, y, w, 9, {url});
+  }
+  function elemento(x, y, w, h, tag, tagCol, didascalia, img, nota, video, url){
+    font('bold', 7.5); const tw = doc.getTextWidth(tag) + 5;
+    fill(tagCol); doc.roundedRect(x, y, tw, 5.6, 1.2, 1.2, 'F'); col(C.white); doc.text(tag, x + 2.5, y + 3.9);
+    font('bold', 10); col(C.ink); doc.text(T(didascalia), x + tw + 3, y + 4.1, {maxWidth: w - tw - 3});
+    const by = y + 8.5, bh = h - 8.5 - (url ? 12 : nota ? 6 : 0);
+    fill(C.soft); draw(C.line); doc.setLineWidth(0.25); doc.roundedRect(x, by, w, bh, 2, 2, 'FD');
+    if(img){
+      const k = Math.min((w - 6)/img.w, (bh - 6)/img.h), iw = img.w*k, ih = img.h*k, ix = x + (w - iw)/2, iy = by + (bh - ih)/2;
+      doc.addImage(img.data, 'JPEG', ix, iy, iw, ih, undefined, 'FAST');
+      if(video){ // simbolo «play» per dire che è un fotogramma
+        const cx = ix + iw/2, cy = iy + ih/2; fill([0,0,0]); doc.setGState && doc.setGState(new doc.GState({opacity:0.55})); doc.circle(cx, cy, 9, 'F'); doc.setGState && doc.setGState(new doc.GState({opacity:1}));
+        fill(C.white); doc.triangle(cx-3, cy-5, cx-3, cy+5, cx+5.5, cy, 'F');
+      }
+    } else {
+      font('bold', 11); col(C.muted); doc.text(video ? 'VIDEO' : 'FILE', x + w/2, by + bh/2 - 2, {align:'center'});
+      font('normal', 9); doc.text(url ? 'Tocca il tasto qui sotto per guardarlo' : 'Inviato insieme a questo PDF', x + w/2, by + bh/2 + 4, {align:'center'});
+    }
+    if(url){
+      doc.link(x, by, w, bh, {url});
+      const tw2 = Math.min(w, 82);
+      tasto(x + (w - tw2)/2, by + bh + 3, tw2, video ? '>  GUARDA IL VIDEO' : 'APRI LA FOTO ORIGINALE', url, video ? C.red : C.dark);
+    } else if(nota){ font('normal', 8); col(C.muted); doc.text(T(nota), x, by + bh + 4.5, {maxWidth: w}); }
+  }
+
+  /* ---------- PAGINA 1: la richiesta ---------- */
+  if(logo) doc.addImage(logo, 'PNG', M, 11, 50, 50*167/700);
+  font('bold', 14); col(C.ink); doc.text('RICHIESTA DI RESO', W-M, 16, {align:'right'});
+  doc.text('PER CONTESTAZIONE', W-M, 22, {align:'right'});
+  font('normal', 9); col(C.muted); doc.text('Ruote truck in acciaio e in lega', W-M, 27, {align:'right'});
+  fill(C.red); doc.rect(M, 31, CW, 1, 'F');
+  font('bold', 10.5); col(C.ink); doc.text('Pratica ' + p.num, M, 39);
+  font('normal', 10); col(C.muted); doc.text('Data richiesta: ' + dataIT(p.data), W-M, 39, {align:'right'});
+  let y = 44;
+  fill(C.red); doc.roundedRect(M, y, CW, 12, 2, 2, 'F');
+  font('normal', 8); col(C.white); doc.text('MOTIVO', M+4, y+4.6);
+  font('bold', 12); doc.text(T(p.motivo), M+4, y+9.6);
+  font('bold', 12); doc.text(`${p.qta} ${p.qta===1?'RUOTA':'RUOTE'}`, W-M-4, y+7.8, {align:'right'});
+  y += 18;
+
+  y = coppia(y,
+    {t:'Cliente', rows:[['Ragione sociale', p.cliente.rs], ['Codice cliente B2B', p.cliente.cod || 'da completare a cura dell\'agente'], ['Referente', p.cliente.ref], ['Telefono', p.cliente.tel]]},
+    {t:'Prodotto', rows:[['Materiale', p.materiale], ['Marca', p.marca], ['Misura', p.misura], ['Codice articolo', p.codArt || 'da completare a cura dell\'agente'], ['Quantità', `${p.qta} ${p.qta===1?'ruota':'ruote'}`]]});
+  const a = p.autore || {};
+  y = coppia(y,
+    {t:'Documento di acquisto MAK', rows:[['Numero DDT o fattura', p.ddtNum || 'vedi allegato 1'], ['Data', p.ddtData ? dataIT(p.ddtData) : 'vedi allegato 1']]},
+    {t:'Compilata da', rows: ag ? [['Agente MAK', a.nome], ['Mail', a.contatto]] : [['Cliente', `${a.nome || p.cliente.ref}${a.contatto ? ' - ' + a.contatto : ''}`], ['Agente MAK di riferimento', [a.agNome, a.agTel].filter(Boolean).join(' - ') || '-']]});
+
+  // Verifica
+  font('normal', 9.5); const dl = doc.splitTextToSize(T('Verificato: ' + mo.dich.charAt(0).toLowerCase() + mo.dich.slice(1)), CW - 18);
+  const vh = 6 + dl.length * 4.6;
+  fill([227,244,234]); draw([170,214,188]); doc.roundedRect(M, y, CW, vh, 2, 2, 'FD');
+  spunta(M+5, y + vh/2, true);
+  font('bold', 9.5); col(C.ink); doc.text(dl, M+13, y + (vh - (dl.length-1)*4.6)/2 + 1.3);
+  y += vh + 6;
+
+  if(p.note.trim()){
+    font('normal', 9.5); const nl = doc.splitTextToSize(T(p.note.trim()), CW - 8);
+    const nh = 11 + nl.length * 4.4;
+    if(y + nh > BASSO - 30){ doc.addPage(); y = testataAllegati(); }
+    fill(C.white); draw(C.line); doc.roundedRect(M, y, CW, nh, 2, 2, 'FD');
+    font('bold', 8); col(C.muted); doc.text('NOTE', M+4, y+5.4);
+    font('normal', 9.5); col(C.ink); doc.text(nl, M+4, y+10.5);
+    y += nh + 6;
+  }
+
+  // Tabella allegati
+  const cols = [{t:'RUOTA', w:18}, {t:'MATRICOLA', w:46}, {t:'ALL. 2 - FOTO FRONTALE', w:44}, {t:'ALL. 3 - ' + (mo.a3tipo==='video'?'VIDEO':'FOTO DIFETTO'), w:44}, {t:'EXTRA', w:CW-18-46-44-44}];
+  const rh = 7.5;
+  const tabH = 8 + 8 + rh*(p.qta+1);
+  if(y + tabH > BASSO - 4){ doc.addPage(); y = testataAllegati(); }
+  font('bold', 8); col(C.muted); doc.text('RIEPILOGO ALLEGATI', M, y+3); y += 6;
+  fill(C.dark); doc.rect(M, y, CW, 8, 'F');
+  let x = M; font('bold', 7.5); col(C.white); cols.forEach(c => { doc.text(c.t, x+2.5, y+5.2); x += c.w; });
+  y += 8;
+  const rigaTab = (celle, i) => {
+    if(i % 2) { fill(C.soft); doc.rect(M, y, CW, rh, 'F'); }
+    draw(C.line); doc.setLineWidth(0.2); doc.line(M, y+rh, M+CW, y+rh);
+    let xx = M;
+    celle.forEach((v, j) => {
+      if(typeof v === 'object' && v){ spunta(xx+3, y+rh/2, v.ok); font('normal', 9); col(C.ink); doc.text(T(v.t), xx+9.5, y+rh/2+1.3); }
+      else { font(j===0?'bold':'normal', 9); col(C.ink); doc.text(T(String(v || '-')), xx+2.5, y+rh/2+1.3, {maxWidth: cols[j].w - 4}); }
+      xx += cols[j].w;
+    });
+    y += rh;
+  };
+  rigaTab(['DDT', 'Documento di acquisto', {ok: p.ddt.length>0, t: p.ddt.length ? `${p.ddt.length} ${p.ddt.length===1?'file':'file'} (all. 1)` : 'manca'}, '', ''], 0);
+  for(let r=0;r<p.qta;r++){
+    const R = p.ruote[r];
+    rigaTab([String(r+1), R.matricola, {ok: R.front.length>0, t: R.front.length ? R.front.length + (R.front.length===1?' foto':' foto') : 'manca'}, {ok: R.a3.length>0, t: R.a3.length ? R.a3.length + (mo.a3tipo==='video' ? (R.a3.length===1?' video':' video') : ' foto') : 'manca'}, R.extra.length ? R.extra.length + ' file' : '-'], r+1);
+  }
+  y += 6;
+  const nv = fileAParte(p).length;
+  if(p.cartellaUrl){
+    if(y + 24 > BASSO){ doc.addPage(); y = testataAllegati(); }
+    tasto(M, y, CW, 'APRI SU GOOGLE DRIVE TUTTE LE FOTO E I VIDEO', p.cartellaUrl, C.red); y += 14;
+  }
+  if(y < BASSO - 14){
+    font('normal', 8.5); col(C.muted);
+    doc.text(T(`Il PDF contiene il documento di acquisto, le foto e un fotogramma di ogni video${p.cartellaUrl ? ', con i tasti per aprire foto e video originali' : ''}.${nv ? ` ${nv === 1 ? 'Un file video è inviato' : nv + ' file video sono inviati'} insieme al PDF.` : ''}`), M, y, {maxWidth: CW}); y += 5;
+    col(C.blue); doc.textWithLink('Apri questa richiesta nell\'app Resi TRK', M, y + 1, {url: linkImport(p)});
+  }
+
+  /* ---------- ALLEGATO 1: documento di acquisto ---------- */
+  const tot = p.ddt.length + p.ruote.slice(0,p.qta).reduce((s,R) => s + R.front.length + R.a3.length + R.extra.length, 0);
+  let fatti = 0;
+  const passo = () => { fatti++; avanzamento && avanzamento(fatti, tot); };
+  for(let i=0;i<p.ddt.length;i++){
+    const f = p.ddt[i];
+    doc.addPage(); let yy = testataAllegati();
+    yy = fascia(yy, 'ALLEGATO 1 - DOCUMENTO DI ACQUISTO', p.ddt.length > 1 ? `${i+1} di ${p.ddt.length}` : '', C.red);
+    const img = isImg(f) ? await immagine(f.blob, 2000) : null; passo();
+    elemento(M, yy, CW, BASSO - yy - 2, 'ALL. 1', C.red, 'DDT o fattura di acquisto' + (p.ddtNum ? ' n. ' + p.ddtNum : '') + (p.ddtData ? ' del ' + dataIT(p.ddtData) : ''), img,
+      isImg(f) ? '' : `File PDF inviato insieme a questo documento: ALLEGATO1_DDT${p.ddt.length>1?'_'+(i+1):''}.pdf`, false);
+  }
+
+  /* ---------- RUOTE: due elementi per pagina ---------- */
+  for(let r=0;r<p.qta;r++){
+    const R = p.ruote[r];
+    const el = [];
+    R.front.forEach((f,i) => el.push({f, tag:'ALL. 2', c:C.blue, d:'Foto frontale con marcatura' + (R.front.length>1 ? ` (${i+1})` : '')}));
+    R.a3.forEach((f,i) => el.push({f, tag:'ALL. 3', c:C.dark, d: mo.a3 + (R.a3.length>1 ? ` (${i+1})` : '') + (isVid(f) ? ' - fotogramma' : ''), nota: isVid(f) ? `File video inviato insieme a questo PDF: ${nomeFileVideo(p, r, i)}` : ''}));
+    R.extra.forEach((f,i) => el.push({f, tag:'EXTRA', c:C.muted, d:'Foto aggiuntiva' + (R.extra.length>1 ? ` (${i+1})` : ''), nota: isVid(f) ? `File video inviato insieme a questo PDF: EXTRA_RUOTA${r+1}_${i+1}.${estensione(f)}` : ''}));
+    for(let k=0;k<el.length;k+=2){
+      doc.addPage(); let yy = testataAllegati();
+      yy = fascia(yy, `RUOTA ${r+1} DI ${p.qta}` + (el.length > 2 ? `  (${k/2+1}/${Math.ceil(el.length/2)})` : ''), R.matricola ? 'Matricola: ' + R.matricola : '', C.dark);
+      const disp = BASSO - yy - 2, n = Math.min(2, el.length - k), h = (disp - (n-1)*7) / 2;
+      for(let j=0;j<n;j++){
+        const e = el[k+j];
+        const img = isImg(e.f) ? await immagine(e.f.blob) : isVid(e.f) ? await fotogramma(e.f.blob) : null; passo();
+        elemento(M, yy + j*(h+7), CW, h, e.tag, e.c, e.d, img, e.f.url ? '' : e.nota, isVid(e.f), e.f.url);
+      }
+    }
+  }
+
+  /* ---------- piè di pagina ---------- */
+  const N = doc.getNumberOfPages();
+  for(let i=1;i<=N;i++){
+    doc.setPage(i);
+    draw(C.line); doc.setLineWidth(0.25); doc.line(M, H-12, W-M, H-12);
+    font('normal', 7.5); col(C.muted);
+    doc.text(T(`TRK · Resi per contestazione ruote truck · Pratica ${p.num} · creato il ${oraIT(new Date().toISOString())}`), M, H-7.5);
+    doc.text(`Pagina ${i} di ${N}`, W-M, H-7.5, {align:'right'});
+  }
+  const blob = doc.output('blob');
+  return {blob: new Blob([blob], {type:'application/pdf'}), nome: nomePdf(p), pagine: N, size: blob.size, creato: new Date().toISOString()};
+}
+
+function daCaricare(p){
+  const out = [];
+  for(let r=0;r<p.qta;r++){
+    const R = p.ruote[r];
+    R.front.forEach((f,i) => out.push({f, nome:`RUOTA${r+1}_ALLEGATO2_FRONTALE${R.front.length>1?'_'+(i+1):''}.${estensione(f)}`}));
+    R.a3.forEach((f,i) => out.push({f, nome: isVid(f) ? nomeFileVideo(p,r,i).replace(/^ALLEGATO3_RUOTA(\d+)/,'RUOTA$1_ALLEGATO3') : `RUOTA${r+1}_ALLEGATO3_FOTO${R.a3.length>1?'_'+(i+1):''}.${estensione(f)}`}));
+    R.extra.forEach((f,i) => out.push({f, nome:`RUOTA${r+1}_EXTRA_${i+1}.${estensione(f)}`}));
+  }
+  return out.filter(x => !x.f.url && (isImg(x.f) || isVid(x.f)) && x.f.size <= MAX_UP);
+}
+const base64Di = blob => new Promise((res, rej) => { const fr = new FileReader(); fr.onload = () => res(String(fr.result).split(',')[1]); fr.onerror = () => rej(fr.error); fr.readAsDataURL(blob); });
+async function caricaSuDrive(p){
+  if(!DRIVE_URL) return;
+  const lista = daCaricare(p); if(!lista.length) return;
+  let ok = 0;
+  try{
+    for(let i=0;i<lista.length;i++){
+      const {f, nome} = lista[i];
+      busy(true, `Carico foto e video su Google Drive… ${i+1} di ${lista.length}` + (f.size > 5e6 ? ` (${mb(f.size)})` : ''));
+      if(!p.token) p.token = uid() + uid();
+      const corpo = JSON.stringify({k: DRIVE_KEY, token: p.token, pratica: p.num, cliente: p.cliente.rs, nome, tipo: f.tipo, dati: await base64Di(f.blob)});
+      const r = await fetch(DRIVE_URL, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: corpo});
+      const j = await r.json();
+      if(!j.ok) throw new Error(j.err || 'errore');
+      f.url = j.url; p.cartellaUrl = j.cartella; ok++;
+      await salva(true, false);
+    }
+    evento(p, `Caricati su Google Drive ${ok} ${ok===1?'file':'file'} (foto e video)`, 'b');
+  }catch(e){
+    if(ok) evento(p, `Caricati su Google Drive ${ok} file su ${lista.length}`, 'b');
+    evento(p, 'Google Drive non raggiungibile: i video restanti partono allegati al PDF', 'r');
+    toast('Google Drive non raggiungibile: i video partiranno allegati al PDF.', 3800);
+  }
+  await salva(true, false);
+}
+
+async function preparaPDF(p, forza){
+  if(!forza && pdfAggiornato(p)) return p.pdf;
+  busy(true, 'Creo il PDF…');
+  try{
+    const prima = !!p.pdf;
+    await caricaSuDrive(p);
+    busy(true, 'Creo il PDF…');
+    const r = await creaPDF(p, (a, t) => busy(true, `Creo il PDF… ${a} di ${t}`));
+    p.pdf = r;
+    if(p.stato === 'bozza') p.stato = 'pronta';
+    evento(p, `${prima ? 'PDF aggiornato' : 'PDF creato'}: ${r.pagine} pagine, ${mb(r.size)}`, 'b');
+    await salva(true, false);
+    return r;
+  }catch(e){ console.error(e); toast('Non sono riuscito a creare il PDF: riprova.'); return null; }
+  finally{ busy(false); }
+}
+
+/* =================== CONDIVISIONE =================== */
+function scarica(file){ const a = document.createElement('a'); a.href = URL.createObjectURL(file); a.download = file.name; document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove();}, 4000); }
+async function invia(p, canale){
+  const pdf = await preparaPDF(p); if(!pdf) return;
+  const files = [new File([pdf.blob], pdf.nome, {type:'application/pdf'}), ...fileAParte(p)];
+  const testo = testoMessaggio(p);
+  const titolo = `Reso truck TRK ${p.num} - ${p.cliente.rs}`;
+  let ok = false;
+  if(navigator.share && navigator.canShare && navigator.canShare({files})){
+    try{ await navigator.share({files, title: titolo, text: testo}); ok = true; }
+    catch(e){ if(e && e.name === 'AbortError') return; }
+  }
+  if(!ok){ // computer: scarico i file e apro WhatsApp Web o la mail con il testo pronto
+    for(const f of files){ scarica(f); await new Promise(r=>setTimeout(r,350)); }
+    const a = p.autore || {};
+    if(canale === 'whatsapp'){
+      let n = (profilo.ruolo === 'cliente' ? (profilo.agTel||'') : '').replace(/\D/g,''); if(n && n.length <= 10) n = '39' + n;
+      window.open((n ? 'https://wa.me/' + n : 'https://wa.me/') + '?text=' + encodeURIComponent(testo + '\n(allega il PDF appena scaricato)'), '_blank');
+    } else {
+      const to = profilo.ruolo === 'cliente' ? (profilo.agMail||'') : '';
+      location.href = 'mailto:' + encodeURIComponent(to) + '?subject=' + encodeURIComponent(titolo) + '&body=' + encodeURIComponent(testo + '\n\n(allega il PDF appena scaricato)');
+    }
+    toast('PDF scaricato: allegalo al messaggio.', 3500);
+    ok = true;
+  }
+  if(ok){
+    evento(p, `Inviata ${canale === 'whatsapp' ? 'su WhatsApp' : canale === 'mail' ? 'per mail' : '(salvata in File)'}: PDF${files.length>1 ? ' + ' + (files.length-1) + ' file' : ''}`, 'g');
+    if(['bozza','pronta'].includes(p.stato) && canale !== 'file') p.stato = 'inviata';
+    await salva(true, false);
+    vista = 'scheda'; render();
+    if(canale !== 'file') toast('Registrata nello storico.');
+  }
+}
+function apriPDF(p){
+  if(!p.pdf) return;
+  const u = URL.createObjectURL(p.pdf.blob);
+  const a = document.createElement('a'); a.href = u; a.target = '_blank'; a.rel = 'noopener'; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(u), 60000);
+}
+
+/* =================== DISEGNI (motivi e tasti) =================== */
+function icona(k){
+  const ruota = `<circle cx="32" cy="32" r="27" fill="none" stroke="currentColor" stroke-width="4"/><circle cx="32" cy="32" r="16" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="32" cy="32" r="6" fill="currentColor"/>${[0,1,2,3,4,5,6,7,8,9].map(i=>{const a=i*Math.PI/5;return `<circle cx="${(32+11*Math.cos(a)).toFixed(1)}" cy="${(32+11*Math.sin(a)).toFixed(1)}" r="1.7" fill="currentColor"/>`}).join('')}`;
+  const red = 'var(--red)';
+  const extra = {
+    crepe: `<path d="M44 9 L39 20 L45 26 L38 37" fill="none" stroke="${red}" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>`,
+    valvola: `<rect x="44" y="38" width="7" height="12" rx="2" transform="rotate(-40 47 44)" fill="currentColor"/><path d="M41 36 L46 31 L44 27 L50 22" fill="none" stroke="${red}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`,
+    bilanc: `<rect x="9" y="27" width="6" height="10" rx="1.5" fill="${red}"/><path d="M22 58 h20" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M52 14 a24 24 0 0 1 6 12" fill="none" stroke="${red}" stroke-width="3" stroke-linecap="round"/><path d="M58 26 l-5 -1 m5 1 l1 -5" stroke="${red}" stroke-width="3" stroke-linecap="round"/>`,
+    vernice: `<path d="M44 12 c4 6 8 10 8 14 a8 8 0 0 1 -16 0 c0 -4 4 -8 8 -14z" fill="${red}"/><circle cx="20" cy="44" r="3" fill="${red}"/><circle cx="26" cy="49" r="2" fill="${red}"/>`
+  }[k] || '';
+  return `<svg viewBox="0 0 64 64" aria-hidden="true">${ruota}${extra}</svg>`;
+}
+const IC_WA = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1-.7-.3-1.4-.7-2-1.3-.5-.5-1-1.1-1.3-1.7-.1-.2 0-.4.1-.5l.4-.4.3-.5v-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.6.6-.9 1.4-.9 2.2.1.9.4 1.8 1 2.6 1.1 1.6 2.5 2.9 4.2 3.7.5.2.9.4 1.4.5.5.2 1.1.2 1.6.1.6-.1 1.2-.5 1.5-1 .2-.4.2-.8.2-1.2l-.3-.2z"/></svg>';
+const IC_MAIL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>';
+
+/* =================== INTESTAZIONE E BARRA IN BASSO =================== */
+function header(titolo, back){
+  const r = profilo ? (profilo.ruolo === 'agente' ? 'AGENTE' : 'CLIENTE') : '';
+  $('#hdr').innerHTML = `${back ? `<button class="back" data-act="${back}" aria-label="Indietro">‹</button>` : ''}<div class="ttl">${esc(titolo)}</div>${r ? `<button class="role" data-act="profilo">${r}</button>` : ''}`;
+}
+function foot(html, one){ $('#foot').innerHTML = html ? `<div class="footer-bar"><div class="in${one?' one':''}">${html}</div></div>` : ''; }
+function liberaUrl(){ urls.forEach(u => URL.revokeObjectURL(u)); urls = []; }
+function urlDi(f){ const u = URL.createObjectURL(f.blob); urls.push(u); return u; }
+
+/* =================== VISTE =================== */
+function render(keepScroll){
+  liberaUrl();
+  const y = scrollY;
+  if(!profilo && !['chi','profilo','guida','trasporto'].includes(vista)) vista = 'chi';
+  ({home:vHome, chi:vChi, profilo:vProfilo, step:vStep, scheda:vScheda, guida:vGuida, trasporto:vTrasporto, import:vImport})[vista]();
+  window.scrollTo(0, keepScroll ? y : 0);
+}
+
+function vChi(){
+  header('Resi TRK', null); foot('');
+  $('#app').innerHTML = `
+    <div class="brand"><div class="lg"><img src="logo-trk.png" alt="TRK"></div></div>
+    <h1>Resi e contestazioni<br>ruote truck</h1>
+    <p class="sub">Acciaio e lega. Ti guido passo per passo: dati, motivo, foto e video, PDF pronto da inviare.</p>
+    <div class="card"><h3 class="center">Chi sei?</h3>
+      <div class="who" style="margin-top:12px">
+        <button class="opt" data-act="ruolo" data-v="cliente">Sono un cliente<small>Gommista, flotta, officina</small></button>
+        <button class="opt" data-act="ruolo" data-v="agente">Sono un agente MAK<small>Invio la richiesta a MAK con il modulo RESO TRUCK</small></button>
+      </div>
+    </div>
+    <div class="links center"><button class="lnk" data-act="guida" style="text-align:center">Cosa serve per un reso? Guida veloce</button></div>`;
+}
+
+function vProfilo(){
+  const nuovo = !profilo || profilo._nuovo;
+  const p = profilo || {};
+  header(p.ruolo === 'agente' ? 'I tuoi dati di agente' : 'I tuoi dati', nuovo ? 'chi' : 'home');
+  const ag = p.ruolo === 'agente';
+  $('#app').innerHTML = `
+    <p class="muted">${ag ? 'Servono per il PDF e per compilare il modulo RESO TRUCK al posto tuo.' : 'Li inserisci una volta sola: restano su questo telefono e finiscono in ogni richiesta.'}</p>
+    <div class="card">
+    ${ag ? `
+      <label class="f" for="p-nome" style="margin-top:0">Nome e cognome <span class="req">*</span></label>
+      <input type="text" id="p-nome" data-p="nome" value="${esc(p.nome)}" autocomplete="name">
+      <label class="f" for="p-mail">La tua mail <span class="req">*</span></label>
+      <input type="email" id="p-mail" data-p="mail" value="${esc(p.mail)}" autocomplete="email" inputmode="email">
+      <div class="hint">Ti arriva la copia della richiesta: a quella mail rispondi con il PDF.</div>
+      <label class="f" for="p-resp">Responsabile truck della tua zona <span class="req">*</span></label>
+      <select id="p-resp" data-p="resp"><option value="">Scegli…</option>${RESPONSABILI.map(r=>`<option ${p.resp===r?'selected':''}>${r}</option>`).join('')}</select>
+      <div class="hint">Riceve in copia ogni richiesta. Se non sai quale scegliere, chiedi al tuo capoarea.</div>
+    ` : `
+      <label class="f" for="p-rs" style="margin-top:0">Ragione sociale <span class="req">*</span></label>
+      <input type="text" id="p-rs" data-p="rs" value="${esc(p.rs)}" autocomplete="organization">
+      <label class="f" for="p-cod">Codice cliente B2B</label>
+      <input type="text" id="p-cod" data-p="cod" value="${esc(p.cod)}">
+      <div class="hint">Se non lo sai lascia vuoto: lo completa il tuo agente.</div>
+      <label class="f" for="p-ref">Nome di chi segue la richiesta <span class="req">*</span></label>
+      <input type="text" id="p-ref" data-p="ref" value="${esc(p.ref)}" autocomplete="name">
+      <label class="f" for="p-tel">Telefono <span class="req">*</span></label>
+      <input type="tel" id="p-tel" data-p="tel" value="${esc(p.tel)}" autocomplete="tel" inputmode="tel">
+      <label class="f" for="p-agn">Il tuo agente MAK</label>
+      <input type="text" id="p-agn" data-p="agNome" value="${esc(p.agNome)}" placeholder="Nome e cognome">
+      <div class="row"><div><label class="f" for="p-agt">WhatsApp agente</label><input type="tel" id="p-agt" data-p="agTel" value="${esc(p.agTel)}" inputmode="tel"></div>
+      <div><label class="f" for="p-agm">Mail agente</label><input type="email" id="p-agm" data-p="agMail" value="${esc(p.agMail)}" inputmode="email"></div></div>
+      <div class="hint">Facoltativi: compaiono nel PDF e servono per l'invio dal computer.</div>
+    `}
+    </div>
+    ${!nuovo ? `<div class="card"><h3>Cambia profilo</h3><p class="muted small">Sei ${ag?'un agente':'un cliente'}. Lo storico resta.</p><button class="btn" data-act="cambiaRuolo">Passa a ${ag?'cliente':'agente'}</button></div>
+    <div class="card"><h3>Tema</h3><div class="seg s3">${['auto','light','dark'].map(t=>`<button class="opt ${(ls.get('trk-resi-tema','auto'))===t?'on':''}" data-act="tema" data-v="${t}">${{auto:'Automatico',light:'Chiaro',dark:'Scuro'}[t]}</button>`).join('')}</div></div>` : ''}`;
+  foot(`<button class="btn primary" data-act="salvaProfilo">${nuovo ? 'Continua' : 'Salva'}</button>`, true);
+}
+
+function contaStati(){
+  const c = {tutte: pratiche.length, bozza:0, inviata:0, chiusa:0};
+  pratiche.forEach(p => { if(p.stato === 'bozza' || p.stato === 'pronta') c.bozza++; else if(p.stato === 'inviata') c.inviata++; else c.chiusa++; });
+  return c;
+}
+function filtrate(){
+  const q = cerca.trim().toLowerCase();
+  return pratiche.filter(p => {
+    if(filtro === 'bozza' && !['bozza','pronta'].includes(p.stato)) return false;
+    if(filtro === 'inviata' && p.stato !== 'inviata') return false;
+    if(filtro === 'chiusa' && !['accettata','respinta','chiusa'].includes(p.stato)) return false;
+    if(!q) return true;
+    return [p.num, p.cliente.rs, p.cliente.cod, p.marca, p.misura, p.codArt, p.motivo].join(' ').toLowerCase().includes(q);
+  });
+}
+function vHome(){
+  header('Resi TRK', null);
+  const ag = profilo.ruolo === 'agente';
+  const c = contaStati(), lista = filtrate();
+  const riga = rigaLista;
+  $('#app').innerHTML = `
+    <div class="brand sm"><div class="lg"><img src="logo-trk.png" alt="TRK"></div></div>
+    <h1>Resi e contestazioni ruote truck</h1>
+    <p class="sub">${ag ? `Ciao ${esc((profilo.nome||'').split(' ')[0])}: prepari la richiesta, crei il PDF e lo mandi. Qui sotto trovi tutto lo storico.` : `${esc(profilo.rs)}: prepara la richiesta con foto e video, crea il PDF e mandalo al tuo agente MAK.`}</p>
+    ${DB.memoria ? `<div class="banner warn"><span class="ic">⚠️</span><div>Questo browser non permette di salvare: lo storico si perde chiudendo la pagina.</div></div>` : ''}
+    <button class="btn primary big" data-act="nuova">+ Nuova richiesta di reso</button>
+    <h2>Storico</h2>
+    ${pratiche.length ? `
+      <input type="search" id="cerca" placeholder="Cerca cliente, pratica, marca, misura…" value="${esc(cerca)}" aria-label="Cerca nello storico">
+      <div class="filters">${[['tutte','Tutte'],['bozza','Da finire'],['inviata','Inviate'],['chiusa','Chiuse']].map(([k,l])=>`<button class="opt ${filtro===k?'on':''}" data-act="filtro" data-v="${k}"><b>${c[k]}</b>${l}</button>`).join('')}</div>
+      <div class="card list" id="lista">${lista.length ? lista.map(riga).join('') : '<p class="muted" style="margin:0">Nessuna richiesta con questi filtri.</p>'}</div>
+      <div class="links"><button class="lnk" data-act="csv">Scarica lo storico per Excel</button></div>`
+    : `<div class="card"><h3>Come funziona</h3><ol class="todo">
+      <li><b>Dati</b>: cliente, materiale, marca, misura, codice e quante ruote.</li>
+      <li><b>Motivo</b>: crepe, foro valvola, bilanciatura o verniciatura.</li>
+      <li><b>Foto e video</b>: DDT di acquisto e, per ogni ruota, foto frontale con marcatura e la prova del difetto.</li>
+      <li><b>PDF</b>: l'app lo crea e tu lo mandi su WhatsApp o per mail. Ogni richiesta resta qui nello storico.</li></ol></div>`}
+    <div class="links"><button class="lnk" data-act="guida">Guida: cosa serve per ogni motivo</button><button class="lnk" data-act="trasporto">Ruote arrivate rotte dal corriere? Non è una contestazione: leggi qui</button></div>`;
+  foot('');
+}
+
+function vStep(){
+  const p = cur; allineaRuote(p);
+  const nomi = ['Cliente e prodotto','Motivo','Foto e video','PDF e invio'];
+  header(nomi[step], 'indietro');
+  const bar = `<div class="progress">${nomi.map((n,i)=>`<span class="${i<=step?'on':''}"></span>`).join('')}</div><div class="steplbl">Passo ${step+1} di 4 · ${nomi[step]} · pratica ${esc(p.num)}</div>`;
+  $('#app').innerHTML = bar + [s1, s2, s3, s4][step](p);
+  foot(step === 3 ? `<button class="btn" data-act="indietro">Indietro</button><button class="btn dark" data-act="casa">Vai allo storico</button>`
+                  : `<button class="btn" data-act="indietro">Indietro</button><button class="btn primary" data-act="avanti">Avanti</button>`);
+}
+
+function s1(p){
+  const ag = profilo.ruolo === 'agente';
+  const gruppi = {};
+  MISURE.forEach(m => { const d = m.split('x')[1].split(' ')[0]; (gruppi[d] = gruppi[d] || []).push(m); });
+  return `
+    <div class="banner warn"><span class="ic">ℹ️</span><div><b>Una marca e una misura per volta.</b> Se le ruote da contestare sono di marche o misure diverse, fai una richiesta per ciascuna.</div></div>
+    <div class="card"><h3>Cliente</h3>
+    ${ag ? `
+      <label class="f" for="c-rs">Ragione sociale cliente <span class="req">*</span></label>
+      <input type="text" id="c-rs" data-f="cliente.rs" value="${esc(p.cliente.rs)}">
+      <label class="f" for="c-cod">Codice cliente B2B <span class="req">*</span></label>
+      <input type="text" id="c-cod" data-f="cliente.cod" value="${esc(p.cliente.cod)}">
+      <div class="row"><div><label class="f" for="c-ref">Referente</label><input type="text" id="c-ref" data-f="cliente.ref" value="${esc(p.cliente.ref)}"></div>
+      <div><label class="f" for="c-tel">Telefono</label><input type="tel" id="c-tel" data-f="cliente.tel" value="${esc(p.cliente.tel)}" inputmode="tel"></div></div>
+    ` : `<p style="margin:0"><b>${esc(p.cliente.rs)}</b>${p.cliente.cod ? ' · cod. B2B ' + esc(p.cliente.cod) : ''}<br><span class="muted small">${esc([p.cliente.ref, p.cliente.tel].filter(Boolean).join(' · '))}</span></p>
+        <div class="hint">Dati sbagliati? Tocca «CLIENTE» in alto a destra.</div>`}
+    </div>
+    <div class="card"><h3>Prodotto</h3>
+      <label class="f">Materiale <span class="req">*</span></label>
+      <div class="seg">${MATERIALI.map(m=>`<button class="opt ${p.materiale===m?'on':''}" data-act="set" data-k="materiale" data-v="${m}">${m}</button>`).join('')}</div>
+      <label class="f">Marca <span class="req">*</span></label>
+      <div class="chips">${MARCHE.map(m=>`<button class="opt ${p.marca===m?'on':''}" data-act="set" data-k="marca" data-v="${m}">${m}</button>`).join('')}</div>
+      <div class="hint">La marca è stampata sulla ruota e scritta nel documento di acquisto.</div>
+      <label class="f" for="c-mis">Misura <span class="req">*</span></label>
+      <select id="c-mis" data-f="misura"><option value="">Scegli la misura…</option>
+        ${Object.keys(gruppi).map(d=>`<optgroup label="${d}″">${gruppi[d].map(m=>`<option ${p.misura===m?'selected':''}>${m}</option>`).join('')}</optgroup>`).join('')}
+      </select>
+      <div class="hint">Canale × diametro e numero di fori. Es. 9x22,5 - 10 FORI.</div>
+      <label class="f" for="c-art">Codice articolo ${ag ? '<span class="req">*</span>' : ''}</label>
+      <input type="text" id="c-art" data-f="codArt" value="${esc(p.codArt)}" autocapitalize="characters">
+      <div class="hint">Lo trovi nel documento di acquisto (DDT o fattura).${ag ? '' : ' Se non lo trovi, lo completa il tuo agente.'}</div>
+      <label class="f">Quante ruote contesti? <span class="req">*</span></label>
+      <div class="stepper"><button data-act="qta" data-v="-1" aria-label="Una in meno">−</button><div class="v">${p.qta}</div><button data-act="qta" data-v="1" aria-label="Una in più">+</button></div>
+      <div class="hint">Massimo ${MAXQ} per richiesta. Per ogni ruota servono le sue foto e i suoi video.</div>
+    </div>
+    <div class="card"><h3>Documento di acquisto</h3>
+      <div class="row"><div><label class="f" for="c-dn">Numero DDT o fattura</label><input type="text" id="c-dn" data-f="ddtNum" value="${esc(p.ddtNum)}"></div>
+      <div><label class="f" for="c-dd">Data</label><input type="date" id="c-dd" data-f="ddtData" value="${esc(p.ddtData)}"></div></div>
+      <div class="hint">Facoltativi qui, ma la foto del documento serve al passo 3.</div>
+    </div>`;
+}
+
+function s2(p){
+  return `
+    <p class="muted">Scegli il motivo. Sotto ogni motivo vedi cosa ti servirà.</p>
+    <div class="motivi">${Object.entries(MOTIVI).map(([nome, m]) => `
+      <button class="mot ${p.motivo===nome?'on':''}" data-act="motivo" data-v="${esc(nome)}">${icona(m.k)}
+        <div><div class="t">${esc(cap(nome))}</div>
+        <div class="d">DDT · foto frontale con marcatura · ${esc(m.a3.toLowerCase())}</div></div></button>`).join('')}
+    </div>
+    ${p.motivo ? `<label class="check"><input type="checkbox" data-act="verif" ${p.verificato?'checked':''}><span><b>Ho verificato.</b> ${esc(MOTIVI[p.motivo].verifica)}</span></label>` : ''}
+    <div class="card" style="margin-top:12px"><label class="f" for="c-note" style="margin-top:0">Note (facoltative)</label>
+      <textarea id="c-note" data-f="note" placeholder="Es. km percorsi, posizione sul mezzo, quando è comparso il problema">${esc(p.note)}</textarea></div>`;
+}
+
+function slotFile(chiave, lista, titolo, tag, tagCls, hint, accetta, opz){
+  const done = lista.length > 0;
+  return `<div class="slot ${done && !opz ? 'done' : ''}">
+    <div class="hd"><div class="n">${titolo}</div><span class="tag ${done && !opz ? 'okt' : tagCls}">${done && !opz ? '✓ ' + tag : tag}</span></div>
+    ${hint ? `<div class="hint">${hint}</div>` : ''}
+    ${lista.length ? `<div class="thumbs">${lista.map(f => `<div class="th">${isImg(f) ? `<img src="${urlDi(f)}" alt="">` : isVid(f) ? `<video src="${urlDi(f)}#t=0.1" muted playsinline preload="metadata"></video><span class="vb">▶ ${mb(f.size)}</span>` : `<span>📄<br>${esc(estensione(f).toUpperCase())}</span>`}<button class="x" data-act="togli" data-slot="${chiave}" data-id="${f.id}" aria-label="Togli">✕</button></div>`).join('')}</div>` : ''}
+    <div class="addrow">${accetta.map(a => `<label class="addbtn">${a.lbl}<input type="file" data-slot="${chiave}" accept="${a.acc}" ${a.cap ? 'capture="environment"' : ''} ${a.multi ? 'multiple' : ''}></label>`).join('')}</div>
+  </div>`;
+}
+
+function s3(p){
+  const mo = MOTIVI[p.motivo];
+  const isVideo = mo.a3tipo === 'video';
+  const fotoAcc = [{lbl:'📷 Scatta', acc:'image/*', cap:true}, {lbl:'🖼 Dalla galleria', acc:'image/*', multi:true}];
+  const a3Acc = isVideo ? [{lbl:'🎥 Registra', acc:'video/*', cap:true}, {lbl:'🖼 Dalla galleria', acc:'video/*', multi:true}] : fotoAcc;
+  const mf = mancantiFile(p);
+  let h = `
+    <div class="banner ${mf.length?'red':'ok'}"><span class="ic">${mf.length?'📋':'✅'}</span><div>${mf.length ? `<b>Servono tante foto e video quante sono le ruote.</b> Mancano ancora ${mf.length} ${mf.length===1?'elemento':'elementi'}.` : '<b>Tutto il materiale c\'è.</b> Tocca «Avanti» per creare il PDF.'}</div></div>
+    <div class="card"><h3>Documento di acquisto MAK</h3>
+      ${slotFile('ddt', p.ddt, 'DDT o fattura di acquisto', 'ALLEGATO 1', 'a1', 'Dati del documento e descrizione della merce ben visibili e leggibili.', [{lbl:'📷 Fotografa', acc:'image/*', cap:true}, {lbl:'📄 Foto o PDF', acc:'image/*,application/pdf', multi:true}])}
+    </div>`;
+  for(let i=0;i<p.qta;i++){
+    const r = p.ruote[i];
+    const ok = r.front.length && r.a3.length;
+    h += `<div class="card wheel"><h3><span>Ruota ${i+1}${p.qta>1?' di '+p.qta:''}</span>${ok?'<span class="tag okt">✓ completa</span>':''}</h3>
+      ${slotFile(`front.${i}`, r.front, 'Foto frontale con la marcatura', 'ALLEGATO 2', 'a2', 'Marca, codice, misura, data di fabbricazione e matricola leggibili. Sulla lega la data è sul bordo interno.', fotoAcc)}
+      ${slotFile(`a3.${i}`, r.a3, esc(mo.a3), 'ALLEGATO 3', 'a3', esc(mo.a3hint), a3Acc)}
+      ${slotFile(`extra.${i}`, r.extra, 'Altre foto (facoltative)', 'EXTRA', '', 'Utile: l\'interno della ruota con le basi di appoggio al mozzo.', [{lbl:'📷 Scatta', acc:'image/*', cap:true}, {lbl:'🖼 Galleria', acc:'image/*,video/*', multi:true}], true)}
+      <label class="f" for="mat-${i}">Matricola (se leggibile)</label>
+      <input type="text" id="mat-${i}" data-f="ruote.${i}.matricola" value="${esc(r.matricola)}" autocapitalize="characters">
+    </div>`;
+  }
+  if(isVideo) h += `<p class="hint">Video brevi (10–20 secondi): pesano meno e partono prima. Nel PDF va un fotogramma di ogni video, il video parte insieme al PDF.</p>`;
+  return h;
+}
+
+function blocDocumento(p){
+  const nv = fileAParte(p).length;
+  return `<div class="card"><div class="doc"><div class="ico"><span>PDF</span></div>
+      <div><div class="nm">${esc(p.pdf.nome)}</div><div class="mt">${p.pdf.pagine} pagine · ${mb(p.pdf.size)}${nv ? ` · + ${nv} video` : ''}${p.cartellaUrl ? ' · foto e video su Drive' : ''} · ${oraIT(p.pdf.creato)}</div></div></div>
+      <div class="grid2" style="margin-top:14px"><button class="btn" data-act="apriPdf">Apri il PDF</button><button class="btn" data-act="rifaiPdf">Rigenera</button></div>
+      ${p.cartellaUrl ? `<a class="btn" href="${esc(p.cartellaUrl)}" target="_blank" rel="noopener" style="margin-top:10px">Apri la cartella su Google Drive</a>` : ''}</div>`;
+}
+function bloccoInvio(p, ripeti){
+  const ag = profilo.ruolo === 'agente';
+  const nv = fileAParte(p).length;
+  return `<div class="card"><h3>${ripeti ? 'Invia di nuovo' : 'Invia il PDF'}</h3>
+      <p class="small muted">${ag ? 'Per MAK: rispondi «a tutti» alla mail arrivata dopo il modulo RESO TRUCK, allegando il PDF' : `Al tuo agente MAK${profilo.agNome ? ' (' + esc(profilo.agNome) + ')' : ''}, che lo inoltra a MAK`}.${nv ? ` Insieme al PDF partono ${nv === 1 ? 'il video' : 'i ' + nv + ' video'}.` : p.cartellaUrl ? ' Foto e video sono su Google Drive: nel PDF ci sono i tasti per aprirli.' : ''} Si apre la condivisione: scegli WhatsApp o Mail e il contatto.</p>
+      <div class="grid2"><button class="btn wa" data-act="invia" data-v="whatsapp">${IC_WA}WhatsApp</button><button class="btn dark" data-act="invia" data-v="mail">${IC_MAIL}Mail</button></div>
+      ${ag ? `<button class="btn" data-act="invia" data-v="file" style="margin-top:10px">Salva PDF e video in File</button>` : ''}
+    </div>`;
+}
+function bloccoModulo(p){
+  return `<div class="stepbox ${p.passi.modulo?'done':''}"><div class="sh"><span class="num">${p.passi.modulo?'✓':'!'}</span><b>Modulo RESO TRUCK</b></div>
+      <p class="small muted">Prima dell'invio a MAK: si apre il modulo già compilato, controlla e premi <b>Invia</b>. Ti arriva la mail a cui rispondere «a tutti» con il PDF.</p>
+      <div class="grid2"><button class="btn primary" data-act="modulo">Apri il modulo</button><button class="btn" data-act="spuntaModulo">${p.passi.modulo ? 'Inviato ✓' : 'L\'ho inviato'}</button></div></div>`;
+}
+
+function s4(p){
+  const m = mancantiTutto(p);
+  if(m.length){
+    return `<div class="banner red"><span class="ic">✋</span><div><b>Non ancora pronta.</b> Senza questi dati MAK non può accogliere la richiesta:<ul class="todo">${m.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div></div>
+      <button class="btn primary" data-act="vaiStep" data-v="${primoPassoIncompleto(p)}">Completa la richiesta</button>`;
+  }
+  if(!pdfAggiornato(p)) return `<div class="card center"><p class="muted" style="margin:0">Preparo il PDF…</p></div>`;
+  const ag = profilo.ruolo === 'agente';
+  return `<div class="banner ok"><span class="ic">✅</span><div><b>PDF pronto.</b> Aprilo per controllarlo, poi invialo.</div></div>
+    ${blocDocumento(p)}
+    ${ag ? bloccoModulo(p) : ''}
+    ${bloccoInvio(p)}`;
+}
+
+function vScheda(){
+  const p = cur;
+  header('Pratica ' + p.num, 'casa');
+  const ag = profilo.ruolo === 'agente';
+  const completa = !mancantiTutto(p).length;
+  const ev = (p.eventi || []).slice().reverse();
+  $('#app').innerHTML = `
+    <div class="card"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px"><h3 style="margin:0">${esc(p.cliente.rs)}</h3><span class="pill ${p.stato}">${STATI[p.stato]}</span></div>
+      <dl class="sum">
+        <dt>Prodotto</dt><dd>${esc([p.materiale,p.marca].filter(Boolean).join(' · '))}<br>${esc(p.misura)}</dd>
+        <dt>Codice</dt><dd>${esc(p.codArt || '—')}</dd>
+        <dt>Ruote</dt><dd>${p.qta}</dd>
+        <dt>Motivo</dt><dd>${esc(p.motivo || '—')}</dd>
+        <dt>Creata</dt><dd>${oraIT(p.creata)}</dd>
+      </dl></div>
+    ${p.pdf ? blocDocumento(p) : ''}
+    ${p.pdf && !pdfAggiornato(p) ? `<div class="banner warn"><span class="ic">↻</span><div>Hai modificato la richiesta dopo il PDF: tocca «Rigenera» prima di reinviarla.</div></div>` : ''}
+    ${completa && ag ? bloccoModulo(p) : ''}
+    ${completa ? bloccoInvio(p, (p.eventi||[]).some(e => e.cosa.startsWith('Inviata'))) : `<div class="banner red"><span class="ic">✋</span><div>Richiesta non completa: finiscila per creare il PDF.</div></div>`}
+    <div class="card"><h3>Esito</h3>
+      <p class="small muted">Quando MAK risponde, segna com'è andata.</p>
+      <div class="seg s4">${[['inviata','In attesa'],['accettata','Accettata'],['respinta','Rifiutata'],['chiusa','Chiusa']].map(([k,l])=>`<button class="opt ${p.stato===k?'on':''}" data-act="esito" data-v="${k}">${l}</button>`).join('')}</div>
+      <label class="f" for="e-note">Nota sull'esito</label>
+      <textarea id="e-note" placeholder="Es. sostituzione approvata, nota di credito n. …">${esc(p.esito && p.esito.note)}</textarea>
+      <button class="btn" data-act="salvaNota" style="margin-top:10px">Salva la nota</button>
+    </div>
+    <div class="card"><h3>Cronologia</h3><ul class="tl">${ev.map(e => `<li><span class="dot ${e.c||''}"></span><div><div class="e">${esc(e.cosa)}</div><div class="w">${oraIT(e.t)}</div></div></li>`).join('')}</ul></div>
+    <div class="grid2"><button class="btn" data-act="modifica">Modifica</button><button class="btn" data-act="duplica">Duplica</button></div>
+    <p class="hint">«Duplica» crea una nuova richiesta con gli stessi dati, senza foto: utile per un'altra misura o un'altra marca dello stesso cliente.</p>
+    <button class="btn del" data-act="elimina" style="margin-top:14px">Elimina il reso${p.cartellaUrl ? ' (anche foto e video su Drive)' : ''}</button>`;
+  foot(`<button class="btn dark" data-act="casa">Torna allo storico</button>`, true);
+}
+
+function vGuida(){
+  header('Guida ai resi truck', profilo ? 'home' : 'chi'); foot('');
+  $('#app').innerHTML = `
+    <div class="banner red"><span class="ic">📌</span><div><b>Tante informazioni, foto e video quante sono le ruote prese in esame.</b> Senza questi dati MAK non può accogliere la richiesta né reclamare al produttore.</div></div>
+    <div class="card"><h3>Cosa serve per ogni motivo</h3>
+      <div style="overflow-x:auto"><table class="g"><tr><th>Motivo</th><th>Allegato 1</th><th>Allegato 2</th><th>Allegato 3</th></tr>
+      ${Object.entries(MOTIVI).map(([n,m])=>`<tr><td><b>${esc(cap(n))}</b></td><td>DDT di acquisto</td><td>Foto frontale con marcatura</td><td>${esc(m.a3)}</td></tr>`).join('')}
+      </table></div></div>
+    <div class="card"><h3>Prima di chiedere il reso, verifica</h3><ul class="todo">
+      ${Object.entries(MOTIVI).map(([n,m])=>`<li><b>${esc(cap(n))}</b>: ${esc(m.verifica.charAt(0).toLowerCase()+m.verifica.slice(1))}</li>`).join('')}
+    </ul></div>
+    <div class="card"><h3>Come fare foto e video che vanno bene</h3><ul class="todo">
+      <li><b>DDT</b>: dati del documento e descrizione della merce leggibili.</li>
+      <li><b>Foto frontale</b>: marca, codice, misura, data di fabbricazione e matricola leggibili. Sulla lega la data è sul bordo interno.</li>
+      <li><b>Difetto</b>: da vicino, a fuoco, con buona luce. Per la bilanciatura, i valori finali dell'equilibratrice devono leggersi.</li>
+      <li><b>Video</b>: corti, 10–20 secondi.</li>
+      <li>Una marca e una misura per richiesta, massimo ${MAXQ} ruote.</li>
+    </ul></div>
+    <div class="card"><h3>Chi fa cosa</h3><ol class="todo">
+      <li><b>Cliente</b>: prepara la richiesta, crea il PDF e lo manda al suo agente su WhatsApp o per mail.</li>
+      <li><b>Agente</b>: compila il modulo RESO TRUCK e risponde «a tutti» alla mail che arriva, con il PDF e gli eventuali video.</li>
+      <li><b>MAK</b>: i responsabili prodotto e l'ufficio resi aggiornano sull'avanzamento. L'esito si segna nello storico.</li>
+    </ol></div>
+    <button class="lnk" data-act="trasporto">Ruote arrivate danneggiate dal corriere?</button>`;
+}
+
+function vTrasporto(){
+  header('Danni da trasporto', profilo ? 'home' : 'chi'); foot('');
+  $('#app').innerHTML = `
+    <div class="banner warn"><span class="ic">🚚</span><div>Un danno da trasporto <b>non</b> è una contestazione del prodotto: si gestisce con il corriere, non con questo modulo.</div></div>
+    <div class="card"><h3>Colli visibilmente danneggiati</h3><ul class="todo">
+      <li>Metti la <b>riserva</b> sul palmare del corriere. Non si mette su colli integri né «per sicurezza».</li>
+      <li>Con <b>BRT</b> serve la riserva specifica scritta a mano (es. «un collo bottato»).</li>
+      <li>Se l'autista non ti fa mettere la riserva, <b>rifiuta tutto</b>, fotografa le scatole e avvisa subito il tuo agente MAK.</li>
+      <li>Con <b>GLS</b> i colli danneggiati («scondizionati») hanno già la riserva del corriere. Se un collo rovinato non è stato segnato, accetta la merce: hai <b>8 giorni</b> per segnalare il danno.</li>
+    </ul></div>
+    <div class="card"><h3>Colli integri ma ruote danneggiate</h3>
+      <p style="margin:0">Fotografa le ruote <b>dentro le scatole</b> e manda le foto al tuo agente MAK. MAK ritira la merce, la controlla in magazzino e procede con sostituzione o nota di credito.</p></div>`;
+}
+
+function vImport(){
+  header('Richiesta ricevuta', 'casa');
+  const d = importDati;
+  $('#app').innerHTML = `
+    <p class="muted">Hai aperto il link di una richiesta di reso${d.num ? ' (pratica ' + esc(d.num) + ')' : ''}. Importala per completarla e inviarla.</p>
+    <div class="card"><dl class="sum">
+      <dt>Cliente</dt><dd>${esc(d.c && d.c.rs)}${d.c && d.c.cod ? ' · ' + esc(d.c.cod) : ''}</dd>
+      <dt>Referente</dt><dd>${esc(d.c ? [d.c.ref, d.c.tel].filter(Boolean).join(' · ') : '')}</dd>
+      <dt>Prodotto</dt><dd>${esc([d.m, d.b, d.s].filter(Boolean).join(' · '))}</dd>
+      <dt>Codice</dt><dd>${esc(d.a || '—')}</dd>
+      <dt>Ruote</dt><dd>${esc(d.q)}</dd>
+      <dt>Motivo</dt><dd>${esc(d.o)}</dd>
+    </dl></div>
+    <div class="banner warn"><span class="ic">📎</span><div>Foto e video non viaggiano nel link. Se hai già il PDF del cliente con tutte le foto, ti basta compilare il modulo e inoltrare quel PDF; altrimenti aggiungi foto e video al passo 3.</div></div>`;
+  foot(`<button class="btn" data-act="casa">Annulla</button><button class="btn primary" data-act="importa">Importa la richiesta</button>`);
+}
+
+/* =================== STORICO PER EXCEL =================== */
+function esportaCSV(){
+  const q = v => '"' + String(v ?? '').replace(/"/g,'""') + '"';
+  const righe = [['Pratica','Data','Stato','Cliente','Codice B2B','Materiale','Marca','Misura','Codice articolo','Ruote','Motivo','Inviata il','Esito nota','Ultimo evento'].map(q).join(';')];
+  pratiche.forEach(p => {
+    const inv = (p.eventi||[]).find(e => e.cosa.startsWith('Inviata')); const ul = (p.eventi||[]).slice(-1)[0];
+    righe.push([p.num, dataIT(p.data), STATI[p.stato], p.cliente.rs, p.cliente.cod, p.materiale, p.marca, p.misura, p.codArt, p.qta, p.motivo, inv ? oraIT(inv.t) : '', p.esito && p.esito.note, ul ? ul.cosa + ' (' + oraIT(ul.t) + ')' : ''].map(q).join(';'));
+  });
+  const f = new File(['﻿' + righe.join('\r\n')], `Storico resi TRK ${oggiISO()}.csv`, {type:'text/csv'});
+  if(navigator.canShare && navigator.canShare({files:[f]})) navigator.share({files:[f]}).catch(()=>{}); else scarica(f);
+}
+
+/* =================== EVENTI =================== */
+function setPath(obj, path, val){ const k = path.split('.'); let o = obj; for(let i=0;i<k.length-1;i++) o = o[k[i]]; o[k[k.length-1]] = val; }
+document.addEventListener('input', e => {
+  const t = e.target;
+  if(t.dataset.f && cur){ setPath(cur, t.dataset.f, t.value); salva(); }
+  if(t.dataset.p){ profilo = profilo || {}; profilo[t.dataset.p] = t.value; }
+  if(t.id === 'cerca'){ cerca = t.value; const l = $('#lista'); const lista = filtrate(); if(l){ const tmp = document.createElement('div'); vHomeLista(tmp, lista); l.innerHTML = tmp.innerHTML; } }
+});
+function rigaLista(p){
+  const ul = (p.eventi||[]).slice(-1)[0];
+  return `<div class="it" data-act="menu" data-id="${p.id}" role="button" tabindex="0">
+    <div><div class="a">${esc(p.cliente.rs || 'Senza cliente')} · ${p.qta} ${p.qta===1?'ruota':'ruote'}</div>
+    <div class="b">${esc([p.marca, p.misura].filter(Boolean).join(' · ') || 'Prodotto da scegliere')}${p.motivo ? ' · ' + esc(p.motivo.toLowerCase()) : ''}</div>
+    <div class="c">${esc(p.num)} · ${ul ? esc(ul.cosa) + ' · ' + oraIT(ul.t) : dataIT(p.data)}</div></div>
+    <div class="dx"><span class="pill ${p.stato}">${STATI[p.stato]}</span><span class="menu" aria-hidden="true">⋯</span></div></div>`;
+}
+function vHomeLista(el, lista){ el.innerHTML = lista.length ? lista.map(rigaLista).join('') : '<p class="muted" style="margin:0">Nessuna richiesta trovata.</p>'; }
+
+/* =================== MENU DEL RESO: apri, esito, elimina =================== */
+function chiudiMenu(){ const v = $('#velo'); if(v) v.remove(); }
+function apriMenu(p){
+  chiudiMenu();
+  const chiusa = ['accettata','respinta','chiusa'].includes(p.stato);
+  const v = document.createElement('div'); v.id = 'velo'; v.className = 'velo';
+  v.innerHTML = `<div class="sheet" role="dialog" aria-label="Cosa vuoi fare con questo reso">
+    <div class="mani"></div>
+    <div class="tt"><b>${esc(p.cliente.rs || 'Senza cliente')}</b><span class="pill ${p.stato}">${STATI[p.stato]}</span></div>
+    <div class="sb">Pratica ${esc(p.num)} · ${esc([p.marca, p.misura].filter(Boolean).join(' · ') || 'prodotto da scegliere')} · ${p.qta} ${p.qta===1?'ruota':'ruote'}</div>
+    <button class="btn primary" data-act="apri" data-id="${p.id}">${p.stato === 'bozza' ? 'Continua la richiesta' : 'Apri la pratica'}</button>
+    <div class="card" style="margin:12px 0 0">
+      <h3>Esito del reso</h3>
+      <label class="f" for="m-nota" style="margin-top:4px">Nota (facoltativa)</label>
+      <textarea id="m-nota" placeholder="Es. sostituzione approvata, nota di credito n. …">${esc(p.esito && p.esito.note)}</textarea>
+      <div class="grid2" style="margin-top:10px"><button class="btn ok" data-act="esitoMenu" data-id="${p.id}" data-v="accettata">✓ Accettato</button><button class="btn no" data-act="esitoMenu" data-id="${p.id}" data-v="respinta">✕ Rifiutato</button></div>
+      ${chiusa ? `<button class="btn" data-act="esitoMenu" data-id="${p.id}" data-v="riapri" style="margin-top:10px">Rimetti in attesa</button>` : ''}
+    </div>
+    <button class="btn del" data-act="eliminaMenu" data-id="${p.id}" style="margin-top:12px">Elimina il reso${p.cartellaUrl ? ' (anche foto e video su Drive)' : ''}</button>
+    <button class="btn" data-act="chiudiMenu" style="margin-top:10px">Annulla</button>
+  </div>`;
+  v.addEventListener('click', e => { if(e.target === v) chiudiMenu(); });
+  document.body.appendChild(v);
+}
+async function eliminaDaDrive(p){
+  if(!DRIVE_URL || !p.cartellaUrl) return true;
+  try{
+    const r = await fetch(DRIVE_URL, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify({k: DRIVE_KEY, azione:'elimina', pratica: p.num, token: p.token || ''})});
+    const j = await r.json(); return !!j.ok;
+  }catch(e){ return false; }
+}
+async function eliminaPratica(p){
+  if(!confirm(`Elimino il reso ${p.num} (${p.cliente.rs || 'senza cliente'}) con PDF, foto e video${p.cartellaUrl ? ', anche dalla cartella su Google Drive' : ''}? Non si può annullare.`)) return false;
+  busy(true, 'Elimino…');
+  const ok = await eliminaDaDrive(p);
+  await DB.del(p.id); busy(false);
+  if(cur && cur.id === p.id) cur = null;
+  await carica(); chiudiMenu(); vista = 'home'; render();
+  toast(ok ? 'Reso eliminato.' : 'Reso eliminato dall\'app. La cartella su Google Drive va tolta a mano.', ok ? 2600 : 4500);
+  return true;
+}
+
+document.addEventListener('change', async e => {
+  const t = e.target;
+  if(t.dataset.p){ profilo[t.dataset.p] = t.value; }
+  if(t.type === 'file' && t.dataset.slot && cur){
+    const files = [...t.files]; if(!files.length) return;
+    const [k, i] = t.dataset.slot.split('.');
+    const lista = k === 'ddt' ? cur.ddt : cur.ruote[+i][k];
+    await aggiungiFile(lista, files);
+    render(true);
+  }
+});
+document.addEventListener('keydown', e => { if(e.key === 'Enter' && e.target.matches('[role=button]')) e.target.click(); });
+
+async function vaiPasso4(){
+  step = 3; render();
+  if(!mancantiTutto(cur).length && !pdfAggiornato(cur)){ await preparaPDF(cur); render(); }
+}
+
+document.addEventListener('click', async e => {
+  const el = e.target.closest('[data-act]'); if(!el) return;
+  const a = el.dataset.act, v = el.dataset.v;
+  const p = cur;
+  switch(a){
+    case 'ruolo': profilo = Object.assign({}, profilo || {}, {ruolo: v, _nuovo: true}); vista = 'profilo'; render(); break;
+    case 'profilo': vista = 'profilo'; render(); break;
+    case 'chi': profilo = ls.get('trk-resi-profilo', null); vista = profilo ? 'home' : 'chi'; render(); break;
+    case 'cambiaRuolo': profilo = Object.assign({}, profilo, {ruolo: profilo.ruolo === 'agente' ? 'cliente' : 'agente', _nuovo: true}); render(); break;
+    case 'tema': ls.set('trk-resi-tema', v); applicaTema(); render(); break;
+    case 'salvaProfilo': {
+      const ag = profilo.ruolo === 'agente';
+      const req = ag ? [['nome','Nome e cognome'],['mail','Mail'],['resp','Responsabile truck']] : [['rs','Ragione sociale'],['ref','Nome di chi segue la richiesta'],['tel','Telefono']];
+      const manca = req.filter(([k]) => !(profilo[k]||'').trim());
+      if(manca.length){ toast('Manca: ' + manca.map(x=>x[1]).join(', ')); return; }
+      if(ag && !/^\S+@\S+\.\S+$/.test(profilo.mail.trim())){ toast('La mail non sembra corretta.'); return; }
+      delete profilo._nuovo; ls.set('trk-resi-profilo', profilo);
+      vista = importDati ? 'import' : 'home';
+      render(); break;
+    }
+    case 'guida': vista = 'guida'; render(); break;
+    case 'trasporto': vista = 'trasporto'; render(); break;
+    case 'home': case 'casa': if(cur) await salva(true, false); cur = null; await carica(); vista = 'home'; if(importDati){ importDati = null; history.replaceState(null,'',location.pathname); } render(); break;
+    case 'filtro': filtro = v; render(true); break;
+    case 'csv': esportaCSV(); break;
+    case 'nuova': cur = nuovaPratica(); await salva(true); step = 0; vista = 'step'; render(); break;
+    case 'apri': {
+      chiudiMenu();
+      cur = pratiche.find(x => x.id === el.dataset.id); if(!cur) return;
+      if(cur.stato === 'bozza'){ const s = primoPassoIncompleto(cur); vista = 'step'; if(s === 3) await vaiPasso4(); else { step = s; render(); } }
+      else { vista = 'scheda'; render(); }
+      break;
+    }
+    case 'indietro':
+      if(step === 0){ await salva(true, false); cur = null; await carica(); vista = 'home'; render(); }
+      else { step--; render(); }
+      break;
+    case 'avanti': {
+      const m = [mancantiDati, mancantiMotivo, mancantiFile][step](p);
+      if(step < 2 && m.length){ toast('Manca: ' + m.join(', '), 3600); return; }
+      if(step === 1) { const ev = 'Motivo: ' + cap(p.motivo); if(!(p.eventi||[]).some(x => x.cosa === ev)) evento(p, ev, 'n'); }
+      await salva(true);
+      if(step === 2){ if(m.length) toast('Mancano ancora ' + m.length + ' elementi.', 3000); await vaiPasso4(); }
+      else { step++; render(); }
+      break;
+    }
+    case 'vaiStep': step = +v; vista = 'step'; render(); break;
+    case 'set': p[el.dataset.k] = v; salva(); render(true); break;
+    case 'qta': {
+      const n = Math.max(1, Math.min(MAXQ, p.qta + (+v)));
+      if(n < p.qta){ const r = p.ruote[p.qta-1]; if(r && (r.front.length || r.a3.length || r.extra.length) && !confirm(`La ruota ${p.qta} ha già foto o video: li tolgo?`)) return; p.ruote.length = Math.max(n, 1); }
+      p.qta = n; allineaRuote(p); salva(); render(true); break;
+    }
+    case 'motivo': if(p.motivo !== v){ p.motivo = v; p.verificato = false; } salva(); render(true); break;
+    case 'verif': p.verificato = el.checked; salva(); break;
+    case 'togli': {
+      const [k, i] = el.dataset.slot.split('.');
+      const lista = k === 'ddt' ? p.ddt : p.ruote[+i][k];
+      const ix = lista.findIndex(f => f.id === el.dataset.id); if(ix >= 0) lista.splice(ix, 1);
+      await salva(true); render(true); break;
+    }
+    case 'apriPdf': apriPDF(p); break;
+    case 'rifaiPdf': await preparaPDF(p, true); render(true); break;
+    case 'invia': await invia(p, v); break;
+    case 'modulo': window.open(urlModulo(p), '_blank'); evento(p, 'Aperto il modulo RESO TRUCK compilato', 'n'); salva(true, false); break;
+    case 'spuntaModulo':
+      p.passi.modulo = !p.passi.modulo;
+      evento(p, p.passi.modulo ? 'Modulo RESO TRUCK inviato' : 'Modulo RESO TRUCK: tolta la spunta', p.passi.modulo ? 'g' : 'n');
+      await salva(true, false); render(true); break;
+    case 'esito': {
+      if(p.stato === v) return;
+      p.stato = v; evento(p, 'Esito: ' + ({inviata:'in attesa', accettata:'accettata', respinta:'rifiutata', chiusa:'chiusa'})[v], v === 'respinta' ? 'r' : v === 'inviata' ? 'n' : 'g');
+      await salva(true, false); render(true); break;
+    }
+    case 'salvaNota': { const t = $('#e-note').value.trim(); p.esito = p.esito || {}; if(t === (p.esito.note||'')) { toast('Nessuna modifica.'); return; } p.esito.note = t; evento(p, 'Nota esito: ' + (t || '(cancellata)'), 'n'); await salva(true, false); render(true); toast('Nota salvata.'); break; }
+    case 'modifica': evento(p, 'Riaperta per modifiche', 'n'); await salva(true, false); step = 0; vista = 'step'; render(); break;
+    case 'duplica': {
+      const n = nuovaPratica();
+      Object.assign(n, {cliente: {...p.cliente}, materiale: p.materiale, marca: p.marca, misura: p.misura, codArt: p.codArt, motivo: p.motivo, ddtNum: p.ddtNum, ddtData: p.ddtData});
+      n.eventi = []; evento(n, 'Creata duplicando la pratica ' + p.num, 'n');
+      cur = n; await salva(true); step = 0; vista = 'step'; render(); toast('Copia creata: cambia quello che serve e aggiungi le foto.', 3200); break;
+    }
+    case 'elimina': await eliminaPratica(p); break;
+    case 'menu': { const q = pratiche.find(x => x.id === el.dataset.id); if(q) apriMenu(q); break; }
+    case 'chiudiMenu': chiudiMenu(); break;
+    case 'eliminaMenu': { const q = pratiche.find(x => x.id === el.dataset.id); if(q) await eliminaPratica(q); break; }
+    case 'esitoMenu': {
+      const q = pratiche.find(x => x.id === el.dataset.id); if(!q) return;
+      const nota = ($('#m-nota') ? $('#m-nota').value.trim() : '');
+      q.esito = q.esito || {};
+      if(nota !== (q.esito.note || '')){ q.esito.note = nota; if(nota) evento(q, 'Nota esito: ' + nota, 'n'); }
+      if(v === 'riapri'){ q.stato = (q.eventi||[]).some(x => x.cosa.startsWith('Inviata')) ? 'inviata' : (q.pdf ? 'pronta' : 'bozza'); evento(q, 'Esito tolto: di nuovo in attesa', 'n'); }
+      else { q.stato = v; evento(q, v === 'accettata' ? 'Esito: ACCETTATO' : 'Esito: RIFIUTATO', v === 'accettata' ? 'g' : 'r'); }
+      q.agg = new Date().toISOString(); await DB.put(q);
+      chiudiMenu(); await carica(); render(true);
+      toast(v === 'riapri' ? 'Reso di nuovo in attesa.' : v === 'accettata' ? 'Salvato come ACCETTATO.' : 'Salvato come RIFIUTATO.');
+      break;
+    }
+    case 'importa': {
+      const d = importDati; const n = nuovaPratica();
+      n.data = d.data || oggiISO();
+      n.cliente = {rs: (d.c&&d.c.rs)||'', cod: (d.c&&d.c.cod)||'', ref: (d.c&&d.c.ref)||'', tel: (d.c&&d.c.tel)||''};
+      if(MATERIALI.includes(d.m)) n.materiale = d.m; if(MARCHE.includes(d.b)) n.marca = d.b; if(MISURE.includes(d.s)) n.misura = d.s;
+      n.codArt = d.a || ''; n.qta = Math.max(1, Math.min(MAXQ, +d.q || 1)); if(MOTIVI[d.o]) n.motivo = d.o;
+      n.ddtNum = d.dn || ''; n.ddtData = d.dd || ''; n.note = d.n || ''; n.origine = 'cliente';
+      if(d.num) n.num = d.num;
+      if(d.tk) n.token = d.tk;
+      allineaRuote(n); (d.r||[]).forEach((m,i) => { if(n.ruote[i]) n.ruote[i].matricola = m; });
+      n.eventi = []; evento(n, 'Importata dal link del cliente', 'b');
+      cur = n; await salva(true); importDati = null; history.replaceState(null,'',location.pathname);
+      step = 0; vista = 'step'; render(); toast('Importata. Controlla i dati e completa codice B2B e codice articolo.', 3400); break;
+    }
+  }
+});
+
+function applicaTema(){ const t = ls.get('trk-resi-tema','auto'); if(t === 'auto') document.documentElement.removeAttribute('data-theme'); else document.documentElement.setAttribute('data-theme', t); }
+
+/* =================== AVVIO =================== */
+(async function(){
+  applicaTema();
+  const m = location.hash.match(/#p=([\w-]+)/);
+  if(m){ try{ importDati = JSON.parse(decodeURIComponent(escape(atob(m[1].replace(/-/g,'+').replace(/_/g,'/'))))); }catch(e){ importDati = null; } }
+  await carica();
+  vista = !profilo ? 'chi' : importDati ? 'import' : 'home';
+  render();
+  caricaLogo();
+  if('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(()=>{});
+})();
+</script>
+</body>
+</html>

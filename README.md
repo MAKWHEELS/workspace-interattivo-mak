@@ -183,3 +183,10 @@ Rigenera: `python3 _build/build.py`
 - Sorgente in `Locandine/trk-lead-pedane/` (segnaposto `__NOME__`, `__TEL__`...); copia negli agenti con `Tool/mak-promo-agenti/genera_trk_lead.py`.
 - Due articoli (F1223CCLS120X2, F9023CCLS175X3), pedana da 12 ruote di un unico articolo, massimo 9 pedane anche miste.
 - Prezzo su tutte le ruote dell'ordine: 1 pedana 85 €, 2 pedane 80 €, poi 1 € in meno per pedana fino a 73 €. Nessun conto alla rovescia: la promo non ha una data.
+
+## resi-truck (RESI E CONTESTAZIONI TRUCK · TRK, dal 2026-11-15)
+
+- App per clienti e agenti: richiesta di reso per contestazione delle ruote truck in acciaio e in lega (crepe, foro valvola, bilanciatura, verniciatura), foto e video guidati, PDF pronto per WhatsApp o mail, modulo RESO TRUCK già compilato per l'agente, storico con esito (accettato, rifiutato) ed eliminazione.
+- Copia unica per tutti; sezione «RESI E CONTESTAZIONI» in ogni pagina agente (icona e testata in `loghi/resi-contestazioni*.svg`).
+- Foto e video delle ruote vanno su Google Drive con uno script Apps Script; il DDT resta solo nel PDF.
+- Sorgente e istruzioni: `Tool/trk-resi-contestazioni/` nel workspace; si ripubblica con `Tool/mak-promo-agenti/aggiungi_sezione_resi.py`.
