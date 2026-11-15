@@ -399,7 +399,7 @@ function fileAParte(p){
 
 /* =================== TESTI E LINK =================== */
 function linkImport(p){
-  const d = {v:1, num:p.num, tk:p.token, data:p.data, c:p.cliente, m:p.materiale, b:p.marca, s:p.misura, a:p.codArt, q:p.qta, o:p.motivo, dn:p.ddtNum, dd:p.ddtData, n:p.note, r:p.ruote.slice(0,p.qta).map(r=>r.matricola||'')};
+  const d = {v:1, num:p.num, tk:p.token, cu:p.cartellaUrl || '', nd:p.nomeDrive || '', data:p.data, c:p.cliente, m:p.materiale, b:p.marca, s:p.misura, a:p.codArt, q:p.qta, o:p.motivo, dn:p.ddtNum, dd:p.ddtData, n:p.note, r:p.ruote.slice(0,p.qta).map(r=>r.matricola||'')};
   const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(d)))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
   return location.href.split('#')[0] + '#p=' + b64;
 }
@@ -676,21 +676,33 @@ function daCaricare(p){
   }
   return out.filter(x => !x.f.url && (isImg(x.f) || isVid(x.f)) && x.f.size <= MAX_UP);
 }
+// Nome della cartella su Drive: codice cliente - ragione sociale - data - pratica
+const nomeCartella = p => [(p.cliente.cod || '').trim() || 'SENZA CODICE', (p.cliente.rs || '').trim().toUpperCase(), dataIT(p.data).replace(/\//g, '-'), p.num].join(' - ');
 const base64Di = blob => new Promise((res, rej) => { const fr = new FileReader(); fr.onload = () => res(String(fr.result).split(',')[1]); fr.onerror = () => rej(fr.error); fr.readAsDataURL(blob); });
+// Se cambiano codice cliente, ragione sociale o data, la cartella su Drive prende il nome nuovo
+async function rinominaSuDrive(p){
+  if(!DRIVE_URL || !p.cartellaUrl || p.nomeDrive === nomeCartella(p)) return;
+  try{
+    const r = await fetch(DRIVE_URL, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify({k: DRIVE_KEY, azione:'rinomina', pratica: p.num, token: p.token || '', cartella: nomeCartella(p)})});
+    const j = await r.json();
+    if(j.ok){ p.nomeDrive = nomeCartella(p); evento(p, 'Cartella su Drive rinominata: ' + p.nomeDrive, 'b'); await salva(true, false); }
+  }catch(e){}
+}
 async function caricaSuDrive(p){
   if(!DRIVE_URL) return;
-  const lista = daCaricare(p); if(!lista.length) return;
+  const lista = daCaricare(p);
+  if(!lista.length){ await rinominaSuDrive(p); return; }
   let ok = 0;
   try{
     for(let i=0;i<lista.length;i++){
       const {f, nome} = lista[i];
       busy(true, `Carico foto e video su Google Drive… ${i+1} di ${lista.length}` + (f.size > 5e6 ? ` (${mb(f.size)})` : ''));
       if(!p.token) p.token = uid() + uid();
-      const corpo = JSON.stringify({k: DRIVE_KEY, token: p.token, pratica: p.num, cliente: p.cliente.rs, nome, tipo: f.tipo, dati: await base64Di(f.blob)});
+      const corpo = JSON.stringify({k: DRIVE_KEY, token: p.token, pratica: p.num, cliente: p.cliente.rs, cartella: nomeCartella(p), nome, tipo: f.tipo, dati: await base64Di(f.blob)});
       const r = await fetch(DRIVE_URL, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: corpo});
       const j = await r.json();
       if(!j.ok) throw new Error(j.err || 'errore');
-      f.url = j.url; p.cartellaUrl = j.cartella; ok++;
+      f.url = j.url; p.cartellaUrl = j.cartella; p.nomeDrive = nomeCartella(p); ok++;
       await salva(true, false);
     }
     evento(p, `Caricati su Google Drive ${ok} ${ok===1?'file':'file'} (foto e video)`, 'b');
@@ -1244,6 +1256,7 @@ document.addEventListener('click', async e => {
     case 'avanti': {
       const m = [mancantiDati, mancantiMotivo, mancantiFile][step](p);
       if(step < 2 && m.length){ toast('Manca: ' + m.join(', '), 3600); return; }
+      if(step === 0) rinominaSuDrive(p);
       if(step === 1) { const ev = 'Motivo: ' + cap(p.motivo); if(!(p.eventi||[]).some(x => x.cosa === ev)) evento(p, ev, 'n'); }
       await salva(true);
       if(step === 2){ if(m.length) toast('Mancano ancora ' + m.length + ' elementi.', 3000); await vaiPasso4(); }
@@ -1311,6 +1324,7 @@ document.addEventListener('click', async e => {
       n.ddtNum = d.dn || ''; n.ddtData = d.dd || ''; n.note = d.n || ''; n.origine = 'cliente';
       if(d.num) n.num = d.num;
       if(d.tk) n.token = d.tk;
+      if(d.cu){ n.cartellaUrl = d.cu; n.nomeDrive = d.nd || ''; }
       allineaRuote(n); (d.r||[]).forEach((m,i) => { if(n.ruote[i]) n.ruote[i].matricola = m; });
       n.eventi = []; evento(n, 'Importata dal link del cliente', 'b');
       cur = n; await salva(true); importDati = null; history.replaceState(null,'',location.pathname);
