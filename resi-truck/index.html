@@ -388,11 +388,11 @@ function nomeFileVideo(p, r, i){ const R = p.ruote[r]; return `ALLEGATO3_RUOTA${
 // File che non entrano nel PDF e partono insieme: video e DDT in PDF
 function fileAParte(p){
   const out = [];
-  p.ddt.forEach((f,i) => { if(!isImg(f)) out.push(new File([f.blob], `ALLEGATO1_DDT${p.ddt.length>1?'_'+(i+1):''}.${estensione(f)}`, {type:f.tipo})); });
+  p.ddt.forEach((f,i) => { if(!isImg(f) && f.blob) out.push(new File([f.blob], `ALLEGATO1_DDT${p.ddt.length>1?'_'+(i+1):''}.${estensione(f)}`, {type:f.tipo})); });
   for(let r=0;r<p.qta;r++){
     const R = p.ruote[r];
-    R.a3.forEach((f,i) => { if(!isImg(f) && !f.url) out.push(new File([f.blob], nomeFileVideo(p,r,i), {type:f.tipo})); });
-    R.extra.forEach((f,i) => { if(!isImg(f) && !f.url) out.push(new File([f.blob], `EXTRA_RUOTA${r+1}_${i+1}.${estensione(f)}`, {type:f.tipo})); });
+    R.a3.forEach((f,i) => { if(!isImg(f) && !f.url && f.blob) out.push(new File([f.blob], nomeFileVideo(p,r,i), {type:f.tipo})); });
+    R.extra.forEach((f,i) => { if(!isImg(f) && !f.url && f.blob) out.push(new File([f.blob], `EXTRA_RUOTA${r+1}_${i+1}.${estensione(f)}`, {type:f.tipo})); });
   }
   return out;
 }
@@ -427,6 +427,7 @@ async function caricaLogo(){
   return logoData;
 }
 async function immagine(blob, max=1500){
+  if(!blob) return null;
   try{
     const bmp = await createImageBitmap(blob);
     const k = Math.min(1, max/Math.max(bmp.width, bmp.height));
@@ -436,6 +437,7 @@ async function immagine(blob, max=1500){
   }catch(e){ return null; }
 }
 function fotogramma(blob){
+  if(!blob) return Promise.resolve(null);
   return new Promise(res => {
     const v = document.createElement('video'); v.muted = true; v.playsInline = true; v.setAttribute('playsinline',''); v.preload = 'auto';
     const u = URL.createObjectURL(blob); let fatto = false;
@@ -674,7 +676,7 @@ function daCaricare(p){
     R.a3.forEach((f,i) => out.push({f, nome: isVid(f) ? nomeFileVideo(p,r,i).replace(/^ALLEGATO3_RUOTA(\d+)/,'RUOTA$1_ALLEGATO3') : `RUOTA${r+1}_ALLEGATO3_FOTO${R.a3.length>1?'_'+(i+1):''}.${estensione(f)}`}));
     R.extra.forEach((f,i) => out.push({f, nome:`RUOTA${r+1}_EXTRA_${i+1}.${estensione(f)}`}));
   }
-  return out.filter(x => !x.f.url && (isImg(x.f) || isVid(x.f)) && x.f.size <= MAX_UP);
+  return out.filter(x => !x.f.url && x.f.blob && (isImg(x.f) || isVid(x.f)) && x.f.size <= MAX_UP);
 }
 // Nome della cartella su Drive: codice cliente - ragione sociale - data - pratica
 const nomeCartella = p => [(p.cliente.cod || '').trim() || 'SENZA CODICE', (p.cliente.rs || '').trim().toUpperCase(), dataIT(p.data).replace(/\//g, '-'), p.num].join(' - ');
@@ -714,6 +716,19 @@ async function caricaSuDrive(p){
   await salva(true, false);
 }
 
+// Il PDF va nella cartella della richiesta su Drive, sempre con lo stesso nome (si sostituisce se rigenerato)
+const nomePdfDrive = p => `RICHIESTA RESO ${p.num}.pdf`;
+async function caricaPdfSuDrive(p){
+  if(!DRIVE_URL || !p.cartellaUrl || !p.pdf || !p.pdf.blob) return;
+  try{
+    busy(true, 'Salvo il PDF su Google Drive…');
+    const r = await fetch(DRIVE_URL, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify({k: DRIVE_KEY, token: p.token, pratica: p.num, cliente: p.cliente.rs, cartella: nomeCartella(p), nome: nomePdfDrive(p), tipo:'application/pdf', dati: await base64Di(p.pdf.blob)})});
+    const j = await r.json(); if(!j.ok) throw new Error(j.err || 'errore');
+    p.pdfUrl = j.url; evento(p, 'PDF salvato nella cartella su Google Drive', 'b');
+  }catch(e){ evento(p, 'PDF non salvato su Google Drive: tocca «Rigenera» per riprovare', 'r'); }
+  await salva(true, false);
+}
+
 async function preparaPDF(p, forza){
   if(!forza && pdfAggiornato(p)) return p.pdf;
   busy(true, 'Creo il PDF…');
@@ -722,10 +737,11 @@ async function preparaPDF(p, forza){
     await caricaSuDrive(p);
     busy(true, 'Creo il PDF…');
     const r = await creaPDF(p, (a, t) => busy(true, `Creo il PDF… ${a} di ${t}`));
-    p.pdf = r;
+    p.pdf = r; p.pdfUrl = '';
     if(p.stato === 'bozza') p.stato = 'pronta';
     evento(p, `${prima ? 'PDF aggiornato' : 'PDF creato'}: ${r.pagine} pagine, ${mb(r.size)}`, 'b');
     await salva(true, false);
+    await caricaPdfSuDrive(p);
     return r;
   }catch(e){ console.error(e); toast('Non sono riuscito a creare il PDF: riprova.'); return null; }
   finally{ busy(false); }
@@ -735,6 +751,14 @@ async function preparaPDF(p, forza){
 function scarica(file){ const a = document.createElement('a'); a.href = URL.createObjectURL(file); a.download = file.name; document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove();}, 4000); }
 async function invia(p, canale){
   const pdf = await preparaPDF(p); if(!pdf) return;
+  if(!pdf.blob){   // richiesta ripristinata da backup: si manda il link del PDF su Drive
+    if(!p.pdfUrl){ toast('Il PDF non è su questo telefono né su Drive.'); return; }
+    const txt = testoMessaggio(p).split('\n').slice(0,2).join('\n') + '\nPDF: ' + p.pdfUrl;
+    if(navigator.share){ try{ await navigator.share({text: txt}); }catch(e){ if(e && e.name === 'AbortError') return; } }
+    else if(canale === 'whatsapp') window.open('https://wa.me/?text=' + encodeURIComponent(txt), '_blank');
+    else location.href = 'mailto:?subject=' + encodeURIComponent('Reso truck TRK ' + p.num) + '&body=' + encodeURIComponent(txt);
+    evento(p, `Inviato il link del PDF ${canale === 'whatsapp' ? 'su WhatsApp' : 'per mail'}`, 'g'); await salva(true, false); vista = 'scheda'; render(); return;
+  }
   const files = [new File([pdf.blob], pdf.nome, {type:'application/pdf'}), ...fileAParte(p)];
   const testo = testoMessaggio(p);
   const titolo = `Reso truck TRK ${p.num} - ${p.cliente.rs}`;
@@ -766,6 +790,7 @@ async function invia(p, canale){
 }
 function apriPDF(p){
   if(!p.pdf) return;
+  if(!p.pdf.blob){ if(p.pdfUrl) window.open(p.pdfUrl, '_blank'); else toast('Il PDF non è su questo telefono.'); return; }
   const u = URL.createObjectURL(p.pdf.blob);
   const a = document.createElement('a'); a.href = u; a.target = '_blank'; a.rel = 'noopener'; document.body.appendChild(a); a.click(); a.remove();
   setTimeout(() => URL.revokeObjectURL(u), 60000);
@@ -889,12 +914,13 @@ function vHome(){
       <input type="search" id="cerca" placeholder="Cerca cliente, pratica, marca, misura…" value="${esc(cerca)}" aria-label="Cerca nello storico">
       <div class="filters">${[['tutte','Tutte'],['bozza','Da finire'],['inviata','Inviate'],['chiusa','Chiuse']].map(([k,l])=>`<button class="opt ${filtro===k?'on':''}" data-act="filtro" data-v="${k}"><b>${c[k]}</b>${l}</button>`).join('')}</div>
       <div class="card list" id="lista">${lista.length ? lista.map(riga).join('') : '<p class="muted" style="margin:0">Nessuna richiesta con questi filtri.</p>'}</div>
-      <div class="links"><button class="lnk" data-act="csv">Scarica lo storico per Excel</button></div>`
+      ${riquadroBackup()}`
     : `<div class="card"><h3>Come funziona</h3><ol class="todo">
       <li><b>Dati</b>: cliente, materiale, marca, misura, codice e quante ruote.</li>
       <li><b>Motivo</b>: crepe, foro valvola, bilanciatura o verniciatura.</li>
       <li><b>Foto e video</b>: DDT di acquisto e, per ogni ruota, foto frontale con marcatura e la prova del difetto.</li>
       <li><b>PDF</b>: l'app lo crea e tu lo mandi su WhatsApp o per mail. Ogni richiesta resta qui nello storico.</li></ol></div>`}
+    ${pratiche.length ? '' : riquadroBackup()}
     <div class="links"><button class="lnk" data-act="guida">Guida: cosa serve per ogni motivo</button><button class="lnk" data-act="trasporto">Ruote arrivate rotte dal corriere? Non è una contestazione: leggi qui</button></div>`;
   foot('');
 }
@@ -969,7 +995,7 @@ function slotFile(chiave, lista, titolo, tag, tagCls, hint, accetta, opz){
   return `<div class="slot ${done && !opz ? 'done' : ''}">
     <div class="hd"><div class="n">${titolo}</div><span class="tag ${done && !opz ? 'okt' : tagCls}">${done && !opz ? '✓ ' + tag : tag}</span></div>
     ${hint ? `<div class="hint">${hint}</div>` : ''}
-    ${lista.length ? `<div class="thumbs">${lista.map(f => `<div class="th">${isImg(f) ? `<img src="${urlDi(f)}" alt="">` : isVid(f) ? `<video src="${urlDi(f)}#t=0.1" muted playsinline preload="metadata"></video><span class="vb">▶ ${mb(f.size)}</span>` : `<span>📄<br>${esc(estensione(f).toUpperCase())}</span>`}<button class="x" data-act="togli" data-slot="${chiave}" data-id="${f.id}" aria-label="Togli">✕</button></div>`).join('')}</div>` : ''}
+    ${lista.length ? `<div class="thumbs">${lista.map(f => `<div class="th">${!f.blob ? `<a href="${esc(f.url||'#')}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">☁️<br>Su Drive</a>` : isImg(f) ? `<img src="${urlDi(f)}" alt="">` : isVid(f) ? `<video src="${urlDi(f)}#t=0.1" muted playsinline preload="metadata"></video><span class="vb">▶ ${mb(f.size)}</span>` : `<span>📄<br>${esc(estensione(f).toUpperCase())}</span>`}<button class="x" data-act="togli" data-slot="${chiave}" data-id="${f.id}" aria-label="Togli">✕</button></div>`).join('')}</div>` : ''}
     <div class="addrow">${accetta.map(a => `<label class="addbtn">${a.lbl}<input type="file" data-slot="${chiave}" accept="${a.acc}" ${a.cap ? 'capture="environment"' : ''} ${a.multi ? 'multiple' : ''}></label>`).join('')}</div>
   </div>`;
 }
@@ -1003,8 +1029,9 @@ function s3(p){
 function blocDocumento(p){
   const nv = fileAParte(p).length;
   return `<div class="card"><div class="doc"><div class="ico"><span>PDF</span></div>
-      <div><div class="nm">${esc(p.pdf.nome)}</div><div class="mt">${p.pdf.pagine} pagine · ${mb(p.pdf.size)}${nv ? ` · + ${nv} video` : ''}${p.cartellaUrl ? ' · foto e video su Drive' : ''} · ${oraIT(p.pdf.creato)}</div></div></div>
-      <div class="grid2" style="margin-top:14px"><button class="btn" data-act="apriPdf">Apri il PDF</button><button class="btn" data-act="rifaiPdf">Rigenera</button></div>
+      <div><div class="nm">${esc(p.pdf.nome)}</div><div class="mt">${p.pdf.pagine} pagine · ${mb(p.pdf.size)}${nv ? ` · + ${nv} video` : ''}${p.pdfUrl ? ' · PDF, foto e video su Drive' : p.cartellaUrl ? ' · foto e video su Drive' : ''} · ${oraIT(p.pdf.creato)}</div></div></div>
+      ${p.pdf.blob ? `<div class="grid2" style="margin-top:14px"><button class="btn" data-act="apriPdf">Apri il PDF</button><button class="btn" data-act="rifaiPdf">Rigenera</button></div>`
+        : `<button class="btn" data-act="apriPdf" style="margin-top:14px">Apri il PDF su Drive</button>`}
       ${p.cartellaUrl ? `<a class="btn" href="${esc(p.cartellaUrl)}" target="_blank" rel="noopener" style="margin-top:10px">Apri la cartella su Google Drive</a>` : ''}</div>`;
 }
 function bloccoInvio(p, ripeti){
@@ -1126,16 +1153,131 @@ function vImport(){
   foot(`<button class="btn" data-act="casa">Annulla</button><button class="btn primary" data-act="importa">Importa la richiesta</button>`);
 }
 
-/* =================== STORICO PER EXCEL =================== */
-function esportaCSV(){
-  const q = v => '"' + String(v ?? '').replace(/"/g,'""') + '"';
-  const righe = [['Pratica','Data','Stato','Cliente','Codice B2B','Materiale','Marca','Misura','Codice articolo','Ruote','Motivo','Inviata il','Esito nota','Ultimo evento'].map(q).join(';')];
-  pratiche.forEach(p => {
-    const inv = (p.eventi||[]).find(e => e.cosa.startsWith('Inviata')); const ul = (p.eventi||[]).slice(-1)[0];
-    righe.push([p.num, dataIT(p.data), STATI[p.stato], p.cliente.rs, p.cliente.cod, p.materiale, p.marca, p.misura, p.codArt, p.qta, p.motivo, inv ? oraIT(inv.t) : '', p.esito && p.esito.note, ul ? ul.cosa + ' (' + oraIT(ul.t) + ')' : ''].map(q).join(';'));
-  });
-  const f = new File(['﻿' + righe.join('\r\n')], `Storico resi TRK ${oggiISO()}.csv`, {type:'text/csv'});
-  if(navigator.canShare && navigator.canShare({files:[f]})) navigator.share({files:[f]}).catch(()=>{}); else scarica(f);
+/* =================== BACKUP IN EXCEL: scarica e ricarica =================== */
+let xlsxPronto = null;
+function caricaXLSX(){
+  if(window.XLSX) return Promise.resolve();
+  return xlsxPronto = xlsxPronto || new Promise((res, rej) => { const s = document.createElement('script'); s.src = 'xlsx.full.min.js'; s.onload = res; s.onerror = () => { xlsxPronto = null; rej(new Error('libreria')); }; document.head.appendChild(s); });
+}
+function riquadroBackup(){
+  const ul = ls.get('trk-resi-backup', null);
+  const giorni = ul ? Math.floor((Date.now() - new Date(ul).getTime()) / 864e5) : null;
+  const avviso = pratiche.length && (giorni === null || giorni >= 7);
+  return `<div class="card" style="margin-top:14px"><h3>Backup delle richieste</h3>
+    <p class="small muted" style="margin:0 0 10px">Un file Excel con una riga per ogni richiesta, tutti i dati e i link a PDF, foto e video su Google Drive. Tienine sempre una copia: serve anche per ricaricare tutto su un altro telefono.</p>
+    ${avviso ? `<div class="banner warn" style="margin-bottom:10px"><span class="ic">💾</span><div>${giorni === null ? 'Non hai ancora salvato un backup.' : `Ultimo backup ${giorni} giorni fa.`} Scaricane uno aggiornato.</div></div>` : ul ? `<p class="small muted" style="margin:0 0 10px">Ultimo backup: ${oraIT(ul)}</p>` : ''}
+    <div class="grid2"><button class="btn primary" data-act="backup" ${pratiche.length ? '' : 'disabled'}>Scarica backup aggiornato</button><label class="btn" style="position:relative;overflow:hidden">Carica da ultimo backup<input type="file" id="ripristina" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" style="position:absolute;inset:0;opacity:0;cursor:pointer"></label></div>
+  </div>`;
+}
+// Copia della pratica senza file binari (foto, video, PDF restano su Drive con il loro link)
+function senzaFile(p){
+  const f = x => ({id:x.id, nome:x.nome, tipo:x.tipo, size:x.size, url:x.url || ''});
+  const c = JSON.parse(JSON.stringify(Object.assign({}, p, {ddt:[], ruote:[], pdf:null})));
+  c.ddt = p.ddt.map(f);
+  c.ruote = p.ruote.map(r => ({matricola: r.matricola || '', front: r.front.map(f), a3: r.a3.map(f), extra: r.extra.map(f)}));
+  c.pdf = p.pdf ? {nome:p.pdf.nome, pagine:p.pdf.pagine, size:p.pdf.size, creato:p.pdf.creato} : null;
+  return c;
+}
+async function scaricaBackup(){
+  busy(true, 'Preparo il backup…');
+  try{
+    await caricaXLSX();
+    const L = pratiche.slice().sort((a,b) => (a.creata||'').localeCompare(b.creata||''));
+    const maxR = Math.max(1, ...L.map(p => p.qta));
+    const conta = (k) => Math.max(1, ...L.map(p => Math.max(0, ...p.ruote.slice(0,p.qta).map(r => r[k].length))));
+    const nF = conta('front'), nA = conta('a3'), nE = Math.max(0, ...L.map(p => Math.max(0, ...p.ruote.slice(0,p.qta).map(r => r.extra.length))));
+    const testa = ['Pratica','Data richiesta','Stato','Nota esito','Cliente','Codice cliente B2B','Referente','Telefono','Materiale','Marca','Misura','Codice articolo','Ruote','Motivo','Verifica fatta','N. DDT/fattura','Data DDT','Note','Matricole','Compilata da','Agente di riferimento','Modulo RESO TRUCK','Inviata il','Ultimo evento','Cartella Drive','PDF'];
+    for(let r=1;r<=maxR;r++){
+      for(let i=1;i<=nF;i++) testa.push(`Ruota ${r} foto frontale${nF>1?' '+i:''}`);
+      for(let i=1;i<=nA;i++) testa.push(`Ruota ${r} allegato 3${nA>1?' '+i:''}`);
+      for(let i=1;i<=nE;i++) testa.push(`Ruota ${r} extra ${i}`);
+    }
+    const righe = [testa], link = [];
+    L.forEach((p, ri) => {
+      const a = p.autore || {}, inv = (p.eventi||[]).find(e => e.cosa.startsWith('Inviat')), ul = (p.eventi||[]).slice(-1)[0];
+      const riga = [p.num, dataIT(p.data), STATI[p.stato], (p.esito && p.esito.note) || '', p.cliente.rs, p.cliente.cod, p.cliente.ref, p.cliente.tel,
+        p.materiale, p.marca, p.misura, p.codArt, p.qta, p.motivo, p.verificato ? 'Sì' : 'No', p.ddtNum, p.ddtData ? dataIT(p.ddtData) : '', p.note,
+        p.ruote.slice(0,p.qta).map((r,i) => r.matricola ? `R${i+1}: ${r.matricola}` : '').filter(Boolean).join('; '),
+        (a.ruolo === 'agente' ? 'Agente: ' : 'Cliente: ') + (a.nome || ''), a.agNome || '', p.passi && p.passi.modulo ? 'Inviato' : '',
+        inv ? oraIT(inv.t) : '', ul ? `${ul.cosa} (${oraIT(ul.t)})` : '', p.cartellaUrl ? 'Apri cartella' : '', p.pdfUrl ? 'Apri PDF' : ''];
+      if(p.cartellaUrl) link.push([ri+1, 24, p.cartellaUrl]);
+      if(p.pdfUrl) link.push([ri+1, 25, p.pdfUrl]);
+      for(let r=0;r<maxR;r++){
+        const R = p.ruote[r] && r < p.qta ? p.ruote[r] : {front:[], a3:[], extra:[]};
+        const cella = (f, etich) => { if(!f) return ''; if(f.url){ link.push([ri+1, riga.length, f.url]); return etich; } return f.blob ? 'solo sul telefono' : ''; };
+        for(let i=0;i<nF;i++) riga.push(cella(R.front[i], 'Foto'));
+        for(let i=0;i<nA;i++) riga.push(cella(R.a3[i], R.a3[i] && isVid(R.a3[i]) ? 'Video' : 'Foto'));
+        for(let i=0;i<nE;i++) riga.push(cella(R.extra[i], R.extra[i] && isVid(R.extra[i]) ? 'Video' : 'Foto'));
+      }
+      righe.push(riga);
+    });
+    const ws = XLSX.utils.aoa_to_sheet(righe);
+    link.forEach(([r, c, url]) => { const ad = XLSX.utils.encode_cell({r, c}); if(ws[ad]){ ws[ad].l = {Target: url, Tooltip: url}; } });
+    ws['!cols'] = testa.map((h, i) => ({wch: i === 4 || i === 17 || i === 23 ? 34 : i >= 24 ? 14 : Math.max(10, Math.min(24, h.length + 2))}));
+    ws['!autofilter'] = {ref: XLSX.utils.encode_range({s:{r:0,c:0}, e:{r:righe.length-1, c:testa.length-1}})};
+    // Foglio tecnico per ricaricare il backup (non modificarlo)
+    const tec = [['ID', 'DATI (non modificare: servono per «Carica da ultimo backup»)']];
+    L.forEach(p => { const s = JSON.stringify(senzaFile(p)); const pezzi = []; for(let i=0;i<s.length;i+=30000) pezzi.push(s.slice(i, i+30000)); tec.push([p.id, ...pezzi]); });
+    const wt = XLSX.utils.aoa_to_sheet(tec);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Richieste di reso');
+    XLSX.utils.book_append_sheet(wb, wt, 'backup app');
+    wb.Props = {Title: 'Backup Resi TRK', CreatedDate: new Date()};
+    const dati = XLSX.write(wb, {type:'array', bookType:'xlsx', compression:true});
+    const d = new Date(), z = n => String(n).padStart(2,'0');
+    const nome = `Backup resi TRK ${d.getFullYear()}-${z(d.getMonth()+1)}-${z(d.getDate())} ${z(d.getHours())}${z(d.getMinutes())}.xlsx`;
+    const file = new File([dati], nome, {type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+    busy(false);
+    let ok = false;
+    if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})){
+      try{ await navigator.share({files:[file], title: nome}); ok = true; }catch(e){ if(e && e.name === 'AbortError') return; }
+    }
+    if(!ok){ scarica(file); ok = true; }
+    ls.set('trk-resi-backup', new Date().toISOString());
+    toast(`Backup pronto: ${L.length} ${L.length===1?'richiesta':'richieste'}. Salvalo in File o mandalo a te stesso.`, 3800);
+    render(true);
+  }catch(e){ console.error(e); toast('Non sono riuscito a creare il backup: riprova.'); }
+  finally{ busy(false); }
+}
+const valida = p => p && typeof p === 'object' && typeof p.id === 'string' && /^R\d{6}-[A-Z0-9]{3}$/.test(p.num || '') && p.cliente && typeof p.cliente === 'object' && Array.isArray(p.ruote) && Array.isArray(p.ddt);
+// Unione: vince la versione più recente; foto, video e PDF già presenti sul telefono non si perdono
+function unisci(loc, bk){
+  const nuova = (bk.agg || '') > (loc.agg || '') ? bk : loc, altra = nuova === bk ? loc : bk;
+  const m = JSON.parse(JSON.stringify(senzaFile(nuova)));
+  const blobDi = new Map();
+  const raccogli = q => { q.ddt.forEach(f => f.blob && blobDi.set(f.id, f.blob)); q.ruote.forEach(r => ['front','a3','extra'].forEach(k => r[k].forEach(f => f.blob && blobDi.set(f.id, f.blob)))); };
+  raccogli(loc);
+  const metti = f => { if(blobDi.has(f.id)) f.blob = blobDi.get(f.id); return f; };
+  m.ddt = m.ddt.map(metti); m.ruote.forEach(r => ['front','a3','extra'].forEach(k => r[k] = r[k].map(metti)));
+  if(m.pdf && loc.pdf && loc.pdf.blob && loc.pdf.creato === m.pdf.creato) m.pdf.blob = loc.pdf.blob;
+  return m;
+}
+async function ripristina(file){
+  busy(true, 'Leggo il backup…');
+  try{
+    await caricaXLSX();
+    const wb = XLSX.read(await file.arrayBuffer(), {type:'array'});
+    const ws = wb.Sheets['backup app'];
+    if(!ws){ busy(false); alert('Questo file non è un backup di Resi TRK (manca il foglio «backup app»).'); return; }
+    const righe = XLSX.utils.sheet_to_json(ws, {header:1, raw:true, defval:''}).slice(1);
+    const lette = [];
+    for(const r of righe){ if(!r[0]) continue; try{ const p = JSON.parse(r.slice(1).join('')); if(valida(p)) lette.push(p); }catch(e){} }
+    busy(false);
+    if(!lette.length){ alert('Nel file non ho trovato richieste da ricaricare.'); return; }
+    const perId = new Map(pratiche.map(p => [p.id, p]));
+    let nuove = 0, agg = 0, uguali = 0;
+    lette.forEach(p => { const l = perId.get(p.id); if(!l) nuove++; else if((p.agg||'') > (l.agg||'')) agg++; else uguali++; });
+    if(!confirm(`Nel backup ci sono ${lette.length} richieste:\n• ${nuove} nuove\n• ${agg} più aggiornate di quelle sul telefono\n• ${uguali} già presenti\n\nLe richieste sul telefono non vengono cancellate. Procedo?`)) return;
+    busy(true, 'Carico le richieste…');
+    for(const p of lette){
+      const l = perId.get(p.id);
+      const m = l ? unisci(l, p) : unisci({ddt:[], ruote:[], agg:''}, p);
+      if(!l) (m.eventi = m.eventi || []).push({t: new Date().toISOString(), cosa: 'Ricaricata da backup', c: 'b'});
+      await DB.put(m);
+    }
+    await carica(); busy(false); render();
+    toast(`Backup caricato: ${nuove} nuove, ${agg} aggiornate.`, 3500);
+  }catch(e){ console.error(e); busy(false); alert('Non riesco a leggere il file. Usa il file Excel scaricato con «Scarica backup aggiornato».'); }
 }
 
 /* =================== EVENTI =================== */
@@ -1200,6 +1342,7 @@ async function eliminaPratica(p){
 
 document.addEventListener('change', async e => {
   const t = e.target;
+  if(t.id === 'ripristina' && t.files && t.files[0]){ const f = t.files[0]; t.value = ''; await ripristina(f); return; }
   if(t.dataset.p){ profilo[t.dataset.p] = t.value; }
   if(t.type === 'file' && t.dataset.slot && cur){
     const files = [...t.files]; if(!files.length) return;
@@ -1240,7 +1383,7 @@ document.addEventListener('click', async e => {
     case 'trasporto': vista = 'trasporto'; render(); break;
     case 'home': case 'casa': if(cur) await salva(true, false); cur = null; await carica(); vista = 'home'; if(importDati){ importDati = null; history.replaceState(null,'',location.pathname); } render(); break;
     case 'filtro': filtro = v; render(true); break;
-    case 'csv': esportaCSV(); break;
+    case 'backup': await scaricaBackup(); break;
     case 'nuova': cur = nuovaPratica(); await salva(true); step = 0; vista = 'step'; render(); break;
     case 'apri': {
       chiudiMenu();
@@ -1338,6 +1481,7 @@ function applicaTema(){ const t = ls.get('trk-resi-tema','auto'); if(t === 'auto
 /* =================== AVVIO =================== */
 (async function(){
   applicaTema();
+  try{ navigator.storage && navigator.storage.persist && navigator.storage.persist(); }catch(e){}
   const m = location.hash.match(/#p=([\w-]+)/);
   if(m){ try{ importDati = JSON.parse(decodeURIComponent(escape(atob(m[1].replace(/-/g,'+').replace(/_/g,'/'))))); }catch(e){ importDati = null; } }
   await carica();
