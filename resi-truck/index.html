@@ -186,6 +186,8 @@ table.g th{background:var(--chip);font-size:12.5px;text-transform:uppercase;lett
 .links{display:grid;gap:4px;margin-top:6px}
 .lnk{background:none;border:0;color:var(--red);font-weight:650;cursor:pointer;padding:8px 0;text-align:left;text-decoration:underline;text-underline-offset:3px;font-size:15px}
 .center{text-align:center}
+.agg{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:18px 0 4px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--card);font-size:13px;color:var(--muted)}
+.agg button{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:10px;padding:9px 12px;font-weight:700;font-size:14px;cursor:pointer;white-space:nowrap}
 .figs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0 4px}
 .figs figure{margin:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
 .figs img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover}
@@ -230,6 +232,7 @@ const MAXQ = 10;
    restano nel PDF e i video partono allegati insieme al PDF. */
 const DRIVE_URL = 'https://script.google.com/macros/s/AKfycbz2rARPY1J91TLqFdHtpWO6JWGQDysl94Ji31KNBn6-kxDmdkX5ne9mXll4lG5NMFb-bA/exec';
 const DRIVE_KEY = 'trk-d17410c23440472d';
+const VERSIONE = '2026-11-19';
 const MAX_UP = 36 * 1024 * 1024;
 const MIN_VID = 5;        // secondi minimi di un video
 const MIN_LATO = 600;     // pixel minimi del lato corto di una foto
@@ -927,7 +930,8 @@ function vChi(){
         <button class="opt" data-act="ruolo" data-v="agente">Sono un agente MAK<small>Invio la richiesta a MAK con il modulo RESO TRUCK</small></button>
       </div>
     </div>
-    <div class="links center"><button class="lnk" data-act="guida" style="text-align:center">Cosa serve per un reso? Guida veloce</button></div>`;
+    <div class="links center"><button class="lnk" data-act="guida" style="text-align:center">Cosa serve per un reso? Guida veloce</button></div>
+    <div class="agg"><span>Versione ${VERSIONE}. Se il modulo non è aggiornato, tocca qui.</span><button data-act="aggiornaApp">↻ Aggiorna</button></div>`;
 }
 
 function vProfilo(){
@@ -1009,7 +1013,8 @@ function vHome(){
       <li><b>PDF</b>: l'app lo crea e tu lo mandi su WhatsApp o per mail. Ogni richiesta resta qui nello storico.</li></ol>
       <p class="small" style="margin:8px 0 0"><b>Senza tutto il materiale la richiesta non viene nemmeno presa in considerazione.</b></p></div>`}
     ${pratiche.length ? '' : riquadroBackup()}
-    <div class="links"><button class="lnk" data-act="guida">Guida: cosa serve per ogni motivo</button><button class="lnk" data-act="trasporto">Ruote arrivate rotte dal corriere? Non è una contestazione: leggi qui</button></div>`;
+    <div class="links"><button class="lnk" data-act="guida">Guida: cosa serve per ogni motivo</button><button class="lnk" data-act="trasporto">Ruote arrivate rotte dal corriere? Non è una contestazione: leggi qui</button></div>
+    <div class="agg"><span>Versione ${VERSIONE}. Se il modulo non è aggiornato, tocca qui.</span><button data-act="aggiornaApp">↻ Aggiorna</button></div>`;
   foot('');
 }
 
@@ -1516,6 +1521,16 @@ document.addEventListener('click', async e => {
       vista = importDati ? 'import' : 'home';
       render(); break;
     }
+    case 'aggiornaApp': {
+      if(cur) await salva(true, false);
+      busy(true, 'Scarico la versione nuova…');
+      try{
+        if('serviceWorker' in navigator){ const r = await navigator.serviceWorker.getRegistration(); if(r) await r.update().catch(()=>{}); }
+        if(window.caches){ const k = await caches.keys(); await Promise.all(k.map(c => caches.delete(c))); }
+      }catch(err){}
+      location.replace(location.pathname + '?v=' + Date.now());
+      break;
+    }
     case 'guida': vista = 'guida'; render(); break;
     case 'trasporto': vista = 'trasporto'; render(); break;
     case 'home': case 'casa': if(cur) await salva(true, false); cur = null; await carica(); vista = 'home'; if(importDati){ importDati = null; history.replaceState(null,'',location.pathname); } render(); break;
@@ -1631,6 +1646,7 @@ function applicaTema(){ const t = ls.get('trk-resi-tema','auto'); if(t === 'auto
 /* =================== AVVIO =================== */
 (async function(){
   applicaTema();
+  if(/[?&]v=\d+/.test(location.search)){ history.replaceState(null, '', location.pathname + location.hash); setTimeout(() => toast('App aggiornata alla versione ' + VERSIONE + '.'), 400); }
   try{ navigator.storage && navigator.storage.persist && navigator.storage.persist(); }catch(e){}
   const m = location.hash.match(/#p=([\w-]+)/);
   if(m){ try{ importDati = JSON.parse(decodeURIComponent(escape(atob(m[1].replace(/-/g,'+').replace(/_/g,'/'))))); }catch(e){ importDati = null; } }
