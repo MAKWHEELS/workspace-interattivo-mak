@@ -186,6 +186,14 @@ table.g th{background:var(--chip);font-size:12.5px;text-transform:uppercase;lett
 .links{display:grid;gap:4px;margin-top:6px}
 .lnk{background:none;border:0;color:var(--red);font-weight:650;cursor:pointer;padding:8px 0;text-align:left;text-decoration:underline;text-underline-offset:3px;font-size:15px}
 .center{text-align:center}
+.figs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0 4px}
+.figs figure{margin:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+.figs img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover}
+.figs figcaption{font-size:12.5px;line-height:1.3;padding:7px 8px;background:var(--card);color:var(--ink)}
+.mozzo .seg .opt{font-size:15px}
+.mozzo .opt.no.on{border-color:var(--ok);background:var(--ok-soft)}
+.stop{border:2px solid var(--red);border-radius:14px;padding:16px;background:var(--red-soft);margin-top:12px}
+.stop h3{margin:0 0 6px;color:var(--red)}
 hr{border:0;border-top:1px solid var(--line);margin:18px 0}
 .velo{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:25;display:flex;align-items:flex-end;justify-content:center}
 .sheet{background:var(--bg);width:100%;max-width:680px;border-radius:18px 18px 0 0;padding:10px 16px calc(16px + env(safe-area-inset-bottom));max-height:92vh;overflow:auto}
@@ -223,6 +231,8 @@ const MAXQ = 10;
 const DRIVE_URL = 'https://script.google.com/macros/s/AKfycbz2rARPY1J91TLqFdHtpWO6JWGQDysl94Ji31KNBn6-kxDmdkX5ne9mXll4lG5NMFb-bA/exec';
 const DRIVE_KEY = 'trk-d17410c23440472d';
 const MAX_UP = 36 * 1024 * 1024;
+const MIN_VID = 5;        // secondi minimi di un video
+const MIN_LATO = 600;     // pixel minimi del lato corto di una foto
 const MOTIVI = {
   'CREPE NELLA RUOTA': {k:'crepe', verifica:'Assicurati che la crepa ci sia davvero e che faccia perdere pressione allo pneumatico.', dich:'La crepa è reale e provoca la perdita di pressione dello pneumatico.', a3:'Video della ruota', a3tipo:'video', a3hint:'Un video che mostri bene la crepa (e, se possibile, la perdita d\'aria). Bastano 10–20 secondi.'},
   'CREPA NEL FORO VALVOLA': {k:'valvola', verifica:'Assicurati che la crepa sul foro valvola ci sia davvero.', dich:'La crepa sul foro valvola è reale.', a3:'Foto della crepa sul foro valvola', a3tipo:'foto', a3hint:'Da vicino, a fuoco: la crepa deve essere ben visibile.'},
@@ -291,7 +301,7 @@ let filtro = 'tutte', cerca = '';
 let importDati = null;
 let urls = [];
 
-function nuovaRuota(){ return {front:[], a3:[], extra:[], matricola:''}; }
+function nuovaRuota(){ return {front:[], a3:[], int:[], extra:[], matricola:''}; }
 function nuovaPratica(){
   const ora = new Date().toISOString();
   const p = {
@@ -299,7 +309,7 @@ function nuovaPratica(){
     data: oggiISO(),
     cliente: profilo.ruolo === 'cliente' ? {rs: profilo.rs||'', cod: profilo.cod||'', ref: profilo.ref||'', tel: profilo.tel||''} : {rs:'', cod:'', ref:'', tel:''},
     autore: autoreCorrente(),
-    materiale:'', marca:'', misura:'', codArt:'', qta:1, motivo:'', verificato:false,
+    mozzo:'', materiale:'', marca:'', misura:'', codArt:'', qta:1, motivo:'', verificato:false,
     ddtNum:'', ddtData:'', note:'',
     ddt: [], ruote: [nuovaRuota()],
     passi: {modulo:false},
@@ -312,7 +322,7 @@ function autoreCorrente(){
   return profilo.ruolo === 'agente' ? {ruolo:'agente', nome: profilo.nome||'', contatto: profilo.mail||''}
     : {ruolo:'cliente', nome: profilo.ref||'', contatto: profilo.tel||'', agNome: profilo.agNome||'', agTel: profilo.agTel||'', agMail: profilo.agMail||''};
 }
-function allineaRuote(p){ while(p.ruote.length < p.qta) p.ruote.push(nuovaRuota()); }
+function allineaRuote(p){ while(p.ruote.length < p.qta) p.ruote.push(nuovaRuota()); p.ruote.forEach(r => { r.int = r.int || []; }); }
 function evento(p, cosa, colore){ (p.eventi = p.eventi || []).push({t: new Date().toISOString(), cosa, c: colore || 'r'}); }
 
 let salvaT = null;
@@ -325,12 +335,14 @@ function salva(subito, dati=true){
   const f = () => DB.put(p).catch(() => toast('Non riesco a salvare sul telefono: lo spazio potrebbe essere pieno.'));
   if(subito) return f(); salvaT = setTimeout(f, 400);
 }
-async function carica(){ pratiche = (await DB.all()) || []; pratiche.sort((a,b) => (b.agg||'').localeCompare(a.agg||'')); }
+async function carica(){ pratiche = (await DB.all()) || []; pratiche.forEach(q => (q.ruote||[]).forEach(r => { r.int = r.int || []; })); pratiche.sort((a,b) => (b.agg||'').localeCompare(a.agg||'')); }
 const pdfAggiornato = p => p.pdf && p.pdf.creato >= p.mod;
 
 /* =================== VERIFICHE =================== */
 function mancantiDati(p){
   const m = [], ag = profilo.ruolo === 'agente';
+  if(p.mozzo === 'si') m.push('Ruota su mozzo a stella o a margherita: reso non preso in carico');
+  else if(p.mozzo !== undefined && p.mozzo !== 'no') m.push('Controllo del mozzo (a stella o a margherita?)');
   if(!p.cliente.rs.trim()) m.push('Ragione sociale del cliente');
   if(ag && !p.cliente.cod.trim()) m.push('Codice cliente B2B');
   if(!p.materiale) m.push('Materiale (acciaio o lega)');
@@ -347,6 +359,7 @@ function mancantiFile(p){
     const r = p.ruote[i];
     if(!r.front.length) m.push(`Ruota ${i+1}: foto frontale con marcatura`);
     if(!r.a3.length) m.push(`Ruota ${i+1}: ${mo ? mo.a3.toLowerCase() : 'allegato 3'}`);
+    if(p.mozzo !== undefined && !(r.int||[]).length) m.push(`Ruota ${i+1}: foto dell'interno (appoggio al mozzo)`);
   }
   return m;
 }
@@ -367,15 +380,85 @@ async function comprimi(file){
     return b && b.size < file.size ? new File([b], (file.name||'foto').replace(/\.\w+$/,'')+'.jpg', {type:'image/jpeg'}) : file;
   }catch(e){ return file; }
 }
-async function aggiungiFile(list, files){
-  busy(true, 'Preparo i file…');
+/* Controlli sui file: tipo giusto per la sezione, niente doppioni, foto non troppo piccole, video non troppo corti, avviso se sfocata o scura */
+const NOMI_SLOT = {ddt:'documento di acquisto', front:'foto frontale', a3:'prova del difetto', int:'foto dell\'interno', extra:'altre foto'};
+function tipoDi(f){
+  if(f.type) return f.type;
+  const e = ((f.name||'').match(/\.(\w+)$/) || [,''])[1].toLowerCase();
+  return ['jpg','jpeg','png','heic','heif','webp'].includes(e) ? 'image/' + e : ['mov','mp4','m4v','3gp'].includes(e) ? 'video/' + e : e === 'pdf' ? 'application/pdf' : '';
+}
+function tipoErrato(f, k){
+  const t = tipoDi(f), img = t.startsWith('image/'), vid = t.startsWith('video/'), pdf = t === 'application/pdf';
+  if(k === 'ddt') return img || pdf ? '' : 'qui va una foto o un PDF del documento di acquisto';
+  if(k === 'front' || k === 'int') return img ? '' : 'qui va una foto';
+  if(k === 'a3'){ const v = MOTIVI[cur.motivo] && MOTIVI[cur.motivo].a3tipo === 'video'; return v ? (vid ? '' : 'qui va un video') : (img ? '' : 'qui va una foto'); }
+  return img || vid ? '' : 'qui va una foto o un video';
+}
+async function impronta(f){
+  try{ const d = await crypto.subtle.digest('SHA-256', await f.arrayBuffer()); return [...new Uint8Array(d)].map(b => b.toString(16).padStart(2,'0')).join(''); }
+  catch(e){ return 'x' + f.size + '-' + f.lastModified + '-' + (f.name||''); }
+}
+// Dove è già stato usato lo stesso file: nella richiesta aperta, o in un'altra (il DDT può ripetersi tra richieste diverse)
+function doveGia(h, k){
+  const cerca = (q) => {
+    if(q.ddt.some(x => x.h === h)) return NOMI_SLOT.ddt;
+    for(let i=0;i<q.ruote.length;i++) for(const s of ['front','a3','int','extra']) if((q.ruote[i][s]||[]).some(x => x.h === h)) return `ruota ${i+1}, ${NOMI_SLOT[s]}`;
+    return '';
+  };
+  const qui = cerca(cur); if(qui) return 'questa richiesta (' + qui + ')';
+  if(k === 'ddt') return '';
+  for(const q of pratiche){ if(q.id === cur.id) continue; const l = cerca(q); if(l && !l.startsWith(NOMI_SLOT.ddt)) return `la pratica ${q.num} (${l})`; }
+  return '';
+}
+function durata(f){
+  return new Promise(res => {
+    const v = document.createElement('video'), u = URL.createObjectURL(f); let fatto = false;
+    const fine = d => { if(fatto) return; fatto = true; URL.revokeObjectURL(u); res(d); };
+    v.preload = 'metadata'; v.muted = true; v.playsInline = true;
+    v.onloadedmetadata = () => fine(isFinite(v.duration) ? v.duration : null);
+    v.onerror = () => fine(null); setTimeout(() => fine(null), 6000);
+    v.src = u;
+  });
+}
+// Misura lato corto, luminosità e nitidezza (varianza del laplaciano su una copia ridotta)
+async function qualita(f){
+  try{
+    const bmp = await createImageBitmap(f);
+    const lato = Math.min(bmp.width, bmp.height);
+    const k = Math.min(1, 480 / Math.max(bmp.width, bmp.height)), w = Math.round(bmp.width*k), h = Math.round(bmp.height*k);
+    const c = document.createElement('canvas'); c.width = w; c.height = h;
+    const x = c.getContext('2d', {willReadFrequently:true}); x.drawImage(bmp, 0, 0, w, h); bmp.close && bmp.close();
+    const d = x.getImageData(0, 0, w, h).data, g = new Float32Array(w*h);
+    let somma = 0; for(let i=0;i<w*h;i++){ g[i] = 0.299*d[i*4] + 0.587*d[i*4+1] + 0.114*d[i*4+2]; somma += g[i]; }
+    let n = 0, s = 0, s2 = 0;
+    for(let yy=1;yy<h-1;yy++) for(let xx=1;xx<w-1;xx++){ const i = yy*w+xx; const l = g[i-1]+g[i+1]+g[i-w]+g[i+w]-4*g[i]; s += l; s2 += l*l; n++; }
+    const varL = n ? s2/n - (s/n)*(s/n) : 999;
+    return {lato, luce: somma/(w*h), nitida: varL};
+  }catch(e){ return null; }
+}
+async function aggiungiFile(list, files, k){
+  busy(true, 'Controllo i file…');
+  const scarti = [];
   try{
     for(const f of files){
+      const nm = f.name || 'file';
+      const err = tipoErrato(f, k); if(err){ scarti.push(`${nm}: ${err}.`); continue; }
+      const h = await impronta(f);
+      const gia = doveGia(h, k); if(gia){ scarti.push(`${nm}: è lo stesso file già usato in ${gia}. Ogni sezione vuole la sua foto o il suo video.`); continue; }
+      const t = tipoDi(f);
+      if(t.startsWith('video/')){ const d = await durata(f); if(d !== null && d < MIN_VID){ scarti.push(`${nm}: video di ${d.toFixed(1)} secondi, troppo corto (minimo ${MIN_VID}).`); continue; } }
+      if(t.startsWith('image/')){
+        const q = await qualita(f);
+        if(q && q.lato < MIN_LATO){ scarti.push(`${nm}: foto troppo piccola (${q.lato} px). Scattala dal telefono, non da una foto girata o ritagliata.`); continue; }
+        const avv = !q ? '' : q.luce < 40 ? 'la foto è molto scura' : q.nitida < 25 ? 'la foto sembra mossa o sfocata' : '';
+        if(avv){ busy(false); const ok = confirm(`${nm}: ${avv}, i dettagli potrebbero non leggersi e la richiesta essere rifiutata.\n\nOK = la tengo lo stesso\nAnnulla = la rifaccio`); busy(true, 'Controllo i file…'); if(!ok) continue; }
+      }
       const c = await comprimi(f);
-      list.push({id: uid(), nome: c.name || 'file', tipo: c.type || 'application/octet-stream', blob: c, size: c.size});
+      list.push({id: uid(), nome: c.name || 'file', tipo: c.type || t || 'application/octet-stream', blob: c, size: c.size, h});
     }
     await salva(true);
   } finally { busy(false); }
+  if(scarti.length) alert('Non ho aggiunto:\n\n' + scarti.join('\n\n'));
 }
 function estensione(f){
   const n = (f.nome||'').match(/\.(\w{2,5})$/); if(n) return n[1].toLowerCase();
@@ -569,7 +652,8 @@ async function creaPDF(p, avanzamento){
     {t:'Compilata da', rows: ag ? [['Agente MAK', a.nome], ['Mail', a.contatto]] : [['Cliente', `${a.nome || p.cliente.ref}${a.contatto ? ' - ' + a.contatto : ''}`], ['Agente MAK di riferimento', [a.agNome, a.agTel].filter(Boolean).join(' - ') || '-']]});
 
   // Verifica
-  font('normal', 9.5); const dl = doc.splitTextToSize(T('Verificato: ' + mo.dich.charAt(0).toLowerCase() + mo.dich.slice(1)), CW - 18);
+  font('normal', 9.5); const dl = doc.splitTextToSize(T('Verificato: ' + mo.dich.charAt(0).toLowerCase() + mo.dich.slice(1)), CW - 18)
+    .concat(p.mozzo === 'no' ? doc.splitTextToSize(T('Dichiarato: la ruota NON era montata su mozzo a stella o a margherita.'), CW - 18) : []);
   const vh = 6 + dl.length * 4.6;
   fill([227,244,234]); draw([170,214,188]); doc.roundedRect(M, y, CW, vh, 2, 2, 'FD');
   spunta(M+5, y + vh/2, true);
@@ -587,7 +671,7 @@ async function creaPDF(p, avanzamento){
   }
 
   // Tabella allegati
-  const cols = [{t:'RUOTA', w:18}, {t:'MATRICOLA', w:46}, {t:'ALL. 2 - FOTO FRONTALE', w:44}, {t:'ALL. 3 - ' + (mo.a3tipo==='video'?'VIDEO':'FOTO DIFETTO'), w:44}, {t:'EXTRA', w:CW-18-46-44-44}];
+  const cols = [{t:'RUOTA', w:16}, {t:'MATRICOLA', w:34}, {t:'ALL. 2 FRONTALE', w:36}, {t:'ALL. 3 ' + (mo.a3tipo==='video'?'VIDEO':'DIFETTO'), w:36}, {t:'ALL. 4 INTERNO', w:34}, {t:'EXTRA', w:CW-16-34-36-36-34}];
   const rh = 7.5;
   const tabH = 8 + 8 + rh*(p.qta+1);
   if(y + tabH > BASSO - 4){ doc.addPage(); y = testataAllegati(); }
@@ -606,10 +690,10 @@ async function creaPDF(p, avanzamento){
     });
     y += rh;
   };
-  rigaTab(['DDT', 'Documento di acquisto', {ok: p.ddt.length>0, t: p.ddt.length ? `${p.ddt.length} ${p.ddt.length===1?'file':'file'} (all. 1)` : 'manca'}, '', ''], 0);
+  rigaTab(['DDT', 'Documento di acquisto', {ok: p.ddt.length>0, t: p.ddt.length ? `${p.ddt.length} file (all. 1)` : 'manca'}, '', '', ''], 0);
   for(let r=0;r<p.qta;r++){
     const R = p.ruote[r];
-    rigaTab([String(r+1), R.matricola, {ok: R.front.length>0, t: R.front.length ? R.front.length + (R.front.length===1?' foto':' foto') : 'manca'}, {ok: R.a3.length>0, t: R.a3.length ? R.a3.length + (mo.a3tipo==='video' ? (R.a3.length===1?' video':' video') : ' foto') : 'manca'}, R.extra.length ? R.extra.length + ' file' : '-'], r+1);
+    rigaTab([String(r+1), R.matricola, {ok: R.front.length>0, t: R.front.length ? R.front.length + (R.front.length===1?' foto':' foto') : 'manca'}, {ok: R.a3.length>0, t: R.a3.length ? R.a3.length + (mo.a3tipo==='video' ? ' video' : ' foto') : 'manca'}, (R.int||[]).length ? {ok:true, t: R.int.length + ' foto'} : (p.mozzo === undefined ? '-' : {ok:false, t:'manca'}), R.extra.length ? R.extra.length + ' file' : '-'], r+1);
   }
   y += 6;
   const nv = fileAParte(p).length;
@@ -624,7 +708,7 @@ async function creaPDF(p, avanzamento){
   }
 
   /* ---------- ALLEGATO 1: documento di acquisto ---------- */
-  const tot = p.ddt.length + p.ruote.slice(0,p.qta).reduce((s,R) => s + R.front.length + R.a3.length + R.extra.length, 0);
+  const tot = p.ddt.length + p.ruote.slice(0,p.qta).reduce((s,R) => s + R.front.length + R.a3.length + (R.int||[]).length + R.extra.length, 0);
   let fatti = 0;
   const passo = () => { fatti++; avanzamento && avanzamento(fatti, tot); };
   for(let i=0;i<p.ddt.length;i++){
@@ -642,6 +726,7 @@ async function creaPDF(p, avanzamento){
     const el = [];
     R.front.forEach((f,i) => el.push({f, tag:'ALL. 2', c:C.blue, d:'Foto frontale con marcatura' + (R.front.length>1 ? ` (${i+1})` : '')}));
     R.a3.forEach((f,i) => el.push({f, tag:'ALL. 3', c:C.dark, d: mo.a3 + (R.a3.length>1 ? ` (${i+1})` : '') + (isVid(f) ? ' - fotogramma' : ''), nota: isVid(f) ? `File video inviato insieme a questo PDF: ${nomeFileVideo(p, r, i)}` : ''}));
+    (R.int||[]).forEach((f,i) => el.push({f, tag:'ALL. 4', c:C.blue, d:'Interno della ruota: appoggio al mozzo' + (R.int.length>1 ? ` (${i+1})` : '')}));
     R.extra.forEach((f,i) => el.push({f, tag:'EXTRA', c:C.muted, d:'Foto aggiuntiva' + (R.extra.length>1 ? ` (${i+1})` : ''), nota: isVid(f) ? `File video inviato insieme a questo PDF: EXTRA_RUOTA${r+1}_${i+1}.${estensione(f)}` : ''}));
     for(let k=0;k<el.length;k+=2){
       doc.addPage(); let yy = testataAllegati();
@@ -674,6 +759,7 @@ function daCaricare(p){
     const R = p.ruote[r];
     R.front.forEach((f,i) => out.push({f, nome:`RUOTA${r+1}_ALLEGATO2_FRONTALE${R.front.length>1?'_'+(i+1):''}.${estensione(f)}`}));
     R.a3.forEach((f,i) => out.push({f, nome: isVid(f) ? nomeFileVideo(p,r,i).replace(/^ALLEGATO3_RUOTA(\d+)/,'RUOTA$1_ALLEGATO3') : `RUOTA${r+1}_ALLEGATO3_FOTO${R.a3.length>1?'_'+(i+1):''}.${estensione(f)}`}));
+    (R.int||[]).forEach((f,i) => out.push({f, nome:`RUOTA${r+1}_ALLEGATO4_INTERNO${R.int.length>1?'_'+(i+1):''}.${estensione(f)}`}));
     R.extra.forEach((f,i) => out.push({f, nome:`RUOTA${r+1}_EXTRA_${i+1}.${estensione(f)}`}));
   }
   return out.filter(x => !x.f.url && x.f.blob && (isImg(x.f) || isVid(x.f)) && x.f.size <= MAX_UP);
@@ -916,10 +1002,12 @@ function vHome(){
       <div class="card list" id="lista">${lista.length ? lista.map(riga).join('') : '<p class="muted" style="margin:0">Nessuna richiesta con questi filtri.</p>'}</div>
       ${riquadroBackup()}`
     : `<div class="card"><h3>Come funziona</h3><ol class="todo">
+      <li><b>Mozzo</b>: confermi che la ruota non era su un mozzo a stella o a margherita (quelle sono rifiutate di default).</li>
       <li><b>Dati</b>: cliente, materiale, marca, misura, codice e quante ruote.</li>
       <li><b>Motivo</b>: crepe, foro valvola, bilanciatura o verniciatura.</li>
-      <li><b>Foto e video</b>: DDT di acquisto e, per ogni ruota, foto frontale con marcatura e la prova del difetto.</li>
-      <li><b>PDF</b>: l'app lo crea e tu lo mandi su WhatsApp o per mail. Ogni richiesta resta qui nello storico.</li></ol></div>`}
+      <li><b>Foto e video</b>: DDT di acquisto e, per ogni ruota, foto frontale con marcatura, prova del difetto e foto dell'interno.</li>
+      <li><b>PDF</b>: l'app lo crea e tu lo mandi su WhatsApp o per mail. Ogni richiesta resta qui nello storico.</li></ol>
+      <p class="small" style="margin:8px 0 0"><b>Senza tutto il materiale la richiesta non viene nemmeno presa in considerazione.</b></p></div>`}
     ${pratiche.length ? '' : riquadroBackup()}
     <div class="links"><button class="lnk" data-act="guida">Guida: cosa serve per ogni motivo</button><button class="lnk" data-act="trasporto">Ruote arrivate rotte dal corriere? Non è una contestazione: leggi qui</button></div>`;
   foot('');
@@ -931,15 +1019,34 @@ function vStep(){
   header(nomi[step], 'indietro');
   const bar = `<div class="progress">${nomi.map((n,i)=>`<span class="${i<=step?'on':''}"></span>`).join('')}</div><div class="steplbl">Passo ${step+1} di 4 · ${nomi[step]} · pratica ${esc(p.num)}</div>`;
   $('#app').innerHTML = bar + [s1, s2, s3, s4][step](p);
+  if(step === 0 && p.mozzo === 'si'){ foot(`<button class="btn" data-act="indietro">Storico</button><button class="btn del" data-act="elimina">Elimina la richiesta</button>`); return; }
   foot(step === 3 ? `<button class="btn" data-act="indietro">Indietro</button><button class="btn dark" data-act="casa">Vai allo storico</button>`
                   : `<button class="btn" data-act="indietro">Indietro</button><button class="btn primary" data-act="avanti">Avanti</button>`);
 }
 
+const FIG_MOZZO = `<div class="figs">
+    <figure><img src="mozzo-segno-ruota.jpg" alt="Ruota con l'impronta a petali del mozzo a stella" loading="lazy"><figcaption><b>Sulla ruota contestata</b>: attorno al foro centrale l'impronta a stella o a petali lasciata dal mozzo.</figcaption></figure>
+    <figure><img src="mozzo-veicolo.jpg" alt="Mozzo a stella o a margherita sul veicolo" loading="lazy"><figcaption><b>Sul veicolo</b>: il mozzo non è un disco pieno ma ha i bracci a stella o a margherita.</figcaption></figure>
+  </div>`;
+const AVVISO_COMPLETO = `<div class="banner red"><span class="ic">⛔</span><div><b>Se manca anche un solo documento, foto o video, la richiesta non viene nemmeno presa in considerazione.</b> Servono DDT di acquisto e, per ogni ruota, foto frontale con marcatura, prova del difetto e foto dell'interno, ognuno nella sua sezione.</div></div>`;
+function cardMozzo(p){
+  return `<div class="card mozzo"><h3>Prima di tutto: com'è il mozzo del mezzo?</h3>
+    <p class="small" style="margin:0">Le ruote montate su <b>mozzo a stella o a margherita</b> sono <b>rifiutate di default</b>: il reso non viene preso in carico. Guarda le foto per riconoscerlo.</p>
+    ${FIG_MOZZO}
+    <label class="f">La ruota contestata era montata su un mozzo a stella o a margherita? <span class="req">*</span></label>
+    <div class="seg"><button class="opt no ${p.mozzo==='no'?'on':''}" data-act="mozzo" data-v="no">No, mozzo pieno</button><button class="opt ${p.mozzo==='si'?'on':''}" data-act="mozzo" data-v="si">Sì, a stella o margherita</button></div>
+    ${p.mozzo === 'no' ? '<div class="hint">Confermato: la ruota non era su un mozzo a stella o a margherita. La dichiarazione va nel PDF.</div>' : ''}
+  </div>`;
+}
 function s1(p){
+  if(p.mozzo === 'si') return cardMozzo(p) + `<div class="stop"><h3>Reso non preso in carico</h3>
+    <p style="margin:0 0 8px">Per le regole ufficiali MAK le ruote montate su mozzo a stella o a margherita <b>vengono rifiutate e non sono prese in considerazione</b>. La richiesta non può proseguire.</p>
+    <p class="small muted" style="margin:0">Se hai sbagliato risposta, tocca «No, mozzo pieno». Altrimenti elimina la richiesta.</p>
+    <button class="lnk" data-act="guida">Leggi le regole nella guida</button></div>`;
   const ag = profilo.ruolo === 'agente';
   const gruppi = {};
   MISURE.forEach(m => { const d = m.split('x')[1].split(' ')[0]; (gruppi[d] = gruppi[d] || []).push(m); });
-  return `
+  return cardMozzo(p) + (p.mozzo !== 'no' ? '' : AVVISO_COMPLETO + `
     <div class="banner warn"><span class="ic">ℹ️</span><div><b>Una marca e una misura per volta.</b> Se le ruote da contestare sono di marche o misure diverse, fai una richiesta per ciascuna.</div></div>
     <div class="card"><h3>Cliente</h3>
     ${ag ? `
@@ -974,7 +1081,7 @@ function s1(p){
       <div class="row"><div><label class="f" for="c-dn">Numero DDT o fattura</label><input type="text" id="c-dn" data-f="ddtNum" value="${esc(p.ddtNum)}"></div>
       <div><label class="f" for="c-dd">Data</label><input type="date" id="c-dd" data-f="ddtData" value="${esc(p.ddtData)}"></div></div>
       <div class="hint">Facoltativi qui, ma la foto del documento serve al passo 3.</div>
-    </div>`;
+    </div>`);
 }
 
 function s2(p){
@@ -1007,17 +1114,18 @@ function s3(p){
   const a3Acc = isVideo ? [{lbl:'🎥 Registra', acc:'video/*', cap:true}, {lbl:'🖼 Dalla galleria', acc:'video/*', multi:true}] : fotoAcc;
   const mf = mancantiFile(p);
   let h = `
-    <div class="banner ${mf.length?'red':'ok'}"><span class="ic">${mf.length?'📋':'✅'}</span><div>${mf.length ? `<b>Servono tante foto e video quante sono le ruote.</b> Mancano ancora ${mf.length} ${mf.length===1?'elemento':'elementi'}.` : '<b>Tutto il materiale c\'è.</b> Tocca «Avanti» per creare il PDF.'}</div></div>
+    <div class="banner ${mf.length?'red':'ok'}"><span class="ic">${mf.length?'📋':'✅'}</span><div>${mf.length ? `<b>Servono tante foto e video quante sono le ruote.</b> Mancano ancora ${mf.length} ${mf.length===1?'elemento':'elementi'}: senza tutto il materiale la richiesta <b>non viene nemmeno presa in considerazione</b>.` : '<b>Tutto il materiale c\'è.</b> Tocca «Avanti» per creare il PDF.'}</div></div>
     <div class="card"><h3>Documento di acquisto MAK</h3>
       ${slotFile('ddt', p.ddt, 'DDT o fattura di acquisto', 'ALLEGATO 1', 'a1', 'Dati del documento e descrizione della merce ben visibili e leggibili.', [{lbl:'📷 Fotografa', acc:'image/*', cap:true}, {lbl:'📄 Foto o PDF', acc:'image/*,application/pdf', multi:true}])}
     </div>`;
   for(let i=0;i<p.qta;i++){
     const r = p.ruote[i];
-    const ok = r.front.length && r.a3.length;
+    const ok = r.front.length && r.a3.length && (p.mozzo === undefined || r.int.length);
     h += `<div class="card wheel"><h3><span>Ruota ${i+1}${p.qta>1?' di '+p.qta:''}</span>${ok?'<span class="tag okt">✓ completa</span>':''}</h3>
       ${slotFile(`front.${i}`, r.front, 'Foto frontale con la marcatura', 'ALLEGATO 2', 'a2', 'Marca, codice, misura, data di fabbricazione e matricola leggibili. Sulla lega la data è sul bordo interno.', fotoAcc)}
       ${slotFile(`a3.${i}`, r.a3, esc(mo.a3), 'ALLEGATO 3', 'a3', esc(mo.a3hint), a3Acc)}
-      ${slotFile(`extra.${i}`, r.extra, 'Altre foto (facoltative)', 'EXTRA', '', 'Utile: l\'interno della ruota con le basi di appoggio al mozzo.', [{lbl:'📷 Scatta', acc:'image/*', cap:true}, {lbl:'🖼 Galleria', acc:'image/*,video/*', multi:true}], true)}
+      ${slotFile(`int.${i}`, r.int, 'Foto dell\'interno: appoggio al mozzo', 'ALLEGATO 4', 'a2', 'La faccia interna della ruota attorno al foro centrale, dove appoggia sul mozzo. Intera, a fuoco, con buona luce: serve a escludere l\'impronta del mozzo a stella o a margherita.', fotoAcc, p.mozzo === undefined)}
+      ${slotFile(`extra.${i}`, r.extra, 'Altre foto (facoltative)', 'EXTRA', '', 'Altri dettagli utili alla valutazione.', [{lbl:'📷 Scatta', acc:'image/*', cap:true}, {lbl:'🖼 Galleria', acc:'image/*,video/*', multi:true}], true)}
       <label class="f" for="mat-${i}">Matricola (se leggibile)</label>
       <input type="text" id="mat-${i}" data-f="ruote.${i}.matricola" value="${esc(r.matricola)}" autocapitalize="characters">
     </div>`;
@@ -1043,6 +1151,21 @@ function bloccoInvio(p, ripeti){
       ${ag ? `<button class="btn" data-act="invia" data-v="file" style="margin-top:10px">Salva PDF e video in File</button>` : ''}
     </div>`;
 }
+const CONTROLLI = [
+  ['ddt', 'Il documento di acquisto è MAK, leggibile, e contiene la merce contestata.'],
+  ['front', 'In ogni foto frontale si leggono marca, codice, misura e data di fabbricazione.'],
+  ['difetto', 'La prova del difetto (foto o video) mostra davvero il problema, ruota per ruota.'],
+  ['mozzo', 'Nelle foto dell\'interno non c\'è l\'impronta del mozzo a stella o a margherita.'],
+  ['dati', 'Marca, misura e numero di ruote della richiesta corrispondono a foto e documento.']
+];
+const controlloFatto = p => p.mozzo === undefined || CONTROLLI.every(([k]) => p.passi.controllo && p.passi.controllo[k]);
+function bloccoControllo(p){
+  const c = (p.passi.controllo = p.passi.controllo || {}), ok = controlloFatto(p);
+  return `<div class="stepbox ${ok?'done':''}"><div class="sh"><span class="num">${ok?'✓':'!'}</span><b>Controllo del materiale (agente)</b></div>
+    <p class="small muted">Apri il PDF e controlla ogni punto. ${ok ? 'Controllo fatto: modulo e invio sono sbloccati.' : 'Finché non spunti tutto, modulo e invio restano bloccati: una richiesta incompleta non viene presa in considerazione.'}</p>
+    ${CONTROLLI.map(([k, txt]) => `<label class="check" style="margin-top:8px"><input type="checkbox" data-act="ctrl" data-v="${k}" ${c[k]?'checked':''}><span>${esc(txt)}</span></label>`).join('')}
+  </div>`;
+}
 function bloccoModulo(p){
   return `<div class="stepbox ${p.passi.modulo?'done':''}"><div class="sh"><span class="num">${p.passi.modulo?'✓':'!'}</span><b>Modulo RESO TRUCK</b></div>
       <p class="small muted">Prima dell'invio a MAK: si apre il modulo già compilato, controlla e premi <b>Invia</b>. Ti arriva la mail a cui rispondere «a tutti» con il PDF.</p>
@@ -1052,15 +1175,15 @@ function bloccoModulo(p){
 function s4(p){
   const m = mancantiTutto(p);
   if(m.length){
-    return `<div class="banner red"><span class="ic">✋</span><div><b>Non ancora pronta.</b> Senza questi dati MAK non può accogliere la richiesta:<ul class="todo">${m.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div></div>
+    return `<div class="banner red"><span class="ic">✋</span><div><b>Non ancora pronta.</b> Senza questi dati e allegati la richiesta non viene nemmeno presa in considerazione:<ul class="todo">${m.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div></div>
       <button class="btn primary" data-act="vaiStep" data-v="${primoPassoIncompleto(p)}">Completa la richiesta</button>`;
   }
   if(!pdfAggiornato(p)) return `<div class="card center"><p class="muted" style="margin:0">Preparo il PDF…</p></div>`;
   const ag = profilo.ruolo === 'agente';
   return `<div class="banner ok"><span class="ic">✅</span><div><b>PDF pronto.</b> Aprilo per controllarlo, poi invialo.</div></div>
     ${blocDocumento(p)}
-    ${ag ? bloccoModulo(p) : ''}
-    ${bloccoInvio(p)}`;
+    ${ag ? bloccoControllo(p) : ''}
+    ${ag && !controlloFatto(p) ? '' : (ag ? bloccoModulo(p) : '') + bloccoInvio(p)}`;
 }
 
 function vScheda(){
@@ -1080,8 +1203,9 @@ function vScheda(){
       </dl></div>
     ${p.pdf ? blocDocumento(p) : ''}
     ${p.pdf && !pdfAggiornato(p) ? `<div class="banner warn"><span class="ic">↻</span><div>Hai modificato la richiesta dopo il PDF: tocca «Rigenera» prima di reinviarla.</div></div>` : ''}
-    ${completa && ag ? bloccoModulo(p) : ''}
-    ${completa ? bloccoInvio(p, (p.eventi||[]).some(e => e.cosa.startsWith('Inviata'))) : `<div class="banner red"><span class="ic">✋</span><div>Richiesta non completa: finiscila per creare il PDF.</div></div>`}
+    ${completa && ag && p.mozzo !== undefined ? bloccoControllo(p) : ''}
+    ${completa && ag && controlloFatto(p) ? bloccoModulo(p) : ''}
+    ${completa && ag && !controlloFatto(p) ? '' : completa ? bloccoInvio(p, (p.eventi||[]).some(e => e.cosa.startsWith('Inviata'))) : `<div class="banner red"><span class="ic">✋</span><div>Richiesta non completa: finiscila per creare il PDF.</div></div>`}
     <div class="card"><h3>Esito</h3>
       <p class="small muted">Quando MAK risponde, segna com'è andata.</p>
       <div class="seg s4">${[['inviata','In attesa'],['accettata','Accettata'],['respinta','Rifiutata'],['chiusa','Chiusa']].map(([k,l])=>`<button class="opt ${p.stato===k?'on':''}" data-act="esito" data-v="${k}">${l}</button>`).join('')}</div>
@@ -1099,10 +1223,18 @@ function vScheda(){
 function vGuida(){
   header('Guida ai resi truck', profilo ? 'home' : 'chi'); foot('');
   $('#app').innerHTML = `
-    <div class="banner red"><span class="ic">📌</span><div><b>Tante informazioni, foto e video quante sono le ruote prese in esame.</b> Senza questi dati MAK non può accogliere la richiesta né reclamare al produttore.</div></div>
+    <div class="banner red"><span class="ic">⛔</span><div><b>Materiale incompleto = richiesta non presa in considerazione.</b> Se manca anche uno solo tra documento di acquisto, foto e video giusti (tanti quante sono le ruote) e i dati richiesti, il reso non viene nemmeno esaminato: MAK non può accoglierlo né reclamare al produttore.</div></div>
+    <div class="card"><h3>Mozzo a stella o a margherita: reso rifiutato</h3>
+      <p style="margin:0">I resi di ruote montate su mezzi con <b>mozzo a stella</b> (detto anche <b>a margherita</b>) <b>vengono rifiutati e non sono presi in considerazione, di default</b>. Su questi mozzi la ruota non appoggia su tutta la superficie: il danno non è un difetto del prodotto.</p>
+      ${FIG_MOZZO}
+      <ul class="todo">
+        <li><b>Sulla ruota</b>: guarda la faccia interna attorno al foro centrale. Un'impronta a stella o a petali (segni, vernice consumata, ruggine a spicchi tra i fori) vuol dire mozzo a stella.</li>
+        <li><b>Sul veicolo</b>: smontata la ruota, il mozzo ha bracci separati a stella o a margherita invece di un disco pieno.</li>
+        <li>All'inizio di ogni richiesta l'app chiede di confermarlo: se la risposta è «sì», la richiesta si ferma.</li>
+      </ul></div>
     <div class="card"><h3>Cosa serve per ogni motivo</h3>
-      <div style="overflow-x:auto"><table class="g"><tr><th>Motivo</th><th>Allegato 1</th><th>Allegato 2</th><th>Allegato 3</th></tr>
-      ${Object.entries(MOTIVI).map(([n,m])=>`<tr><td><b>${esc(cap(n))}</b></td><td>DDT di acquisto</td><td>Foto frontale con marcatura</td><td>${esc(m.a3)}</td></tr>`).join('')}
+      <div style="overflow-x:auto"><table class="g"><tr><th>Motivo</th><th>Allegato 1</th><th>Allegato 2</th><th>Allegato 3</th><th>Allegato 4</th></tr>
+      ${Object.entries(MOTIVI).map(([n,m])=>`<tr><td><b>${esc(cap(n))}</b></td><td>DDT di acquisto</td><td>Foto frontale con marcatura</td><td>${esc(m.a3)}</td><td>Foto dell'interno (appoggio al mozzo)</td></tr>`).join('')}
       </table></div></div>
     <div class="card"><h3>Prima di chiedere il reso, verifica</h3><ul class="todo">
       ${Object.entries(MOTIVI).map(([n,m])=>`<li><b>${esc(cap(n))}</b>: ${esc(m.verifica.charAt(0).toLowerCase()+m.verifica.slice(1))}</li>`).join('')}
@@ -1110,13 +1242,15 @@ function vGuida(){
     <div class="card"><h3>Come fare foto e video che vanno bene</h3><ul class="todo">
       <li><b>DDT</b>: dati del documento e descrizione della merce leggibili.</li>
       <li><b>Foto frontale</b>: marca, codice, misura, data di fabbricazione e matricola leggibili. Sulla lega la data è sul bordo interno.</li>
+      <li><b>Interno</b>: la faccia della ruota che appoggia sul mozzo, intera e a fuoco. Se c'è l'impronta a stella o a margherita il reso è rifiutato.</li>
       <li><b>Difetto</b>: da vicino, a fuoco, con buona luce. Per la bilanciatura, i valori finali dell'equilibratrice devono leggersi.</li>
-      <li><b>Video</b>: corti, 10–20 secondi.</li>
+      <li><b>Video</b>: corti, 10–20 secondi (minimo ${MIN_VID}).</li>
+      <li><b>Niente furbizie</b>: l'app rifiuta la stessa foto o lo stesso video usati due volte (anche in richieste vecchie), i file del tipo sbagliato, le foto troppo piccole e i video troppo corti, e avvisa se una foto è sfocata o troppo scura.</li>
       <li>Una marca e una misura per richiesta, massimo ${MAXQ} ruote.</li>
     </ul></div>
     <div class="card"><h3>Chi fa cosa</h3><ol class="todo">
       <li><b>Cliente</b>: prepara la richiesta, crea il PDF e lo manda al suo agente su WhatsApp o per mail.</li>
-      <li><b>Agente</b>: compila il modulo RESO TRUCK e risponde «a tutti» alla mail che arriva, con il PDF e gli eventuali video.</li>
+      <li><b>Agente</b>: controlla il materiale con la lista di spunte dell'app (senza, modulo e invio restano bloccati), compila il modulo RESO TRUCK e risponde «a tutti» alla mail che arriva, con il PDF e gli eventuali video.</li>
       <li><b>MAK</b>: i responsabili prodotto e l'ufficio resi aggiornano sull'avanzamento. L'esito si segna nello storico.</li>
     </ol></div>
     <button class="lnk" data-act="trasporto">Ruote arrivate danneggiate dal corriere?</button>`;
@@ -1171,10 +1305,10 @@ function riquadroBackup(){
 }
 // Copia della pratica senza file binari (foto, video, PDF restano su Drive con il loro link)
 function senzaFile(p){
-  const f = x => ({id:x.id, nome:x.nome, tipo:x.tipo, size:x.size, url:x.url || ''});
+  const f = x => ({id:x.id, nome:x.nome, tipo:x.tipo, size:x.size, url:x.url || '', h:x.h || ''});
   const c = JSON.parse(JSON.stringify(Object.assign({}, p, {ddt:[], ruote:[], pdf:null})));
   c.ddt = p.ddt.map(f);
-  c.ruote = p.ruote.map(r => ({matricola: r.matricola || '', front: r.front.map(f), a3: r.a3.map(f), extra: r.extra.map(f)}));
+  c.ruote = p.ruote.map(r => ({matricola: r.matricola || '', front: r.front.map(f), a3: r.a3.map(f), int: (r.int||[]).map(f), extra: r.extra.map(f)}));
   c.pdf = p.pdf ? {nome:p.pdf.nome, pagine:p.pdf.pagine, size:p.pdf.size, creato:p.pdf.creato} : null;
   return c;
 }
@@ -1185,11 +1319,12 @@ async function scaricaBackup(){
     const L = pratiche.slice().sort((a,b) => (a.creata||'').localeCompare(b.creata||''));
     const maxR = Math.max(1, ...L.map(p => p.qta));
     const conta = (k) => Math.max(1, ...L.map(p => Math.max(0, ...p.ruote.slice(0,p.qta).map(r => r[k].length))));
-    const nF = conta('front'), nA = conta('a3'), nE = Math.max(0, ...L.map(p => Math.max(0, ...p.ruote.slice(0,p.qta).map(r => r.extra.length))));
+    const nF = conta('front'), nA = conta('a3'), nI = Math.max(0, ...L.map(p => Math.max(0, ...p.ruote.slice(0,p.qta).map(r => (r.int||[]).length)))), nE = Math.max(0, ...L.map(p => Math.max(0, ...p.ruote.slice(0,p.qta).map(r => r.extra.length))));
     const testa = ['Pratica','Data richiesta','Stato','Nota esito','Cliente','Codice cliente B2B','Referente','Telefono','Materiale','Marca','Misura','Codice articolo','Ruote','Motivo','Verifica fatta','N. DDT/fattura','Data DDT','Note','Matricole','Compilata da','Agente di riferimento','Modulo RESO TRUCK','Inviata il','Ultimo evento','Cartella Drive','PDF'];
     for(let r=1;r<=maxR;r++){
       for(let i=1;i<=nF;i++) testa.push(`Ruota ${r} foto frontale${nF>1?' '+i:''}`);
       for(let i=1;i<=nA;i++) testa.push(`Ruota ${r} allegato 3${nA>1?' '+i:''}`);
+      for(let i=1;i<=nI;i++) testa.push(`Ruota ${r} interno${nI>1?' '+i:''}`);
       for(let i=1;i<=nE;i++) testa.push(`Ruota ${r} extra ${i}`);
     }
     const righe = [testa], link = [];
@@ -1203,10 +1338,11 @@ async function scaricaBackup(){
       if(p.cartellaUrl) link.push([ri+1, 24, p.cartellaUrl]);
       if(p.pdfUrl) link.push([ri+1, 25, p.pdfUrl]);
       for(let r=0;r<maxR;r++){
-        const R = p.ruote[r] && r < p.qta ? p.ruote[r] : {front:[], a3:[], extra:[]};
+        const R = p.ruote[r] && r < p.qta ? p.ruote[r] : {front:[], a3:[], int:[], extra:[]};
         const cella = (f, etich) => { if(!f) return ''; if(f.url){ link.push([ri+1, riga.length, f.url]); return etich; } return f.blob ? 'solo sul telefono' : ''; };
         for(let i=0;i<nF;i++) riga.push(cella(R.front[i], 'Foto'));
         for(let i=0;i<nA;i++) riga.push(cella(R.a3[i], R.a3[i] && isVid(R.a3[i]) ? 'Video' : 'Foto'));
+        for(let i=0;i<nI;i++) riga.push(cella((R.int||[])[i], 'Foto'));
         for(let i=0;i<nE;i++) riga.push(cella(R.extra[i], R.extra[i] && isVid(R.extra[i]) ? 'Video' : 'Foto'));
       }
       righe.push(riga);
@@ -1245,10 +1381,10 @@ function unisci(loc, bk){
   const nuova = (bk.agg || '') > (loc.agg || '') ? bk : loc, altra = nuova === bk ? loc : bk;
   const m = JSON.parse(JSON.stringify(senzaFile(nuova)));
   const blobDi = new Map();
-  const raccogli = q => { q.ddt.forEach(f => f.blob && blobDi.set(f.id, f.blob)); q.ruote.forEach(r => ['front','a3','extra'].forEach(k => r[k].forEach(f => f.blob && blobDi.set(f.id, f.blob)))); };
+  const raccogli = q => { q.ddt.forEach(f => f.blob && blobDi.set(f.id, f.blob)); q.ruote.forEach(r => ['front','a3','int','extra'].forEach(k => (r[k]||[]).forEach(f => f.blob && blobDi.set(f.id, f.blob)))); };
   raccogli(loc);
   const metti = f => { if(blobDi.has(f.id)) f.blob = blobDi.get(f.id); return f; };
-  m.ddt = m.ddt.map(metti); m.ruote.forEach(r => ['front','a3','extra'].forEach(k => r[k] = r[k].map(metti)));
+  m.ddt = m.ddt.map(metti); m.ruote.forEach(r => ['front','a3','int','extra'].forEach(k => r[k] = (r[k]||[]).map(metti)));
   if(m.pdf && loc.pdf && loc.pdf.blob && loc.pdf.creato === m.pdf.creato) m.pdf.blob = loc.pdf.blob;
   return m;
 }
@@ -1348,7 +1484,8 @@ document.addEventListener('change', async e => {
     const files = [...t.files]; if(!files.length) return;
     const [k, i] = t.dataset.slot.split('.');
     const lista = k === 'ddt' ? cur.ddt : cur.ruote[+i][k];
-    await aggiungiFile(lista, files);
+    t.value = '';
+    await aggiungiFile(lista, files, k);
     render(true);
   }
 });
@@ -1410,8 +1547,21 @@ document.addEventListener('click', async e => {
     case 'set': p[el.dataset.k] = v; salva(); render(true); break;
     case 'qta': {
       const n = Math.max(1, Math.min(MAXQ, p.qta + (+v)));
-      if(n < p.qta){ const r = p.ruote[p.qta-1]; if(r && (r.front.length || r.a3.length || r.extra.length) && !confirm(`La ruota ${p.qta} ha già foto o video: li tolgo?`)) return; p.ruote.length = Math.max(n, 1); }
+      if(n < p.qta){ const r = p.ruote[p.qta-1]; if(r && (r.front.length || r.a3.length || (r.int||[]).length || r.extra.length) && !confirm(`La ruota ${p.qta} ha già foto o video: li tolgo?`)) return; p.ruote.length = Math.max(n, 1); }
       p.qta = n; allineaRuote(p); salva(); render(true); break;
+    }
+    case 'ctrl': {
+      const c = (p.passi.controllo = p.passi.controllo || {}), prima = controlloFatto(p);
+      c[v] = el.checked;
+      if(!prima && controlloFatto(p)) evento(p, 'Materiale controllato dall\'agente' + (profilo.nome ? ': ' + profilo.nome : ''), 'g');
+      if(prima && !controlloFatto(p)) evento(p, 'Controllo del materiale: tolta una spunta', 'n');
+      await salva(true, false); render(true); break;
+    }
+    case 'mozzo': {
+      if(p.mozzo === v) return;
+      p.mozzo = v;
+      evento(p, v === 'no' ? 'Dichiarato: ruota non montata su mozzo a stella o a margherita' : 'Dichiarato: ruota su mozzo a stella o a margherita, reso non preso in carico', v === 'no' ? 'g' : 'r');
+      salva(); render(true); break;
     }
     case 'motivo': if(p.motivo !== v){ p.motivo = v; p.verificato = false; } salva(); render(true); break;
     case 'verif': p.verificato = el.checked; salva(); break;
