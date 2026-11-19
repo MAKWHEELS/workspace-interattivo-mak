@@ -144,6 +144,10 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--red);outline-off
 .pill.accettata{background:var(--ok);color:#fff}
 .pill.respinta{background:var(--red);color:#fff}
 .pill.chiusa{background:var(--chip);color:var(--muted)}
+.pill.integrazione{background:var(--warn);color:#fff}
+.msg{border-left:3px solid var(--line);padding:4px 0 4px 10px;margin:6px 0;font-size:14px}
+.msg.int{border-left-color:var(--warn)}
+.msg .w{font-size:12px;color:var(--muted)}
 .sum{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:15px;margin:0}
 .sum dt{color:var(--muted)}
 .sum dd{margin:0;font-weight:650;word-break:break-word}
@@ -210,6 +214,14 @@ hr{border:0;border-top:1px solid var(--line);margin:18px 0}
 .it .dx{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
 .busy{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:30;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;padding:24px;text-align:center}
 @media (max-width:370px){.chips{grid-template-columns:repeat(2,1fr)}.seg.s4{grid-template-columns:repeat(2,1fr)}.filters{grid-template-columns:repeat(2,1fr)}}
+.dash .it{display:block;cursor:default}
+.dash .rr{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.dash dl.sum{margin:10px 0}
+.chipl{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.chipl a{display:inline-block;padding:6px 10px;border-radius:999px;border:1px solid var(--line);font-size:13px;text-decoration:none;color:inherit;background:var(--card)}
+.chipl a.pdf{font-weight:700}
+.dash textarea{min-height:56px}
+.cod{font-size:26px;letter-spacing:6px;text-align:center}
 </style>
 </head>
 <body>
@@ -232,7 +244,11 @@ const MAXQ = 10;
    restano nel PDF e i video partono allegati insieme al PDF. */
 const DRIVE_URL = 'https://script.google.com/macros/s/AKfycbz2rARPY1J91TLqFdHtpWO6JWGQDysl94Ji31KNBn6-kxDmdkX5ne9mXll4lG5NMFb-bA/exec';
 const DRIVE_KEY = 'trk-d17410c23440472d';
-const VERSIONE = '2026-11-19';
+const VERSIONE = '2026-11-19 f';
+/* Responsabile truck: l'unica che decide se un reso è accettato o rifiutato (Matteo, 2026-11-19).
+   Entra con un codice mandato alla sua mail dallo script Drive; gli altri vedono solo l'esito. */
+const RESP_TRUCK = {mail:'nonsoloruote@makwheels.it', nome:'Silvana Rinaldi'};
+const RESP_NORD_MAIL = 'enrico.galante@makwheels.it';   // responsabile truck del Nord: in copia per gli agenti del Nord
 const MAX_UP = 36 * 1024 * 1024;
 const MIN_VID = 5;        // secondi minimi di un video
 const MIN_LATO = 600;     // pixel minimi del lato corto di una foto
@@ -242,7 +258,8 @@ const MOTIVI = {
   'PROBLEMI DI BILANCIATURA': {k:'bilanc', verifica:'Assicurati che il problema di bilanciatura ci sia davvero.', dich:'Il problema di bilanciatura è reale.', a3:'Video della ruota sull\'equilibratrice', a3tipo:'video', a3hint:'Ruota in funzione sull\'equilibratrice, con i valori di bilanciatura finali ben leggibili.'},
   'DIFETTI DI VERNICIATURA': {k:'vernice', verifica:'Assicurati che il difetto ci sia davvero.', dich:'Il difetto di verniciatura è reale.', a3:'Foto del difetto di verniciatura', a3tipo:'foto', a3hint:'Il difetto deve essere ben visibile e reale.'}
 };
-const STATI = {bozza:'Da finire', pronta:'PDF pronto', inviata:'Inviata', accettata:'Accettata', respinta:'Rifiutata', chiusa:'Chiusa'};
+const STATI = {bozza:'Da finire', pronta:'PDF pronto', inviata:'Inviata', integrazione:'Da integrare', accettata:'Accettata', respinta:'Rifiutata', chiusa:'Chiusa'};
+const COPIA_MAIL = 'manuela@makwheels.it';   // sempre in copia nelle mail dei resi (mai il cliente)
 
 /* =================== UTILITÀ =================== */
 const $ = s => document.querySelector(s);
@@ -499,7 +516,7 @@ function urlModulo(p){
   const q = new URLSearchParams();
   q.set('usp','pp_url');
   const set = (k,v) => { if(v !== undefined && v !== null && String(v) !== '') q.set('entry.'+ENTRY[k], v); };
-  set('data', p.data); set('agente', profilo.nome); set('mailAgente', profilo.mail); set('resp', profilo.resp);
+  set('data', p.data); set('agente', profilo.nome); set('mailAgente', profilo.mail); set('resp', profilo.resp || RESP_TRUCK.mail);
   set('rs', p.cliente.rs); set('codCli', p.cliente.cod); set('materiale', p.materiale); set('marca', p.marca);
   set('misura', p.misura); set('codArt', p.codArt); set('qta', String(p.qta)); set('motivo', p.motivo);
   return FORM_URL + '?' + q.toString();
@@ -805,13 +822,70 @@ async function caricaSuDrive(p){
   await salva(true, false);
 }
 
+// Riepilogo della richiesta per la dashboard della responsabile truck (solo dati scritti, niente file)
+function riepilogo(p){
+  const a = p.autore || {}, inv = (p.eventi||[]).filter(e => e.cosa.startsWith('Inviat')).pop();
+  return {num: p.num, data: p.data, cliente: p.cliente, materiale: p.materiale, marca: p.marca, misura: p.misura, codArt: p.codArt,
+    qta: p.qta, motivo: p.motivo, verificato: !!p.verificato, mozzo: p.mozzo || '', ddtNum: p.ddtNum, ddtData: p.ddtData, note: p.note,
+    matricole: p.ruote.slice(0, p.qta).map(r => r.matricola || ''),
+    autore: {ruolo: a.ruolo || '', nome: a.nome || '', contatto: a.contatto || '', agNome: a.agNome || '', agMail: a.agMail || '', agTel: a.agTel || ''},
+    controllo: controlloFatto(p), modulo: !!(p.passi && p.passi.modulo), inviata: inv ? inv.t : '', stato: p.stato, agg: new Date().toISOString()};
+}
+async function mandaRiepilogo(p){
+  if(!DRIVE_URL || !p.cartellaUrl) return;
+  try{ await fetch(DRIVE_URL, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify({k: DRIVE_KEY, azione:'riepilogo', pratica: p.num, token: p.token || '', riepilogo: riepilogo(p)})}); }catch(e){}
+}
+async function chiamaScript(dati){
+  const r = await fetch(DRIVE_URL, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(Object.assign({k: DRIVE_KEY}, dati))});
+  return r.json();
+}
+// Esiti decisi dalla responsabile truck: l'app li legge e li mostra (nessuno li sceglie qui)
+const ESITO_STATO = {accettata:'accettata', respinta:'respinta'};
+let esitiLetti = 0;
+async function sincronizzaEsiti(){
+  if(!DRIVE_URL) return false;
+  const da = pratiche.filter(p => p.cartellaUrl && p.token);
+  if(!da.length) return false;
+  let j; try{ j = await chiamaScript({azione:'esiti', pratiche: da.map(p => ({p: p.num, tk: p.token}))}); }catch(e){ return false; }
+  if(!j || !j.ok) return false;
+  let cambiate = 0;
+  for(const p of da){
+    const e = j.esiti[p.num]; if(!e) continue;
+    let mod = false;
+    const nuovi = (e.m || []).filter(m => !(p.messaggiResp || []).some(x => x.t === m.t));
+    if(nuovi.length){ nuovi.forEach(m => evento(p, `${m.integra ? 'Integrazione richiesta' : 'Messaggio'} da ${m.da} (responsabile truck): ${m.testo}`, m.integra ? 'r' : 'b')); p.messaggiResp = e.m; mod = true; }
+    if(e.s && !(p.esitoResp && p.esitoResp.t === e.t)){
+      p.esitoResp = {s: e.s, n: e.n, t: e.t, da: e.da}; p.esito = p.esito || {}; p.esito.note = e.n || '';
+      if(ESITO_STATO[e.s]){ p.stato = ESITO_STATO[e.s]; evento(p, `Esito della responsabile truck (${e.da}): ${e.s === 'accettata' ? 'ACCETTATO' : 'RIFIUTATO'}${e.n ? ' · ' + e.n : ''}`, e.s === 'accettata' ? 'g' : 'r'); }
+      else if(e.s === 'integrazione'){ p.stato = 'integrazione'; }
+      else { if(['accettata','respinta','chiusa','integrazione'].includes(p.stato)) p.stato = (p.eventi||[]).some(x => x.cosa.startsWith('Inviat')) ? 'inviata' : (p.pdf ? 'pronta' : 'bozza'); evento(p, `Reso di nuovo in attesa della decisione della responsabile truck${e.n ? ' · ' + e.n : ''}`, 'n'); }
+      mod = true;
+    }
+    if(mod){ p.agg = new Date().toISOString(); await DB.put(p); cambiate++; }
+  }
+  esitiLetti = Date.now();
+  if(cambiate){ await carica(); if(vista === 'home') render(true); toast(cambiate === 1 ? 'Un reso ha novità dalla responsabile truck.' : cambiate + ' resi hanno novità dalla responsabile truck.', 3200); }
+  return true;
+}
+// Box dell'esito, uguale per tutti: solo da leggere
+const listaMsg = m => (m || []).length ? `<div style="margin-top:10px"><b class="small">Messaggi della responsabile truck</b>${m.slice().reverse().map(x => `<div class="msg ${x.integra ? 'int' : ''}"><div>${esc(x.testo).replace(/\n/g,'<br>')}</div><div class="w">${x.integra ? 'Richiesta di integrazione · ' : ''}${esc(x.da)} · ${oraIT(x.t)}</div></div>`).join('')}</div>` : '';
+function boxEsito(p){ return boxEsitoBase(p) + listaMsg(p.messaggiResp); }
+function boxEsitoBase(p){
+  const e = p.esitoResp;
+  if(e && e.s === 'integrazione') return `<div class="banner warn"><span class="ic">✍️</span><div><b>Serve un'integrazione.</b> ${esc(e.da)} (responsabile truck) chiede: «${esc(e.n)}».<br>Tocca «Modifica», completa quello che manca, poi rigenera il PDF e rimandalo: torna a lei da decidere.</div></div>`;
+  if(e && ESITO_STATO[e.s]) return `<div class="banner ${e.s === 'accettata' ? 'ok' : 'red'}"><span class="ic">${e.s === 'accettata' ? '✅' : '⛔'}</span><div><b>Reso ${e.s === 'accettata' ? 'ACCETTATO' : 'RIFIUTATO'}</b> da ${esc(e.da)} (responsabile truck) il ${oraIT(e.t)}.${e.n ? '<br>Nota: ' + esc(e.n) : ''}</div></div>`;
+  if(['accettata','respinta','chiusa'].includes(p.stato)) return `<div class="banner"><span class="ic">ℹ️</span><div>Esito segnato su questo telefono prima del 19/11/2026: <b>${STATI[p.stato]}</b>.${p.esito && p.esito.note ? '<br>Nota: ' + esc(p.esito.note) : ''}</div></div>`;
+  if(!p.cartellaUrl) return `<p class="small muted" style="margin:0">Questa richiesta non è su Google Drive, quindi la responsabile truck non la vede nella sua dashboard: apri la pratica e tocca «Rigenera» per caricarla.</p>`;
+  return `<p class="small muted" style="margin:0">In attesa della decisione di ${esc(RESP_TRUCK.nome)}, responsabile truck. L'esito compare qui da solo: solo lei può accettare o rifiutare il reso.</p>`;
+}
+
 // Il PDF va nella cartella della richiesta su Drive, sempre con lo stesso nome (si sostituisce se rigenerato)
 const nomePdfDrive = p => `RICHIESTA RESO ${p.num}.pdf`;
 async function caricaPdfSuDrive(p){
   if(!DRIVE_URL || !p.cartellaUrl || !p.pdf || !p.pdf.blob) return;
   try{
     busy(true, 'Salvo il PDF su Google Drive…');
-    const r = await fetch(DRIVE_URL, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify({k: DRIVE_KEY, token: p.token, pratica: p.num, cliente: p.cliente.rs, cartella: nomeCartella(p), nome: nomePdfDrive(p), tipo:'application/pdf', dati: await base64Di(p.pdf.blob)})});
+    const r = await fetch(DRIVE_URL, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify({k: DRIVE_KEY, token: p.token, pratica: p.num, cliente: p.cliente.rs, cartella: nomeCartella(p), nome: nomePdfDrive(p), tipo:'application/pdf', riepilogo: riepilogo(p), dati: await base64Di(p.pdf.blob)})});
     const j = await r.json(); if(!j.ok) throw new Error(j.err || 'errore');
     p.pdfUrl = j.url; evento(p, 'PDF salvato nella cartella su Google Drive', 'b');
   }catch(e){ evento(p, 'PDF non salvato su Google Drive: tocca «Rigenera» per riprovare', 'r'); }
@@ -864,7 +938,7 @@ async function invia(p, canale){
       window.open((n ? 'https://wa.me/' + n : 'https://wa.me/') + '?text=' + encodeURIComponent(testo + '\n(allega il PDF appena scaricato)'), '_blank');
     } else {
       const to = profilo.ruolo === 'cliente' ? (profilo.agMail||'') : '';
-      location.href = 'mailto:' + encodeURIComponent(to) + '?subject=' + encodeURIComponent(titolo) + '&body=' + encodeURIComponent(testo + '\n\n(allega il PDF appena scaricato)');
+      location.href = 'mailto:' + encodeURIComponent(to) + '?cc=' + encodeURIComponent(COPIA_MAIL) + '&subject=' + encodeURIComponent(titolo) + '&body=' + encodeURIComponent(testo + '\n\n(allega il PDF appena scaricato)');
     }
     toast('PDF scaricato: allegalo al messaggio.', 3500);
     ok = true;
@@ -873,6 +947,7 @@ async function invia(p, canale){
     evento(p, `Inviata ${canale === 'whatsapp' ? 'su WhatsApp' : canale === 'mail' ? 'per mail' : '(salvata in File)'}: PDF${files.length>1 ? ' + ' + (files.length-1) + ' file' : ''}`, 'g');
     if(['bozza','pronta'].includes(p.stato) && canale !== 'file') p.stato = 'inviata';
     await salva(true, false);
+    mandaRiepilogo(p);
     vista = 'scheda'; render();
     if(canale !== 'file') toast('Registrata nello storico.');
   }
@@ -902,10 +977,11 @@ const IC_MAIL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stro
 
 /* =================== INTESTAZIONE E BARRA IN BASSO =================== */
 function header(titolo, back){
-  const r = profilo ? (profilo.ruolo === 'agente' ? 'AGENTE' : 'CLIENTE') : '';
+  const r = profilo ? (isResp() ? 'RESP. TRUCK' : profilo.ruolo === 'agente' ? 'AGENTE' : 'CLIENTE') : '';
   $('#hdr').innerHTML = `${back ? `<button class="back" data-act="${back}" aria-label="Indietro">‹</button>` : ''}<div class="ttl">${esc(titolo)}</div>${r ? `<button class="role" data-act="profilo">${r}</button>` : ''}`;
 }
 function foot(html, one){ $('#foot').innerHTML = html ? `<div class="footer-bar"><div class="in${one?' one':''}">${html}</div></div>` : ''; }
+const isResp = () => !!(profilo && profilo.respTruck && profilo.respTruck.sessione);
 function liberaUrl(){ urls.forEach(u => URL.revokeObjectURL(u)); urls = []; }
 function urlDi(f){ const u = URL.createObjectURL(f.blob); urls.push(u); return u; }
 
@@ -913,8 +989,10 @@ function urlDi(f){ const u = URL.createObjectURL(f.blob); urls.push(u); return u
 function render(keepScroll){
   liberaUrl();
   const y = scrollY;
-  if(!profilo && !['chi','profilo','guida','trasporto'].includes(vista)) vista = 'chi';
-  ({home:vHome, chi:vChi, profilo:vProfilo, step:vStep, scheda:vScheda, guida:vGuida, trasporto:vTrasporto, import:vImport})[vista]();
+  if(!profilo && !['chi','profilo','guida','trasporto','accesso'].includes(vista)) vista = 'chi';
+  if(['dash','storico'].includes(vista) && !isResp()) vista = profilo ? 'home' : 'chi';
+  if(vista === 'miei' && !hasAgSess()) vista = profilo ? 'home' : 'chi';
+  ({home:vHome, chi:vChi, profilo:vProfilo, step:vStep, scheda:vScheda, guida:vGuida, trasporto:vTrasporto, import:vImport, accesso:vAccesso, dash:vDash, miei:vMiei, storico:vStorico})[vista]();
   window.scrollTo(0, keepScroll ? y : 0);
 }
 
@@ -930,8 +1008,297 @@ function vChi(){
         <button class="opt" data-act="ruolo" data-v="agente">Sono un agente MAK<small>Invio la richiesta a MAK con il modulo RESO TRUCK</small></button>
       </div>
     </div>
-    <div class="links center"><button class="lnk" data-act="guida" style="text-align:center">Cosa serve per un reso? Guida veloce</button></div>
+    <div class="links center"><button class="lnk" data-act="guida" style="text-align:center">Cosa serve per un reso? Guida veloce</button><button class="lnk" data-act="accesso" style="text-align:center">Sei la responsabile truck MAK? Entra qui</button></div>
     <div class="agg"><span>Versione ${VERSIONE}. Se il modulo non è aggiornato, tocca qui.</span><button data-act="aggiornaApp">↻ Aggiorna</button></div>`;
+}
+
+/* =================== ACCESSO DELLA RESPONSABILE TRUCK =================== */
+let accesso = {mail:'', inviato:false, modo:'resp'};
+function vAccesso(){
+  const ag = accesso.modo === 'agente';
+  header(ag ? 'Resi a tuo nome' : 'Accesso responsabile truck', profilo ? (ag ? 'home' : 'profilo') : 'chi'); foot('');
+  $('#app').innerHTML = `
+    <p class="muted">${ag ? 'Qui vedi i resi truck abbinati a te: quelli fatti con l\'app e quelli vecchi caricati dalla responsabile truck. Per sicurezza ricevi un codice di 6 cifre alla tua mail, una volta sola: niente password.' : 'Solo la responsabile truck può decidere se un reso è accettato o rifiutato. Per entrare ricevi un codice di 6 cifre alla tua mail MAK: niente password.'}</p>
+    <div class="card">
+      <label class="f" for="a-mail" style="margin-top:0">${ag ? 'La mail con cui lavori con MAK' : 'La tua mail MAK'}</label>
+      <input type="email" id="a-mail" value="${esc(accesso.mail)}" inputmode="email" autocomplete="email" placeholder="nome@makwheels.it">
+      <button class="btn primary" data-act="chiediCodice" style="margin-top:12px">${accesso.inviato ? 'Mandami un altro codice' : 'Mandami il codice'}</button>
+      ${accesso.inviato ? `
+      <label class="f" for="a-cod">Codice ricevuto per mail</label>
+      <input type="text" id="a-cod" class="cod" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="••••••">
+      <div class="hint">Vale 10 minuti. Se non arriva, guarda nella posta indesiderata.</div>
+      <button class="btn primary" data-act="entra" style="margin-top:12px">Entra</button>` : ''}
+    </div>`;
+}
+
+/* =================== RESI A NOME DELL'AGENTE (sola lettura) =================== */
+let miei = {resi:null, filtro:'tutte', cerca:'', err:'', letta:null};
+const hasAgSess = () => !!(profilo && profilo.agSess && profilo.agSess.sessione);
+async function caricaMiei(){
+  miei.err = '';
+  busy(true, 'Leggo i resi a tuo nome…');
+  try{
+    const j = await chiamaScript({azione:'miei', sessione: profilo.agSess.sessione});
+    if(!j.ok){ if(j.err === 'accesso'){ delete profilo.agSess; ls.set('trk-resi-profilo', profilo); miei.resi = null; toast(j.msg || 'Accesso scaduto.', 4000); vista = 'home'; return; } throw new Error(j.err); }
+    miei.resi = j.resi; miei.letta = new Date().toISOString();
+  }catch(e){ miei.err = 'Non riesco a leggere i resi: controlla la connessione e riprova.'; }
+  finally{ busy(false); }
+}
+function vMiei(){
+  header('Resi a tuo nome', 'home'); foot('');
+  const tutti = miei.resi || [], q = miei.cerca.trim().toLowerCase();
+  const n = {tutte: tutti.length, attesa: tutti.filter(r => STATO_DASH(r) === 'decidere').length, accettata: tutti.filter(r => STATO_DASH(r) === 'accettata').length, respinta: tutti.filter(r => STATO_DASH(r) === 'respinta').length};
+  const lista = tutti.filter(r => { const st = STATO_DASH(r); if(miei.filtro === 'attesa' && st !== 'decidere') return false; if(['accettata','respinta'].includes(miei.filtro) && st !== miei.filtro) return false; return !q || testoReso(r).includes(q); });
+  $('#app').innerHTML = `
+    <p class="muted">Resi abbinati a ${esc(profilo.agSess.mail)}. L'esito lo decide solo ${esc(RESP_TRUCK.nome)}, responsabile truck: qui si può solo leggere.</p>
+    ${miei.err ? `<div class="banner red"><span class="ic">⚠️</span><div>${esc(miei.err)}</div></div>` : ''}
+    <button class="btn" data-act="ricaricaMiei">↻ Aggiorna l'elenco${miei.letta ? ' · letto alle ' + oraIT(miei.letta).slice(11) : ''}</button>
+    <input type="search" id="cerca-miei" placeholder="Cerca cliente, pratica, marca, misura…" value="${esc(miei.cerca)}" style="margin-top:12px" aria-label="Cerca tra i resi">
+    <div class="filters">${[['tutte','Tutti'],['attesa','In attesa'],['accettata','Accettati'],['respinta','Rifiutati']].map(([k,l]) => `<button class="opt ${miei.filtro===k?'on':''}" data-act="filtroMiei" data-v="${k}"><b>${n[k]}</b>${l}</button>`).join('')}</div>
+    <div class="card list dash" id="lista-miei">${lista.length ? lista.map(r => schedaDash(r, true)).join('') : `<p class="muted" style="margin:0">${miei.resi ? 'Nessun reso in questo elenco.' : 'Elenco non ancora letto.'}</p>`}</div>
+    <button class="btn del" data-act="esciAg" style="margin-top:14px">Esci da «Resi a tuo nome» su questo telefono</button>`;
+}
+const testoReso = r => { const x = r.r || {}; return [r.nome, x.marca, x.misura, x.codArt, x.motivo, x.ddtNum, x.autore && x.autore.nome, x.agente && x.agente.nome, x.agente && x.agente.mail, r.ag].join(' ').toLowerCase(); };
+const agenteDi = r => { const x = r.r || {}, a = x.autore || {}; if(x.agente && (x.agente.nome || x.agente.mail)) return x.agente; if(a.ruolo === 'agente') return {nome: a.nome, mail: a.contatto}; if(a.agNome || a.agMail) return {nome: a.agNome, mail: a.agMail}; return r.ag ? {nome:'', mail: r.ag} : null; };
+
+/* =================== RESI VECCHI: caricamento della responsabile =================== */
+const CAMPI_ST = [
+  ['data','Data della richiesta', /^(data( (richiesta|reso|apertura|segnalazione))?|informazioni cronologiche|timestamp|data\/ora)$/i],
+  ['rs','Cliente (ragione sociale)', /ragione sociale|^cliente$|nome cliente|denominazione/i],
+  ['cod','Codice cliente', /cod(ice)?\.? ?cliente|cliente b2b|^cod\.? ?cli/i],
+  ['agNome','Agente (nome)', /^agente$|nome agente|agente( mak)?$|^age$/i],
+  ['agMail','Mail agente', /mail.*agente|agente.*mail|indirizzo email|^e-?mail$/i],
+  ['materiale','Materiale', /materiale|acciaio|lega/i],
+  ['marca','Marca', /marca|marchio|produttore/i],
+  ['misura','Misura', /misura/i],
+  ['codArt','Codice articolo', /cod(ice)?\.? ?art|articolo/i],
+  ['qta','Quantità', /quantit|^q\.?t[aà]\.?$|^pz|pezzi|n\.? ?ruote/i],
+  ['motivo','Motivo', /motivo|difetto|causale/i],
+  ['ddtNum','N. DDT / fattura', /^(n\.?|num(ero)?)\.? ?(ddt|fattura|documento|doc)|^(ddt|fattura|documento)$/i],
+  ['ddtData','Data DDT', /data.*(ddt|fattura|documento|acquisto)/i],
+  ['note','Note', /^note|annotazion|osservazion/i],
+  ['esito','Esito', /esito|stato|accettat|decisione/i],
+  ['notaEsito','Nota sull\'esito', /nota.*esito|motivazione|commento/i]
+];
+// Colonne del modello Excel dei resi vecchi (stesse dell'export della dashboard)
+const COL_MODELLO = ['DATA RICHIESTA','CLIENTE (RAGIONE SOCIALE)','CODICE CLIENTE B2B','AGENTE','MAIL AGENTE (@makwheels.it)','MATERIALE','MARCA','MISURA','CODICE ARTICOLO','QUANTITÀ RUOTE','MOTIVO','N. DDT O FATTURA','DATA DDT','NOTE','ESITO','NOTA ESITO'];
+async function esportaDash(){
+  if(!dash.resi || !dash.resi.length){ toast('Nessun reso da esportare.'); return; }
+  busy(true, 'Preparo l\'Excel…');
+  try{
+    await caricaXLSX();
+    const testa = ['PRATICA', ...COL_MODELLO, 'DATA DECISIONE', 'ORIGINE', 'PDF', 'CARTELLA DRIVE'];
+    const righe = [testa], link = [];
+    dash.resi.forEach((r, i) => {
+      const x = r.r || {}, c = x.cliente || {}, ag = agenteDi(r) || {}, e = r.esito && ESITO_STATO[r.esito.s] ? r.esito : null;
+      righe.push([r.pratica, dataIT(x.data || r.creata), c.rs || r.nome, c.cod || '', ag.nome || '', ag.mail || '', x.materiale || '', x.marca || '', x.misura || '', x.codArt || '', x.qta || '', x.motivo || '', x.ddtNum || '', x.ddtData ? dataIT(x.ddtData) : '', x.note || '',
+        e ? (e.s === 'accettata' ? 'ACCETTATO' : 'RIFIUTATO') : 'DA DECIDERE', (r.esito && r.esito.n) || '', e ? oraIT(e.t) : '', x.origine === 'storico' ? 'Reso vecchio' : 'App', r.pdf ? 'Apri PDF' : '', 'Apri cartella']);
+      if(r.pdf) link.push([i+1, testa.length-2, r.pdf]);
+      link.push([i+1, testa.length-1, r.cartella]);
+    });
+    const ws = XLSX.utils.aoa_to_sheet(righe);
+    link.forEach(([r, c, url]) => { const ad = XLSX.utils.encode_cell({r, c}); if(ws[ad]) ws[ad].l = {Target: url}; });
+    ws['!cols'] = testa.map(h => ({wch: Math.max(12, Math.min(30, h.length + 2))}));
+    ws['!autofilter'] = {ref: XLSX.utils.encode_range({s:{r:0,c:0}, e:{r:righe.length-1, c:testa.length-1}})};
+    const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, 'Resi truck');
+    const d = new Date(), z = n => String(n).padStart(2,'0');
+    const nome = `Resi TRK tutti ${d.getFullYear()}-${z(d.getMonth()+1)}-${z(d.getDate())}.xlsx`;
+    const file = new File([XLSX.write(wb, {type:'array', bookType:'xlsx', compression:true})], nome, {type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+    busy(false);
+    if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})){ try{ await navigator.share({files:[file], title: nome}); return; }catch(e){ if(e && e.name === 'AbortError') return; } }
+    scarica(file);
+  }catch(e){ console.error(e); toast('Non sono riuscito a creare l\'Excel: riprova.'); }
+  finally{ busy(false); }
+}
+let storico = {righe:null, testa:[], mappa:{}, esitoDef:'attesa', nomeFile:''};
+const MAIL_MAK = m => /^[^\s@]+@makwheels\.it$/i.test(String(m || '').trim());
+function isoDa(v){
+  if(v instanceof Date && !isNaN(v)) return v.getFullYear() + '-' + String(v.getMonth()+1).padStart(2,'0') + '-' + String(v.getDate()).padStart(2,'0');
+  const t = String(v || '').trim(); let m;
+  if((m = t.match(/^(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{2,4})/))){ const y = m[3].length === 2 ? '20' + m[3] : m[3]; return `${y}-${m[2].padStart(2,'0')}-${m[1].padStart(2,'0')}`; }
+  if((m = t.match(/^(\d{4})-(\d{2})-(\d{2})/))) return `${m[1]}-${m[2]}-${m[3]}`;
+  return '';
+}
+function esitoDa(v, def){
+  const t = String(v || '').trim().toLowerCase();
+  if(!t) return def;
+  if(/rifiut|respint|non accett|negativ|^no$|^ko$/.test(t)) return 'respinta';
+  if(/accett|approv|^ok$|^s[iì]$|positiv|sostitu|nota di credito/.test(t)) return 'accettata';
+  return def;
+}
+function vStorico(){
+  header('Carica resi vecchi', 'dash'); foot('');
+  const agenti = [...new Map((dash.resi || []).map(agenteDi).filter(a => a && a.mail).map(a => [a.mail.toLowerCase(), a])).values()];
+  const dl = `<datalist id="dl-agenti">${agenti.map(a => `<option value="${esc(a.mail)}">${esc(a.nome || '')}</option>`).join('')}</datalist><datalist id="dl-agnomi">${agenti.filter(a => a.nome).map(a => `<option value="${esc(a.nome)}"></option>`).join('')}</datalist>`;
+  const sel = (id, lista, ph) => `<select id="${id}"><option value="">${ph}</option>${lista.map(x => `<option>${esc(x)}</option>`).join('')}</select>`;
+  const anteprima = storico.righe ? righeStorico().slice(0, 5) : [];
+  $('#app').innerHTML = `${dl}
+    <p class="muted">Carica i resi che gestivi prima dell'app, con l'agente abbinato e l'esito. Li vedrai nella dashboard e ogni agente li vedrà nei suoi «Resi a tuo nome».</p>
+    <div class="card"><h3>Da un Excel (tutti insieme)</h3>
+      <p class="small muted">Una riga per reso, con i titoli delle colonne nella prima riga. Il modo più semplice: scarica il modello, copia lì i tuoi resi e caricalo. Con un altro Excel l'app riconosce le colonne più comuni e quelle che non trova le scegli tu.</p>
+      <a class="btn" href="modello-resi-vecchi.xlsx" download="MODELLO RESI VECCHI TRK.xlsx" style="margin-bottom:10px">⬇︎ Scarica il modello Excel</a>
+      <label class="btn" style="position:relative;overflow:hidden">${storico.righe ? 'Scegli un altro file' : 'Scegli il file Excel'}<input type="file" id="st-xls" accept=".xlsx,.xls,.csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,text/csv" style="position:absolute;inset:0;opacity:0;cursor:pointer"></label>
+      ${storico.righe ? `
+        <p class="small" style="margin:10px 0 4px"><b>${esc(storico.nomeFile)}</b>: ${storico.righe.length} righe.</p>
+        <h3 style="margin-top:12px">Colonne</h3>
+        ${CAMPI_ST.map(([k, l]) => `<label class="f" for="mp-${k}">${l}${k === 'rs' ? ' <span class="req">*</span>' : ''}</label><select id="mp-${k}" data-mappa="${k}"><option value="">— non c'è —</option>${storico.testa.map((h, i) => `<option value="${i}" ${storico.mappa[k] === i ? 'selected' : ''}>${esc(h || 'Colonna ' + (i+1))}</option>`).join('')}</select>`).join('')}
+        <label class="f" for="st-def">Esito per le righe senza esito</label>
+        <select id="st-def" data-mappa="_def"><option value="attesa" ${storico.esitoDef==='attesa'?'selected':''}>Da decidere</option><option value="accettata" ${storico.esitoDef==='accettata'?'selected':''}>Accettato</option><option value="respinta" ${storico.esitoDef==='respinta'?'selected':''}>Rifiutato</option></select>
+        <h3 style="margin-top:14px">Anteprima (prime 5 righe)</h3>
+        <div style="overflow-x:auto"><table class="g"><tr><th>Data</th><th>Cliente</th><th>Agente</th><th>Prodotto</th><th>Motivo</th><th>Esito</th></tr>
+        ${anteprima.map(x => `<tr><td>${dataIT(x.data)}</td><td>${esc(x.cliente.rs)}</td><td>${esc(x.agente.nome)}${x.agente.mail ? '<br><small>' + esc(x.agente.mail) + '</small>' : ''}</td><td>${esc([x.marca, x.misura, x.codArt].filter(Boolean).join(' · '))}</td><td>${esc(x.motivo)}</td><td>${{accettata:'Accettato', respinta:'Rifiutato', attesa:'Da decidere'}[x.esito.s]}</td></tr>`).join('')}
+        </table></div>
+        ${(() => { const R = righeStorico(), scartate = R.filter(x => x.mailScartata).length, senzaMail = R.filter(x => !x.agente.mail).length, senzaCli = storico.righe.length - R.length; return (scartate ? `<div class="banner red"><span class="ic">✋</span><div>${scartate} resi hanno una mail dell'agente che non è @makwheels.it: la mail non viene usata. Correggila nell'Excel oppure abbinala dopo dalla dashboard.</div></div>` : '') + (senzaMail ? `<div class="banner warn"><span class="ic">✉️</span><div>${senzaMail} resi senza mail dell'agente: li carico, ma l'agente li vedrà solo dopo che gli avrai abbinato la mail dalla dashboard («Abbina agente»).</div></div>` : '') + (senzaCli ? `<p class="small muted">${senzaCli} righe senza cliente vengono saltate.</p>` : ''); })()}
+        <button class="btn primary" data-act="caricaXls" style="margin-top:10px">Carica ${righeStorico().length} resi</button>
+        <p class="hint">Se carichi due volte lo stesso file, i resi già caricati vengono saltati.</p>` : ''}
+    </div>
+    <div class="card"><h3>Uno per volta</h3>
+      <div class="row"><div><label class="f" for="s-data" style="margin-top:0">Data della richiesta</label><input type="date" id="s-data" value="${oggiISO()}"></div>
+      <div><label class="f" for="s-esito" style="margin-top:0">Esito</label><select id="s-esito"><option value="attesa">Da decidere</option><option value="accettata">Accettato</option><option value="respinta">Rifiutato</option></select></div></div>
+      <label class="f" for="s-rs">Cliente (ragione sociale) <span class="req">*</span></label><input type="text" id="s-rs">
+      <label class="f" for="s-cod">Codice cliente B2B</label><input type="text" id="s-cod">
+      <div class="row"><div><label class="f" for="s-agn">Agente <span class="req">*</span></label><input type="text" id="s-agn" list="dl-agnomi" placeholder="Nome e cognome"></div>
+      <div><label class="f" for="s-agm">Mail agente @makwheels.it <span class="req">*</span></label><input type="email" id="s-agm" list="dl-agenti" inputmode="email" placeholder="nome@makwheels.it"></div></div>
+      <div class="hint">Sempre la mail @makwheels.it dell'agente: con quella l'agente vede il reso nella sua app.</div>
+      <div class="row"><div><label class="f" for="s-mat">Materiale</label>${sel('s-mat', MATERIALI, 'Scegli…')}</div><div><label class="f" for="s-qta">Ruote</label><input type="number" id="s-qta" min="1" max="99" value="1" inputmode="numeric"></div></div>
+      <div class="row"><div><label class="f" for="s-marca">Marca</label><input type="text" id="s-marca" list="dl-marche"></div><div><label class="f" for="s-mis">Misura</label><input type="text" id="s-mis" list="dl-misure"></div></div>
+      <datalist id="dl-marche">${MARCHE.map(x => `<option value="${esc(x)}">`).join('')}</datalist><datalist id="dl-misure">${MISURE.map(x => `<option value="${esc(x)}">`).join('')}</datalist>
+      <label class="f" for="s-art">Codice articolo</label><input type="text" id="s-art">
+      <label class="f" for="s-mot">Motivo</label>${sel('s-mot', Object.keys(MOTIVI), 'Scegli…')}
+      <div class="row"><div><label class="f" for="s-ddt">N. DDT / fattura</label><input type="text" id="s-ddt"></div><div><label class="f" for="s-ddtd">Data DDT</label><input type="date" id="s-ddtd"></div></div>
+      <label class="f" for="s-note">Note</label><textarea id="s-note"></textarea>
+      <label class="f" for="s-nesito">Nota sull'esito (la vedono cliente e agente)</label><textarea id="s-nesito"></textarea>
+      <label class="f" for="s-file">PDF, foto e video del reso (facoltativi)</label>
+      <input type="file" id="s-file" multiple accept="image/*,video/*,application/pdf">
+      <button class="btn primary" data-act="caricaUno" style="margin-top:12px">Carica il reso</button>
+    </div>`;
+}
+function righeStorico(){
+  const M = storico.mappa, g = (r, k) => M[k] === undefined || M[k] === '' ? '' : r[M[k]];
+  const s = v => (v instanceof Date ? isoDa(v) : String(v ?? '')).trim();
+  return (storico.righe || []).map(r => ({
+    data: isoDa(g(r,'data')) || oggiISO(),
+    cliente: {rs: s(g(r,'rs')), cod: s(g(r,'cod'))},
+    agente: {nome: s(g(r,'agNome')), mail: MAIL_MAK(s(g(r,'agMail'))) ? s(g(r,'agMail')).toLowerCase() : ''}, mailScartata: s(g(r,'agMail')) && !MAIL_MAK(s(g(r,'agMail'))) ? s(g(r,'agMail')) : '',
+    materiale: s(g(r,'materiale')).toUpperCase(), marca: s(g(r,'marca')).toUpperCase(), misura: s(g(r,'misura')), codArt: s(g(r,'codArt')),
+    qta: s(g(r,'qta')), motivo: s(g(r,'motivo')).toUpperCase(), ddtNum: s(g(r,'ddtNum')), ddtData: isoDa(g(r,'ddtData')), note: s(g(r,'note')),
+    esito: {s: esitoDa(g(r,'esito'), storico.esitoDef), n: s(g(r,'notaEsito'))}
+  })).filter(x => x.cliente.rs && !/^esempio\b/i.test(x.cliente.rs));
+}
+async function leggiXlsStorico(file){
+  busy(true, 'Leggo il file…');
+  try{
+    await caricaXLSX();
+    const wb = XLSX.read(await file.arrayBuffer(), {type:'array', cellDates:true});
+    const ws = wb.Sheets[wb.SheetNames[0]];
+    const tab = XLSX.utils.sheet_to_json(ws, {header:1, raw:true, defval:''}).filter(r => r.some(c => String(c).trim() !== ''));
+    if(tab.length < 2){ busy(false); alert('Nel primo foglio non ho trovato righe con dati.'); return; }
+    storico.testa = tab[0].map(h => String(h).trim()); storico.righe = tab.slice(1); storico.nomeFile = file.name; storico.mappa = {};
+    const usate = new Set();
+    CAMPI_ST.forEach(([k, , re]) => { const i = storico.testa.findIndex((h, j) => !usate.has(j) && re.test(h)); if(i >= 0){ storico.mappa[k] = i; usate.add(i); } });
+  }catch(e){ console.error(e); alert('Non riesco a leggere il file: salvalo come .xlsx e riprova.'); }
+  finally{ busy(false); }
+}
+async function mandaStorico(resi){
+  let fatti = 0, gia = 0, ko = 0; const out = [];
+  for(let i = 0; i < resi.length; i += 25){
+    busy(true, `Carico i resi… ${Math.min(i + 25, resi.length)} di ${resi.length}`);
+    const j = await chiamaScript({azione:'storico', sessione: profilo.respTruck.sessione, resi: resi.slice(i, i + 25)});
+    if(!j.ok){ if(j.err === 'accesso'){ busy(false); esciResp(); toast(j.msg, 4000); return null; } throw new Error(j.err); }
+    j.esiti.forEach(e => { out.push(e); if(!e.ok) ko++; else if(e.gia) gia++; else fatti++; });
+  }
+  busy(false);
+  return {fatti, gia, ko, out};
+}
+
+/* =================== DASHBOARD DELLA RESPONSABILE TRUCK =================== */
+let dash = {resi:null, filtro:'decidere', cerca:'', err:'', letta:null};
+const STATO_DASH = r => r.esito && ESITO_STATO[r.esito.s] ? r.esito.s : 'decidere';
+const daDecidere = r => !!(r.pdf || (r.r && r.r.origine === 'storico'));
+async function caricaDash(){
+  dash.err = '';
+  busy(true, 'Leggo le richieste da Google Drive…');
+  try{
+    const j = await chiamaScript({azione:'lista', sessione: profilo.respTruck.sessione});
+    if(!j.ok){
+      if(j.err === 'accesso'){ esciResp(); toast(j.msg || 'Accesso scaduto: rientra con un codice.', 4000); return; }
+      throw new Error(j.err);
+    }
+    dash.resi = j.resi; dash.letta = new Date().toISOString();
+  }catch(e){ dash.err = 'Non riesco a leggere le richieste: controlla la connessione e tocca «Aggiorna l\'elenco».'; }
+  finally{ busy(false); }
+}
+function filtraDash(){
+  const q = dash.cerca.trim().toLowerCase();
+  return (dash.resi || []).filter(r => {
+    const st = STATO_DASH(r);
+    if(dash.filtro === 'decidere' && (st !== 'decidere' || !daDecidere(r))) return false;
+    if(dash.filtro === 'accettata' && st !== 'accettata') return false;
+    if(dash.filtro === 'respinta' && st !== 'respinta') return false;
+    if(dash.filtro === 'incomplete' && daDecidere(r)) return false;
+    if(!q) return true;
+    return testoReso(r).includes(q);
+  });
+}
+const nomeAllegato = n => n.replace(/\.[a-z0-9]+$/i, '').replace(/_/g, ' ').replace(/ALLEGATO2 FRONTALE|ALLEGATO2/i, 'frontale').replace(/ALLEGATO3/i, 'difetto').replace(/ALLEGATO4 INTERNO|ALLEGATO4/i, 'interno').replace(/RUOTA(\d+)/i, 'Ruota $1').toLowerCase().replace(/^ruota/, 'Ruota');
+function schedaDash(r, ro){
+  const x = r.r || {}, c = x.cliente || {}, a = x.autore || {}, st = STATO_DASH(r);
+  const integ = r.esito && r.esito.s === 'integrazione';
+  const pill = integ ? '<span class="pill integrazione">Da integrare</span>' : st === 'accettata' ? '<span class="pill accettata">Accettata</span>' : st === 'respinta' ? '<span class="pill respinta">Rifiutata</span>' : daDecidere(r) ? `<span class="pill inviata">${ro ? 'In attesa' : 'Da decidere'}</span>` : '<span class="pill bozza">Senza PDF</span>';
+  const ag = agenteDi(r), storicoR = x.origine === 'storico';
+  const chi = a.ruolo === 'agente' ? `Agente: ${esc(a.nome)}${a.contatto ? ' · <a href="mailto:' + esc(a.contatto) + '">' + esc(a.contatto) + '</a>' : ''}` : a.ruolo === 'cliente' ? `Cliente: ${esc(a.nome)}${a.contatto ? ' · <a href="tel:' + esc(a.contatto) + '">' + esc(a.contatto) + '</a>' : ''}${a.agNome ? '<br>Agente: ' + esc(a.agNome) + (a.agMail ? ' · <a href="mailto:' + esc(a.agMail) + '">' + esc(a.agMail) + '</a>' : '') : ''}` : '—';
+  return `<div class="it" data-pr="${esc(r.pratica)}">
+    <div class="rr"><div><div class="a">${esc(c.rs || r.nome)}</div><div class="c">${esc(r.pratica)} · ${c.cod ? 'cod. ' + esc(c.cod) + ' · ' : ''}creata il ${oraIT(r.creata)}</div></div>${pill}</div>
+    ${r.r ? `<dl class="sum">
+      <dt>Prodotto</dt><dd>${esc([x.materiale, x.marca].filter(Boolean).join(' · '))}<br>${esc(x.misura || '')}${x.codArt ? ' · ' + esc(x.codArt) : ''}</dd>
+      <dt>Ruote</dt><dd>${esc(x.qta)}${(x.matricole||[]).some(Boolean) ? ' · matricole ' + esc(x.matricole.filter(Boolean).join(', ')) : ''}</dd>
+      <dt>Motivo</dt><dd>${esc(x.motivo || '—')}${x.verificato ? ' · verifica dichiarata' : ''}</dd>
+      <dt>Mozzo</dt><dd>${x.mozzo === 'no' ? 'Dichiarato: non a stella né a margherita' : x.mozzo === 'si' ? '<b>Mozzo a stella o a margherita</b>' : 'Non chiesto (pratica vecchia)'}</dd>
+      <dt>DDT</dt><dd>${esc(x.ddtNum || '—')}${x.ddtData ? ' del ' + dataIT(x.ddtData) : ''}</dd>
+      <dt>Referente</dt><dd>${esc([c.ref, c.tel].filter(Boolean).join(' · ') || '—')}</dd>
+      <dt>Agente</dt><dd>${ag ? esc(ag.nome || '') + (ag.mail ? (ag.nome ? ' · ' : '') + '<a href="mailto:' + esc(ag.mail) + '">' + esc(ag.mail) + '</a>' : ' <b>(senza mail: non lo vede)</b>') : '<b>nessun agente abbinato</b>'}${ro ? '' : ` <button class="lnk" data-act="abbina" data-pr="${esc(r.pratica)}" style="display:inline">${ag ? 'cambia' : 'abbina agente'}</button>`}</dd>
+      <dt>Compilata da</dt><dd>${storicoR ? 'Reso vecchio caricato dalla responsabile truck' : chi}</dd>
+      ${storicoR ? '' : `<dt>Controllo</dt><dd>${x.controllo ? 'Materiale controllato' : 'Controllo non fatto'} · ${x.modulo ? 'modulo RESO TRUCK inviato' : 'modulo non spuntato'}${x.inviata ? ' · inviata il ' + oraIT(x.inviata) : ''}</dd>`}
+      ${x.note ? `<dt>Note</dt><dd>${esc(x.note)}</dd>` : ''}
+    </dl>` : `<p class="small muted">Dati della richiesta non disponibili (pratica creata prima del 19/11/2026): sono nel PDF.</p>`}
+    <div class="chipl">${r.pdf ? `<a class="pdf" href="${esc(r.pdf)}" target="_blank" rel="noopener">📄 PDF della richiesta</a>` : ''}<a href="${esc(r.cartella)}" target="_blank" rel="noopener">📁 Cartella su Drive</a>
+      ${(r.allegati||[]).map(f => `<a href="${esc(f.url)}" target="_blank" rel="noopener">${f.video ? '🎬' : '📷'} ${esc(nomeAllegato(f.nome))}</a>`).join('')}</div>
+    ${!ro && r.esito && r.esito.t ? `<p class="small muted" style="margin:4px 0">Ultima decisione: ${r.esito.s === 'accettata' ? 'accettato' : r.esito.s === 'respinta' ? 'rifiutato' : r.esito.s === 'integrazione' ? 'chiesta integrazione' : 'rimesso in attesa'} il ${oraIT(r.esito.t)}${r.esito.n ? ' · «' + esc(r.esito.n) + '»' : ''}</p>` : ''}
+    ${ro ? (r.esito && ESITO_STATO[r.esito.s] ? `<div class="banner ${r.esito.s === 'accettata' ? 'ok' : 'red'}" style="margin:6px 0 0"><span class="ic">${r.esito.s === 'accettata' ? '✅' : '⛔'}</span><div><b>${r.esito.s === 'accettata' ? 'ACCETTATO' : 'RIFIUTATO'}</b> da ${esc(r.esito.da)} il ${oraIT(r.esito.t)}${r.esito.n ? '<br>Nota: ' + esc(r.esito.n) : ''}</div></div>` : `<p class="small muted" style="margin:6px 0 0">In attesa della decisione di ${esc(RESP_TRUCK.nome)}.</p>`) : ''}
+    ${listaMsg(r.messaggi)}
+    ${ro && integ ? `<div class="banner warn" style="margin:6px 0 0"><span class="ic">✍️</span><div><b>Serve un'integrazione</b>: «${esc(r.esito.n)}». Completa la richiesta nell'app e rimandala.</div></div>` : ''}
+    ${ro ? '</div>' : `<details style="margin-top:10px"><summary class="small"><b>✉︎ Rispondi all'agente</b> (qualcosa non va o serve un approfondimento)</summary>
+      <textarea id="m-${esc(r.pratica)}" placeholder="Es. manca la foto dell'interno della ruota 2; il DDT non si legge; serve la matricola…" style="margin-top:8px"></textarea>
+      <div class="grid2" style="margin-top:8px"><button class="btn" data-act="messaggio" data-pr="${esc(r.pratica)}" data-v="info">Manda messaggio</button><button class="btn" data-act="messaggio" data-pr="${esc(r.pratica)}" data-v="integra" style="border-color:var(--warn)">Chiedi integrazione</button></div>
+      <p class="hint">Mail all'agente con ${COPIA_MAIL} e te in copia, mai al cliente. «Chiedi integrazione» lascia il reso aperto: quando l'agente lo rimanda ti arriva di nuovo.</p></details>
+    <label class="f" for="n-${esc(r.pratica)}">Nota sull'esito per l'agente (facoltativa)</label>
+    <textarea id="n-${esc(r.pratica)}" placeholder="Es. sostituzione approvata, nota di credito; oppure il motivo del rifiuto">${esc(r.esito && ESITO_STATO[r.esito.s] ? r.esito.n : '')}</textarea>
+    <div class="grid2" style="margin-top:10px"><button class="btn ok" data-act="decidi" data-pr="${esc(r.pratica)}" data-v="accettata" ${st === 'accettata' ? 'disabled' : ''}>✓ Accetta</button><button class="btn no" data-act="decidi" data-pr="${esc(r.pratica)}" data-v="respinta" ${st === 'respinta' ? 'disabled' : ''}>✕ Rifiuta</button></div>
+    ${st !== 'decidere' ? `<button class="btn" data-act="decidi" data-pr="${esc(r.pratica)}" data-v="attesa" style="margin-top:8px">Rimetti in attesa</button>` : ''}
+  </div>`}`;
+}
+function vDash(){
+  header('Decisioni sui resi', 'home'); foot('');
+  const tutti = dash.resi || [];
+  const n = {decidere: tutti.filter(r => STATO_DASH(r) === 'decidere' && daDecidere(r)).length, accettata: tutti.filter(r => STATO_DASH(r) === 'accettata').length, respinta: tutti.filter(r => STATO_DASH(r) === 'respinta').length, incomplete: tutti.filter(r => !daDecidere(r)).length, tutte: tutti.length};
+  const lista = filtraDash();
+  $('#app').innerHTML = `
+    <p class="muted">Ciao ${esc(profilo.respTruck.nome.split(' ')[0])}: qui ci sono tutte le richieste di reso arrivate su Google Drive, da clienti e agenti. Apri PDF, foto e video e decidi: l'esito compare da solo nell'app di chi ha fatto la richiesta.</p>
+    ${dash.err ? `<div class="banner red"><span class="ic">⚠️</span><div>${esc(dash.err)}</div></div>` : ''}
+    <div class="grid2"><button class="btn primary" data-act="storico">+ Carica resi vecchi</button><button class="btn" data-act="ricaricaDash">↻ Aggiorna l'elenco</button></div>
+    <p class="small muted" style="margin:6px 0 0">${dash.letta ? 'Elenco letto alle ' + oraIT(dash.letta).slice(11) : ''}</p>
+    <input type="search" id="cerca-dash" placeholder="Cerca cliente, pratica, marca, misura, agente…" value="${esc(dash.cerca)}" style="margin-top:12px" aria-label="Cerca tra le richieste">
+    <div class="filters" style="grid-template-columns:repeat(auto-fit,minmax(64px,1fr))">${[['decidere','Da decidere'],['accettata','Accettate'],['respinta','Rifiutate'],['incomplete','Senza PDF'],['tutte','Tutte']].map(([k,l]) => `<button class="opt ${dash.filtro===k?'on':''}" data-act="filtroDash" data-v="${k}"><b>${n[k]}</b>${l}</button>`).join('')}</div>
+    <button class="lnk" data-act="esportaDash">⬇︎ Scarica Excel di tutti i resi (con esiti e link)</button>
+    ${dash.filtro === 'incomplete' ? `<p class="small muted">Richieste iniziate ma senza PDF: il materiale non è completo, quindi di regola non si prendono in considerazione.</p>` : ''}
+    <div class="card list dash" id="lista-dash">${lista.length ? lista.map(schedaDash).join('') : `<p class="muted" style="margin:0">${dash.resi ? 'Nessuna richiesta in questo elenco.' : 'Elenco non ancora letto.'}</p>`}</div>`;
+}
+function esciResp(){
+  const s = profilo && profilo.respTruck && profilo.respTruck.sessione;
+  if(s) chiamaScript({azione:'esci', sessione: s}).catch(()=>{});
+  if(profilo){ delete profilo.respTruck; ls.set('trk-resi-profilo', profilo); }
+  dash = {resi:null, filtro:'decidere', cerca:'', err:'', letta:null};
+  vista = profilo ? 'home' : 'chi'; render();
 }
 
 function vProfilo(){
@@ -948,9 +1315,7 @@ function vProfilo(){
       <label class="f" for="p-mail">La tua mail <span class="req">*</span></label>
       <input type="email" id="p-mail" data-p="mail" value="${esc(p.mail)}" autocomplete="email" inputmode="email">
       <div class="hint">Ti arriva la copia della richiesta: a quella mail rispondi con il PDF.</div>
-      <label class="f" for="p-resp">Responsabile truck della tua zona <span class="req">*</span></label>
-      <select id="p-resp" data-p="resp"><option value="">Scegli…</option>${RESPONSABILI.map(r=>`<option ${p.resp===r?'selected':''}>${r}</option>`).join('')}</select>
-      <div class="hint">Riceve in copia ogni richiesta. Se non sai quale scegliere, chiedi al tuo capoarea.</div>
+      <div class="hint">Il responsabile truck della tua zona lo riconosce l'app dal tuo nome e dalla tua mail @makwheels.it.</div>
     ` : `
       <label class="f" for="p-rs" style="margin-top:0">Ragione sociale <span class="req">*</span></label>
       <input type="text" id="p-rs" data-p="rs" value="${esc(p.rs)}" autocomplete="organization">
@@ -968,21 +1333,23 @@ function vProfilo(){
       <div class="hint">Facoltativi: compaiono nel PDF e servono per l'invio dal computer.</div>
     `}
     </div>
-    ${!nuovo ? `<div class="card"><h3>Cambia profilo</h3><p class="muted small">Sei ${ag?'un agente':'un cliente'}. Lo storico resta.</p><button class="btn" data-act="cambiaRuolo">Passa a ${ag?'cliente':'agente'}</button></div>
-    <div class="card"><h3>Tema</h3><div class="seg s3">${['auto','light','dark'].map(t=>`<button class="opt ${(ls.get('trk-resi-tema','auto'))===t?'on':''}" data-act="tema" data-v="${t}">${{auto:'Automatico',light:'Chiaro',dark:'Scuro'}[t]}</button>`).join('')}</div></div>` : ''}`;
+    ${!nuovo && isResp() ? `<div class="card"><h3>Responsabile truck</h3><p class="muted small">Sei entrata come ${esc(profilo.respTruck.nome)} (${esc(profilo.respTruck.mail)}). Puoi decidere sui resi e anche inserirne di nuovi, come un agente.</p><button class="btn" data-act="dash">Apri le decisioni sui resi</button><button class="btn del" data-act="esciResp" style="margin-top:10px">Esci dall'accesso di responsabile</button></div>` : ''}
+    ${!nuovo && !isResp() && ag ? `<div class="card"><h3>Responsabile truck</h3><p class="muted small">Solo per ${esc(RESP_TRUCK.nome)}: accesso con un codice mandato alla mail.</p><button class="btn" data-act="accesso">Entra come responsabile truck</button></div>` : ''}
+    ${!nuovo && !isResp() ? `<div class="card"><h3>Cambia profilo</h3><p class="muted small">Sei ${ag?'un agente':'un cliente'}. Lo storico resta.</p><button class="btn" data-act="cambiaRuolo">Passa a ${ag?'cliente':'agente'}</button></div>` : ''}
+    ${!nuovo ? `<div class="card"><h3>Tema</h3><div class="seg s3">${['auto','light','dark'].map(t=>`<button class="opt ${(ls.get('trk-resi-tema','auto'))===t?'on':''}" data-act="tema" data-v="${t}">${{auto:'Automatico',light:'Chiaro',dark:'Scuro'}[t]}</button>`).join('')}</div></div>` : ''}`;
   foot(`<button class="btn primary" data-act="salvaProfilo">${nuovo ? 'Continua' : 'Salva'}</button>`, true);
 }
 
 function contaStati(){
   const c = {tutte: pratiche.length, bozza:0, inviata:0, chiusa:0};
-  pratiche.forEach(p => { if(p.stato === 'bozza' || p.stato === 'pronta') c.bozza++; else if(p.stato === 'inviata') c.inviata++; else c.chiusa++; });
+  pratiche.forEach(p => { if(p.stato === 'bozza' || p.stato === 'pronta') c.bozza++; else if(['inviata','integrazione'].includes(p.stato)) c.inviata++; else c.chiusa++; });
   return c;
 }
 function filtrate(){
   const q = cerca.trim().toLowerCase();
   return pratiche.filter(p => {
     if(filtro === 'bozza' && !['bozza','pronta'].includes(p.stato)) return false;
-    if(filtro === 'inviata' && p.stato !== 'inviata') return false;
+    if(filtro === 'inviata' && !['inviata','integrazione'].includes(p.stato)) return false;
     if(filtro === 'chiusa' && !['accettata','respinta','chiusa'].includes(p.stato)) return false;
     if(!q) return true;
     return [p.num, p.cliente.rs, p.cliente.cod, p.marca, p.misura, p.codArt, p.motivo].join(' ').toLowerCase().includes(q);
@@ -998,8 +1365,10 @@ function vHome(){
     <h1>Resi e contestazioni ruote truck</h1>
     <p class="sub">${ag ? `Ciao ${esc((profilo.nome||'').split(' ')[0])}: prepari la richiesta, crei il PDF e lo mandi. Qui sotto trovi tutto lo storico.` : `${esc(profilo.rs)}: prepara la richiesta con foto e video, crea il PDF e mandalo al tuo agente MAK.`}</p>
     ${DB.memoria ? `<div class="banner warn"><span class="ic">⚠️</span><div>Questo browser non permette di salvare: lo storico si perde chiudendo la pagina.</div></div>` : ''}
+    ${isResp() ? `<button class="btn dark big" data-act="dash" style="margin-bottom:10px">⚖️ Decisioni sui resi (dashboard)</button>` : ''}
     <button class="btn primary big" data-act="nuova">+ Nuova richiesta di reso</button>
-    <h2>Storico</h2>
+    ${ag && !isResp() ? `<button class="btn big" data-act="miei" style="margin-top:10px">📋 Resi a tuo nome (anche quelli vecchi)</button>` : ''}
+    <h2>${isResp() ? 'Le richieste fatte da te' : 'Storico'}</h2>
     ${pratiche.length ? `
       <input type="search" id="cerca" placeholder="Cerca cliente, pratica, marca, misura…" value="${esc(cerca)}" aria-label="Cerca nello storico">
       <div class="filters">${[['tutte','Tutte'],['bozza','Da finire'],['inviata','Inviate'],['chiusa','Chiuse']].map(([k,l])=>`<button class="opt ${filtro===k?'on':''}" data-act="filtro" data-v="${k}"><b>${c[k]}</b>${l}</button>`).join('')}</div>
@@ -1211,13 +1580,7 @@ function vScheda(){
     ${completa && ag && p.mozzo !== undefined ? bloccoControllo(p) : ''}
     ${completa && ag && controlloFatto(p) ? bloccoModulo(p) : ''}
     ${completa && ag && !controlloFatto(p) ? '' : completa ? bloccoInvio(p, (p.eventi||[]).some(e => e.cosa.startsWith('Inviata'))) : `<div class="banner red"><span class="ic">✋</span><div>Richiesta non completa: finiscila per creare il PDF.</div></div>`}
-    <div class="card"><h3>Esito</h3>
-      <p class="small muted">Quando MAK risponde, segna com'è andata.</p>
-      <div class="seg s4">${[['inviata','In attesa'],['accettata','Accettata'],['respinta','Rifiutata'],['chiusa','Chiusa']].map(([k,l])=>`<button class="opt ${p.stato===k?'on':''}" data-act="esito" data-v="${k}">${l}</button>`).join('')}</div>
-      <label class="f" for="e-note">Nota sull'esito</label>
-      <textarea id="e-note" placeholder="Es. sostituzione approvata, nota di credito n. …">${esc(p.esito && p.esito.note)}</textarea>
-      <button class="btn" data-act="salvaNota" style="margin-top:10px">Salva la nota</button>
-    </div>
+    <div class="card"><h3>Esito</h3>${boxEsito(p)}</div>
     <div class="card"><h3>Cronologia</h3><ul class="tl">${ev.map(e => `<li><span class="dot ${e.c||''}"></span><div><div class="e">${esc(e.cosa)}</div><div class="w">${oraIT(e.t)}</div></div></li>`).join('')}</ul></div>
     <div class="grid2"><button class="btn" data-act="modifica">Modifica</button><button class="btn" data-act="duplica">Duplica</button></div>
     <p class="hint">«Duplica» crea una nuova richiesta con gli stessi dati, senza foto: utile per un'altra misura o un'altra marca dello stesso cliente.</p>
@@ -1256,7 +1619,7 @@ function vGuida(){
     <div class="card"><h3>Chi fa cosa</h3><ol class="todo">
       <li><b>Cliente</b>: prepara la richiesta, crea il PDF e lo manda al suo agente su WhatsApp o per mail.</li>
       <li><b>Agente</b>: controlla il materiale con la lista di spunte dell'app (senza, modulo e invio restano bloccati), compila il modulo RESO TRUCK e risponde «a tutti» alla mail che arriva, con il PDF e gli eventuali video.</li>
-      <li><b>MAK</b>: i responsabili prodotto e l'ufficio resi aggiornano sull'avanzamento. L'esito si segna nello storico.</li>
+      <li><b>Responsabile truck</b> (${esc(RESP_TRUCK.nome)}): esamina la richiesta e decide se il reso è <b>accettato</b> o <b>rifiutato</b>. Solo lei può farlo: l'esito compare da solo nello storico di cliente e agente.</li>
     </ol></div>
     <button class="lnk" data-act="trasporto">Ruote arrivate danneggiate dal corriere?</button>`;
 }
@@ -1299,14 +1662,12 @@ function caricaXLSX(){
   return xlsxPronto = xlsxPronto || new Promise((res, rej) => { const s = document.createElement('script'); s.src = 'xlsx.full.min.js'; s.onload = res; s.onerror = () => { xlsxPronto = null; rej(new Error('libreria')); }; document.head.appendChild(s); });
 }
 function riquadroBackup(){
+  // Dal 2026-11-19 il backup è facoltativo: PDF, foto, video, esiti e messaggi stanno su Google («Resi a tuo nome»)
   const ul = ls.get('trk-resi-backup', null);
-  const giorni = ul ? Math.floor((Date.now() - new Date(ul).getTime()) / 864e5) : null;
-  const avviso = pratiche.length && (giorni === null || giorni >= 7);
-  return `<div class="card" style="margin-top:14px"><h3>Backup delle richieste</h3>
-    <p class="small muted" style="margin:0 0 10px">Un file Excel con una riga per ogni richiesta, tutti i dati e i link a PDF, foto e video su Google Drive. Tienine sempre una copia: serve anche per ricaricare tutto su un altro telefono.</p>
-    ${avviso ? `<div class="banner warn" style="margin-bottom:10px"><span class="ic">💾</span><div>${giorni === null ? 'Non hai ancora salvato un backup.' : `Ultimo backup ${giorni} giorni fa.`} Scaricane uno aggiornato.</div></div>` : ul ? `<p class="small muted" style="margin:0 0 10px">Ultimo backup: ${oraIT(ul)}</p>` : ''}
-    <div class="grid2"><button class="btn primary" data-act="backup" ${pratiche.length ? '' : 'disabled'}>Scarica backup aggiornato</button><label class="btn" style="position:relative;overflow:hidden">Carica da ultimo backup<input type="file" id="ripristina" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" style="position:absolute;inset:0;opacity:0;cursor:pointer"></label></div>
-  </div>`;
+  return `<details class="card" style="margin-top:14px"><summary class="small"><b>Copia di sicurezza (facoltativa)</b></summary>
+    <p class="small muted" style="margin:8px 0 10px">Non serve: quando crei il PDF, la richiesta con foto, video ed esito resta su Google e la ritrovi in «Resi a tuo nome» anche su un altro telefono. Sul telefono restano solo le bozze non finite. Se vuoi comunque un Excel con tutte le tue richieste, scaricalo qui.${ul ? ' Ultima copia: ' + oraIT(ul) + '.' : ''}</p>
+    <div class="grid2"><button class="btn" data-act="backup" ${pratiche.length ? '' : 'disabled'}>Scarica Excel</button><label class="btn" style="position:relative;overflow:hidden">Ricarica da Excel<input type="file" id="ripristina" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" style="position:absolute;inset:0;opacity:0;cursor:pointer"></label></div>
+  </details>`;
 }
 // Copia della pratica senza file binari (foto, video, PDF restano su Drive con il loro link)
 function senzaFile(p){
@@ -1427,6 +1788,8 @@ document.addEventListener('input', e => {
   const t = e.target;
   if(t.dataset.f && cur){ setPath(cur, t.dataset.f, t.value); salva(); }
   if(t.dataset.p){ profilo = profilo || {}; profilo[t.dataset.p] = t.value; }
+  if(t.id === 'cerca-miei'){ miei.cerca = t.value; const sc = scrollY; render(true); const c = $('#cerca-miei'); if(c){ c.focus(); c.setSelectionRange(c.value.length, c.value.length); } window.scrollTo(0, sc); }
+  if(t.id === 'cerca-dash'){ dash.cerca = t.value; const l = $('#lista-dash'); if(l){ const L = filtraDash(); l.innerHTML = L.length ? L.map(schedaDash).join('') : '<p class="muted" style="margin:0">Nessuna richiesta trovata.</p>'; } }
   if(t.id === 'cerca'){ cerca = t.value; const l = $('#lista'); const lista = filtrate(); if(l){ const tmp = document.createElement('div'); vHomeLista(tmp, lista); l.innerHTML = tmp.innerHTML; } }
 });
 function rigaLista(p){
@@ -1443,7 +1806,6 @@ function vHomeLista(el, lista){ el.innerHTML = lista.length ? lista.map(rigaList
 function chiudiMenu(){ const v = $('#velo'); if(v) v.remove(); }
 function apriMenu(p){
   chiudiMenu();
-  const chiusa = ['accettata','respinta','chiusa'].includes(p.stato);
   const v = document.createElement('div'); v.id = 'velo'; v.className = 'velo';
   v.innerHTML = `<div class="sheet" role="dialog" aria-label="Cosa vuoi fare con questo reso">
     <div class="mani"></div>
@@ -1451,11 +1813,7 @@ function apriMenu(p){
     <div class="sb">Pratica ${esc(p.num)} · ${esc([p.marca, p.misura].filter(Boolean).join(' · ') || 'prodotto da scegliere')} · ${p.qta} ${p.qta===1?'ruota':'ruote'}</div>
     <button class="btn primary" data-act="apri" data-id="${p.id}">${p.stato === 'bozza' ? 'Continua la richiesta' : 'Apri la pratica'}</button>
     <div class="card" style="margin:12px 0 0">
-      <h3>Esito del reso</h3>
-      <label class="f" for="m-nota" style="margin-top:4px">Nota (facoltativa)</label>
-      <textarea id="m-nota" placeholder="Es. sostituzione approvata, nota di credito n. …">${esc(p.esito && p.esito.note)}</textarea>
-      <div class="grid2" style="margin-top:10px"><button class="btn ok" data-act="esitoMenu" data-id="${p.id}" data-v="accettata">✓ Accettato</button><button class="btn no" data-act="esitoMenu" data-id="${p.id}" data-v="respinta">✕ Rifiutato</button></div>
-      ${chiusa ? `<button class="btn" data-act="esitoMenu" data-id="${p.id}" data-v="riapri" style="margin-top:10px">Rimetti in attesa</button>` : ''}
+      <h3>Esito del reso</h3>${boxEsito(p)}
     </div>
     <button class="btn del" data-act="eliminaMenu" data-id="${p.id}" style="margin-top:12px">Elimina il reso${p.cartellaUrl ? ' (anche foto e video su Drive)' : ''}</button>
     <button class="btn" data-act="chiudiMenu" style="margin-top:10px">Annulla</button>
@@ -1483,6 +1841,8 @@ async function eliminaPratica(p){
 
 document.addEventListener('change', async e => {
   const t = e.target;
+  if(t.id === 'st-xls' && t.files && t.files[0]){ const f = t.files[0]; t.value = ''; await leggiXlsStorico(f); render(true); return; }
+  if(t.dataset.mappa){ if(t.dataset.mappa === '_def') storico.esitoDef = t.value; else storico.mappa[t.dataset.mappa] = t.value === '' ? '' : +t.value; render(true); return; }
   if(t.id === 'ripristina' && t.files && t.files[0]){ const f = t.files[0]; t.value = ''; await ripristina(f); return; }
   if(t.dataset.p){ profilo[t.dataset.p] = t.value; }
   if(t.type === 'file' && t.dataset.slot && cur){
@@ -1513,10 +1873,16 @@ document.addEventListener('click', async e => {
     case 'tema': ls.set('trk-resi-tema', v); applicaTema(); render(); break;
     case 'salvaProfilo': {
       const ag = profilo.ruolo === 'agente';
-      const req = ag ? [['nome','Nome e cognome'],['mail','Mail'],['resp','Responsabile truck']] : [['rs','Ragione sociale'],['ref','Nome di chi segue la richiesta'],['tel','Telefono']];
+      const req = ag ? [['nome','Nome e cognome'],['mail','Mail']] : [['rs','Ragione sociale'],['ref','Nome di chi segue la richiesta'],['tel','Telefono']];
       const manca = req.filter(([k]) => !(profilo[k]||'').trim());
       if(manca.length){ toast('Manca: ' + manca.map(x=>x[1]).join(', ')); return; }
       if(ag && !/^\S+@\S+\.\S+$/.test(profilo.mail.trim())){ toast('La mail non sembra corretta.'); return; }
+      if(ag && !isResp()){   // zona dell'agente: Nord → Enrico Galante, Centro-Sud → Silvana Rinaldi (dall'elenco agenti nello script)
+        busy(true, 'Riconosco la tua zona…');
+        try{ const j = await chiamaScript({azione:'zona', nome: profilo.nome, mail: profilo.mail}); if(j.ok){ profilo.zona = j.zona || ''; } }catch(err){}
+        busy(false);
+        profilo.resp = profilo.zona === 'nord' ? RESP_NORD_MAIL : RESP_TRUCK.mail;
+      }
       delete profilo._nuovo; ls.set('trk-resi-profilo', profilo);
       vista = importDati ? 'import' : 'home';
       render(); break;
@@ -1532,8 +1898,134 @@ document.addEventListener('click', async e => {
       break;
     }
     case 'guida': vista = 'guida'; render(); break;
+    case 'accesso': accesso = {mail: '', inviato:false, modo:'resp'}; vista = 'accesso'; render(); break;
+    case 'miei':
+      if(!hasAgSess()){ accesso = {mail: (profilo && profilo.mail) || '', inviato:false, modo:'agente'}; vista = 'accesso'; render(); break; }
+      vista = 'miei'; render(); await caricaMiei(); render(); break;
+    case 'ricaricaMiei': await caricaMiei(); render(true); break;
+    case 'filtroMiei': miei.filtro = v; render(true); break;
+    case 'esciAg':
+      if(!confirm('Esci da «Resi a tuo nome» su questo telefono? Per rientrare servirà un codice nuovo.')) return;
+      chiamaScript({azione:'esci', sessione: profilo.agSess.sessione}).catch(()=>{}); delete profilo.agSess; ls.set('trk-resi-profilo', profilo); miei = {resi:null, filtro:'tutte', cerca:'', err:'', letta:null}; vista = 'home'; render(); break;
+    case 'esportaDash': await esportaDash(); break;
+    case 'messaggio': {
+      const pr = el.dataset.pr, r = (dash.resi || []).find(x => x.pratica === pr); if(!r) return;
+      const testo = ($('#m-' + pr) ? $('#m-' + pr).value.trim() : '');
+      if(!testo){ toast('Scrivi il messaggio.'); return; }
+      const integra = v === 'integra';
+      if(!confirm(integra ? `Chiedo un'integrazione sul reso ${pr}? Il reso resta aperto e l'agente riceve la mail (con ${COPIA_MAIL} in copia).` : `Mando il messaggio all'agente del reso ${pr} (con ${COPIA_MAIL} in copia)?`)) return;
+      busy(true, 'Mando il messaggio…');
+      try{
+        const j = await chiamaScript({azione:'messaggio', sessione: profilo.respTruck.sessione, pratica: pr, testo, integrazione: integra}); busy(false);
+        if(!j.ok){ if(j.err === 'accesso'){ esciResp(); toast(j.msg, 4000); return; } toast(j.err || 'Messaggio non mandato.', 4000); return; }
+        r.messaggi = j.messaggi; if(j.esito) r.esito = j.esito;
+        render(true);
+        toast(j.mail ? (j.agente ? 'Mandato a ' + j.agente + ' e ' + COPIA_MAIL + '.' : 'Nessun agente abbinato: mandato a ' + COPIA_MAIL + '.') : 'Salvato nell\'app, ma la mail non è partita.', 4500);
+      }catch(err){ busy(false); toast('Connessione assente: messaggio non mandato.', 3500); }
+      break;
+    }
+    case 'storico': vista = 'storico'; if(!dash.resi) await caricaDash(); render(); break;
+    case 'abbina': {
+      const r = (dash.resi || []).find(x => x.pratica === el.dataset.pr); if(!r) return;
+      const ag = agenteDi(r) || {};
+      const nome = prompt('Nome e cognome dell\'agente:', ag.nome || ''); if(nome === null) return;
+      const mail = prompt('Mail @makwheels.it dell\'agente (serve per fargli vedere il reso):', ag.mail || ''); if(mail === null) return;
+      if(mail.trim() && !MAIL_MAK(mail)){ toast('Serve la mail @makwheels.it dell\'agente.', 3500); return; }
+      busy(true, 'Salvo l\'agente…');
+      try{ const j = await chiamaScript({azione:'agente', sessione: profilo.respTruck.sessione, pratica: r.pratica, agente: {nome: nome.trim(), mail: mail.trim()}}); busy(false);
+        if(!j.ok){ if(j.err === 'accesso'){ esciResp(); toast(j.msg, 4000); return; } toast(j.err || 'Non salvato.'); return; }
+        r.r = Object.assign({}, r.r || {}, {agente: j.agente}); r.ag = j.agente.mail; render(true); toast('Agente abbinato.');
+      }catch(err){ busy(false); toast('Connessione assente: riprova.'); }
+      break;
+    }
+    case 'caricaXls': {
+      const R = righeStorico(); if(!R.length){ toast('Nessuna riga da caricare: controlla la colonna del cliente.'); return; }
+      if(!confirm(`Carico ${R.length} resi vecchi? Ogni agente con la mail abbinata li vedrà nella sua app.`)) return;
+      try{ const x = await mandaStorico(R.map(r => ({...r, qta: r.qta}))); if(!x) return;
+        storico = {righe:null, testa:[], mappa:{}, esitoDef:'attesa', nomeFile:''};
+        await caricaDash(); vista = 'dash'; dash.filtro = 'tutte'; render();
+        alert(`Fatto: ${x.fatti} resi caricati${x.gia ? ', ' + x.gia + ' già presenti (saltati)' : ''}${x.ko ? ', ' + x.ko + ' non caricati' : ''}.`);
+      }catch(err){ busy(false); console.error(err); toast('Caricamento interrotto: riprova, i resi già caricati vengono saltati.', 4500); }
+      break;
+    }
+    case 'caricaUno': {
+      const val = id => ($(id) ? $(id).value.trim() : '');
+      const rs = val('#s-rs'), agn = val('#s-agn'), agm = val('#s-agm').toLowerCase();
+      if(!rs){ toast('Manca il cliente.'); return; }
+      if(!agn || !agm){ toast('Mancano nome e mail dell\'agente.'); return; }
+      if(!MAIL_MAK(agm)){ toast('Serve la mail @makwheels.it dell\'agente.', 3500); return; }
+      const files = [...($('#s-file').files || [])].filter(f => /^(image|video)\//.test(f.type) || f.type === 'application/pdf');
+      const grandi = files.filter(f => f.size > MAX_UP); if(grandi.length){ toast(`File troppo grandi (oltre ${mb(MAX_UP)}): ${grandi.map(f => f.name).join(', ')}`, 5000); return; }
+      const reso = {data: val('#s-data') || oggiISO(), cliente: {rs, cod: val('#s-cod')}, agente: {nome: agn, mail: agm}, materiale: val('#s-mat'), marca: val('#s-marca').toUpperCase(), misura: val('#s-mis'), codArt: val('#s-art'), qta: val('#s-qta'), motivo: val('#s-mot'), ddtNum: val('#s-ddt'), ddtData: val('#s-ddtd'), note: val('#s-note'), esito: {s: val('#s-esito'), n: val('#s-nesito')}};
+      try{
+        const x = await mandaStorico([reso]); if(!x) return;
+        const e = x.out[0];
+        if(!e || !e.ok){ toast('Reso non caricato: ' + ((e && e.err) || 'errore'), 4000); return; }
+        if(e.gia){ toast('Questo reso era già stato caricato (pratica ' + e.pratica + ').', 4000); return; }
+        for(let i = 0; i < files.length; i++){
+          const f = files[i]; busy(true, `Carico i file… ${i+1} di ${files.length}`);
+          const est = (f.name.match(/\.([a-z0-9]+)$/i) || [,'bin'])[1].toLowerCase();
+          const j = await chiamaScript({token: e.token, pratica: e.pratica, cliente: rs, nome: `${f.type === 'application/pdf' ? 'DOCUMENTO' : f.type.startsWith('video/') ? 'VIDEO' : 'FOTO'}_${i+1}.${est}`, tipo: f.type, dati: await base64Di(f)});
+          if(!j.ok) throw new Error(j.err);
+        }
+        busy(false); await caricaDash(); vista = 'dash'; dash.filtro = 'tutte'; dash.cerca = e.pratica; render();
+        toast('Reso caricato: pratica ' + e.pratica + '.', 3500);
+      }catch(err){ busy(false); console.error(err); toast('Caricamento non riuscito: controlla la connessione e riprova.', 4500); }
+      break;
+    }
+    case 'chiediCodice': {
+      const mail = ($('#a-mail').value || '').trim().toLowerCase(); accesso.mail = mail;
+      if(!/^\S+@\S+\.\S+$/.test(mail)){ toast('Scrivi la tua mail.'); return; }
+      busy(true, 'Mando il codice…');
+      try{ const j = await chiamaScript({azione:'codice', mail}); busy(false); if(!j.ok){ toast(j.err || 'Non riesco a mandare il codice.', 4000); return; } accesso.inviato = true; render(); toast('Codice mandato a ' + mail + '.', 3500); }
+      catch(err){ busy(false); toast('Connessione assente: riprova.'); }
+      break;
+    }
+    case 'entra': {
+      const codice = ($('#a-cod').value || '').replace(/\D/g, '');
+      if(codice.length !== 6){ toast('Il codice ha 6 cifre.'); return; }
+      busy(true, 'Controllo il codice…');
+      try{
+        const j = await chiamaScript({azione:'accedi', mail: accesso.mail, codice}); busy(false);
+        if(!j.ok){ toast(j.err || 'Codice non valido.', 3500); return; }
+        if(j.ruolo === 'agente'){
+          if(!profilo) profilo = {ruolo:'agente', mail: j.mail};
+          profilo.agSess = {sessione: j.sessione, mail: j.mail, scade: j.scade}; delete profilo._nuovo; ls.set('trk-resi-profilo', profilo);
+          accesso = {mail:'', inviato:false, modo:'resp'}; vista = 'miei'; render(); await caricaMiei(); render(); toast('Fatto: ecco i resi a tuo nome.'); break;
+        }
+        const base = profilo && profilo.ruolo === 'agente' ? profilo : {};
+        profilo = Object.assign({}, base, {ruolo:'agente', nome: base.nome || j.nome, mail: base.mail || j.mail, resp: j.mail, respTruck: {sessione: j.sessione, nome: j.nome, mail: j.mail, scade: j.scade}});
+        delete profilo._nuovo; ls.set('trk-resi-profilo', profilo);
+        accesso = {mail:'', inviato:false};
+        vista = 'dash'; render(); await caricaDash(); render();
+        toast('Benvenuta ' + j.nome.split(' ')[0] + '.');
+      }catch(err){ busy(false); toast('Connessione assente: riprova.'); }
+      break;
+    }
+    case 'esciResp': if(confirm('Esci dall\'accesso di responsabile truck? Per rientrare servirà un codice nuovo.')) esciResp(); break;
+    case 'dash': vista = 'dash'; render(); await caricaDash(); render(); break;
+    case 'ricaricaDash': await caricaDash(); render(true); break;
+    case 'filtroDash': dash.filtro = v; render(true); break;
+    case 'decidi': {
+      const pr = el.dataset.pr, r = (dash.resi || []).find(x => x.pratica === pr); if(!r) return;
+      const nota = ($('#n-' + pr) ? $('#n-' + pr).value.trim() : '');
+      const cosa = v === 'accettata' ? 'ACCETTARE' : v === 'respinta' ? 'RIFIUTARE' : 'rimettere in attesa';
+      if(!confirm(`Vuoi ${cosa} il reso ${pr}${r.r && r.r.cliente ? ' di ' + r.r.cliente.rs : ''}?\n${v === 'attesa' ? 'Cliente e agente lo vedranno nella loro app.' : 'Parte una mail all\'agente con ' + COPIA_MAIL + ' in copia (mai al cliente).'}`)) return;
+      busy(true, 'Salvo la decisione…');
+      try{
+        const j = await chiamaScript({azione:'decidi', sessione: profilo.respTruck.sessione, pratica: pr, stato: v, nota});
+        busy(false);
+        if(!j.ok){ if(j.err === 'accesso'){ esciResp(); toast(j.msg, 4000); return; } toast(j.err || 'Decisione non salvata.', 4000); return; }
+        r.esito = j.esito;
+        const mia = pratiche.find(q => q.num === pr); if(mia){ await sincronizzaEsiti(); }
+        render(true);
+        const mm = j.mail ? (j.mail.ok ? (j.mail.agente ? ' Mail mandata a ' + j.mail.agente + ' e ' + COPIA_MAIL + '.' : ' Mail mandata a ' + COPIA_MAIL + ' (nessun agente abbinato).') : ' ATTENZIONE: la mail non è partita.') : '';
+        toast((v === 'accettata' ? 'Reso ACCETTATO.' : v === 'respinta' ? 'Reso RIFIUTATO.' : 'Reso di nuovo in attesa.') + mm, 4500);
+      }catch(err){ busy(false); toast('Connessione assente: decisione non salvata.', 3500); }
+      break;
+    }
     case 'trasporto': vista = 'trasporto'; render(); break;
-    case 'home': case 'casa': if(cur) await salva(true, false); cur = null; await carica(); vista = 'home'; if(importDati){ importDati = null; history.replaceState(null,'',location.pathname); } render(); break;
+    case 'home': case 'casa': if(cur) await salva(true, false); cur = null; await carica(); vista = 'home'; if(importDati){ importDati = null; history.replaceState(null,'',location.pathname); } render(); if(Date.now() - esitiLetti > 60000) sincronizzaEsiti(); break;
     case 'filtro': filtro = v; render(true); break;
     case 'backup': await scaricaBackup(); break;
     case 'nuova': cur = nuovaPratica(); await salva(true); step = 0; vista = 'step'; render(); break;
@@ -1593,13 +2085,7 @@ document.addEventListener('click', async e => {
     case 'spuntaModulo':
       p.passi.modulo = !p.passi.modulo;
       evento(p, p.passi.modulo ? 'Modulo RESO TRUCK inviato' : 'Modulo RESO TRUCK: tolta la spunta', p.passi.modulo ? 'g' : 'n');
-      await salva(true, false); render(true); break;
-    case 'esito': {
-      if(p.stato === v) return;
-      p.stato = v; evento(p, 'Esito: ' + ({inviata:'in attesa', accettata:'accettata', respinta:'rifiutata', chiusa:'chiusa'})[v], v === 'respinta' ? 'r' : v === 'inviata' ? 'n' : 'g');
-      await salva(true, false); render(true); break;
-    }
-    case 'salvaNota': { const t = $('#e-note').value.trim(); p.esito = p.esito || {}; if(t === (p.esito.note||'')) { toast('Nessuna modifica.'); return; } p.esito.note = t; evento(p, 'Nota esito: ' + (t || '(cancellata)'), 'n'); await salva(true, false); render(true); toast('Nota salvata.'); break; }
+      await salva(true, false); render(true); mandaRiepilogo(p); break;
     case 'modifica': evento(p, 'Riaperta per modifiche', 'n'); await salva(true, false); step = 0; vista = 'step'; render(); break;
     case 'duplica': {
       const n = nuovaPratica();
@@ -1611,18 +2097,6 @@ document.addEventListener('click', async e => {
     case 'menu': { const q = pratiche.find(x => x.id === el.dataset.id); if(q) apriMenu(q); break; }
     case 'chiudiMenu': chiudiMenu(); break;
     case 'eliminaMenu': { const q = pratiche.find(x => x.id === el.dataset.id); if(q) await eliminaPratica(q); break; }
-    case 'esitoMenu': {
-      const q = pratiche.find(x => x.id === el.dataset.id); if(!q) return;
-      const nota = ($('#m-nota') ? $('#m-nota').value.trim() : '');
-      q.esito = q.esito || {};
-      if(nota !== (q.esito.note || '')){ q.esito.note = nota; if(nota) evento(q, 'Nota esito: ' + nota, 'n'); }
-      if(v === 'riapri'){ q.stato = (q.eventi||[]).some(x => x.cosa.startsWith('Inviata')) ? 'inviata' : (q.pdf ? 'pronta' : 'bozza'); evento(q, 'Esito tolto: di nuovo in attesa', 'n'); }
-      else { q.stato = v; evento(q, v === 'accettata' ? 'Esito: ACCETTATO' : 'Esito: RIFIUTATO', v === 'accettata' ? 'g' : 'r'); }
-      q.agg = new Date().toISOString(); await DB.put(q);
-      chiudiMenu(); await carica(); render(true);
-      toast(v === 'riapri' ? 'Reso di nuovo in attesa.' : v === 'accettata' ? 'Salvato come ACCETTATO.' : 'Salvato come RIFIUTATO.');
-      break;
-    }
     case 'importa': {
       const d = importDati; const n = nuovaPratica();
       n.data = d.data || oggiISO();
@@ -1654,6 +2128,8 @@ function applicaTema(){ const t = ls.get('trk-resi-tema','auto'); if(t === 'auto
   vista = !profilo ? 'chi' : importDati ? 'import' : 'home';
   render();
   caricaLogo();
+  sincronizzaEsiti();
+  document.addEventListener('visibilitychange', () => { if(document.visibilityState === 'visible' && Date.now() - esitiLetti > 60000) sincronizzaEsiti(); });
   if('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(()=>{});
 })();
 </script>
