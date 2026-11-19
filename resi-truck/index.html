@@ -244,7 +244,7 @@ const MAXQ = 10;
    restano nel PDF e i video partono allegati insieme al PDF. */
 const DRIVE_URL = 'https://script.google.com/macros/s/AKfycbz2rARPY1J91TLqFdHtpWO6JWGQDysl94Ji31KNBn6-kxDmdkX5ne9mXll4lG5NMFb-bA/exec';
 const DRIVE_KEY = 'trk-d17410c23440472d';
-const VERSIONE = '2026-11-19 f';
+const VERSIONE = '2026-11-19 g';
 /* Responsabile truck: l'unica che decide se un reso è accettato o rifiutato (Matteo, 2026-11-19).
    Entra con un codice mandato alla sua mail dallo script Drive; gli altri vedono solo l'esito. */
 const RESP_TRUCK = {mail:'nonsoloruote@makwheels.it', nome:'Silvana Rinaldi'};
@@ -992,6 +992,8 @@ function render(keepScroll){
   if(!profilo && !['chi','profilo','guida','trasporto','accesso'].includes(vista)) vista = 'chi';
   if(['dash','storico'].includes(vista) && !isResp()) vista = profilo ? 'home' : 'chi';
   if(vista === 'miei' && !hasAgSess()) vista = profilo ? 'home' : 'chi';
+  // agente con un profilo salvato prima della regola @makwheels.it: deve correggere la mail prima di usare l'app
+  if(profilo && profilo.ruolo === 'agente' && !MAIL_MAK(profilo.mail) && !['profilo','guida','trasporto','chi'].includes(vista)){ vista = 'profilo'; setTimeout(() => toast('Da agente serve la tua mail @makwheels.it: correggila qui.', 4000), 50); }
   ({home:vHome, chi:vChi, profilo:vProfilo, step:vStep, scheda:vScheda, guida:vGuida, trasporto:vTrasporto, import:vImport, accesso:vAccesso, dash:vDash, miei:vMiei, storico:vStorico})[vista]();
   window.scrollTo(0, keepScroll ? y : 0);
 }
@@ -1020,7 +1022,7 @@ function vAccesso(){
   $('#app').innerHTML = `
     <p class="muted">${ag ? 'Qui vedi i resi truck abbinati a te: quelli fatti con l\'app e quelli vecchi caricati dalla responsabile truck. Per sicurezza ricevi un codice di 6 cifre alla tua mail, una volta sola: niente password.' : 'Solo la responsabile truck può decidere se un reso è accettato o rifiutato. Per entrare ricevi un codice di 6 cifre alla tua mail MAK: niente password.'}</p>
     <div class="card">
-      <label class="f" for="a-mail" style="margin-top:0">${ag ? 'La mail con cui lavori con MAK' : 'La tua mail MAK'}</label>
+      <label class="f" for="a-mail" style="margin-top:0">${ag ? 'La tua mail @makwheels.it' : 'La tua mail MAK'}</label>
       <input type="email" id="a-mail" value="${esc(accesso.mail)}" inputmode="email" autocomplete="email" placeholder="nome@makwheels.it">
       <button class="btn primary" data-act="chiediCodice" style="margin-top:12px">${accesso.inviato ? 'Mandami un altro codice' : 'Mandami il codice'}</button>
       ${accesso.inviato ? `
@@ -1312,8 +1314,8 @@ function vProfilo(){
     ${ag ? `
       <label class="f" for="p-nome" style="margin-top:0">Nome e cognome <span class="req">*</span></label>
       <input type="text" id="p-nome" data-p="nome" value="${esc(p.nome)}" autocomplete="name">
-      <label class="f" for="p-mail">La tua mail <span class="req">*</span></label>
-      <input type="email" id="p-mail" data-p="mail" value="${esc(p.mail)}" autocomplete="email" inputmode="email">
+      <label class="f" for="p-mail">La tua mail @makwheels.it <span class="req">*</span></label>
+      <input type="email" id="p-mail" data-p="mail" value="${esc(p.mail)}" autocomplete="email" inputmode="email" placeholder="nome@makwheels.it">
       <div class="hint">Ti arriva la copia della richiesta: a quella mail rispondi con il PDF.</div>
       <div class="hint">Il responsabile truck della tua zona lo riconosce l'app dal tuo nome e dalla tua mail @makwheels.it.</div>
     ` : `
@@ -1876,7 +1878,8 @@ document.addEventListener('click', async e => {
       const req = ag ? [['nome','Nome e cognome'],['mail','Mail']] : [['rs','Ragione sociale'],['ref','Nome di chi segue la richiesta'],['tel','Telefono']];
       const manca = req.filter(([k]) => !(profilo[k]||'').trim());
       if(manca.length){ toast('Manca: ' + manca.map(x=>x[1]).join(', ')); return; }
-      if(ag && !/^\S+@\S+\.\S+$/.test(profilo.mail.trim())){ toast('La mail non sembra corretta.'); return; }
+      if(ag && !MAIL_MAK(profilo.mail)){ toast('Da agente serve la tua mail @makwheels.it.', 3500); return; }
+      if(ag) profilo.mail = profilo.mail.trim().toLowerCase();
       if(ag && !isResp()){   // zona dell'agente: Nord → Enrico Galante, Centro-Sud → Silvana Rinaldi (dall'elenco agenti nello script)
         busy(true, 'Riconosco la tua zona…');
         try{ const j = await chiamaScript({azione:'zona', nome: profilo.nome, mail: profilo.mail}); if(j.ok){ profilo.zona = j.zona || ''; } }catch(err){}
@@ -1975,7 +1978,7 @@ document.addEventListener('click', async e => {
     }
     case 'chiediCodice': {
       const mail = ($('#a-mail').value || '').trim().toLowerCase(); accesso.mail = mail;
-      if(!/^\S+@\S+\.\S+$/.test(mail)){ toast('Scrivi la tua mail.'); return; }
+      if(!MAIL_MAK(mail)){ toast('Serve la tua mail @makwheels.it.', 3500); return; }
       busy(true, 'Mando il codice…');
       try{ const j = await chiamaScript({azione:'codice', mail}); busy(false); if(!j.ok){ toast(j.err || 'Non riesco a mandare il codice.', 4000); return; } accesso.inviato = true; render(); toast('Codice mandato a ' + mail + '.', 3500); }
       catch(err){ busy(false); toast('Connessione assente: riprova.'); }
