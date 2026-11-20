@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>NPK Promo Cordless</title>
-<meta name="description" content="Avvitatore Ingersoll Rand W7153, ruotino fino a 17&quot; e calze EZ Socks: scegli la promo da 1.000 € o da 740 €, l'auto del ruotino e le taglie, e ordina su WhatsApp.">
+<meta name="description" content="Avvitatore Ingersoll Rand W7153, ruotino fino a 17&quot; e calze EZ Urban o EZ Motion: scegli la promo da 1.000 € o da 740 €, l'auto del ruotino e le taglie, e ordina su WhatsApp.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="NPK Promo Cordless · avvitatore + ruotino + calze da 740 € IVA esclusa">
-<meta property="og:description" content="Avvitatore Ingersoll Rand W7153 con batteria, ruotino fino a 17&quot; e calze EZ Socks (più 10 EZ Repair nella promo da 1.000 € IVA esclusa). Scegli la promo, l&#39;auto e le taglie e ordina su WhatsApp.">
+<meta property="og:description" content="Avvitatore Ingersoll Rand W7153 con batteria, ruotino fino a 17&quot; e calze EZ Urban o la nuova EZ Motion (più 10 EZ Repair nella promo da 1.000 € IVA esclusa). Scegli la promo, l&#39;auto e le taglie e ordina su WhatsApp.">
 <meta property="og:image" content="https://makwheels.github.io/workspace-interattivo-mak/alberto/promo-npk-mix-cordless/anteprima.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -159,6 +159,16 @@ footer b{color:var(--ink)}
 @keyframes spvPulsa{50%{box-shadow:0 0 0 7px rgba(218,33,40,.25)}}
 .spv-richiamo{animation:spvRichiamo .7s 4}
 @keyframes spvRichiamo{50%{transform:scale(1.05)}}
+/* modello calze: EZ Urban o EZ Motion */
+.modelli{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.modelli button{font:inherit;color:var(--ink);background:#fff;border:2px solid var(--line);border-radius:16px;padding:10px 8px;cursor:pointer;position:relative;text-align:center}
+.modelli img{width:100%;height:96px;object-fit:contain;display:block}
+.modelli b{display:block;font-family:var(--titolo);font-size:24px;line-height:1;padding-top:6px;letter-spacing:.3px}
+.modelli small{display:block;font-size:12px;line-height:1.25;color:var(--mute);margin-top:3px}
+.modelli .nuovo{position:absolute;top:8px;left:8px;background:var(--red);color:#fff;font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;border-radius:6px;padding:3px 6px 2px}
+.modelli button[aria-pressed=true]{border-color:var(--red);box-shadow:0 0 0 3px rgba(218,33,40,.15)}
+.modelli button[aria-pressed=true]::after{content:"✓";position:absolute;top:8px;right:8px;width:24px;height:24px;border-radius:50%;background:var(--red);color:#fff;font-size:15px;font-weight:800;display:grid;place-items:center}
+.modelli-tit{font-size:12px;color:var(--mute);margin:0 0 6px;text-transform:uppercase;letter-spacing:1px;font-weight:600}
 </style>
 </head>
 <body>
@@ -185,7 +195,7 @@ footer b{color:var(--ink)}
     <span class="spv-ic" id="spvIc"></span>
     <span class="spv-tx"><b>Spiegami a voce</b><small id="spvSub">In 20 secondi · alza il volume</small><span class="spv-pr"><i id="spvPr"></i></span></span>
   </button>
-  <audio id="spvAudio" src="../../voce/promo-npk-mix-cordless.mp3" preload="none"></audio>
+  <audio id="spvAudio" src="../../voce/promo-npk-mix-cordless.mp3?v=2" preload="none"></audio>
 </div>
 
 
@@ -206,15 +216,19 @@ footer b{color:var(--ink)}
 </section>
 
 <section id="passoCalze">
-  <h2><span class="n" id="nCalze">2</span><span>Le <em>calze EZ Socks</em>: le taglie</span></h2>
+  <h2><span class="n" id="nCalze">2</span><span>Le <em>calze EZ Socks</em>: modello e taglie</span></h2>
   <div class="prezzo"><b>15,00 € cad.</b><small>IVA esclusa · <b id="calzeConto">20 × 15 € = 300 €</b></small></div>
-  <p class="sub">Dividi le <b id="totCalze">20</b> calze tra le taglie che vendi di più.</p>
+  <p class="sub">Scegli EZ Urban o la nuova EZ Motion, stesso prezzo, poi dividi le <b id="totCalze">20</b> calze tra le taglie che vendi di più.</p>
   <div class="box">
-    <div class="riga" style="margin-bottom:10px"><img src="ez-socks.png" alt="Calze da neve NPK EZ Socks" width="512" height="486"><div><b>NPK EZ Socks</b>Calze da neve tessili, si montano in pochi secondi.</div></div>
+    <p class="modelli-tit">Scegli il modello</p>
+    <div class="modelli" role="group" aria-label="Scegli il modello delle calze">
+      <button type="button" data-m="urban" aria-pressed="false"><img src="ez-urban.webp" alt="Calze da neve NPK EZ Urban" width="500" height="434"><b>EZ Urban</b><small>Tessuto Nano-Tecnologia</small></button>
+      <button type="button" data-m="motion" aria-pressed="false"><span class="nuovo">Novità</span><img src="ez-motion.png" alt="Calze da neve NPK EZ Motion" width="560" height="493"><b>EZ Motion</b><small>Taglie anche per cerchi 10" e 12"</small></button>
+    </div>
     <div class="cont"><span class="sub" style="margin:0">Calze scelte</span><b id="contCalze">0 / 20</b></div>
     <div class="barra"><div id="barra"></div></div>
     <div class="taglie" id="taglie"></div>
-    <a class="tabella" href="https://makwheels.github.io/mak-calze-neve/#/ez-socks" target="_blank" rel="noopener">📏 Tabella taglie EZ Socks</a>
+    <a class="tabella" id="tabella" href="https://makwheels.github.io/mak-calze-neve/#/ez-socks" target="_blank" rel="noopener">📏 Tabella taglie EZ Socks</a>
     <label class="check"><input type="checkbox" id="taglieDopo"> Non so ancora le taglie: le scelgo con l'agente.</label>
   </div>
 </section>
@@ -368,12 +382,26 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   $("taglieDopo").addEventListener("change", aggiorna);
 
+  /* modello calze: EZ Urban o EZ Motion */
+  const MOD = {urban: "EZ Urban", motion: "EZ Motion"};
+  const TAB = {urban: "https://makwheels.github.io/mak-calze-neve/#/ez-socks", motion: "../calze-neve/"};
+  st.mod = "";
+  const nomeCalze = () => st.mod ? MOD[st.mod] : "EZ Socks";
+  document.querySelectorAll(".modelli button").forEach(b => b.addEventListener("click", () => {
+    st.mod = b.dataset.m;
+    document.querySelectorAll(".modelli button").forEach(x => x.setAttribute("aria-pressed", x === b));
+    $("tabella").href = TAB[st.mod];
+    $("tabella").textContent = "📏 Tabella taglie " + MOD[st.mod];
+    aggiorna();
+  }));
+
   /* riepilogo e WhatsApp */
   const totCalze = () => TAGLIE.reduce((s, t) => s + st.calze[t], 0);
   const elencoCalze = () => TAGLIE.filter(t => st.calze[t]).map(t => st.calze[t] + " × " + t).join(", ");
   const manca = () => {
     if (!st.p) return "promo";
     if (st.kit === null) return "auto";
+    if (!st.mod) return "mod";
     if (!$("taglieDopo").checked && totCalze() !== PROMO[st.p].calze) return "calze";
     return "";
   };
@@ -396,7 +424,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     $("nAuto").className = "n" + (st.kit !== null ? " ok" : "");
     $("nAuto").textContent = st.kit !== null ? "✓" : "1";
-    const calzeOk = dopo || tot === max;
+    const calzeOk = (dopo || tot === max) && !!st.mod;
     $("nCalze").className = "n" + (calzeOk && st.p ? " ok" : "");
     $("nCalze").textContent = calzeOk && st.p ? "✓" : "2";
 
@@ -406,8 +434,8 @@ document.addEventListener("DOMContentLoaded", () => {
     voce(1, "Kit avvitatore Ingersoll Rand W7153", "W7153-K22B-EU · batteria inclusa", "360 €");
     voce(1, "Ruotino fino a 17\" con accessori",
       st.kit !== null ? esc(KIT[st.kit][0] + " · " + st.auto) : '<span class="manca">Scegli l\'auto qui sopra</span>', "140 €");
-    voce(max, "Calze EZ Socks · 15 € cad.",
-      dopo ? "Taglie da scegliere con l'agente" : tot === max ? elencoCalze() : '<span class="manca">Scelte ' + tot + ' su ' + max + '</span>', (max * 15) + " €");
+    voce(max, "Calze " + nomeCalze() + " · 15 € cad.",
+      !st.mod ? '<span class="manca">Scegli il modello: EZ Urban o EZ Motion</span>' : dopo ? "Taglie da scegliere con l'agente" : tot === max ? elencoCalze() : '<span class="manca">Scelte ' + tot + ' su ' + max + '</span>', (max * 15) + " €");
     if (P.repair) voce(P.repair, "EZ Repair · 20 € cad.", "", (P.repair * 20) + " €");
     $("voci").innerHTML = v.join("");
     $("totale").innerHTML = st.p ? P.prezzo + "<span>" + IVA.trim() + "</span>" : "–";
@@ -420,14 +448,14 @@ document.addEventListener("DOMContentLoaded", () => {
     a.classList.toggle("attesa", !!m);
     if (m) {
       a.href = "#";
-      $("waTesto").textContent = {promo: "Scegli la promo: 1.000 € o 740 €", auto: "Scegli l'auto del ruotino", calze: "Scegli le taglie delle calze"}[m];
+      $("waTesto").textContent = {promo: "Scegli la promo: 1.000 € o 740 €", auto: "Scegli l'auto del ruotino", mod: "Scegli il modello delle calze", calze: "Scegli le taglie delle calze"}[m];
       return;
     }
     const P = PROMO[st.p], off = $("officina").value.trim();
     let t = "Ciao " + NOME + ", vorrei ordinare la *" + P.nome + "*" + ":\n" +
       "• 1 kit avvitatore Ingersoll Rand W7153-K22B-EU con batteria\n" +
       "• 1 kit ruotino " + KIT[st.kit][0] + " (" + KIT[st.kit][1] + ") per " + st.auto + "\n" +
-      "• " + P.calze + " calze EZ Socks: " + ($("taglieDopo").checked ? "taglie da scegliere insieme" : elencoCalze()) + "\n";
+      "• " + P.calze + " calze " + MOD[st.mod] + ": " + ($("taglieDopo").checked ? "taglie da scegliere insieme" : elencoCalze()) + "\n";
     if (P.repair) t += "• " + P.repair + " EZ Repair\n";
     t += "Totale: " + P.prezzo + IVA + "\n\nOfficina: " + off;
     a.href = "https://wa.me/" + TELEFONO + "?text=" + encodeURIComponent(t);
@@ -437,7 +465,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const m = manca();
     if (!m) return;
     e.preventDefault();
-    const dove = {promo: $("seleziona"), auto: $("passoAuto"), calze: $("passoCalze")}[m];
+    const dove = {promo: $("seleziona"), auto: $("passoAuto"), mod: $("passoCalze"), calze: $("passoCalze")}[m];
     dove.scrollIntoView({behavior: "smooth", block: "start"});
     const box = m === "promo" ? document.querySelector(".scelte") : dove.querySelector(".box");
     box.classList.remove("colpo"); void box.offsetWidth; box.classList.add("colpo");

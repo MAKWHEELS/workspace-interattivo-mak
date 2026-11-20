@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Promo NPK Mix ruotini + EZ Socks + omaggio</title>
-<meta name="description" content="2 kit ruotino NPK fino a 17&quot; + 16 calze EZ Socks a 520 € IVA esclusa, con avvitatore Ingersoll Rand 231 GXP in omaggio. Scegli le auto e le taglie e ordina su WhatsApp.">
+<meta name="description" content="2 kit ruotino NPK fino a 17&quot; + 16 calze EZ Socks (EZ Urban o EZ Motion) a 520 € IVA esclusa, con avvitatore Ingersoll Rand 231 GXP in omaggio. Scegli le auto e le taglie e ordina su WhatsApp.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="PROMO NPK MIX RUOTINI + EZSOCKS + OMAGGIO · 520 € IVA esclusa">
-<meta property="og:description" content="2 kit ruotino NPK in acciaio fino a 17&quot; (140 € cad.) e 16 calze da neve EZ Socks (15 € cad.): 520 € IVA esclusa, con avvitatore Ingersoll Rand 231 GXP in omaggio. Scegli auto e taglie e ordina su WhatsApp.">
+<meta property="og:description" content="2 kit ruotino NPK in acciaio fino a 17&quot; (140 € cad.) e 16 calze da neve EZ Urban o la nuova EZ Motion (15 € cad.): 520 € IVA esclusa, con avvitatore Ingersoll Rand 231 GXP in omaggio. Scegli auto e taglie e ordina su WhatsApp.">
 <meta property="og:image" content="https://makwheels.github.io/workspace-interattivo-mak/marco-podda/promo-npk-mix-ezsocks/anteprima.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -187,6 +187,16 @@ footer b{color:var(--ink)}
 @keyframes spvPulsa{50%{box-shadow:0 0 0 7px rgba(218,33,40,.25)}}
 .spv-richiamo{animation:spvRichiamo .7s 4}
 @keyframes spvRichiamo{50%{transform:scale(1.05)}}
+/* modello calze: EZ Urban o EZ Motion */
+.modelli{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.modelli button{font:inherit;color:var(--ink);background:#fff;border:2px solid var(--line);border-radius:16px;padding:10px 8px;cursor:pointer;position:relative;text-align:center}
+.modelli img{width:100%;height:96px;object-fit:contain;display:block}
+.modelli b{display:block;font-family:var(--titolo);font-size:24px;line-height:1;padding-top:6px;letter-spacing:.3px}
+.modelli small{display:block;font-size:12px;line-height:1.25;color:var(--mute);margin-top:3px}
+.modelli .nuovo{position:absolute;top:8px;left:8px;background:var(--red);color:#fff;font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;border-radius:6px;padding:3px 6px 2px}
+.modelli button[aria-pressed=true]{border-color:var(--red);box-shadow:0 0 0 3px rgba(218,33,40,.15)}
+.modelli button[aria-pressed=true]::after{content:"✓";position:absolute;top:8px;right:8px;width:24px;height:24px;border-radius:50%;background:var(--red);color:#fff;font-size:15px;font-weight:800;display:grid;place-items:center}
+.modelli-tit{font-size:12px;color:var(--mute);margin:0 0 6px;text-transform:uppercase;letter-spacing:1px;font-weight:600}
 </style>
 </head>
 <body>
@@ -197,7 +207,7 @@ footer b{color:var(--ink)}
   <div class="grande">Promo <span>NPK Mix</span></div>
   <div class="kicker">Ruotini + EZ Socks + omaggio</div>
   <div class="contiene">
-    <div><b>2</b>kit ruotino NPK<br>fino a 17"</div><i>+</i><div><b>16</b>calze da neve<br>EZ Socks</div>
+    <div><b>2</b>kit ruotino NPK<br>fino a 17"</div><i>+</i><div><b>16</b>calze EZ Socks<br>Urban o Motion</div>
   </div>
   <div class="prezzone"><small>Tutto a soli</small><b>520 €<span>IVA esclusa</span></b></div>
   <div class="omaggio"><span>Omaggio</span>Avvitatore Ingersoll Rand 231 GXP</div>
@@ -207,7 +217,7 @@ footer b{color:var(--ink)}
     <span class="spv-ic" id="spvIc"></span>
     <span class="spv-tx"><b>Spiegami a voce</b><small id="spvSub">In 20 secondi · alza il volume</small><span class="spv-pr"><i id="spvPr"></i></span></span>
   </button>
-  <audio id="spvAudio" src="../../voce/promo-npk-mix-ezsocks.mp3" preload="none"></audio>
+  <audio id="spvAudio" src="../../voce/promo-npk-mix-ezsocks.mp3?v=2" preload="none"></audio>
 </div>
 
 
@@ -243,15 +253,19 @@ footer b{color:var(--ink)}
 </section>
 
 <section id="passo3">
-  <h2><span class="n" id="n3">3</span><span>Le <em>16 calze EZ Socks</em>: le taglie</span></h2>
+  <h2><span class="n" id="n3">3</span><span>Le <em>16 calze EZ Socks</em>: modello e taglie</span></h2>
   <div class="prezzo"><b>15,00 € cad.</b><small>IVA esclusa · <b>16 × 15 € = 240 €</b></small></div>
-  <p class="sub">Dividi le 16 calze tra le taglie che vendi di più.</p>
+  <p class="sub">Scegli EZ Urban o la nuova EZ Motion, stesso prezzo, poi dividi le 16 calze tra le taglie che vendi di più.</p>
   <div class="box">
-    <div class="riga" style="margin-bottom:10px"><img src="ez-socks.png" alt="Calze da neve NPK EZ Socks" width="512" height="486"><div><b>NPK EZ Socks</b>Calze da neve tessili, si montano in pochi secondi.</div></div>
+    <p class="modelli-tit">Scegli il modello</p>
+    <div class="modelli" role="group" aria-label="Scegli il modello delle calze">
+      <button type="button" data-m="urban" aria-pressed="false"><img src="ez-urban.webp" alt="Calze da neve NPK EZ Urban" width="500" height="434"><b>EZ Urban</b><small>Tessuto Nano-Tecnologia</small></button>
+      <button type="button" data-m="motion" aria-pressed="false"><span class="nuovo">Novità</span><img src="ez-motion.png" alt="Calze da neve NPK EZ Motion" width="560" height="493"><b>EZ Motion</b><small>Taglie anche per cerchi 10" e 12"</small></button>
+    </div>
     <div class="cont"><span class="sub" style="margin:0">Calze scelte</span><b id="contCalze">0 / 16</b></div>
     <div class="barra"><div id="barra"></div></div>
     <div class="taglie" id="taglie"></div>
-    <a class="tabella" href="https://makwheels.github.io/mak-calze-neve/#/ez-socks" target="_blank" rel="noopener">📏 Tabella taglie EZ Socks</a>
+    <a class="tabella" id="tabella" href="https://makwheels.github.io/mak-calze-neve/#/ez-socks" target="_blank" rel="noopener">📏 Tabella taglie EZ Socks</a>
   </div>
 </section>
 
@@ -386,12 +400,26 @@ document.addEventListener("DOMContentLoaded", () => {
     aggiorna();
   });
 
+  /* modello calze: EZ Urban o EZ Motion */
+  const MOD = {urban: "EZ Urban", motion: "EZ Motion"};
+  const TAB = {urban: "https://makwheels.github.io/mak-calze-neve/#/ez-socks", motion: "../calze-neve/"};
+  st.mod = "";
+  const nomeCalze = () => st.mod ? MOD[st.mod] : "EZ Socks";
+  document.querySelectorAll(".modelli button").forEach(b => b.addEventListener("click", () => {
+    st.mod = b.dataset.m;
+    document.querySelectorAll(".modelli button").forEach(x => x.setAttribute("aria-pressed", x === b));
+    $("tabella").href = TAB[st.mod];
+    $("tabella").textContent = "📏 Tabella taglie " + MOD[st.mod];
+    aggiorna();
+  }));
+
   /* riepilogo e WhatsApp */
   const totCalze = () => TAGLIE.reduce((s, x) => s + st.calze[x], 0);
   const elencoCalze = () => TAGLIE.filter(x => st.calze[x]).map(x => st.calze[x] + " × " + x).join(", ");
   const manca = () => {
     if (ruotino(0).kit === null) return "r0";
     if (ruotino(1).kit === null) return "r1";
+    if (!st.mod) return "mod";
     if (totCalze() !== N_CALZE) return "calze";
     return "";
   };
@@ -412,7 +440,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     spunta("n1", ruotino(0).kit !== null, "1");
     spunta("n2", ruotino(1).kit !== null, "2");
-    spunta("n3", tot === N_CALZE, "3");
+    spunta("n3", tot === N_CALZE && !!st.mod, "3");
 
     const v = [];
     const voce = (q, testo, det, prezzo) => v.push('<div class="voce"><span><b>' + q + '</b> ' + testo + (det ? '<small>' + det + '</small>' : '') + '</span><b>' + prezzo + '</b></div>');
@@ -421,8 +449,8 @@ document.addEventListener("DOMContentLoaded", () => {
       voce(1, "Kit ruotino NPK fino a 17\"",
         x.kit !== null ? esc(KIT[x.kit][0] + " · " + x.auto) : '<span class="manca">Scegli l\'auto del ' + (r ? "secondo" : "primo") + ' ruotino</span>', "140 €");
     });
-    voce(N_CALZE, "Calze EZ Socks · 15 € cad.",
-      tot === N_CALZE ? elencoCalze() : '<span class="manca">Scelte ' + tot + ' su ' + N_CALZE + '</span>', N_CALZE * 15 + " €");
+    voce(N_CALZE, "Calze " + nomeCalze() + " · 15 € cad.",
+      !st.mod ? '<span class="manca">Scegli il modello: EZ Urban o EZ Motion</span>' : tot === N_CALZE ? elencoCalze() : '<span class="manca">Scelte ' + tot + ' su ' + N_CALZE + '</span>', N_CALZE * 15 + " €");
     voce(1, "Avvitatore Ingersoll Rand 231 GXP", "", "Omaggio");
     $("voci").innerHTML = v.join("");
     aggiornaWa();
@@ -433,7 +461,7 @@ document.addEventListener("DOMContentLoaded", () => {
     a.classList.toggle("attesa", !!m);
     if (m) {
       a.href = "#";
-      $("waTesto").textContent = {r0: "Scegli l'auto del primo ruotino", r1: "Scegli l'auto del secondo ruotino", calze: "Scegli le taglie delle 16 calze"}[m];
+      $("waTesto").textContent = {r0: "Scegli l'auto del primo ruotino", r1: "Scegli l'auto del secondo ruotino", mod: "Scegli il modello delle calze", calze: "Scegli le taglie delle 16 calze"}[m];
       return;
     }
     const off = $("officina").value.trim();
@@ -441,7 +469,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const r0 = ruotino(0), r1 = ruotino(1);
     const riga = (q, x) => "• " + q + " kit ruotino " + KIT[x.kit][0] + " (" + KIT[x.kit][1] + ") per " + x.auto + "\n";
     t += r0.kit === r1.kit && r0.auto === r1.auto ? riga(2, r0) : riga(1, r0) + riga(1, r1);
-    t += "• 16 calze EZ Socks a 15 € cad.: " + elencoCalze() + "\n";
+    t += "• 16 calze " + MOD[st.mod] + " a 15 € cad.: " + elencoCalze() + "\n";
     t += "• In omaggio: avvitatore Ingersoll Rand 231 GXP\n";
     t += "Totale: 520 € IVA esclusa\n\nOfficina: " + off;
     a.href = "https://wa.me/" + TELEFONO + "?text=" + encodeURIComponent(t);
@@ -451,7 +479,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const m = manca();
     if (!m) return;
     e.preventDefault();
-    const dove = {r0: $("passo1"), r1: $("passo2"), calze: $("passo3")}[m];
+    const dove = {r0: $("passo1"), r1: $("passo2"), mod: $("passo3"), calze: $("passo3")}[m];
     dove.scrollIntoView({behavior: "smooth", block: "start"});
     const box = dove.querySelector(".box:not([hidden])");
     box.classList.remove("colpo"); void box.offsetWidth; box.classList.add("colpo");
