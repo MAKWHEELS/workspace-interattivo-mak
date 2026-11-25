@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Black Friday MAK · Tutte le promo</title>
+<meta name="description" content="Black Friday B2B dal 25 novembre al 6 dicembre 2026: tutte le promo MAK, NoProblemKit, MATE e Truck in una pagina. Scegli, componi l'ordine e mandamelo con un solo WhatsApp. Prezzi netti IVA esclusa.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Black Friday · Tutte le promo MAK in una pagina, un solo ordine su WhatsApp">
+<meta property="og:description" content="Dal 25 novembre al 6 dicembre: sensori TPMS a 9,90 €, combo Autel −50%, TS900 −40%, ruote MAK fino al −50%, ruotini NPK −15%. Scegli e ordina tutto con un solo WhatsApp.">
+<meta property="og:image" content="https://makwheels.github.io/workspace-interattivo-mak/francesco-dicesare/black-friday-tutte/anteprima.jpg?v=1">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://makwheels.github.io/workspace-interattivo-mak/francesco-dicesare/black-friday-tutte/">
+<meta name="theme-color" content="#14161a">
+<link rel="apple-touch-icon" href="icona.png">
+<style>
+:root{
+  --red:#da2128; --red-soft:#fdecec; --ink:#14161a; --mute:#5d626b; --card:#f3f4f6; --line:#e2e4e8; --bg:#fff; --verde:#25d366; --ok:#14833b; --oro:#f5c400; --giallo:#ffe27a;
+  --titolo:"DIN Condensed","Avenir Next Condensed","Arial Narrow",system-ui,sans-serif;
+  --testo:"Avenir Next",-apple-system,system-ui,sans-serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--testo);font-size:16px;line-height:1.4}
+html{scroll-padding-top:72px}
+body{padding-top:calc(62px + env(safe-area-inset-top));padding-bottom:calc(96px + env(safe-area-inset-bottom))}
+button{font-family:inherit}
+.wrap{max-width:540px;margin:0 auto;overflow:hidden}
+h2{font-family:var(--titolo);font-weight:700;font-size:32px;letter-spacing:.5px;margin:0 0 4px;text-transform:uppercase;line-height:1}
+h2 em{font-style:normal;color:var(--red)}
+.sub{color:var(--mute);margin:0 0 16px;font-size:15px}
+section{padding:28px 16px 6px}
+
+.hero{position:relative;overflow:hidden;line-height:0}
+.hero img{width:100%;height:auto;display:block}
+.hero::after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;pointer-events:none;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-18deg);animation:riflesso 5s 1s infinite}
+@keyframes riflesso{0%{left:-60%}35%,100%{left:130%}}
+
+/* conto alla rovescia */
+.timer{position:fixed;top:0;left:0;right:0;z-index:25;background:var(--ink);color:#fff;text-align:center;
+  padding:calc(8px + env(safe-area-inset-top)) 12px 8px;box-shadow:0 4px 16px rgba(0,0,0,.3);text-decoration:none;display:block}
+.timer small{display:block;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--oro);font-weight:700}
+.cifre{display:flex;justify-content:center;gap:10px;font-family:var(--titolo);font-size:28px;line-height:1;margin-top:3px}
+.cifre span b{display:inline-block;min-width:1.25em}
+.cifre span i{font-style:normal;font-size:13px;opacity:.8;margin-left:1px}
+.timer.finita{background:#3f3f46}
+
+/* le più forti */
+.hot{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.deal{display:flex;flex-direction:column;align-items:center;text-align:center;gap:2px;text-decoration:none;color:var(--ink);
+  background:var(--card);border-top:4px solid var(--red);border-radius:4px 4px 14px 14px;padding:10px 6px 12px;
+  opacity:0;transform:translateY(16px);transition:opacity .5s,transform .5s}
+.deal.vis{opacity:1;transform:none}
+.deal:active{background:var(--red-soft)}
+.deal img{width:60px;height:60px;object-fit:contain;display:block;filter:drop-shadow(0 4px 6px rgba(0,0,0,.18))}
+.deal b{font-family:var(--titolo);font-size:17px;line-height:1.05;text-transform:uppercase;min-height:2.1em;display:flex;flex-direction:column;justify-content:center;padding-top:3px}
+.deal b small{display:block;font-size:12px;letter-spacing:.5px;color:var(--mute)}
+.deal .p{font-family:var(--titolo);font-size:30px;line-height:1;color:var(--red);padding-top:4px}
+.deal .n{font-size:11.5px;font-weight:600;color:var(--mute);line-height:1.2}
+
+/* categorie a tendina */
+.sezioni{display:flex;flex-direction:column;gap:10px}
+.sez{background:var(--card);border-top:4px solid var(--red);border-radius:4px 4px 16px 16px;scroll-margin-top:72px}
+.sez summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:14px;min-height:60px}
+.sez summary::-webkit-details-marker{display:none}
+.sez .ic{flex:none;min-width:48px;height:48px;padding:3px 8px 0;border-radius:999px;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--titolo);font-size:16px;padding-top:3px;white-space:nowrap}
+.sez .tt{flex:1;min-width:0}
+.sez .tt b{display:block;font-family:var(--titolo);font-weight:700;font-size:25px;line-height:1;text-transform:uppercase;padding-top:3px}
+.sez .tt small{display:block;color:var(--mute);font-size:13px;line-height:1.25;margin-top:2px}
+.sez .badge{font-style:normal;background:var(--ok);color:#fff;border-radius:999px;padding:2px 9px;font-weight:700;font-size:12px;white-space:nowrap}
+.sez .badge:empty{display:none}
+.sez .cv{flex:none;width:30px;height:30px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;transition:transform .2s}
+.sez[open] .cv{transform:rotate(180deg)}
+.cbody{padding:0 14px 6px}
+
+/* prodotto */
+.pr{background:#fff;border-radius:14px;padding:14px 12px 12px;margin-bottom:10px;scroll-margin-top:76px}
+.ph{display:flex;gap:12px;align-items:center}
+.ph img{width:62px;height:62px;object-fit:contain;flex:none;filter:drop-shadow(0 5px 6px rgba(0,0,0,.18))}
+.ph .tx{flex:1;min-width:0}
+.ph h3{margin:0;font-family:var(--titolo);font-size:23px;line-height:1;text-transform:uppercase;padding-top:3px}
+.ph p{margin:3px 0 0;font-size:13.5px;color:var(--mute);line-height:1.3}
+.ph .dt{font-size:13px;font-weight:700;color:var(--red);text-decoration:none;white-space:nowrap;margin-left:2px}
+.pct{flex:none;width:62px;height:62px;border-radius:50%;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--titolo);font-size:22px;padding-top:4px}
+.fasce{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 2px}
+.fasce span{border:1px solid var(--line);border-radius:10px;padding:4px 8px;font-size:12px;font-weight:600;color:var(--mute);line-height:1.2;text-align:center;background:#fff}
+.fasce span b{display:block;font-family:var(--titolo);font-size:20px;color:var(--ink);padding-top:2px}
+.fasce span.on{border-color:var(--red);background:var(--red-soft)}
+.fasce span.on b{color:var(--red)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 0}
+.chips button{border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px;font-size:14px;font-weight:600;color:var(--ink);min-height:44px;cursor:pointer}
+.chips button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.lab{display:block;font-size:13px;color:var(--mute);margin:14px 0 6px;text-transform:uppercase;letter-spacing:1px}
+.righe{display:flex;flex-direction:column;margin-top:8px}
+.rg{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.rg:last-child{border-bottom:0}
+.rg .nm{flex:1;min-width:0;font-size:15px;font-weight:600;line-height:1.2}
+.rg .nm small{display:block;font-size:12.5px;font-weight:500;color:var(--mute);margin-top:2px}
+.rg .nm s{color:#8a8f98}
+.rg .nm em{font-style:normal;color:var(--red);font-weight:700}
+.griglia{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.griglia .qta button{flex-basis:28px}
+.griglia .qta input{font-size:21px}
+.griglia .cl span{display:block;font-size:12px;font-weight:600;color:var(--mute);margin-bottom:3px;text-align:center}
+.qta{display:flex;align-items:center;height:46px;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;flex:none}
+.rg .qta{width:128px}
+.qta button{flex:0 0 36px;height:100%;border:0;background:none;color:var(--ink);font-size:22px;cursor:pointer;padding:0}
+.qta button:active{background:var(--card)}
+.qta input{flex:1;min-width:0;width:0;border:0;text-align:center;font-family:var(--titolo);font-size:24px;line-height:1;padding:5px 0 0;background:transparent;color:var(--ink);-moz-appearance:textfield}
+.qta input::-webkit-outer-spin-button,.qta input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.qta input::placeholder{color:#b9bdc4}
+.qta.on{border-color:var(--red)}
+.qta.on input{color:var(--red)}
+.stato{margin:10px 0 0;font-size:14px;font-weight:600;color:var(--mute)}
+.stato.ok{color:var(--ok)}
+.stato.bad{color:var(--red)}
+input[type=text]{width:100%;font:inherit;font-size:17px;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 14px}
+.pr input[type=text]{margin-top:12px;background:var(--card)}
+
+/* ordine */
+#secOrdine{scroll-margin-top:70px}
+.card{background:var(--card);border-radius:16px;padding:6px 14px 14px}
+.conto .r{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--line);font-size:15px}
+.conto .r b{font-family:var(--titolo);font-size:22px;line-height:1;white-space:nowrap}
+.conto .r small{display:block;color:var(--mute);font-size:12.5px}
+.conto .r b.q{font-family:var(--testo);font-size:13px;color:var(--mute);font-weight:600}
+.vuoto{color:var(--mute);margin:8px 0;font-size:15px}
+.totale{margin-top:14px;display:flex;justify-content:space-between;align-items:flex-end;gap:10px}
+.totale span{font-size:13px;color:var(--mute);line-height:1.3}
+.totale b{font-family:var(--titolo);font-size:40px;line-height:1;white-space:nowrap;color:var(--red)}
+label.f{display:block;font-size:13px;color:var(--mute);margin:16px 0 6px;text-transform:uppercase;letter-spacing:1px}
+.msg{min-height:1.2em;margin:8px 0 0;font-size:14px;color:var(--red);font-weight:600}
+.azzera{margin-top:10px;width:100%;font:inherit;font-weight:600;font-size:14px;border-radius:12px;padding:11px 4px;border:1px dashed #b9bdc4;background:#fff;color:var(--ink);cursor:pointer}
+.salta{animation:salta .45s}
+@keyframes salta{30%{transform:scale(1.03)}60%{transform:scale(.99)}}
+
+/* da sapere e contatti */
+.sapere{margin:0;padding-left:20px;font-size:15px;color:#2b2e33}
+.sapere li{margin-bottom:6px}
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;color:var(--ink);background:var(--card);border-radius:14px;padding:15px 10px;font-weight:600}
+.btn.b2b{background:var(--ink);color:#fff}
+footer{padding:26px 16px 10px;text-align:center;color:var(--mute);font-size:13px}
+.loghi{display:flex;justify-content:center;align-items:center;gap:18px;margin:0 0 14px}
+.loghi img{height:20px;width:auto;display:block}
+.loghi img.trk{height:24px}
+footer b{color:var(--ink)}
+.cta{position:fixed;left:0;right:0;bottom:0;z-index:30;padding:10px 16px calc(10px + env(safe-area-inset-bottom));
+  background:linear-gradient(rgba(255,255,255,0),rgba(255,255,255,.96) 30%)}
+.cta a{display:flex;align-items:center;justify-content:center;gap:10px;max-width:508px;margin:0 auto;
+  background:var(--verde);color:#062e16;text-decoration:none;font-weight:800;font-size:18px;border-radius:16px;padding:16px;animation:pulsa 2.4s infinite}
+.cta a.completa{background:var(--ink);color:#fff;animation:none}
+.cta a svg{width:24px;height:24px;fill:currentColor;flex:none}
+@keyframes pulsa{0%,100%{box-shadow:0 0 0 0 rgba(37,211,102,.55)}60%{box-shadow:0 0 0 14px rgba(37,211,102,0)}}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .deal{transform:none;opacity:1}
+}
+</style>
+</head>
+<body>
+<a class="timer" id="timer" href="#secOrdine">
+  <small id="timerTesto">Black Friday: dal 25 novembre al 6 dicembre</small>
+  <div class="cifre" id="cifre"><span><b id="gg">0</b><i>g</i></span><span><b id="hh">00</b><i>h</i></span><span><b id="mm">00</b><i>m</i></span><span><b id="ss">00</b><i>s</i></span></div>
+</a>
+<div class="wrap">
+<div class="hero">
+  <img src="locandina.jpg?v=1" alt="Promo Black Friday B2B dal 25 novembre al 6 dicembre 2026: tutte le promo MAK, NoProblemKit, MATE e Truck in una pagina. Autel TS900 a 414 euro, combo Autel ITS600 e TBE200 a 450 euro, sensori MULTIsens MP6 a 9,90 euro da 100 pezzi, ruote MAK fino al 50 per cento, ruotini NPK meno 15 per cento. Prezzi netti, IVA esclusa" width="1620" height="2024">
+</div>
+
+<section id="hot">
+  <h2>Le più <em>forti</em></h2>
+  <p class="sub">Tocca e vai dritto all'offerta.</p>
+  <nav class="hot" aria-label="Le promo più forti">
+    <a class="deal" href="#p-ts900"><img src="../../comune/black-friday-tutte/img/d-ts900.webp" alt="" width="60" height="60"><b>Autel TS900</b><span class="p">414&nbsp;€</span><span class="n">−40% · + IVA</span></a>
+    <a class="deal" href="#p-combo"><img src="../../comune/black-friday-tutte/img/d-combo.webp" alt="" width="60" height="60"><b>ITS600 + TBE200</b><span class="p">450&nbsp;€</span><span class="n">−50% · + IVA</span></a>
+    <a class="deal" href="#p-light"><img src="../../comune/black-friday-tutte/img/d-light.webp" alt="" width="60" height="60"><b><small>Calze da neve</small>Light 2.0</b><span class="p">−15%</span><span class="n">da 12,62&nbsp;€ + IVA</span></a>
+  </nav>
+</section>
+
+<section>
+  <h2>Scegli e <em>componi</em></h2>
+  <p class="sub">Apri una categoria e metti le quantità con + e −. Puoi prendere da più categorie: arriva tutto in un solo ordine.</p>
+  <div class="sezioni" id="sezioni"></div>
+</section>
+
+<section id="secOrdine">
+  <h2>Il tuo <em>ordine</em></h2>
+  <p class="sub">Il totale si aggiorna da solo. Resta salvato anche se apri un'offerta e torni qui.</p>
+  <div class="card" id="ordine">
+    <div class="conto" id="righe"></div>
+    <div class="totale"><span>Totale, netto<br>IVA esclusa</span><b id="totale">0,00 €</b></div>
+    <label class="f" for="officina">Nome officina</label>
+    <input type="text" id="officina" placeholder="Es. Gomme Rossi (facoltativo)" autocomplete="organization">
+    <p class="msg" id="msg" role="status"></p>
+    <button class="azzera" id="azzera" type="button">Azzera l'ordine</button>
+  </div>
+  <ul class="sapere" style="margin-top:16px">
+    <li>Tutte le promo valgono <b>dal 25 novembre al 6 dicembre 2026</b>. Prezzi netti, IVA esclusa.</li>
+    <li>Gli extra sconti su ruote e ruotini <b>si sommano alle tue condizioni</b> (es. 10% + 15% = 23,5%).</li>
+    <li>Solo articoli a magazzino; ruotini anche assemblabili entro 3 giorni lavorativi.</li>
+    <li>Valido anche sui pacchetti TPMS, calze ed EZ Repair già in essere.</li>
+  </ul>
+</section>
+
+<section>
+  <div class="btns">
+    <a class="btn" href="tel:+393458503816">📞 Chiamami</a>
+    <a class="btn b2b" href="https://b2bshop.makwheels.it/" target="_blank" rel="noopener">🛒 Portale B2B</a>
+  </div>
+</section>
+<footer>
+  <div class="loghi"><img src="../../loghi/logo-mak.svg" alt="MAK"><img src="../../loghi/logo-npk.svg" alt="NoProblemKit"><img src="../../loghi/logo-mate.svg" alt="MATE"><img class="trk" src="../../loghi/logo-trk.png" alt="TRK"></div>
+  <b>Francesco Di Cesare</b> · Agente MAK · 345 850 3816<br>Promo Black Friday B2B dal 25 novembre al 6 dicembre 2026. Prezzi netti, IVA esclusa.
+</footer>
+</div>
+<div class="cta"><a id="wa" href="#" target="_blank" rel="noopener">
+  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>
+  <span id="waTesto">Scrivimi su WhatsApp</span></a></div>
+<script>
+/* Fonte: pagina di Oscar Padova, oscarpadova-design.github.io/black-friday-mak (2026-11-25).
+   Catalogo, prezzi e regole copiati da lì senza modifiche; cambiano grafica e contatti dell'agente. */
+(function(){
+const TEL = "393458503816", NOME = "Francesco";
+const INIZIO = new Date("2026-11-25T00:00:00+01:00"), FINE = new Date("2026-12-06T23:59:59+01:00");
+const IMG = "../../comune/black-friday-tutte/img/";
+const euro = n => n.toFixed(2).replace(".", ",").replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " €";
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const tier = (f, n) => f.filter(x => n >= x.n).pop();
+
+/* ---------- catalogo ---------- */
+const SEZ = [
+ {id:"sensori", nome:"Sensori TPMS", prod:[
+  {id:"mp6", tipo:"steli", nome:"MATE MULTIsens MP6", img:"p-mp6", link:"black-friday-multisens/", desc:"Puoi mischiare gli steli: conta il totale dei pezzi.",
+   steli:[["930000MP6R","Gomma"],["93000MP6BM","Lega nero"],["930000MP6M","Lega silver"]],
+   fasce:[{n:20,p:15.90,et:"refill"},{n:100,p:9.90,et:"Black Friday"}], min:20,
+   nota:n => n>=100 ? "prezzo Black Friday." : "con "+(100-n)+" in più passi a 9,90 €."},
+  {id:"ecs", tipo:"steli", nome:"Refill HUF ECS", img:"p-ecs", link:"black-friday-huf-ecs/", desc:"Extra −15% su tutti i refill. Puoi mischiare gli steli.",
+   steli:[["930000ECSR","Gomma"],["930000ECSM","Lega silver"],["93000ECSBM","Lega nero"],["930000ECSA","Antracite"]],
+   fasce:[{n:12,p:14.03},{n:20,p:13.52},{n:50,p:12.77},{n:100,p:12.47}], min:12},
+  {id:"mx", tipo:"steli", nome:"Refill Autel MX", img:"p-mx", link:"black-friday-autel-mx/", desc:"Extra −15% su tutti i refill. Puoi mischiare gli steli.",
+   steli:[["93000000MXG","Gomma"],["9300000MXB","Lega nero"],["93000000MX","Lega silver"]],
+   fasce:[{n:12,p:16.15},{n:20,p:15.70},{n:50,p:14.82},{n:100,p:14.48},{n:300,p:13.01}], min:12}
+ ]},
+ {id:"strumenti", nome:"Strumenti TPMS", prod:[
+  {id:"combo", tipo:"lista", nome:"Combo Autel ITS600 + TBE200", img:"p-combo", link:"black-friday-combo-autel/", desc:"Insieme a 450 € invece di 900 €, oppure singoli a 315 €.",
+   art:[["7200000006 + 7200000004","Combo ITS600 + TBE200",450,900],["7200000006","Autel ITS600",315,450],["7200000004","Autel TBE200",315,450]]},
+  {id:"ts900", tipo:"lista", nome:"Autel TS900", img:"p-ts900", link:"black-friday-ts900/", desc:"24 mesi di aggiornamento inclusi. Security Gateway FULL 12 mesi a 390 €.",
+   art:[["7200000027","Autel TS900",414,690],["7200000046","Pacchetto Security Gateway FULL 12 mesi",390,null]]},
+  {id:"thuf", tipo:"pacchetto", nome:"Tool HUF: MATE MA41 + sensori ECS", img:"p-ma41", link:"black-friday-tool8-huf/", desc:"Strumento MA41 con cavo OBD + sensori HUF ECS. Dividi i sensori tra gli steli.",
+   pac:[{n:8,p:238,l:280},{n:16,p:340,l:400},{n:30,p:467.5,l:550}],
+   steli:[["930000ECSR","Gomma"],["930000ECSM","Lega silver"],["93000ECSBM","Lega nero"],["930000ECSA","Antracite"]]},
+  {id:"tautel", tipo:"pacchetto", nome:"Tool Autel: TS508 + sensori MX", img:"p-ts508", link:"black-friday-tool-autel/", desc:"Strumento TS508 con cavo OBD + sensori Autel MX. Dividi i sensori tra gli steli.",
+   pac:[{n:12,p:272,l:320},{n:16,p:357,l:420},{n:30,p:501.5,l:590}],
+   steli:[["93000000MXG","Gomma"],["93000000MX","Lega silver"],["9300000MXB","Lega nero"]]},
+  {id:"retrofit", tipo:"lista", nome:"Retrofit Kit TPMS", img:"p-retrofit", link:"black-friday-retrofit/", desc:"Extra −20%.",
+   art:[["930000P451","P451 · 4 ruote, pickup e camper",116,145],["93000HT602","HT602 · 6 ruote, camper e rimorchi",200,250]]}
+ ]},
+ {id:"diagnosi", nome:"Diagnosi", prod:[
+  {id:"diag", tipo:"lista", nome:"Diagnosi Autel MS", img:"p-diagnosi", link:"black-friday-diagnosi-autel/", desc:"−30% con assistenza Autel 12 mesi gratis.",
+   art:[["7200000053","MS 906 MAX",1540,2200],["7200000049","MS 908S PRO3",2240,3200],["7200000056","MS 909 S2",3220,4600],["7200000034","MS ULTRA S2",4340,6200]]}
+ ]},
+ {id:"npk", nome:"NoProblemKit", prod:[
+  {id:"ruotini", tipo:"richiesta", nome:"Ruotini NoProblemKit", pct:"−15%", desc:"Extra sconto sui ruotini a magazzino o assemblabili entro 3 giorni lavorativi.", campo:"Per quale auto? (modello e anno)"},
+  {id:"ezr", tipo:"lista", nome:"NPK EZ Repair", img:"p-ezr", link:"black-friday-ez-repair/", desc:"Kit gonfia e ripara, minimo 10 pezzi e poi a multipli di 10.",
+   art:[["7800000EZR","EZ Repair",15,21.61,10]]},
+  {id:"ezd", tipo:"lista", nome:"NPK EZ Drive", img:"p-ezd", link:"black-friday-ez-drive/", desc:"Kit di emergenza con 9 dispositivi, anche 1 pezzo.",
+   art:[["7800000EZD","EZ Drive",45,61.38]]},
+  {id:"multigrip", tipo:"taglie", nome:"Calze Multigrip The Original", img:"p-multigrip", link:"black-friday-multigrip/", desc:"Puoi mischiare le taglie: conta il totale. La taglia giusta la trovi nei dettagli.",
+   taglie:[69,71,73,74,76,77,79,80,81,83,85,87,89,93,95,96,97], cod:t => "73000SS0"+t,
+   fasce:[{n:5,p:26.58},{n:20,p:26.04},{n:50,p:25.48},{n:100,p:24.31},{n:200,p:21.88}], min:5,
+   expo:[{nome:"Expo banco",n:10,p:26.58,regola:"min"},{nome:"Expo verticale",n:30,p:26.58,regola:"min"}]},
+  {id:"light", tipo:"taglie", nome:"Calze Multigrip Light 2.0", img:"p-light", link:"black-friday-calze-light/", desc:"Puoi mischiare le taglie: conta il totale. La taglia giusta la trovi nei dettagli.",
+   taglie:[1,2,3,4,5,6,7,8,9], cod:t => "73000SSL0"+t,
+   fasce:[{n:5,p:15.33},{n:20,p:15.02},{n:50,p:14.71},{n:100,p:14.03},{n:200,p:12.62}], min:5,
+   expo:[{nome:"Expo banco",n:10,p:15.33,regola:"esatto"},{nome:"Expo verticale",n:30,p:15.33,regola:"esatto"}]}
+ ]},
+ {id:"ruote", nome:"Ruote MAK", prod:[
+  {id:"mak", tipo:"richiesta", nome:"Ruote in lega MAK 2026", pct:"−50%", desc:"OVS al 50%, altre ruote selezionate dal −15% al −30%. Ti mando io le ruote in promo per la tua auto.", campo:"Per quale auto? (modello, anno e diametro)", b2b:true}
+ ]},
+ {id:"truck", nome:"Truck", prod:[
+  {id:"truck", tipo:"lista", nome:"TPMS Truck", img:"p-truck", link:"black-friday-truck/", desc:"Sensori −30%, strumenti −15%.",
+   art:[["930HUFTR02","Sensore HUF TRUCK",38.5,55],["930ATRUCKR","Sensore AUTEL TRUCK con cinghia",38.5,55],["9300000333","Strumento ATEQ VT TRUCK 2.0",416.5,490],["7200000054","Strumento AUTEL ITS600 CV",467.5,550]]},
+  {id:"autocarro", tipo:"richiesta", nome:"Ruote autocarro selezionate", pct:"−20%", desc:"Maxion, Lead, JMS e Pomlead a magazzino, su codici selezionati.", campo:"Che misure ti servono?"}
+ ]}
+];
+
+/* titolo breve delle categorie chiuse */
+const RIASSUNTO = {sensori:["TPMS","MP6 a 9,90 €, refill −15%"], strumenti:["−50%","Combo Autel, TS900, Tool, Retrofit"], diagnosi:["−30%","Autel MS + assistenza 12 mesi"], npk:["−15%","Ruotini, EZ Repair, EZ Drive, calze"], ruote:["−50%","Ruote in lega MAK 2026"], truck:["−30%","TPMS Truck e ruote autocarro"]};
+
+/* ---------- stato (resta salvato) ---------- */
+const CHIAVE = "bf-tutte-ordine-v1";
+let S = {q:{}, sel:{}, txt:{}, off:""};
+try { const x = JSON.parse(localStorage.getItem(CHIAVE)); if (x && x.q) S = Object.assign(S, x); } catch(e) {}
+const salva = () => { try { localStorage.setItem(CHIAVE, JSON.stringify(S)); } catch(e) {} };
+const Q = k => S.q[k] || 0;
+
+/* ---------- disegno ---------- */
+const qta = (k, lab, step) => `<div class="qta" data-k="${k}"><button type="button" data-d="-${step||1}" aria-label="Togli ${esc(lab)}">−</button><input type="number" inputmode="numeric" min="0" step="${step||1}" placeholder="0" data-k="${k}" aria-label="${esc(lab)}"><button type="button" data-d="${step||1}" aria-label="Aggiungi ${esc(lab)}">+</button></div>`;
+const testa = p => `<div class="ph">${p.img ? `<img src="${IMG}${p.img}.webp" alt="" loading="lazy">` : `<span class="pct">${p.pct}</span>`}<div class="tx"><h3>${esc(p.nome)}</h3><p>${esc(p.desc)}${p.link ? ` <a class="dt" href="../${p.link}">Dettagli ›</a>` : ""}${p.b2b ? ` <a class="dt" href="https://b2bshop.makwheels.it/" target="_blank" rel="noopener">Portale B2B ›</a>` : ""}</p></div></div>`;
+
+function htmlProd(p){
+  let h = `<div class="pr" id="p-${p.id}">` + testa(p);
+  if (p.tipo === "steli" || p.tipo === "taglie"){
+    h += `<div class="fasce">` + p.fasce.map(f => `<span data-f="${p.id}-${f.n}">da ${f.n} pz<b>${euro(f.p)}</b></span>`).join("") + `</div>`;
+    if (p.expo) h += `<div class="chips" data-sel="${p.id}">` + [{nome:"Solo calze"}].concat(p.expo).map((e,i) => `<button type="button" data-v="${i}">${esc(e.nome)}${e.n ? " ("+(e.regola==="esatto"?"":"da ")+e.n+" pz, omaggio)" : ""}</button>`).join("") + `</div>`;
+    const voci = p.tipo === "steli" ? p.steli.map(s => [s[0], s[1]]) : p.taglie.map(t => [t, "T. " + t]);
+    h += `<span class="lab">${p.tipo === "steli" ? "Quanti per stelo" : "Quanti per taglia"}</span><div class="griglia">` + voci.map(v => `<div class="cl"><span>${esc(v[1])}</span>${qta(p.id+"|"+v[0], p.nome+" "+v[1])}</div>`).join("") + `</div>`;
+    h += `<p class="stato" data-stato="${p.id}"></p>`;
+  } else if (p.tipo === "pacchetto"){
+    h += `<span class="lab">Pacchetto</span><div class="chips" data-sel="${p.id}" style="margin-top:0">` + p.pac.map((x,i) => `<button type="button" data-v="${i}">${x.n} sensori · ${euro(x.p)}</button>`).join("") + `</div>`;
+    h += `<div class="righe"><div class="rg"><div class="nm">Quanti pacchetti<small data-pl="${p.id}"></small></div>${qta(p.id+"|pac", p.nome+" pacchetti")}</div></div>`;
+    h += `<span class="lab">Dividi i sensori per stelo</span><div class="griglia">` + p.steli.map(s => `<div class="cl"><span>${esc(s[1])}</span>${qta(p.id+"|"+s[0], p.nome+" "+s[1])}</div>`).join("") + `</div>`;
+    h += `<p class="stato" data-stato="${p.id}"></p>`;
+  } else if (p.tipo === "lista"){
+    h += `<div class="righe">` + p.art.map(a => `<div class="rg"><div class="nm">${esc(a[1])}<small><em>${euro(a[2])}</em>${a[3] ? " <s>"+euro(a[3])+"</s>" : ""} + IVA${a[4] ? " · a multipli di "+a[4] : ""}</small></div>${qta(p.id+"|"+a[0], a[1], a[4])}</div>`).join("") + `</div>`;
+    h += `<p class="stato" data-stato="${p.id}"></p>`;
+  } else if (p.tipo === "richiesta"){
+    h += `<input type="text" data-t="${p.id}" placeholder="${esc(p.campo)}" aria-label="${esc(p.nome)}: ${esc(p.campo)}">`;
+    h += `<p class="stato">Scrivilo qui e lo trovo nel tuo ordine: ti rispondo con prezzi e disponibilità.</p>`;
+  }
+  return h + `</div>`;
+}
+document.getElementById("sezioni").innerHTML = SEZ.map(z => { const r = RIASSUNTO[z.id] || ["", ""]; return `<details class="sez" id="${z.id}"><summary><span class="ic">${r[0]}</span><span class="tt"><b>${z.nome}</b><small>${esc(r[1])} · ${z.prod.length} ${z.prod.length === 1 ? "offerta" : "offerte"}</small></span><i class="badge" data-ok="${z.id}"></i><span class="cv" aria-hidden="true">▾</span></summary><div class="cbody">${z.prod.map(htmlProd).join("")}</div></details>`; }).join("");
+
+/* ---------- calcolo (regole di Oscar) ---------- */
+const PROD = {}; SEZ.forEach(z => z.prod.forEach(p => { p.sez = z.id; PROD[p.id] = p; }));
+const somma = (p, chiavi) => chiavi.reduce((a, k) => a + Q(p.id + "|" + k), 0);
+
+function calcola(p){
+  const r = {righe:[], pz:0, err:"", stato:"", cls:""};
+  if (p.tipo === "steli" || p.tipo === "taglie"){
+    const voci = p.tipo === "steli" ? p.steli.map(s => s[0]) : p.taglie;
+    const n = somma(p, voci); r.pz = n; if (!n) { r.stato = p.tipo === "steli" ? "Minimo " + p.min + " pezzi in totale." : "Minimo " + p.min + " pezzi in totale, anche di taglie diverse."; return r; }
+    const ex = p.expo && S.sel[p.id] ? p.expo[S.sel[p.id] - 1] : null;
+    let prezzo = null;
+    if (ex){
+      if (ex.regola === "esatto" && n !== ex.n) r.err = p.nome + ": con l'" + ex.nome.toLowerCase() + " servono esattamente " + ex.n + " pezzi (ora " + n + ").";
+      else if (ex.regola === "min" && n < ex.n) r.err = p.nome + ": con l'" + ex.nome.toLowerCase() + " ne servono almeno " + ex.n + " (mancano " + (ex.n - n) + ").";
+      else prezzo = ex.p;
+    } else {
+      const f = tier(p.fasce, n);
+      if (!f) r.err = p.nome + ": minimo " + p.min + " pezzi, ne mancano " + (p.min - n) + ".";
+      else { prezzo = f.p; r.fascia = f.n; }
+    }
+    if (r.err) { r.stato = r.err.replace(p.nome + ": ", ""); r.cls = "bad"; return r; }
+    const tot = n * prezzo;
+    const det = voci.filter(v => Q(p.id+"|"+v)).map(v => (p.tipo === "steli" ? p.steli.find(s => s[0] === v)[1] + " (" + v + ")" : "taglia " + v + " (" + p.cod(v) + ")") + ": " + Q(p.id+"|"+v));
+    r.righe.push({nome: p.nome + (ex ? " + " + ex.nome + " omaggio" : ""), det: n + " pz × " + euro(prezzo), sub: det, tot});
+    r.stato = "✓ " + n + " pz × " + euro(prezzo) + " = " + euro(tot) + (p.nota ? " · " + p.nota(n) : ""); r.cls = "ok";
+  } else if (p.tipo === "pacchetto"){
+    const i = S.sel[p.id] != null ? S.sel[p.id] : null, k = Q(p.id+"|pac"), voci = p.steli.map(s => s[0]), n = somma(p, voci);
+    r.pz = k + n;
+    if (i === null) { if (k || n) { r.err = p.nome + ": scegli il pacchetto (" + p.pac.map(x => x.n).join(", ") + " sensori)."; r.stato = "Scegli prima il pacchetto."; r.cls = "bad"; } else r.stato = "Scegli il pacchetto, poi dividi i sensori."; return r; }
+    const P = p.pac[i], serve = k * P.n;
+    if (!k) { if (n) { r.err = p.nome + ": indica quanti pacchetti."; r.stato = "Indica quanti pacchetti."; r.cls = "bad"; } else r.stato = "Pacchetto da " + P.n + " sensori a " + euro(P.p) + "."; return r; }
+    if (n !== serve) { r.err = p.nome + ": i sensori devono essere " + serve + " (ora " + n + ")."; r.stato = "Sensori divisi: " + n + " su " + serve + "."; r.cls = "bad"; return r; }
+    const tot = k * P.p;
+    r.righe.push({nome: p.nome + " · pacchetto da " + P.n, det: k + " × " + euro(P.p), sub: p.steli.filter(s => Q(p.id+"|"+s[0])).map(s => s[1] + " (" + s[0] + "): " + Q(p.id+"|"+s[0])), tot});
+    r.stato = "✓ " + k + (k === 1 ? " pacchetto" : " pacchetti") + " = " + euro(tot); r.cls = "ok";
+  } else if (p.tipo === "lista"){
+    p.art.forEach(a => { const n = Q(p.id+"|"+a[0]); if (!n) return; r.pz += n;
+      if (a[4] && n % a[4]) { r.err = a[1] + ": a multipli di " + a[4] + " pezzi."; return; }
+      r.righe.push({nome: a[1] + " (" + a[0] + ")", det: n + " × " + euro(a[2]), sub: [], tot: n * a[2]}); });
+    if (r.err) { r.stato = r.err; r.cls = "bad"; }
+    else if (r.righe.length) { r.stato = "✓ " + euro(r.righe.reduce((s, x) => s + x.tot, 0)); r.cls = "ok"; }
+  } else if (p.tipo === "richiesta"){
+    const t = (S.txt[p.id] || "").trim(); if (t) { r.pz = 1; r.rich = t; }
+  }
+  return r;
+}
+
+/* ---------- messaggio WhatsApp ---------- */
+function messaggio(R){
+  let m = "Ciao " + NOME + ", vorrei il *Black Friday MAK* (25/11–6/12):\n", tot = 0;
+  R.forEach(x => x.r.righe.forEach(l => { tot += l.tot; m += "\n• " + l.nome + ": " + l.det + " = " + euro(l.tot); l.sub.forEach(s => m += "\n   – " + s); }));
+  if (tot) m += "\n\nTotale " + euro(tot) + " netto IVA esclusa";
+  const ric = R.filter(x => x.r.rich);
+  if (ric.length) m += "\n\nVorrei un'offerta per:" + ric.map(x => "\n• " + x.p.nome + ": " + x.r.rich).join("");
+  if (S.off.trim()) m += "\n\nOfficina: " + S.off.trim();
+  return m + "\n\nGrazie!";
+}
+const WA = t => "https://wa.me/" + TEL + "?text=" + encodeURIComponent(t);
+const $ = id => document.getElementById(id);
+let finita = false;
+
+/* ---------- aggiorna tutto ---------- */
+function aggiorna(){
+  const R = Object.values(PROD).map(p => ({p, r: calcola(p)}));
+  let tot = 0, voci = 0, err = "";
+  R.forEach(({p, r}) => {
+    r.righe.forEach(l => { tot += l.tot; voci++; }); if (r.rich) voci++;
+    if (r.err && !err) err = r.err;
+    const st = document.querySelector(`[data-stato="${p.id}"]`); if (st) { st.textContent = r.stato; st.className = "stato " + r.cls; }
+    if (p.fasce) p.fasce.forEach(f => { const e = document.querySelector(`[data-f="${p.id}-${f.n}"]`); if (e) e.classList.toggle("on", r.fascia === f.n); });
+    const pl = document.querySelector(`[data-pl="${p.id}"]`); if (pl) { const i = S.sel[p.id]; pl.textContent = i != null ? "da " + p.pac[i].n + " sensori · " + euro(p.pac[i].p) + " l'uno" : "scegli prima il pacchetto"; }
+  });
+  document.querySelectorAll(".qta input").forEach(i => { const v = Q(i.dataset.k); if (document.activeElement !== i) i.value = v || ""; i.parentNode.classList.toggle("on", v > 0); });
+  document.querySelectorAll("[data-sel]").forEach(c => { const id = c.dataset.sel, v = S.sel[id] != null ? S.sel[id] : (PROD[id].expo ? 0 : -1); c.querySelectorAll("button").forEach(b => b.classList.toggle("on", Number(b.dataset.v) === v)); });
+  SEZ.forEach(z => { const n = R.filter(x => x.p.sez === z.id && (x.r.righe.length || x.r.rich)).length; document.querySelector(`[data-ok="${z.id}"]`).textContent = n ? "✓ " + n : ""; });
+  /* riepilogo */
+  let h = "";
+  R.forEach(({r}) => r.righe.forEach(l => h += `<div class="r"><span>${esc(l.nome)}<small>${esc(l.det)}${l.sub.length ? " · " + esc(l.sub.join(", ")) : ""}</small></span><b>${euro(l.tot)}</b></div>`));
+  R.filter(x => x.r.rich).forEach(({p, r}) => h += `<div class="r"><span>${esc(p.nome)}<small>${esc(r.rich)}</small></span><b class="q">da quotare</b></div>`);
+  $("righe").innerHTML = h || `<p class="vuoto">Ancora niente: apri una categoria qui sopra e metti le quantità con + e −.</p>`;
+  $("totale").textContent = euro(tot);
+  $("msg").textContent = err;
+  const a = $("wa");
+  a.classList.remove("completa");
+  if (finita) { a.href = WA("Ciao " + NOME + ", ho visto la pagina del Black Friday MAK. Quali offerte sono attive adesso?"); $("waTesto").textContent = "Chiedimi le offerte attive"; }
+  else if (!voci) { a.href = WA("Ciao " + NOME + ", ho visto le promo del *Black Friday MAK* (25/11–6/12). Mi interessa: "); $("waTesto").textContent = "Scrivimi su WhatsApp"; }
+  else if (err) { a.href = "#secOrdine"; a.classList.add("completa"); $("waTesto").textContent = "Completa l'ordine ›"; }
+  else { a.href = WA(messaggio(R)); $("waTesto").textContent = "Manda l'ordine · " + euro(tot); }
+  salva();
+}
+
+/* ---------- eventi ---------- */
+const setQ = (k, v) => { v = Math.max(0, Math.floor(Number(v) || 0)); if (v) S.q[k] = v; else delete S.q[k]; aggiorna(); };
+document.addEventListener("click", e => {
+  const b = e.target.closest(".qta button"); if (b) { const k = b.parentNode.dataset.k; setQ(k, Q(k) + Number(b.dataset.d)); $("totale").classList.remove("salta"); void $("totale").offsetWidth; $("totale").classList.add("salta"); return; }
+  const c = e.target.closest("[data-sel] button"); if (c) { S.sel[c.parentNode.dataset.sel] = Number(c.dataset.v); aggiorna(); return; }
+  const a = e.target.closest('a[href^="#p-"], a[href="#secOrdine"]');
+  if (a) { const t = document.querySelector(a.getAttribute("href")); if (!t) return; e.preventDefault(); const d = t.closest("details"); if (d) d.open = true; requestAnimationFrame(() => t.scrollIntoView({behavior:"smooth", block:"start"})); }
+});
+document.addEventListener("input", e => {
+  const i = e.target;
+  if (i.matches(".qta input")) { const v = Math.max(0, Math.floor(Number(i.value) || 0)); if (v) S.q[i.dataset.k] = v; else delete S.q[i.dataset.k]; aggiorna(); }
+  else if (i.dataset.t) { S.txt[i.dataset.t] = i.value; aggiorna(); }
+  else if (i.id === "officina") { S.off = i.value; aggiorna(); }
+});
+$("azzera").addEventListener("click", () => { S = {q:{}, sel:{}, txt:{}, off:""}; document.querySelectorAll("[data-t]").forEach(i => i.value = ""); $("officina").value = ""; aggiorna(); });
+document.querySelectorAll("[data-t]").forEach(i => i.value = S.txt[i.dataset.t] || "");
+$("officina").value = S.off || "";
+aggiorna();
+
+/* le più forti entrano una alla volta */
+const deals = document.querySelectorAll(".deal");
+if ("IntersectionObserver" in window) {
+  const o = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { deals.forEach((d, i) => setTimeout(() => d.classList.add("vis"), i * 150)); o.disconnect(); } }), {threshold: .2});
+  o.observe($("hot"));
+} else deals.forEach(d => d.classList.add("vis"));
+
+/* ---------- conto alla rovescia ---------- */
+function tick(){
+  const ora = new Date();
+  if (ora > FINE) {
+    if (!finita) { finita = true; aggiorna(); }
+    $("timer").classList.add("finita");
+    $("timerTesto").textContent = "Black Friday terminato";
+    $("cifre").textContent = "Chiedimi le offerte attive";
+    $("cifre").style.fontSize = "20px";
+    return;
+  }
+  const prima = ora < INIZIO;
+  $("timerTesto").textContent = prima ? "Black Friday: parte mercoledì 25 novembre tra" : "Black Friday: finisce domenica 6 dicembre tra";
+  const sec = Math.floor(((prima ? INIZIO : FINE) - ora) / 1000);
+  $("gg").textContent = Math.floor(sec / 86400);
+  $("hh").textContent = String(Math.floor(sec % 86400 / 3600)).padStart(2, "0");
+  $("mm").textContent = String(Math.floor(sec % 3600 / 60)).padStart(2, "0");
+  $("ss").textContent = String(sec % 60).padStart(2, "0");
+  setTimeout(tick, 1000);
+}
+$("timer").addEventListener("click", e => { e.preventDefault(); $("secOrdine").scrollIntoView({behavior: "smooth", block: "start"}); });
+tick();
+})();
+</script>
+</body>
+</html>
