@@ -8,7 +8,7 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Tool 8 · MA41 + 8 sensori MULTIsens a 280 € IVA esclusa">
 <meta property="og:description" content="Strumento TPMS MATE MA41 con cavo OBD + 8 sensori MULTIsens: 280 € IVA esclusa tutto compreso. Scegli le valvole e ordina su WhatsApp.">
-<meta property="og:image" content="https://makwheels.github.io/workspace-interattivo-mak/marco-cesarini/tool8-ma41/anteprima.jpg">
+<meta property="og:image" content="https://makwheels.github.io/workspace-interattivo-mak/marco-cesarini/tool8-ma41/anteprima.jpg?v=3">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:url" content="https://makwheels.github.io/workspace-interattivo-mak/marco-cesarini/tool8-ma41/">
@@ -176,7 +176,7 @@ footer b{color:var(--ink)}
 <div class="wrap">
 
 <div class="hero">
-  <img src="locandina.jpg" alt="Promo Tool 8 MATE: strumento MA41 con cavo OBD più 8 sensori MULTIsens a 280 euro IVA esclusa, tutto compreso" width="1620" height="2025">
+  <img src="locandina.jpg?v=3" alt="Promo Tool 8 MATE: strumento MA41 con cavo OBD più 8 sensori MULTIsens a 280 euro IVA esclusa, tutto compreso" width="1620" height="2025">
 </div>
 <div class="spv">
   <button type="button" id="spvBtn" aria-label="Spiegami a voce la promo">
@@ -200,7 +200,7 @@ footer b{color:var(--ink)}
   <div class="vant" id="vant">
     <div class="vg"><span class="ic">280</span><div><h3>Tutto in un prezzo</h3><p>Strumento, cavo OBD e 8 sensori a <strong>280 € IVA esclusa</strong>: parti con il TPMS senza altre spese.</p></div></div>
     <div class="vg"><span class="ic">OBD</span><div><h3>Cavo OBD compreso</h3><p>Per il <strong>riapprendimento dalla presa diagnosi</strong>: con il Tool 8 è già nella confezione.</p></div></div>
-    <div class="vg"><span class="ic">3</span><div><h3>Valvole a scelta</h3><p>Gomma, metallo silver o metallo black: <strong>le mischi come vuoi</strong>, contano gli 8 in totale.</p></div></div>
+    <div class="vg"><span class="ic">2</span><div><h3>Valvole a scelta</h3><p>Metallo silver o metallo black: <strong>le mischi come vuoi</strong>, contano gli 8 in totale. Per la valvola in gomma aggiungi gli steli in gomma 9300000RKR, 10 € la confezione da 4.</p></div></div>
     <div class="vg"><span class="ic">94%</span><div><h3>Un sensore, quasi tutte le auto</h3><p>MULTIsens MP6 è <strong>universale</strong>: copre il 94% delle vetture con TPMS diretto. Lo programmi con l'MA41, <strong>4 sensori insieme</strong>.</p></div></div>
     <div class="vg"><span class="ic">5</span><div><h3>5 anni di aggiornamenti</h3><p>Lo strumento riceve le nuove vetture e i nuovi sensori per <strong>5 anni</strong>, dal computer via USB.</p></div></div>
     <div class="vg"><span class="ic">☎</span><div><h3>Assistenza telefonica gratuita</h3><p>Per ogni dubbio su programmazione e riapprendimento c'è <strong>la nostra assistenza telefonica gratuita</strong>, in italiano, e ci sono io.</p></div></div>
@@ -235,13 +235,14 @@ footer b{color:var(--ink)}
     <div class="ma"><img src="ma41.webp" alt="Strumento MATE MA41" width="480" height="776"><div><h3>MATE MA41</h3><div class="c">9300000330 · strumento TPMS</div></div><span class="uno">1</span></div>
     <div id="righe"></div>
     <div class="veloci">
-      <button type="button" data-mix="8,0,0">8 Rubber</button>
-      <button type="button" data-mix="0,0,8">8 Silver</button>
-      <button type="button" data-mix="4,0,4">4 + 4</button>
+      <button type="button" data-mix="8,0">8 Black</button>
+      <button type="button" data-mix="0,8">8 Silver</button>
+      <button type="button" data-mix="4,4">4 + 4</button>
     </div>
     <div class="barra" id="barra"><i></i></div>
     <div class="stato" id="stato"></div>
-    <div class="totale"><span>Tool 8: MA41, cavo OBD<br>e 8 sensori, IVA esclusa</span><b>280,00 €<i>IVA esclusa</i></b></div>
+    <div class="riga" id="rkr"><img alt="" src="9300000RKR.jpg"><div><h3>Steli in gomma</h3><div class="c">9300000RKR · conf. 4 pz · 10,00 € · facoltativo</div></div><div class="qta"><button type="button" aria-label="Meno">−</button><span>0</span><button type="button" aria-label="Più">+</button></div></div>
+    <div class="totale"><span id="totTesto">Tool 8: MA41, cavo OBD<br>e 8 sensori, IVA esclusa</span><b id="totB">280,00 €<i>IVA esclusa</i></b></div>
     <label class="f" for="officina">Officina</label>
     <input type="text" id="officina" placeholder="Nome dell'officina" autocomplete="organization">
   </div>
@@ -278,7 +279,6 @@ footer b{color:var(--ink)}
 
 <script>
 const SENSORI = [
-  {cod: "930000MP6R", nome: "Rubber", desc: "valvola in gomma", img: "mp6-rubber.png"},
   {cod: "93000MP6BM", nome: "Metal Black", desc: "valvola metallo nera", img: "mp6-black.png"},
   {cod: "930000MP6M", nome: "Metal Silver", desc: "valvola metallo silver", img: "mp6-silver.png"}
 ];
@@ -306,6 +306,20 @@ document.addEventListener("DOMContentLoaded", () => {
     aggiorna();
   }));
   $("officina").addEventListener("input", messaggio);
+  /* steli in gomma 9300000RKR, facoltativi, 10 € la confezione da 4 (2026-11-27) */
+  let rkr = 0;
+  {
+    const [meno, num, piu] = $("rkr").querySelector(".qta").children;
+    const agg = () => {
+      num.textContent = rkr; meno.disabled = !rkr; $("rkr").classList.toggle("on", rkr > 0);
+      $("totB").innerHTML = (280 + rkr * 10).toFixed(2).replace(".", ",") + " €<i>IVA esclusa</i>";
+      $("totTesto").innerHTML = rkr ? "Tool 8 280 € + " + rkr + " conf. steli<br>in gomma, IVA esclusa" : "Tool 8: MA41, cavo OBD<br>e 8 sensori, IVA esclusa";
+      messaggio();
+    };
+    meno.addEventListener("click", () => { if (rkr > 0) { rkr--; agg(); } });
+    piu.addEventListener("click", () => { if (rkr < 99) { rkr++; agg(); } });
+    meno.disabled = true;
+  }
 
   function aggiorna() {
     const n = totale(), ok = n === PROMO.sensori;
@@ -330,7 +344,8 @@ document.addEventListener("DOMContentLoaded", () => {
       "• 9300000330 MATE MA41 con cavo OBD: 1 pz\n" +
       (righeS.length ? righeS.join("\n") + "\n" : "") +
       (n < PROMO.sensori ? (n ? "Gli altri " + (PROMO.sensori - n) + " sensori: decidiamo insieme le valvole\n" : "Valvole degli 8 sensori: decidiamo insieme\n") : "") +
-      "Totale 280,00 € IVA esclusa\n\nOfficina: " + off;
+      (rkr ? "• 9300000RKR steli in gomma (conf. 4 pz): " + rkr + " conf. × 10,00 €\n" : "") +
+      "Totale " + (280 + rkr * 10).toFixed(2).replace(".", ",") + " € IVA esclusa\n\nOfficina: " + off;
     $("wa").href = "https://wa.me/" + PROMO.telefono + "?text=" + encodeURIComponent(testo);
     $("waTesto").textContent = n ? "Ordina il Tool 8 su WhatsApp" : "Voglio il Tool 8: scrivimi";
   }

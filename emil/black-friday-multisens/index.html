@@ -8,7 +8,7 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Black Friday · MULTIsens MP6 a 9,90 € IVA esclusa da 100 pezzi">
 <meta property="og:description" content="Dal 25 novembre al 6 dicembre: sensori TPMS MATE MULTIsens MP6 a 9,90 € con 100 pezzi anche misti, refill da 20 a 15,90 €. Ordina su WhatsApp.">
-<meta property="og:image" content="https://makwheels.github.io/workspace-interattivo-mak/emil/black-friday-multisens/anteprima.jpg?v=2">
+<meta property="og:image" content="https://makwheels.github.io/workspace-interattivo-mak/emil/black-friday-multisens/anteprima.jpg?v=3">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:url" content="https://makwheels.github.io/workspace-interattivo-mak/emil/black-friday-multisens/">
@@ -138,6 +138,21 @@ footer b{color:var(--ink)}
 @keyframes spvPulsa{50%{box-shadow:0 0 0 7px rgba(218,33,40,.25)}}
 .spv-richiamo{animation:spvRichiamo .7s 4}
 @keyframes spvRichiamo{50%{transform:scale(1.05)}}
+/* steli in gomma in abbinata (2026-11-27) */
+.abb-banner{display:grid;grid-template-columns:96px 1fr;gap:12px;align-items:center;background:var(--red);color:#fff;border-radius:16px;padding:14px;text-decoration:none}
+.abb-banner img{width:96px;height:96px;object-fit:contain;background:#fff;border-radius:12px;padding:4px}
+.abb-banner small{display:block;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;color:var(--oro)}
+.abb-banner b{display:block;font-family:var(--titolo);font-size:30px;line-height:1;text-transform:uppercase;padding-top:4px}
+.abb-banner b em{font-style:normal;color:var(--oro)}
+.abb-banner p{margin:6px 0 0;font-size:14px;line-height:1.35}
+.abb-banner s{opacity:.8}
+.riga.abb{margin-top:10px;background:#fff;border:2px solid var(--red);border-radius:14px;padding:10px;scroll-margin-top:80px}
+.riga.abb img{width:88px;height:70px;object-fit:contain}
+.riga.abb small{display:block;font-size:12px;color:var(--mute);margin-top:2px}
+.riga.abb small b{color:var(--red)}
+.abb-tutti{display:block;width:100%;margin-top:8px;font:inherit;font-weight:600;font-size:14px;border-radius:12px;padding:11px 6px;border:1px dashed var(--red);background:#fff;color:var(--red)}
+.abb-tutti:disabled{opacity:.45}
+.abb-stato{font-size:13px;font-weight:600;color:var(--ok);margin-top:6px;min-height:1em}
 </style>
 </head>
 <body>
@@ -148,14 +163,14 @@ footer b{color:var(--ink)}
 <div class="wrap">
 
 <div class="hero">
-  <img src="locandina.jpg" alt="MATE Promo Black Friday B2B dal 25 novembre al 6 dicembre 2026: sensori TPMS MULTIsens MP6 a 9,90 euro cadauno IVA esclusa, minimo 100 pezzi anche misti. Singolo 20,40 euro, refill da 20 a 15,90 euro, Black Friday da 100 a 9,90 euro. Rubber 930000MP6R, Metal Black 93000MP6BM, Metal Silver 930000MP6M. Fino a esaurimento scorte" width="1620" height="2025">
+  <img src="locandina.jpg?v=3" alt="MATE Promo Black Friday B2B dal 25 novembre al 6 dicembre 2026: sensori TPMS MULTIsens MP6 a 9,90 euro cadauno IVA esclusa, minimo 100 pezzi anche misti. Singolo 20,40 euro, refill da 20 a 15,90 euro, Black Friday da 100 a 9,90 euro. Metal Black 93000MP6BM, Metal Silver 930000MP6M. In abbinata gli steli in gomma 9300000RKR a 6 euro invece di 10 la confezione da 4. Fino a esaurimento scorte" width="1620" height="2025">
 </div>
 <div class="spv">
   <button type="button" id="spvBtn" aria-label="Spiegami a voce la promo">
     <span class="spv-ic" id="spvIc"></span>
-    <span class="spv-tx"><b>Spiegami a voce</b><small id="spvSub">In 25 secondi · alza il volume</small><span class="spv-pr"><i id="spvPr"></i></span></span>
+    <span class="spv-tx"><b>Spiegami a voce</b><small id="spvSub">In 27 secondi · alza il volume</small><span class="spv-pr"><i id="spvPr"></i></span></span>
   </button>
-  <audio id="spvAudio" src="../../voce/black-friday-multisens.mp3" preload="none"></audio>
+  <audio id="spvAudio" src="../../voce/black-friday-multisens.mp3?v=3" preload="none"></audio>
 </div>
 
 
@@ -168,14 +183,24 @@ footer b{color:var(--ink)}
   <p class="risp" id="risp">Con 100 pezzi risparmi <b>10,50 € a sensore</b> sul listino: <b>1.050 €</b></p>
 </section>
 
+<section>
+  <a class="abb-banner" href="#abbRiga">
+    <img src="9300000RKR.jpg" alt="Steli in gomma MATE 9300000RKR, confezione da 4">
+    <div><small>In abbinata ai sensori</small><b>Steli in gomma a <em>6 €</em></b><p>Ti serve la valvola in gomma? Prendi i MULTIsens Metal e aggiungi gli steli in gomma <strong>9300000RKR</strong>: la confezione da 4 a <strong>6,00 €</strong> invece di <s>10,00 €</s>, IVA esclusa. Una confezione ogni 4 sensori.</p></div>
+  </a>
+</section>
+
 <section id="secOrdine">
   <h2>Il tuo <em>ordine</em></h2>
-  <p class="sub">Metti i pezzi per ogni valvola: puoi mischiarle, conta il totale. Il prezzo si aggiorna da solo.</p>
+  <p class="sub">Metti i pezzi per ogni valvola: puoi mischiarle, conta il totale. Il prezzo si aggiorna da solo. Per la valvola in gomma aggiungi gli steli in gomma qui sotto.</p>
   <div class="card" id="ordine">
     <div id="righe"></div>
+    <div class="riga abb" id="abbRiga"><img alt="" src="9300000RKR.jpg"><div><h3>Steli in gomma</h3><div class="c">9300000RKR · conf. 4 pz</div><small id="abbPrezzo"><b>6,00 €</b> invece di 10,00 € in abbinata · 1 conf. ogni 4 sensori</small></div><div class="qta"><button type="button" aria-label="Meno">−</button><input type="number" inputmode="numeric" min="0" max="999" value="0" aria-label="Confezioni steli in gomma" id="abbQ"><button type="button" aria-label="Più">+</button></div></div>
+    <button type="button" class="abb-tutti" id="abbTutti">Gomma su tutti i sensori</button>
+    <div class="abb-stato" id="abbStato"></div>
     <div class="veloci">
-      <button type="button" data-add="20">+20 Rubber</button>
-      <button type="button" class="bf" data-add="100" id="vel100">+100 Rubber</button>
+      <button type="button" data-add="20">+20 Silver</button>
+      <button type="button" class="bf" data-add="100" id="vel100">+100 Silver</button>
       <button type="button" data-azzera>Azzera</button>
     </div>
     <div class="barra" id="barra"><i></i></div>
@@ -190,7 +215,7 @@ footer b{color:var(--ink)}
 
 <section>
   <h2>Valvole di <em>ricambio</em></h2>
-  <p class="sub">Le scatoline con 4 valvole per cambiare la valvola al sensore, una per versione. 10,00 € IVA esclusa a kit. Non contano per i pezzi dei sensori.</p>
+  <p class="sub">Le scatoline con 4 valvole metallo per cambiare la valvola al sensore. 10,00 € IVA esclusa a kit. Non contano per i pezzi dei sensori. Gli steli in gomma in abbinata a 6 € li trovi nel tuo ordine, qui sopra.</p>
   <div class="card ric" id="ricambi"></div>
 </section>
 
@@ -222,12 +247,10 @@ footer b{color:var(--ink)}
 /* Fonti: grafica MAK «Promo Black Friday B2B» (25/11–6/12/2026, MULTIsens 9,90 € da 100 pezzi, fino a esaurimento scorte);
    codici MP6 e prezzi 20,40 / 15,90 dalla campagna refill-multisens; 100 anche misti confermato il 2026-11-19. */
 const SENSORI = [
-  {cod:"930000MP6R", nome:"Rubber", img:"mp6-rubber.png"},
   {cod:"93000MP6BM", nome:"Metal Black", img:"mp6-black.png"},
   {cod:"930000MP6M", nome:"Metal Silver", img:"mp6-silver.png"}
 ];
 const RICAMBI = [
-  {cod:"9300000RKR", nome:"Rubber", desc:"kit 4 valvole in gomma · 10,00 € IVA esclusa", img:"9300000RKR.jpg"},
   {cod:"9300000SKM", nome:"Metal Black", desc:"kit 4 valvole metallo nere · 10,00 € IVA esclusa", img:"9300000SKM.jpg"},
   {cod:"9300000RKM", nome:"Metal Silver", desc:"kit 4 valvole metallo · 10,00 € IVA esclusa", img:"9300000RKM.jpg"}
 ];
@@ -272,6 +295,7 @@ document.addEventListener("DOMContentLoaded", () => {
     $("risp").innerHTML = "Il Black Friday è finito: resta il <b>refill da 20 a 15,90 €</b>.";
     $("vel100").hidden = true;
     $("tacca100").textContent = "";
+    $("abbPrezzo").textContent = "10,00 € IVA esclusa a confezione (promo finita)";
   }
 
   /* righe fisse: una per codice */
@@ -306,10 +330,37 @@ document.addEventListener("DOMContentLoaded", () => {
     campiR.push({riga: d, campo});
     $("ricambi").appendChild(d);
   });
-  const righeKit = () => RICAMBI.map((s, i) => kit[i] ? "• " + s.cod + " ricambio " + s.nome + " (kit 4 valvole): " + kit[i] + " conf. × 10,00 €" : "").filter(Boolean);
-  const totKit = () => kit.reduce((a, b) => a + b, 0) * 10;
+  /* steli in gomma 9300000RKR in abbinata: 6 € invece di 10 €, 1 conf. ogni 4 sensori; le altre a 10 € */
+  const ABB = {cod: "9300000RKR", p: 6, listino: 10, ogni: 4};
+  let abb = 0;
+  const abbMax = () => bfValido() ? Math.ceil(totale() / ABB.ogni) : 0;
+  const abbConto = () => { const a = Math.min(abb, abbMax()); return {a, b: abb - a, tot: a * ABB.p + (abb - a) * ABB.listino}; };
+  function aggAbb(tast) {
+    const n = totale(), c = abbConto();
+    if (!tast || document.activeElement !== $("abbQ")) $("abbQ").value = abb;
+    $("abbRiga").classList.toggle("on", abb > 0);
+    $("abbTutti").disabled = !n;
+    $("abbTutti").textContent = n ? "Gomma su tutti i " + n + " sensori: " + Math.ceil(n / ABB.ogni) + " conf." : "Metti prima i sensori";
+    $("abbStato").textContent = !abb ? "" : c.b && c.a ? "✓ " + c.a + " conf. a 6,00 € + " + c.b + " a 10,00 € = " + euro(c.tot) + " IVA esclusa"
+      : c.b ? abb + " conf. a 10,00 € = " + euro(c.tot) + " IVA esclusa" + (bfValido() ? " (aggiungi i sensori per il prezzo in abbinata)" : "")
+      : "✓ " + abb + " conf. × 6,00 € = " + euro(c.tot) + " IVA esclusa · risparmi " + euro(abb * 4);
+  }
+  {
+    const [meno, campo, piu] = $("abbRiga").querySelector(".qta").children;
+    meno.addEventListener("click", () => { if (abb > 0) { abb--; aggAbb(); aggiornaWa(); } });
+    piu.addEventListener("click", () => { if (abb < 999) { abb++; aggAbb(); aggiornaWa(); } });
+    campo.addEventListener("focus", () => campo.select());
+    campo.addEventListener("input", () => { abb = Math.min(999, Math.max(0, parseInt(campo.value, 10) || 0)); aggAbb(true); aggiornaWa(); });
+    $("abbTutti").addEventListener("click", () => { abb = Math.ceil(totale() / ABB.ogni); aggAbb(); aggiornaWa(); });
+  }
+  const righeAbb = () => { if (!abb) return []; const c = abbConto(), r = [];
+    if (c.a) r.push("• " + ABB.cod + " steli in gomma (conf. 4 pz) in abbinata: " + c.a + " conf. × 6,00 €");
+    if (c.b) r.push("• " + ABB.cod + " steli in gomma (conf. 4 pz): " + c.b + " conf. × 10,00 €");
+    return r; };
+  const righeKit = () => righeAbb().concat(RICAMBI.map((s, i) => kit[i] ? "• " + s.cod + " ricambio " + s.nome + " (kit 4 valvole): " + kit[i] + " conf. × 10,00 €" : "").filter(Boolean));
+  const totKit = () => kit.reduce((a, b) => a + b, 0) * 10 + abbConto().tot;
 
-  document.querySelectorAll("[data-add]").forEach(b => b.addEventListener("click", () => { pz[0] = Math.min(999, pz[0] + +b.dataset.add); aggiorna(); }));
+  document.querySelectorAll("[data-add]").forEach(b => b.addEventListener("click", () => { pz[1] = Math.min(999, pz[1] + +b.dataset.add); aggiorna(); }));
   document.querySelector("[data-azzera]").addEventListener("click", () => { pz.fill(0); aggiorna(); });
   $("officina").addEventListener("input", aggiornaWa);
 
@@ -324,6 +375,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function aggiorna(daTastiera) {
     const n = totale(), fa = fascia(n);
+    aggAbb();
     campi.forEach((c, i) => {
       if (!daTastiera || document.activeElement !== c.campo) c.campo.value = pz[i];
       c.riga.classList.toggle("on", pz[i] > 0);

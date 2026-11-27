@@ -233,8 +233,9 @@ const tier = (f, n) => f.filter(x => n >= x.n).pop();
 /* ---------- catalogo ---------- */
 const SEZ = [
  {id:"sensori", nome:"Sensori TPMS", prod:[
-  {id:"mp6", tipo:"steli", nome:"MATE MULTIsens MP6", img:"p-mp6", link:"black-friday-multisens/", desc:"Puoi mischiare gli steli: conta il totale dei pezzi.",
-   steli:[["930000MP6R","Gomma"],["93000MP6BM","Lega nero"],["930000MP6M","Lega silver"]],
+  {id:"mp6", tipo:"steli", nome:"MATE MULTIsens MP6", img:"p-mp6-metal", link:"black-friday-multisens/", desc:"Lega nero o silver, anche misti. Per la valvola in gomma aggiungi gli steli in gomma 9300000RKR: in abbinata 6 € invece di 10 € la confezione da 4, una ogni 4 sensori.",
+   steli:[["93000MP6BM","Lega nero"],["930000MP6M","Lega silver"]],
+   kit:{cod:"9300000RKR", nome:"Steli in gomma", p:6, listino:10, ogni:4},
    fasce:[{n:20,p:15.90,et:"refill"},{n:100,p:9.90,et:"Black Friday"}], min:20,
    nota:n => n>=100 ? "prezzo Black Friday." : "con "+(100-n)+" in più passi a 9,90 €."},
   {id:"ecs", tipo:"steli", nome:"Refill HUF ECS", img:"p-ecs", link:"black-friday-huf-ecs/", desc:"Extra −15% su tutti i refill. Puoi mischiare gli steli.",
@@ -308,6 +309,7 @@ function htmlProd(p){
     if (p.expo) h += `<div class="chips" data-sel="${p.id}">` + [{nome:"Solo calze"}].concat(p.expo).map((e,i) => `<button type="button" data-v="${i}">${esc(e.nome)}${e.n ? " ("+(e.regola==="esatto"?"":"da ")+e.n+" pz, omaggio)" : ""}</button>`).join("") + `</div>`;
     const voci = p.tipo === "steli" ? p.steli.map(s => [s[0], s[1]]) : p.taglie.map(t => [t, "T. " + t]);
     h += `<span class="lab">${p.tipo === "steli" ? "Quanti per stelo" : "Quanti per taglia"}</span><div class="griglia">` + voci.map(v => `<div class="cl"><span>${esc(v[1])}</span>${qta(p.id+"|"+v[0], p.nome+" "+v[1])}</div>`).join("") + `</div>`;
+    if (p.kit) h += `<div class="righe"><div class="rg"><div class="nm">${esc(p.kit.nome)} ${p.kit.cod}<small><em>${euro(p.kit.p)}</em> <s>${euro(p.kit.listino)}</s> IVA esclusa · conf. 4 pz, in abbinata 1 ogni ${p.kit.ogni} sensori</small></div>${qta(p.id+"|kit", p.kit.nome)}</div></div>`;
     h += `<p class="stato" data-stato="${p.id}"></p>`;
   } else if (p.tipo === "pacchetto"){
     h += `<span class="lab">Pacchetto</span><div class="chips" data-sel="${p.id}" style="margin-top:0">` + p.pac.map((x,i) => `<button type="button" data-v="${i}">${x.n} sensori · ${euro(x.p)}</button>`).join("") + `</div>`;
@@ -329,7 +331,20 @@ document.getElementById("sezioni").innerHTML = SEZ.map(z => { const r = RIASSUNT
 const PROD = {}; SEZ.forEach(z => z.prod.forEach(p => { p.sez = z.id; PROD[p.id] = p; }));
 const somma = (p, chiavi) => chiavi.reduce((a, k) => a + Q(p.id + "|" + k), 0);
 
+/* steli in gomma in abbinata ai MULTIsens (2026-11-27): 1 conf. ogni 4 sensori a 6 €, le altre a 10 € */
 function calcola(p){
+  const r = calcolaBase(p);
+  if (!p.kit) return r;
+  const k = Q(p.id + "|kit"); if (!k) return r;
+  const n = somma(p, p.steli.map(s => s[0])), a = Math.min(k, Math.ceil(n / p.kit.ogni)), b = k - a;
+  if (a) r.righe.push({nome: p.kit.nome + " in abbinata (" + p.kit.cod + ", conf. 4 pz)", det: a + " × " + euro(p.kit.p), sub: [], tot: a * p.kit.p});
+  if (b) r.righe.push({nome: p.kit.nome + " (" + p.kit.cod + ", conf. 4 pz)", det: b + " × " + euro(p.kit.listino), sub: [], tot: b * p.kit.listino});
+  r.pz += k;
+  if (!r.err) r.stato = (r.stato ? r.stato + " · " : "") + "steli in gomma: " + (a ? a + " a 6 €" : "") + (a && b ? " + " : "") + (b ? b + " a 10 €" : "");
+  if (!r.cls && r.righe.length) r.cls = "ok";
+  return r;
+}
+function calcolaBase(p){
   const r = {righe:[], pz:0, err:"", stato:"", cls:""};
   if (p.tipo === "steli" || p.tipo === "taglie"){
     const voci = p.tipo === "steli" ? p.steli.map(s => s[0]) : p.taglie;

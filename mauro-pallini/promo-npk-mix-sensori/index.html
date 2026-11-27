@@ -187,6 +187,18 @@ footer b{color:var(--ink)}
 @keyframes spvPulsa{50%{box-shadow:0 0 0 7px rgba(218,33,40,.25)}}
 .spv-richiamo{animation:spvRichiamo .7s 4}
 @keyframes spvRichiamo{50%{transform:scale(1.05)}}
+/* steli in gomma MATE (2026-11-27) */
+.rkr{display:grid;grid-template-columns:70px 1fr auto;gap:10px;align-items:center;margin-top:10px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:8px 10px}
+.rkr[hidden]{display:none}
+.rkr.on{border-color:var(--ink)}
+.rkr img{width:70px;height:60px;object-fit:contain}
+.rkr b{display:block;font-family:var(--titolo);font-size:22px;line-height:1;padding-top:3px;text-transform:uppercase}
+.rkr small{display:block;font-size:12px;color:var(--mute);line-height:1.3}
+.rkr .qta{display:flex;align-items:center;gap:6px}
+.rkr button{width:32px;height:40px;border:0;border-radius:10px;background:var(--card);color:var(--ink);font-size:22px;font-weight:600;padding:0}
+.rkr button.piu{background:var(--red);color:#fff}
+.rkr button:disabled{opacity:.3}
+.rkr output{font-family:var(--titolo);font-size:26px;font-weight:700;min-width:24px;text-align:center;padding-top:3px}
 </style>
 </head>
 <body>
@@ -256,6 +268,7 @@ footer b{color:var(--ink)}
       <div class="cont"><span class="sub" style="margin:0">Sensori scelti</span><b id="contSens">0 / 16</b></div>
       <div class="barra"><div id="barra"></div></div>
       <div class="steli taglie" id="steli"></div>
+      <div class="rkr" id="rkrBox" hidden><img src="9300000RKR.jpg" alt=""><div><b>Steli in gomma</b><small>MULTIsens solo in metallo: per la valvola in gomma aggiungi gli steli 9300000RKR, conf. 4 pz a 10 € IVA esclusa</small></div><div class="qta"><button type="button" class="meno" aria-label="Togli una confezione">−</button><output>0</output><button type="button" class="piu" aria-label="Aggiungi una confezione">+</button></div></div>
       <p class="nota">Stelo in metallo fino a 240 km/h, in gomma fino a 190 km/h. 433 MHz, programmabili anche a ruota gonfia.</p>
     </div>
   </div>
@@ -281,7 +294,7 @@ footer b{color:var(--ink)}
   <h2><span>Il tuo <em>ordine</em></span></h2>
   <div class="box riep">
     <div id="voci"></div>
-    <div class="totale"><small>Tutto a soli</small><b>520 €<span>IVA esclusa</span></b></div>
+    <div class="totale"><small>Tutto a soli</small><b id="totNpk">520 €<span>IVA esclusa</span></b></div>
   </div>
   <p class="valore">Fuori dall'offerta questi prodotti valgono 700 € IVA esclusa.</p>
   <label class="f" for="officina">Nome dell'officina (facoltativo)</label>
@@ -311,7 +324,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const TELEFONO = "393398781190", NOME = "Mauro";
   const N_SENS = 16;
   const SENS = {
-    mate: {nome: "MATE Multisens", codici: {gomma: "930000MP6R", grigio: "930000MP6M", nero: "93000MP6BM"}},
+    mate: {nome: "MATE Multisens", codici: {grigio: "930000MP6M", nero: "93000MP6BM"}},
     autel: {nome: "Autel MX-Sensor", codici: {gomma: "93000000MXG", grigio: "93000000MX", nero: "9300000MXB"}}
   };
   const STELI = [["grigio", "Acciaio grigio", "silver"], ["gomma", "Gomma", "rubber"], ["nero", "Acciaio nero", "black"]];
@@ -385,6 +398,7 @@ document.addEventListener("DOMContentLoaded", () => {
   /* 3. sensori: marchio e stelo */
   document.querySelectorAll(".marchi button").forEach(b => b.addEventListener("click", () => {
     st.m = b.dataset.m;
+    if (st.m === "mate") st.s.gomma = 0; else rkr = 0;
     document.querySelectorAll(".marchi button").forEach(x => x.setAttribute("aria-pressed", x === b));
     $("steliBox").hidden = false;
     document.querySelectorAll("#steli img").forEach(img => { img.src = st.m + "-" + img.dataset.v + ".webp"; });
@@ -405,6 +419,13 @@ document.addEventListener("DOMContentLoaded", () => {
     aggiorna();
   });
 
+  /* steli in gomma 9300000RKR, solo con MATE (il MULTIsens Rubber non c'è più) */
+  let rkr = 0;
+  $("rkrBox").addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    rkr = Math.max(0, Math.min(99, rkr + (b.classList.contains("piu") ? 1 : -1)));
+    aggiorna();
+  });
   /* riepilogo e WhatsApp */
   const totSens = () => STELI.reduce((s, [k]) => s + st.s[k], 0);
   const elencoSteli = () => STELI.filter(([k]) => st.s[k]).map(([k, nome]) => st.s[k] + " × " + nome.toLowerCase()).join(", ");
@@ -430,6 +451,13 @@ document.addEventListener("DOMContentLoaded", () => {
       el.querySelector(".meno").disabled = !st.s[t];
       el.querySelector(".piu").disabled = tot >= N_SENS;
     });
+    const gomma = document.querySelector('#steli .tg[data-t="gomma"]');
+    if (gomma) gomma.hidden = st.m === "mate";
+    $("rkrBox").hidden = st.m !== "mate";
+    $("rkrBox").querySelector("output").textContent = rkr;
+    $("rkrBox").querySelector(".meno").disabled = !rkr;
+    $("rkrBox").classList.toggle("on", rkr > 0);
+    $("totNpk").innerHTML = (520 + rkr * 10) + " €<span>IVA esclusa</span>";
     spunta("n1", ruotino(0).kit !== null, "1");
     spunta("n2", ruotino(1).kit !== null, "2");
     spunta("n3", !!st.m && tot === N_SENS, "3");
@@ -443,6 +471,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     voce(N_SENS, "Sensori TPMS " + (st.m ? SENS[st.m].nome : "MATE o Autel") + " · 15 € cad.",
       !st.m ? '<span class="manca">Scegli il sensore</span>' : tot === N_SENS ? elencoSteli() : '<span class="manca">Steli scelti ' + tot + ' su ' + N_SENS + '</span>', N_SENS * 15 + " €");
+    if (rkr) voce(rkr, "Steli in gomma 9300000RKR", "conf. 4 pz · 10 € cad.", rkr * 10 + " €");
     voce(1, "Avvitatore Ingersoll Rand 231 GXP", "", "Omaggio");
     $("voci").innerHTML = v.join("");
     aggiornaWa();
@@ -463,8 +492,9 @@ document.addEventListener("DOMContentLoaded", () => {
     t += r0.kit === r1.kit && r0.auto === r1.auto ? riga(2, r0) : riga(1, r0) + riga(1, r1);
     t += "• 16 sensori TPMS " + S.nome + " a 15 € cad.:\n";
     STELI.filter(([k]) => st.s[k]).forEach(([k, nome]) => { t += "   - " + st.s[k] + " × stelo " + nome.toLowerCase() + " (" + S.codici[k] + ")\n"; });
+    if (rkr) t += "• Steli in gomma 9300000RKR (conf. 4 pz): " + rkr + " conf. × 10 €\n";
     t += "• In omaggio: avvitatore Ingersoll Rand 231 GXP\n";
-    t += "Totale: 520 € IVA esclusa\n\nOfficina: " + off;
+    t += "Totale: " + (520 + rkr * 10) + " € IVA esclusa\n\nOfficina: " + off;
     a.href = "https://wa.me/" + TELEFONO + "?text=" + encodeURIComponent(t);
     $("waTesto").textContent = "Ordina la Promo NPK Mix su WhatsApp";
   }
